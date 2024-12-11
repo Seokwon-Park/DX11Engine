@@ -2,6 +2,10 @@
 
 #include <Windows.h>
 
-#include <functional>
 #include <cmath>
 #include <string>
+#include <iostream>
+#include <functional>
+
+#include <EngineBase/MathUtility.h>
+#include <EngineBase/Vector4.h>
