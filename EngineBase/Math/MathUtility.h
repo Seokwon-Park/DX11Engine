@@ -15,6 +15,7 @@ public:
 	inline static float Cosf(float _Radian) { return std::cosf(_Radian); }
 	
 	inline static float DegreeToRadian(float _Degree) { return _Degree * (PI / 180.0f); }
+
 	template <typename T>
 	inline static T Max(T _AValue, T _BValue)
 	{

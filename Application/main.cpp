@@ -8,8 +8,8 @@
 
 int main()
 {
-	Application* App;
-
+	FVector4 Test(2, 0, 3);
+	std::cout << Test.W;
 
 	return 0;
 }

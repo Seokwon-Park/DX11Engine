@@ -28,11 +28,6 @@ public:
 	static const FVector4 FORWARD;
 	static const FVector4 BACK;
 
-	inline static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
-	{
-		_Ostream << '(' << _Vector.X << ',' << _Vector.Y << ',' << _Vector.Z << ')';
-		return _Ostream;
-	}
 
 	FVector4();
 	FVector4(float _X, float _Y);
@@ -49,20 +44,28 @@ public:
 	static FVector4 Normalize(FVector4 _Value);
 
 	float Dot(const FVector4& _Other) const;
+	float Length() const;
 
 	//operators
+	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
+	{
+		_Ostream << '(' << _Vector.X << ', ' << _Vector.Y << ', ' << _Vector.Z << ')';
+		return _Ostream;
+	}
+
 	FVector4 operator+(const FVector4& _Other) const;
+	FVector4 operator-() const;
 	FVector4 operator-(const FVector4& _Other) const;
 	FVector4 operator*(const float& _Value) const;
 	FVector4 operator/(const float& _Value) const;
 	
+	float operator[](const int& _Value) const;
+	float& operator[](const int& _Value);
 
 	void operator+=(const FVector4& _Other);
 	void operator-=(const FVector4& _Other);
 	void operator*=(const float& _Value);
 	void operator/=(const float& _Value);
-	
-
 
 };
 
