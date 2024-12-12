@@ -1,55 +1,59 @@
 #pragma once
 
-#include "Core.h"
-
-namespace FMathConst
-{
-	const float PI = 3.1415926535897932f;
-	const double HALF_PI = PI / 2.0f;
-	const double TWO_PI = PI * 2.0f;
-}
+#include "EngineBase.h"
 
 class FMath
 {
 public:
-	inline static float Sqrt(float _Value)
-	{
-		return std::sqrtf(_Value);
-	}
+	inline static float Sqrt(float _Value) { return std::sqrtf(_Value); }
+	inline static double Sqrt(double _Value) { return std::sqrt(_Value); }
 
-	inline static double Sqrt(double _Value)
+	inline static float SinDegreef(float _Degree) { return Sinf(DegreeToRadian(_Degree)); }
+	inline static float Sinf(float _Radian) { return std::sinf(_Radian); }
+
+	inline static float CosDegreef(float _Degree) { return Cosf(DegreeToRadian(_Degree)); }
+	inline static float Cosf(float _Radian) { return std::cosf(_Radian); }
+	
+	inline static float DegreeToRadian(float _Degree) { return _Degree * (PI / 180.0f); }
+	template <typename T>
+	inline static T Max(T _AValue, T _BValue)
 	{
-		return std::sqrt(_Value);
+		return (_AValue > _BValue) ? _AValue : _BValue;
 	}
 
 	template <typename T>
-	T Max(T _Value, T _MaxValue)
+	inline static T Min(T _AValue, T _BValue)
 	{
-		return (_Value > _MaxValue) ? _MaxValue : _Value;
+		return (_AValue < _BValue) ? _AValue : _BValue;
 	}
 
 	template <typename T>
-	T ClampMin(T _Value, T _MinValue)
-	{
-		return (_Value < _MinValue) ? _MinValue : _Value;
-	}
-
-	template <typename T>
-	static T Clamp(T _Value, T _MinValue, T _MaxValue)
+	inline static T Clamp(T _Value, T _MinValue, T _MaxValue)
 	{
 		if (_Value < _MinValue)
+		{
 			return _MinValue;
+		}
 		else if (_Value > _MaxValue)
+		{
 			return _MaxValue;
+		}
 		else
+		{
 			return _Value;
+		}
 	}
 
 	template <typename T>
-	static T Lerp(T A, T B, float Alpha)
+	inline static T Lerp(T A, T B, float Alpha)
 	{
 		return A * (1 - Alpha) + B * Alpha;
 	}
+
+	//Constants
+	static const float PI;
+	static const float HALF_PI;
+	static const float TWO_PI;
 };
 
 

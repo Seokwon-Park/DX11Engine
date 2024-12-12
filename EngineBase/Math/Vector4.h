@@ -1,11 +1,8 @@
 #pragma once
 
-#include "MathUtility.h"
-#include "Core.h"
+#include "EngineBase.h"
 
-
-
-//using float = float;
+//float4 Vector
 class ENGINE_API FVector4
 {
 public:
@@ -22,10 +19,19 @@ public:
 		float V[4];
 	};
 
-	inline static friend std::ostream& operator<<(std::ostream& os, const FVector4& Vector)
+	//Left handed
+	static const FVector4 ZERO;
+	static const FVector4 LEFT;
+	static const FVector4 RIGHT;
+	static const FVector4 UP;
+	static const FVector4 DOWN;
+	static const FVector4 FORWARD;
+	static const FVector4 BACK;
+
+	inline static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
 	{
-		os << '(' << Vector.X << ',' << Vector.Y << ',' << Vector.Z << ')';
-		return os;
+		_Ostream << '(' << _Vector.X << ',' << _Vector.Y << ',' << _Vector.Z << ')';
+		return _Ostream;
 	}
 
 	FVector4();
@@ -42,13 +48,21 @@ public:
 	static FVector4 Cross(const FVector4& _Left, const FVector4& _Right);
 	static FVector4 Normalize(FVector4 _Value);
 
-	////left handed
-	//static const tvector4 zero;
-	//static const tvector4 left;
-	//static const tvector4 right;
-	//static const tvector4 up;
-	//static const tvector4 down;
-	//static const tvector4 forward;
-	//static const tvector4 back;
+	float Dot(const FVector4& _Other) const;
+
+	//operators
+	FVector4 operator+(const FVector4& _Other) const;
+	FVector4 operator-(const FVector4& _Other) const;
+	FVector4 operator*(const float& _Value) const;
+	FVector4 operator/(const float& _Value) const;
+	
+
+	void operator+=(const FVector4& _Other);
+	void operator-=(const FVector4& _Other);
+	void operator*=(const float& _Value);
+	void operator/=(const float& _Value);
+	
+
+
 };
 

@@ -1,6 +1,16 @@
 #include "EnginePCH.h"
 #include "Vector4.h"
 
+#include "MathUtility.h"
+
+const FVector4 FVector4::ZERO = { 0.0f, 0.0f };
+const FVector4 FVector4::LEFT = { -1.0f, 0.0f };
+const FVector4 FVector4::RIGHT = { 1.0f, 0.0f };
+const FVector4 FVector4::UP = { 0.0f, 1.0f };
+const FVector4 FVector4::DOWN = { 0.0f, -1.0f };
+const FVector4 FVector4::FORWARD = { 0.0f, 0.0f, 1.0f };
+const FVector4 FVector4::BACK = { 0.0f, 0.0f , -1.0f };
+
 FVector4::FVector4()
 	:FVector4(0.0f, 0.0f, 0.0f, 1.0f) {}
 
@@ -15,6 +25,7 @@ FVector4::FVector4(float _X, float _Y, float _Z, float _W)
 
 FVector4::FVector4(int _X, int _Y)
 	:FVector4(static_cast<float>(_X), static_cast<float>(_Y), 0.0f, 1.0f) {}
+
 FVector4::FVector4(int _X, int _Y, int _Z)
 	:FVector4(static_cast<float>(_X), static_cast<float>(_Y), static_cast<float>(_Z), 1.0f) {}
 
@@ -51,6 +62,63 @@ FVector4 FVector4::Normalize(FVector4 _Value)
 	Result.Y /= Len;
 	Result.Z /= Len;
 	return Result;
+}
+
+float FVector4::Dot(const FVector4& _Other) const
+{
+	return X * _Other.X + Y * _Other.Y;
+}
+
+FVector4 FVector4::operator+(const FVector4& _Other) const
+{
+	return FVector4(X + _Other.X, Y + _Other.Y);
+}
+
+FVector4 FVector4::operator-(const FVector4& _Other) const
+{
+	return FVector4(X - _Other.X, Y - _Other.Y);
+}
+
+FVector4 FVector4::operator*(const float& _Value) const
+{
+	return FVector4(X * _Value, Y * _Value);
+}
+
+FVector4 FVector4::operator/(const float& _Value) const
+{
+	return FVector4(X / _Value, Y / _Value);
+}
+
+void FVector4::operator+=(const FVector4& _Other)
+{
+	// X += _Other.X;
+	// Y += _Other.Y;
+	// Z += _Other.Z;
+	*this = *this + _Other;
+}
+
+void FVector4::operator-=(const FVector4& _Other)
+{
+	// X -= _Other.X;
+	// Y -= _Other.Y;
+	// Z -= _Other.Z;
+	*this = *this - _Other;
+}
+
+void FVector4::operator*=(const float& _Value)
+{
+	// X *= _Value;
+	// Y *= _Value;
+	// Z *= _Value;
+	*this = *this * _Value;
+}
+
+void FVector4::operator/=(const float& _Value)
+{
+	// X /= _Value;
+	// Y /= _Value;
+	// Z /= _Value;
+	*this = *this / _Value;
 }
 
 

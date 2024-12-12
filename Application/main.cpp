@@ -1,19 +1,15 @@
 #include <iostream>
-#include <EngineBase/EngineBase.h>
+#include <EngineBase/EngineMath.h>
+
+#include "Application.h"
 
 
 //#pragma comment(lib,"EngineBase.lib")
 
 int main()
 {
-	//std::cout << "Hello, World";
+	Application* App;
 
-	FVector4 Test = FVector4(10, 11);
-	std::cout << Test;
-
-	//std::cout << test.X;
-
-	
 
 	return 0;
 }

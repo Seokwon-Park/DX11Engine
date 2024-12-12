@@ -12,10 +12,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Platform", "1_Platform", "{05E310CB-27F5-43FF-8293-A13EBCD45C18}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EngineCore", "EngineCore\EngineCore.vcxproj", "{88441C73-E658-46F6-9D49-DE38A9F84831}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7E0142A-60BF-442A-B72F-6D207D0F3486} = {B7E0142A-60BF-442A-B72F-6D207D0F3486}
+		{BE572462-9C30-47F3-8EE8-EF2BF2396314} = {BE572462-9C30-47F3-8EE8-EF2BF2396314}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Core", "2_Core", "{8658B265-939A-49AE-AF83-AE68C0CC3729}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EnginePlatform", "EnginePlatform\EnginePlatform.vcxproj", "{BE572462-9C30-47F3-8EE8-EF2BF2396314}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7E0142A-60BF-442A-B72F-6D207D0F3486} = {B7E0142A-60BF-442A-B72F-6D207D0F3486}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

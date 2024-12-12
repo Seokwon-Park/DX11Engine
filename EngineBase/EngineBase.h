@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Math/IntPoint.h"
-#include "Math/Matrix.h"
-#include "Math/Vector4.h"
-#include "Math/Color.h"
-#include "Math/MathUtility.h"
+#ifdef ENGINE_DLL_BUILD
+#define ENGINE_API __declspec(dllexport)
+#else
+#define ENGINE_API __declspec(dllimport)
+#endif

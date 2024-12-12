@@ -2,14 +2,15 @@
 
 #include "Vector4.h"
 
-// 행렬 은 보통 매트릭스 라고 합니다.
-class FMatrix
+//float4x4 Matrix
+class ENGINE_API FMatrix
 {
 public:
 	union
 	{
-		float Arr2D[4][4] = { 0.0f, };
-		float Arr1D[16];
+		float Array2D[4][4];
+		float Array1D[16];
+		FVector4 Rows[4];
 
 		struct
 		{
@@ -33,22 +34,29 @@ public:
 
 	};
 
-	//TMatrix()
-	//{
-	//	Identity();
-	//}
+	inline static friend std::ostream& operator<<(std::ostream& _Ostream, const FMatrix& _Matrix)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				_Ostream << _Matrix.Array2D[i][j] << ' ';
+			}
+			_Ostream << '\n';
+		}
+		return _Ostream;
+	}
 
-	//// 그래픽스 프로그래밍 모든 행렬들은 만들어질때
-	//// 일단 항등행렬로 만듭니다.
+	FMatrix();
 
-	//// 정규화 항등행렬 만드는 함수
-	//void Identity()
-	//{
-	//	Arr2D[0][0] = 1.0f;
-	//	Arr2D[1][1] = 1.0f;
-	//	Arr2D[2][2] = 1.0f;
-	//	Arr2D[3][3] = 1.0f;
-	//}
+	void MatrixIdentity();
+	void MatrixTranspose();
+
+	void MatrixScaling();
+	void MatrixRotationX();
+	void MatrixRotationY();
+	void MatrixRotationZ();
+	void MatrixTranslation();
 
 	//FVector4 GetFoward()
 	//{
@@ -109,19 +117,7 @@ public:
 	//	*this = RotX * RotY * RotZ;
 	//}
 
-	//void Transpose()
-	//{
-	//	for (size_t y = 0; y < 4; y++)
-	//	{
-	//		for (size_t x = y; x < 4; x++)
-	//		{
-	//			float Swap = Arr2D[y][x];
-	//			Arr2D[y][x] = Arr2D[x][y];
-	//			Arr2D[x][y] = Swap;
-	//		}
-	//	}
 
-	//}
 
 	//// View행렬의 인자입니다.
 	//void View(const FVector4& _Pos, const FVector4& _Dir, const FVector4& _Up)

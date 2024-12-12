@@ -26,11 +26,12 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Math\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Color.h" />
-    <ClInclude Include="Core.h" />
     <ClInclude Include="EngineBase.h" />
+    <ClInclude Include="EngineMath.h" />
     <ClInclude Include="Math\IntPoint.h" />
     <ClInclude Include="Math\MathUtility.h" />
     <ClInclude Include="EnginePCH.h" />
@@ -42,6 +43,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Math\Transform.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

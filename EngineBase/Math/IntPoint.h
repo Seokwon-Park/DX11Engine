@@ -13,30 +13,26 @@ public:
 		int V[2];
 	};
 
-	static const FIntPoint LEFT;
-	static const FIntPoint RIGHT;
-	static const FIntPoint UP;
-	static const FIntPoint DOWN;
-
 	FIntPoint();
 	FIntPoint(int _X, int _Y);
 
-	FIntPoint operator+(FIntPoint _Other) const
+	inline FIntPoint operator+(const FIntPoint& _Other) const 
+	{ 
+		return FIntPoint(X + _Other.X, Y + _Other.Y); 
+	}
+	inline FIntPoint operator-(const FIntPoint& _Other) const
 	{
-		FIntPoint Result;
-		Result.X = X + _Other.X;
-		Result.Y = Y + _Other.Y;
-		return Result;
+		return FIntPoint(X - _Other.X, Y - _Other.Y);
+	}
+	inline void operator+=(const FIntPoint& _Other)
+	{
+		*this = *this + _Other;
 	}
 
-	FIntPoint operator/(int _Value) const
+	inline FIntPoint operator/(int _Value) const
 	{
-		FIntPoint Result;
-		Result.X = X / _Value;
-		Result.Y = Y / _Value;
-		return Result;
+		return FIntPoint(X / _Value, Y / _Value);
 	}
-
 
 	bool operator==(FIntPoint _Other) const
 	{
@@ -50,5 +46,8 @@ public:
 		return *this;
 	}
 
-
+	static const FIntPoint LEFT;
+	static const FIntPoint RIGHT;
+	static const FIntPoint UP;
+	static const FIntPoint DOWN;
 };

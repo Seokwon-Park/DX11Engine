@@ -7,15 +7,17 @@
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Math\IntPoint.cpp" />
     <ClCompile Include="Math\Color.cpp" />
+    <ClCompile Include="Math\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathUtility.h" />
     <ClInclude Include="EnginePCH.h" />
     <ClInclude Include="Math\Matrix.h" />
     <ClInclude Include="Math\Vector4.h" />
-    <ClInclude Include="Core.h" />
     <ClInclude Include="EngineBase.h" />
+    <ClInclude Include="EngineMath.h" />
     <ClInclude Include="Math\IntPoint.h" />
     <ClInclude Include="Math\Color.h" />
+    <ClInclude Include="Math\Transform.h" />
   </ItemGroup>
 </Project>
