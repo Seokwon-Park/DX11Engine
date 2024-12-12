@@ -1,64 +1,79 @@
 #pragma once
 
+using Vector4f = TVector4<float>;
+using Vector4d = TVector4<double>;
 
-struct FVector4
+
+template <typename T>
+class TVector4
 {
-	static const FVector4 ZERO;
-	static const FVector4 LEFT;
-	static const FVector4 RIGHT;
-	static const FVector4 UP;
-	static const FVector4 DOWN;
-	static const FVector4 FORWARD;
-	static const FVector4 BACK;
-
+public:
 	union
 	{
 		struct
 		{
-			float X;
-			float Y;
-			float Z;
-			float W;
+			T X;
+			T Y;
+			T Z;
+			T W;
 		};
 
-		float XYZW[4];
+		T XYZW[4];
 	};
 
+	////Left Handed
+	//static const TVector4 ZERO;
+	//static const TVector4 LEFT;
+	//static const TVector4 RIGHT;
+	//static const TVector4 UP;
+	//static const TVector4 DOWN;
+	//static const TVector4 FORWARD;
+	//static const TVector4 BACK;
 
-	FVector4()
+	TVector4()
 		: X(0.0f), Y(0.0f), Z(0.0f), W(1.0f)
 	{
 
 	}
 
-	FVector4(float _X, float _Y) : X(_X), Y(_Y), Z(0.0f), W(1.0f)
+	TVector4(float _X, float _Y) : X(_X), Y(_Y), Z(0.0f), W(1.0f)
 	{
 
 	}
 
-	FVector4(float _X, float _Y, float _Z) : X(_X), Y(_Y), Z(_Z), W(1.0f)
+	TVector4(float _X, float _Y, float _Z) : X(_X), Y(_Y), Z(_Z), W(1.0f)
 	{
 
 	}
 
-	FVector4(float _X, float _Y, float _Z, float _W) : X(_X), Y(_Y), Z(_Z), W(_W)
+	TVector4(float _X, float _Y, float _Z, float _W) : X(_X), Y(_Y), Z(_Z), W(_W)
 	{
 
 	}
 
-	FVector4(int _X, int _Y) : X(static_cast<float>(_X)), Y(static_cast<float>(_Y)), Z(0.0f), W(1.0f)
+	TVector4(int _X, int _Y) : X(static_cast<float>(_X)), Y(static_cast<float>(_Y)), Z(0.0f), W(1.0f)
 	{
 
 	}
 
-	FVector4(long _X, long _Y) : X(static_cast<float>(_X)), Y(static_cast<float>(_Y)), Z(0.0f), W(1.0f)
+	TVector4(long _X, long _Y) : X(static_cast<float>(_X)), Y(static_cast<float>(_Y)), Z(0.0f), W(1.0f)
 	{
 
 	}
 
-	static float Dot(const FVector4& _Left, const FVector4& _Right);
-	static FVector4 Cross(const FVector4& _Left, const FVector4& _Right);
-	static FVector4 Normalize(FVector4 _Value);
+	static T Dot(const TVector4& _Left, const TVector4& _Right)
+	{
+		return _Left.X * _Right.X + _Left.Y * _Right.Y + _Left.Z * _Right.Z;
+	}
+	static TVector4 Cross(const TVector4<T>& _Left, const TVector4<T>& _Right)
+	{
+		TVector4 Result;
+		Result.X = _Left.Y * _Right.Z - _Left.Z * _Right.Y;
+		Result.Y = _Left.Z * _Right.X - _Left.X * _Right.Z;
+		Result.Z = _Left.X * _Right.Y - _Left.Y * _Right.X;
+		return Result;
+	}
+	static TVector4 Normalize(TVector4 _Value);
 
 	void Normalize()
 	{
@@ -72,16 +87,16 @@ struct FVector4
 		return;
 	}
 
-	static float GetVectorAngleDeg(const FVector4& _Left, const FVector4& _Right)
+	static float GetVectorAngleDeg(const TVector4& _Left, const TVector4& _Right)
 	{
 		//return GetVectorAngleRad(_Left, _Right) * FMath::R2D;
 	}
 
 
-	static float GetVectorAngleRad(const FVector4& _Left, const FVector4& _Right)
+	static float GetVectorAngleRad(const TVector4& _Left, const TVector4& _Right)
 	{
-		FVector4 LCopy = _Left;
-		FVector4 RCopy = _Right;
+		TVector4 LCopy = _Left;
+		TVector4 RCopy = _Right;
 		LCopy.Normalize();
 		RCopy.Normalize();
 
@@ -110,9 +125,9 @@ struct FVector4
 	//}
 
 
-	static FVector4 Lerp(FVector4 _A, FVector4 _B, float _Alpha)
+	static TVector4 Lerp(TVector4 _A, TVector4 _B, float _Alpha)
 	{
-		FVector4 Result;
+		TVector4 Result;
 		_Alpha = FMath::Clamp(_Alpha, 0.0f, 1.0f);
 		Result.X = FMath::Lerp(_A.X, _B.X, _Alpha);
 		Result.Y = FMath::Lerp(_A.Y, _B.Y, _Alpha);
@@ -123,7 +138,7 @@ struct FVector4
 	// 여기에서 나온 결과값이 리턴해줄수 있는건
 	// 길이가 1인 벡터이다.
 	// static입니까?
-	static FVector4 AngleToVectorRad(float _Angle)
+	static TVector4 AngleToVectorRad(float _Angle)
 	{
 		// 특정 각도를 가리키는 벡터를 만들수 있다고 해죠?
 		// 벡터 길이와 방향을 생각해라.
@@ -160,7 +175,7 @@ struct FVector4
 		return X == 0.0f || Y == 0.0f;
 	}
 
-	FVector4 Half() const
+	TVector4 Half() const
 	{
 		return { X * 0.5f, Y * 0.5f };
 	}
@@ -171,9 +186,9 @@ struct FVector4
 		return FMath::Sqrt(X * X + Y * Y + Z * Z);
 	}
 
-	FVector4 NormalizeReturn() const
+	TVector4 NormalizeReturn() const
 	{
-		FVector4 Result = *this;
+		TVector4 Result = *this;
 		Result.Normalize();
 		return Result;
 	}
@@ -249,49 +264,49 @@ struct FVector4
 	//	return RotationZRadReturn(_Angle * FMath::D2R);
 	//}
 
-	FVector4 RotationZRadReturn(float _Angle)
+	TVector4 RotationZRadReturn(float _Angle)
 	{
-		FVector4 Result = *this;
+		TVector4 Result = *this;
 		Result.X = (X * cosf(_Angle)) - (Y * sinf(_Angle));
 		Result.Y = (X * sinf(_Angle)) + (Y * cosf(_Angle));
 		return Result;
 	}
 
-	float Dot(const FVector4& other) const
+	float Dot(const TVector4& other) const
 	{
 		return X * other.X + Y * other.Y;
 	}
 
-	FVector4 operator*(float _Value) const
+	TVector4 operator*(float _Value) const
 	{
-		FVector4 Result;
+		TVector4 Result;
 		Result.X = X * _Value;
 		Result.Y = Y * _Value;
 		Result.Z = Z * _Value;
 		return Result;
 	}
 
-	FVector4 operator/(float _Value) const
+	TVector4 operator/(float _Value) const
 	{
-		FVector4 Result;
+		TVector4 Result;
 		Result.X = X / _Value;
 		Result.Y = Y / _Value;
 		Result.Z = Z / _Value;
 		return Result;
 	}
 
-	FVector4 operator+(const FVector4& _Other) const
+	TVector4 operator+(const TVector4& _Other) const
 	{
-		FVector4 Result;
+		TVector4 Result;
 		Result.X = X + _Other.X;
 		Result.Y = Y + _Other.Y;
 		return Result;
 	}
 
-	FVector4 operator*(const class FMatrix& _Matrix) const;
-	FVector4& operator*=(const class FMatrix& _Matrix);
+	TVector4 operator*(const class FMatrix& _Matrix) const;
+	TVector4& operator*=(const class FMatrix& _Matrix);
 
-	FVector4& operator-=(const FVector4& _Other)
+	TVector4& operator-=(const TVector4& _Other)
 	{
 		X -= _Other.X;
 		Y -= _Other.Y;
@@ -299,17 +314,17 @@ struct FVector4
 	}
 
 
-	FVector4 operator-(const FVector4& _Other) const
+	TVector4 operator-(const TVector4& _Other) const
 	{
-		FVector4 Result;
+		TVector4 Result;
 		Result.X = X - _Other.X;
 		Result.Y = Y - _Other.Y;
 		return Result;
 	}
 
-	FVector4 operator-() const
+	TVector4 operator-() const
 	{
-		FVector4 Result;
+		TVector4 Result;
 		Result.X = -X;
 		Result.Y = -Y;
 		Result.Z = -Z;
@@ -318,23 +333,23 @@ struct FVector4
 
 
 
-	FVector4 operator/(const FVector4& Other) const
+	TVector4 operator/(const TVector4& Other) const
 	{
-		FVector4 Result;
+		TVector4 Result;
 		Result.X = X / Other.X;
 		Result.Y = Y / Other.Y;
 		return Result;
 	}
 
 	// ture가 나오는 
-	bool operator==(const FVector4& _Other) const
+	bool operator==(const TVector4& _Other) const
 	{
 		return X == _Other.X && Y == _Other.Y;
 	}
 
 	// float은 비교가 굉장히 위험
 	// const가 붙은 함수에서는 const가 붙은 함수 호출할수 없다.
-	bool EqualToInt(FVector4 _Other) const
+	bool EqualToInt(TVector4 _Other) const
 	{
 		// const FVector* const Ptr;
 		// this = nullptr;
@@ -346,7 +361,7 @@ struct FVector4
 	//	return X == _Other.X && Y == _Other.Y;
 	//}
 
-	FVector4& operator+=(const FVector4& _Other)
+	TVector4& operator+=(const TVector4& _Other)
 	{
 		X += _Other.X;
 		Y += _Other.Y;
@@ -354,7 +369,7 @@ struct FVector4
 		return *this;
 	}
 
-	FVector4& operator*=(const FVector4& _Other)
+	TVector4& operator*=(const TVector4& _Other)
 	{
 		X *= _Other.X;
 		Y *= _Other.Y;
@@ -362,7 +377,7 @@ struct FVector4
 		return *this;
 	}
 
-	FVector4& operator*=(float _Other)
+	TVector4& operator*=(float _Other)
 	{
 		X *= _Other;
 		Y *= _Other;
