@@ -65,9 +65,5 @@ public:
 	void operator-=(const FVector4& _Other);
 	void operator*=(const float& _Value);
 	void operator/=(const float& _Value);
-<<<<<<< HEAD
-=======
-
->>>>>>> df6fc941eb46419b40d2a0cf6c5a2dd3fb55fa61
 };
 
