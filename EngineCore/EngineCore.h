@@ -3,24 +3,21 @@
 #include <EngineBase/EngineBase.h>
 #include <EnginePlatform/EngineWindow.h>
 
-class UEngineCore
+class ENGINE_API UEngineCore
 {
 public:
 	// constrcuter destructer
-	ENGINE_API UEngineCore();
-	ENGINE_API virtual ~UEngineCore() = 0;
+	UEngineCore();
+	virtual ~UEngineCore() = 0;
 
-	ENGINE_API static void EngineStart(HINSTANCE _Instance, std::string_view _DllName);
+	static void EngineStart(HINSTANCE _Instance);
 
 protected:
 
 private:
 	static UEngineWindow MainWindow;
-	static HMODULE ContentsDLL;
-	//static std::shared_ptr<IContentsCore> Core;
 
 	static void WindowInit(HINSTANCE _Instance);
-	static void LoadContents(std::string_view _DllName);
 };
 
 

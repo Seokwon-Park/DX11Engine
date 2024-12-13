@@ -11,9 +11,9 @@ extern Application* CreateApplication();
 
 int main()
 {
-	auto app = CreateApplication();
+	std::unique_ptr<Application> app(CreateApplication());
 	app->Run();
-	delete app;
+	//delete app;
 
 	return 0;
 }
