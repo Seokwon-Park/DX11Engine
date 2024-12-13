@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <string>
+#include <iostream>
 #include <functional>
 #include <type_traits>
 

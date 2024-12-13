@@ -48,7 +48,7 @@ public:
 	//operators
 	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
 	{
-		_Ostream << '(' << _Vector.X << ', ' << _Vector.Y << ', ' << _Vector.Z << ')';
+		_Ostream << "(" << _Vector.X << ", " << _Vector.Y << ", " << _Vector.Z << ")";
 		return _Ostream;
 	}
 

@@ -7,7 +7,7 @@ class UEngineCore
 {
 public:
 	// constrcuter destructer
-	UEngineCore();
+	ENGINE_API UEngineCore();
 	ENGINE_API virtual ~UEngineCore() = 0;
 
 	// delete Function

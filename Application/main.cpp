@@ -1,5 +1,5 @@
 #include <iostream>
-//#include <EngineBase/EngineMath.h>
+#include <EngineBase/EngineMath.h>
 
 //#include "Application.h"
 
@@ -8,8 +8,6 @@
 
 int main()
 {
-	FVector4 Test(2, 0, 3);
-	std::cout << Test.W;
 
 	return 0;
 }

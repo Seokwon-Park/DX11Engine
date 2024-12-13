@@ -1,13 +1,13 @@
 #pragma once
 
-
+#include <EngineBase/EngineBase.h>
 
 // Ό³Έν :
-class UEngineWindow
+class ENGINE_API UEngineWindow
 {
 public:
-	UEngineWindow();
-	~UEngineWindow();
+	 UEngineWindow();
+	 ~UEngineWindow();
 protected:
 
 private:
