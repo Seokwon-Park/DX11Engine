@@ -34,19 +34,6 @@ public:
 
 	};
 
-	inline static friend std::ostream& operator<<(std::ostream& _Ostream, const FMatrix& _Matrix)
-	{
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
-			{
-				_Ostream << _Matrix.Array2D[i][j] << ' ';
-			}
-			_Ostream << '\n';
-		}
-		return _Ostream;
-	}
-
 	FMatrix();
 
 	void MatrixIdentity();
@@ -58,6 +45,18 @@ public:
 	void MatrixRotationZ();
 	void MatrixTranslation();
 
+	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FMatrix& _Matrix)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				_Ostream << _Matrix.Array2D[i][j] << ' ';
+			}
+			_Ostream << '\n';
+		}
+		return _Ostream;
+	}
 	//FVector4 GetFoward()
 	//{
 	//	FVector4 Dir = ArrVector[2];

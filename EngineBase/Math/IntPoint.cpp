@@ -7,7 +7,29 @@ const FIntPoint FIntPoint::UP = { 0, -1 };
 const FIntPoint FIntPoint::DOWN = { 0, 1 };
 
 FIntPoint::FIntPoint()
-	:FIntPoint(0, 0) {}
+	:FIntPoint(0, 0) {
+}
 
 FIntPoint::FIntPoint(int _X, int _Y)
-	:X(_X), Y(_Y) {}
+	:X(_X), Y(_Y) {
+}
+
+FIntPoint FIntPoint::operator+(const FIntPoint& _Other) const
+{
+	return FIntPoint(X + _Other.X, Y + _Other.Y);
+}
+
+FIntPoint FIntPoint::operator-(const FIntPoint& _Other) const
+{
+	return FIntPoint(X - _Other.X, Y - _Other.Y);
+}
+
+void FIntPoint::operator+=(const FIntPoint& _Other)
+{
+	*this = *this + _Other;
+}
+
+void FIntPoint::operator-=(const FIntPoint& _Other)
+{
+	*this = *this - _Other;
+}
