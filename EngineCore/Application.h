@@ -4,6 +4,8 @@
 #include <memory>
 #include <EnginePlatform/EngineWindow.h>
 
+#include "EngineCore.h"
+
 class ENGINE_API Application
 {
 public:
@@ -12,9 +14,6 @@ public:
 	inline static Application& Get() { return *Instance; }
 private:
 	void Run();
-	bool m_Running = true;
-	bool m_Minimized = false;
-	float m_LastFrameTime = 0.0f;
 private:
 	static Application* Instance;
 	friend int main();

@@ -18,4 +18,5 @@ Application::~Application()
 
 void Application::Run()
 {
+	UEngineCore::EngineStart(GetModuleHandle(NULL), "");
 }

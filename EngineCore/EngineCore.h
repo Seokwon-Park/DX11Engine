@@ -1,8 +1,8 @@
 #pragma once
 
 #include <EngineBase/EngineBase.h>
+#include <EnginePlatform/EngineWindow.h>
 
-// Ό³Έν :
 class UEngineCore
 {
 public:
@@ -10,16 +10,17 @@ public:
 	ENGINE_API UEngineCore();
 	ENGINE_API virtual ~UEngineCore() = 0;
 
-	// delete Function
-	UEngineCore(const UEngineCore& _Other) = delete;
-	UEngineCore(UEngineCore&& _Other) noexcept = delete;
-	UEngineCore& operator=(const UEngineCore& _Other) = delete;
-	UEngineCore& operator=(UEngineCore&& _Other) noexcept = delete;
+	ENGINE_API static void EngineStart(HINSTANCE _Instance, std::string_view _DllName);
+
 protected:
-	bool EngineInit();
-	
 
 private:
+	static UEngineWindow MainWindow;
+	static HMODULE ContentsDLL;
+	//static std::shared_ptr<IContentsCore> Core;
 
+	static void WindowInit(HINSTANCE _Instance);
+	static void LoadContents(std::string_view _DllName);
 };
+
 

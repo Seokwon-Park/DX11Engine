@@ -2,7 +2,9 @@
 
 #define ENGINE_DLL_BUILD
 
-#include <Windows.h>
+#ifdef _WIN64
+	#include <Windows.h>
+#endif
 
 #include <cmath>
 #include <string>

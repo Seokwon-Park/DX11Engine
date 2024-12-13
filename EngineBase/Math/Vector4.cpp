@@ -1,4 +1,5 @@
 #include "EnginePCH.h"
+
 #include "Vector4.h"
 
 #include "MathUtility.h"
@@ -149,4 +150,8 @@ void FVector4::operator/=(const float& _Value)
 	*this *= 1.0f / _Value;
 }
 
-
+std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
+{
+	_Ostream << "(" << _Vector.X << ", " << _Vector.Y << ", " << _Vector.Z << ")";
+	return _Ostream;
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EngineBase/EngineBase.h"
+#include <ostream>
 
 //float4 Vector
 class ENGINE_API FVector4
@@ -46,11 +47,8 @@ public:
 	float Length() const;
 
 	//operators
-	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
-	{
-		_Ostream << "(" << _Vector.X << ", " << _Vector.Y << ", " << _Vector.Z << ")";
-		return _Ostream;
-	}
+	static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector);
+
 
 	FVector4 operator+(const FVector4& _Other) const;
 	FVector4 operator-() const;
