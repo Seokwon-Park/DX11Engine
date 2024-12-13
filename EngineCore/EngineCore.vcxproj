@@ -148,13 +148,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Core.h" />
     <ClInclude Include="EngineCore.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="EnginePCH.h" />
+    <ClInclude Include="EntryPoint.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Application.cpp" />
     <ClCompile Include="EngineCore.cpp">
       <SubType>
       </SubType>

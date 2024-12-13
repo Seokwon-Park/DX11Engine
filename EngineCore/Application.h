@@ -4,7 +4,7 @@
 #include <memory>
 #include <EnginePlatform/EngineWindow.h>
 
-class Application
+class ENGINE_API Application
 {
 public:
 	Application(const std::string& name = "Engine App");
@@ -17,10 +17,9 @@ public:
 private:
 	void Run();
 
-	std::unique_ptr<UEngineWindow> m_Window;
+	UEngineWindow* m_Window;
 	bool m_Running = true;
 	bool m_Minimized = false;
-	bool m_TitleBarHovered;
 	float m_LastFrameTime = 0.0f;
 private:
 	static Application* Instance;

@@ -3,9 +3,13 @@
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EnginePCH.cpp" />
+    <ClCompile Include="Application.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EnginePCH.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="EntryPoint.h" />
   </ItemGroup>
 </Project>
