@@ -4,6 +4,7 @@
 
 #include <Windows.h>
 
+#include <map>
 #include <cmath>
 #include <string>
 #include <iostream>

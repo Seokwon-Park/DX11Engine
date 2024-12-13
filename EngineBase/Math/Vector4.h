@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EngineBase.h"
+#include "EngineBase/EngineBase.h"
 
 //float4 Vector
 class ENGINE_API FVector4
@@ -15,7 +15,6 @@ public:
 			float Z;
 			float W;
 		};
-
 		float V[4];
 	};
 
@@ -61,8 +60,5 @@ public:
 	void operator-=(const FVector4& _Other);
 	void operator*=(const float& _Value);
 	void operator/=(const float& _Value);
-	
-
-
 };
 

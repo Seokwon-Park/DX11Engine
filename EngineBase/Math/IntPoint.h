@@ -1,6 +1,7 @@
 #pragma once
+#include "EngineBase/EngineBase.h"
 
-class FIntPoint
+class ENGINE_API FIntPoint
 {
 public:
 	union

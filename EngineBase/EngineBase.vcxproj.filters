@@ -8,6 +8,7 @@
     <ClCompile Include="Math\IntPoint.cpp" />
     <ClCompile Include="Math\Color.cpp" />
     <ClCompile Include="Math\Transform.cpp" />
+    <ClCompile Include="Log\EngineLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\MathUtility.h" />
@@ -19,5 +20,7 @@
     <ClInclude Include="Math\IntPoint.h" />
     <ClInclude Include="Math\Color.h" />
     <ClInclude Include="Math\Transform.h" />
+    <ClInclude Include="Debug\EngineDebug.h" />
+    <ClInclude Include="Log\EngineLogger.h" />
   </ItemGroup>
 </Project>

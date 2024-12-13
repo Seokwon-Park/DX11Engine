@@ -1,10 +1,10 @@
 #include "EnginePCH.h"
 #include "EngineCore.h"
 
-EngineCore::EngineCore()
+UEngineCore::UEngineCore()
 {
 }
 
-EngineCore::~EngineCore()
+UEngineCore::~UEngineCore()
 {
 }

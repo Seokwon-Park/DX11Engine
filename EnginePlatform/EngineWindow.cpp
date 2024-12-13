@@ -1,10 +1,10 @@
 #include "EnginePCH.h"
 #include "EngineWindow.h"
 
-EngineWindow::EngineWindow()
+UEngineWindow::UEngineWindow()
 {
 }
 
-EngineWindow::~EngineWindow()
+UEngineWindow::~UEngineWindow()
 {
 }

@@ -1,19 +1,23 @@
 #pragma once
 
+#include <EngineBase/EngineBase.h>
+
 // Ό³Έν :
-class EngineCore
+class UEngineCore
 {
 public:
 	// constrcuter destructer
-	EngineCore();
-	~EngineCore();
+	UEngineCore();
+	ENGINE_API virtual ~UEngineCore() = 0;
 
 	// delete Function
-	EngineCore(const EngineCore& _Other) = delete;
-	EngineCore(EngineCore&& _Other) noexcept = delete;
-	EngineCore& operator=(const EngineCore& _Other) = delete;
-	EngineCore& operator=(EngineCore&& _Other) noexcept = delete;
+	UEngineCore(const UEngineCore& _Other) = delete;
+	UEngineCore(UEngineCore&& _Other) noexcept = delete;
+	UEngineCore& operator=(const UEngineCore& _Other) = delete;
+	UEngineCore& operator=(UEngineCore&& _Other) noexcept = delete;
 protected:
+	bool EngineInit();
+	
 
 private:
 
