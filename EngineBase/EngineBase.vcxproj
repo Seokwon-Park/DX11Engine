@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Log\EngineLogger.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
+    <ClCompile Include="EngineDebug.cpp" />
+    <ClCompile Include="EngineLogger.cpp" />
+    <ClCompile Include="IO\EngineDirectory.cpp" />
+    <ClCompile Include="IO\EngineFile.cpp" />
+    <ClCompile Include="IO\EnginePath.cpp" />
+    <ClCompile Include="IO\EngineSerializer.cpp" />
     <ClCompile Include="Math\Color.cpp" />
     <ClCompile Include="Math\IntPoint.cpp" />
     <ClCompile Include="Math\MathUtility.cpp" />
@@ -33,11 +35,13 @@
     <ClCompile Include="Math\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Debug\EngineDebug.h" />
-    <ClInclude Include="Log\EngineLogger.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
+    <ClInclude Include="EngineDebug.h" />
+    <ClInclude Include="EngineIO.h" />
+    <ClInclude Include="EngineLogger.h" />
+    <ClInclude Include="IO\EngineDirectory.h" />
+    <ClInclude Include="IO\EngineFile.h" />
+    <ClInclude Include="IO\EnginePath.h" />
+    <ClInclude Include="IO\EngineSerializer.h" />
     <ClInclude Include="Math\Color.h" />
     <ClInclude Include="EngineBase.h" />
     <ClInclude Include="EngineMath.h" />

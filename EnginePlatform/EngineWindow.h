@@ -42,8 +42,7 @@ public:
 	}
 
 	ENGINE_API void SetWindowPosAndScale(FIntPoint _Pos, FIntPoint _Scale);
-
-	FIntPoint GetMousePos();
+	ENGINE_API FIntPoint GetMousePos();
 
 	void ApplicationOff()
 	{

@@ -2,7 +2,7 @@
 
 #define ENGINE_DLL_BUILD
 
-#ifdef _WIN64
+#ifdef _WIN64 
 	#include <Windows.h>
 #endif
 
@@ -11,6 +11,9 @@
 #include <iostream>
 #include <functional>
 #include <type_traits>
+
+#include "EngineBase.h"
+#include "EngineDebug.h"
 
 
 

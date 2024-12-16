@@ -1,26 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Math\MathUtility.cpp" />
     <ClCompile Include="EnginePCH.cpp" />
-    <ClCompile Include="Math\Matrix.cpp" />
-    <ClCompile Include="Math\Vector4.cpp" />
-    <ClCompile Include="Math\IntPoint.cpp" />
-    <ClCompile Include="Math\Color.cpp" />
-    <ClCompile Include="Math\Transform.cpp" />
-    <ClCompile Include="Log\EngineLogger.cpp" />
+    <ClCompile Include="Math\Color.cpp">
+      <Filter>EngineMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\IntPoint.cpp">
+      <Filter>EngineMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathUtility.cpp">
+      <Filter>EngineMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix.cpp">
+      <Filter>EngineMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Transform.cpp">
+      <Filter>EngineMath</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector4.cpp">
+      <Filter>EngineMath</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineLogger.cpp" />
+    <ClCompile Include="IO\EngineDirectory.cpp" />
+    <ClCompile Include="IO\EngineFile.cpp" />
+    <ClCompile Include="IO\EnginePath.cpp" />
+    <ClCompile Include="IO\EngineSerializer.cpp" />
+    <ClCompile Include="EngineDebug.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math\MathUtility.h" />
     <ClInclude Include="EnginePCH.h" />
-    <ClInclude Include="Math\Matrix.h" />
-    <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="EngineBase.h" />
     <ClInclude Include="EngineMath.h" />
-    <ClInclude Include="Math\IntPoint.h" />
-    <ClInclude Include="Math\Color.h" />
-    <ClInclude Include="Math\Transform.h" />
-    <ClInclude Include="Debug\EngineDebug.h" />
-    <ClInclude Include="Log\EngineLogger.h" />
+    <ClInclude Include="EngineDebug.h" />
+    <ClInclude Include="Math\Color.h">
+      <Filter>EngineMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\IntPoint.h">
+      <Filter>EngineMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathUtility.h">
+      <Filter>EngineMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix.h">
+      <Filter>EngineMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Transform.h">
+      <Filter>EngineMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Vector4.h">
+      <Filter>EngineMath</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineLogger.h" />
+    <ClInclude Include="IO\EngineDirectory.h" />
+    <ClInclude Include="IO\EngineFile.h" />
+    <ClInclude Include="IO\EnginePath.h" />
+    <ClInclude Include="IO\EngineSerializer.h" />
+    <ClInclude Include="EngineIO.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="EngineMath">
+      <UniqueIdentifier>{0cbf40e1-6cef-45b2-8ebf-5e2ab1b748ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

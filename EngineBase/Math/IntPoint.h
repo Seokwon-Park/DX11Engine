@@ -1,5 +1,4 @@
 #pragma once
-#include "EngineBase/EngineBase.h"
 
 class ENGINE_API FIntPoint
 {
@@ -19,13 +18,10 @@ public:
 
 	FIntPoint operator+(const FIntPoint& _Other) const;
 	FIntPoint operator-(const FIntPoint& _Other) const;
+	FIntPoint operator/(int _Value) const;
 	void operator+=(const FIntPoint& _Other);
 	void operator-=(const FIntPoint& _Other);
-
-	inline FIntPoint operator/(int _Value) const
-	{
-		return FIntPoint(X / _Value, Y / _Value);
-	}
+	
 
 	bool operator==(FIntPoint _Other) const
 	{
