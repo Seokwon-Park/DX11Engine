@@ -2,6 +2,8 @@
 #include "TeviContentsCore.h"
 #include "EngineCore/Level.h"
 #include "EngineCore/EngineCore.h"
+#include <EngineCore/Pawn.h>
+#include <EngineCore/GameMode.h>
 
 CreateContentsCoreDefine(UTeviContentsCore);
 
@@ -21,6 +23,9 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	_Data.WindowPos = { 100, 100 };
 	_Data.WindowSize = { 300, 300 };
 
+	UEngineCore::CreateLevel<AGameMode, APawn>("Titlelevel");
+	// UEngineCore::OpenLevel("Titlelevel");
+	UEngineCore::OpenLevel("fasdfasdfasd");
 	//std::shared_ptr<ULevel> Level = UEngineCore::CreateLevel<>();
 
 	// 윈도우 크기 지정

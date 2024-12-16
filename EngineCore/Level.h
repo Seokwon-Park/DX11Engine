@@ -1,12 +1,14 @@
 #pragma once
 
+#include "EngineBase/Object.h"
+
 // Ό³Έν :
-class ENGINE_API ULevel
+class  ULevel : public UObject
 {
 public:
 	// constrcuter destructer
-	ULevel();
-	~ULevel();
+	ENGINE_API ULevel();
+	ENGINE_API ~ULevel();
 
 	// delete Function
 	ULevel(const ULevel& _Other) = delete;
@@ -14,9 +16,23 @@ public:
 	ULevel& operator=(const ULevel& _Other) = delete;
 	ULevel& operator=(ULevel&& _Other) noexcept = delete;
 
+	void Tick(float _DeltaTime);
+
+	template<typename ActorType>
+	std::shared_ptr<ActorType> SpawnActor()
+	{
+		std::shared_ptr<ActorType> NewActor = std::make_shared<ActorType>();
+
+		BeginPlayList.push_back(NewActor);
+
+		return NewActor;
+	}
 protected:
 
 private:
+	std::list<std::shared_ptr<class AActor>> BeginPlayList;
+
+	std::list<std::shared_ptr<class AActor>> AllActorList;
 
 };
 

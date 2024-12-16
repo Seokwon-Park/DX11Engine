@@ -14,6 +14,8 @@ public:
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
+	std::shared_ptr<class AActor> GetActor();
+
 protected:
 
 private:

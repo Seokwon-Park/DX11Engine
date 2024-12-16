@@ -3,10 +3,11 @@
 // Ό³Έν :
 class AActor
 {
+	friend class ULevel;
 public:
 	// constrcuter destructer
-	AActor();
-	~AActor();
+	ENGINE_API AActor();
+	ENGINE_API virtual ~AActor();
 
 	// delete Function
 	AActor(const AActor& _Other) = delete;
@@ -18,10 +19,17 @@ public:
 	{
 
 	}
+
+	ULevel* GetLevel()
+	{
+		return Level;
+	}
 	virtual void Tick(float _DeltaTime) = 0;
 protected:
 	virtual void BeginPlay() = 0;
 private:
+	ULevel* Level;
+
 	std::shared_ptr<class USceneComponent> RootComponent;
 	std::list<std::shared_ptr<class UActorComponent>> ActorComponentList;
 

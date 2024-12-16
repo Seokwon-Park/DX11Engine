@@ -16,6 +16,9 @@
     <ClCompile Include="GameMode.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -32,6 +35,9 @@
       <Filter>Actor</Filter>
     </ClInclude>
     <ClInclude Include="GameMode.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
       <Filter>Actor</Filter>
     </ClInclude>
   </ItemGroup>
