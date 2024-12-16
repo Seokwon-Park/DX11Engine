@@ -33,6 +33,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Math\Transform.cpp" />
+    <ClCompile Include="Object.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h" />
@@ -57,6 +61,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Math\Transform.h" />
+    <ClInclude Include="Object.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

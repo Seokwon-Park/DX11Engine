@@ -1,7 +1,9 @@
 #pragma once
+#include "EngineBase.h"
+#include <format>
 
 // Ό³Έν :
-class EngineLogger
+class ENGINE_API EngineLogger
 {
 public:
 	// constrcuter destructer
@@ -14,9 +16,14 @@ public:
 	EngineLogger& operator=(const EngineLogger& _Other) = delete;
 	EngineLogger& operator=(EngineLogger&& _Other) noexcept = delete;
 
+
+	static void StartLogger();
+	static void EndLogger();
 protected:
 
 private:
 
 };
+
+
 

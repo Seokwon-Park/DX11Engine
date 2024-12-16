@@ -26,6 +26,7 @@
     <ClCompile Include="IO\EnginePath.cpp" />
     <ClCompile Include="IO\EngineSerializer.cpp" />
     <ClCompile Include="EngineDebug.cpp" />
+    <ClCompile Include="Object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnginePCH.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="IO\EnginePath.h" />
     <ClInclude Include="IO\EngineSerializer.h" />
     <ClInclude Include="EngineIO.h" />
+    <ClInclude Include="Object.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="EngineMath">

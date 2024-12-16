@@ -46,9 +46,9 @@ public:
 	}
 
 	template <typename T>
-	inline static T Lerp(T A, T B, float Alpha)
+	inline static T Lerp(T _A, T _B, float _Alpha)
 	{
-		return A * (1 - Alpha) + B * Alpha;
+		return _A * (1 - _Alpha) + _B * _Alpha;
 	}
 
 	//Constants

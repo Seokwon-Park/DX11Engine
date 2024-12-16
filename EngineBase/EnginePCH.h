@@ -12,8 +12,10 @@
 #include <functional>
 #include <type_traits>
 
+#include "Object.h"
 #include "EngineBase.h"
 #include "EngineDebug.h"
+#include "EngineLogger.h"
 
 
 

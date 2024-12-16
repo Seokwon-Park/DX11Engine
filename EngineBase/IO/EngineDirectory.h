@@ -8,7 +8,7 @@ public:
 	// constrcuter destructer
 	ENGINE_API UEngineDirectory();
 	ENGINE_API UEngineDirectory(std::string_view _Path);
-	ENGINE_API ~UEngineDirectory();
+	ENGINE_API ~UEngineDirectory() override;
 
 	// delete Function
 	UEngineDirectory(const UEngineDirectory& _Other) = delete;

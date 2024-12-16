@@ -17,11 +17,11 @@ public:
 
 	//Save
 	void Write(void* _Data, unsigned int _Size);
-	void operator<<(int& _Data) { Write(&_Data, sizeof(int)); }
-	void operator<<(bool& _Data) { Write(&_Data, sizeof(bool)); }
-	void operator<<(FVector4& _Data) { Write(&_Data, sizeof(FVector4)); }
-	void operator<<(FIntPoint& _Data) { Write(&_Data, sizeof(FIntPoint)); }
-	void operator<<(std::string& _Data)
+	inline void operator<<(int& _Data) { Write(&_Data, sizeof(int)); }
+	inline void operator<<(bool& _Data) { Write(&_Data, sizeof(bool)); }
+	inline void operator<<(FVector4& _Data) { Write(&_Data, sizeof(FVector4)); }
+	inline void operator<<(FIntPoint& _Data) { Write(&_Data, sizeof(FIntPoint)); }
+	inline void operator<<(std::string& _Data)
 	{
 		int Size = static_cast<int>(_Data.size());
 		operator<<(Size);
@@ -81,6 +81,11 @@ public:
 	void DataResize(int _Value)
 	{
 		Data.resize(_Value);
+	}
+
+	size_t GetDataSize()
+	{
+		return Data.size();
 	}
 protected:
 

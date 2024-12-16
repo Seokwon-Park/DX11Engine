@@ -28,23 +28,16 @@ public:
 	ENGINE_API static void CreateWindowClass(const WNDCLASSEXA& _Class);
 	ENGINE_API static int WindowMessageLoop(std::function<void()> _StartFunction, std::function<void()> _FrameFunction, std::function<void()> _EndFunction = nullptr);
 
-	ENGINE_API void Create(std::string_view _TitleName, std::string_view _ClassName = "Default");
 	ENGINE_API void Open(std::string_view _TitleName = "Window");
-
-	inline FIntPoint GetWindowSize() const
-	{
-		return WindowSize;
-	}
-
-	inline void SetWindowTitle(std::string_view Text)
-	{
-		SetWindowTextA(WindowHandle, Text.data());
-	}
-
+	ENGINE_API void Create(std::string_view _TitleName, std::string_view _ClassName = "Default");
 	ENGINE_API void SetWindowPosAndScale(FIntPoint _Pos, FIntPoint _Scale);
 	ENGINE_API FIntPoint GetMousePos();
 
-	void ApplicationOff()
+	ENGINE_API inline HWND GetHandle()const { return WindowHandle; }
+	ENGINE_API inline FIntPoint GetWindowSize() const { return WindowSize; }
+	inline void SetWindowTitle(std::string_view Text) { SetWindowTextA(WindowHandle, Text.data()); }
+
+	inline void ApplicationOff()
 	{
 		LoopActive = false;
 	}

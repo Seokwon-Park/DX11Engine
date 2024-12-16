@@ -25,12 +25,12 @@ UEngineFile::~UEngineFile()
 
 void UEngineFile::FileOpen(const char* _Mode)
 {
-	fopen_s(&File, Path, _Mode);
+	fopen_s(&File, this->ToString().c_str(), _Mode);
 
 	// 파일을 열지 못한 경우
 	if (nullptr == File)
 	{
-		MSGASSERT(Path + std::string("파일 오픈에 실패했습니다"));
+		MSGASSERT(this->ToString() + std::string("파일 오픈에 실패했습니다"));
 	}
 }
 
@@ -82,8 +82,6 @@ bool UEngineFile::IsExist()
 {
 	return std::filesystem::exists(Path);
 }
-
-
 
 void UEngineFile::Close()
 {

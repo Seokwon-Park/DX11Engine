@@ -6,14 +6,14 @@ class UEnginePath
 {
 public:
 	// constrcuter destructer
-	UEnginePath();
-	UEnginePath(std::string_view _Path);
-	UEnginePath(std::filesystem::path _Path);
-	~UEnginePath();
+	ENGINE_API UEnginePath();
+	ENGINE_API UEnginePath(std::string_view _Path);
+	ENGINE_API UEnginePath(std::filesystem::path _Path);
+	ENGINE_API virtual ~UEnginePath();
 
 	// delete Function
 	UEnginePath(const UEnginePath& _Other);
-	UEnginePath(UEnginePath&& _Other) noexcept= delete;
+	UEnginePath(UEnginePath&& _Other) noexcept = delete;
 	UEnginePath& operator=(const UEnginePath& _Other) = delete;
 	UEnginePath& operator=(UEnginePath&& _Other) noexcept = delete;
 

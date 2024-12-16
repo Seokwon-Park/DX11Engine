@@ -1,8 +1,8 @@
 #pragma once
 #include <EngineBase/EngineBase.h>
 #include <EnginePlatform/EngineWindow.h>
+#include "Level.h"
 #include "IContentsCore.h"
-#include <memory>
 
 
 // Ό³Έν :
@@ -15,6 +15,13 @@ public:
 
 	ENGINE_API static void EngineStart(HINSTANCE _Instance, std::string_view _DllName);
 
+	ENGINE_API static std::shared_ptr<class ULevel> CreateLevel(std::string_view _Name)
+	{
+		std::shared_ptr<ULevel> NewLevel = std::make_shared<ULevel>();
+
+		return NewLevel;
+	}
+
 protected:
 
 private:
@@ -24,5 +31,9 @@ private:
 
 	static void WindowInit(HINSTANCE _Instance);
 	static void LoadContents(std::string_view _DllName);
+
+	static void Shutdown();
+
+	static std::map<std::string, std::shared_ptr<class ULevel>> Levels;
 };
 

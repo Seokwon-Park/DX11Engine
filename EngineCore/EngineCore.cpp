@@ -8,6 +8,7 @@
 UEngineWindow UEngineCore::MainWindow;
 HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
+std::map<std::string, std::shared_ptr<class ULevel>> UEngineCore::Levels;
 
 UEngineCore::UEngineCore()
 {
@@ -66,6 +67,13 @@ void UEngineCore::LoadContents(std::string_view _DllName)
 	}
 }
 
+void UEngineCore::Shutdown()
+{
+	Levels.clear();
+	EngineLogger::EndLogger();
+
+}
+
 void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 {
 	UEngineDebug::LeakCheck();
@@ -80,9 +88,14 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		{
 			UEngineInitData Data;
 			Core->EngineStart(Data);
-
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
-
+			EngineLogger::StartLogger();
+			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
+			if (ConsoleWindow)
+			{
+				// 콘솔 창을 모든 창의 뒤로 보냄
+				SetWindowPos(ConsoleWindow, MainWindow.GetHandle(), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+			}
 
 			// 시작할때 하고 싶은것
 			// 1. 윈도우창 크기 바꾸고 싶다.
@@ -95,13 +108,6 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		[]()
 		{
 			// 엔진이 끝났을때 하고 싶은것.
+			Shutdown();
 		});
-
-
-	// 게임 엔진이 시작되었다.
-	// 윈도우창은 엔진이 알아서 띄워줘야 하고.
-
-	// Window 띄워줘야 한다.
-
-
 }

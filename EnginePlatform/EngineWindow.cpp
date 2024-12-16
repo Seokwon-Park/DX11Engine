@@ -7,9 +7,9 @@ std::map<std::string, WNDCLASSEXA> UEngineWindow::WindowClasses;
 int WindowCount = 0;
 bool UEngineWindow::LoopActive = true;
 
-LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK UEngineWindow::WndProc(HWND _HWnd, UINT _Message, WPARAM _WParam, LPARAM _LParam)
 {
-	switch (message)
+	switch (_Message)
 	{
 	case WM_CREATE:
 		++WindowCount;
@@ -25,15 +25,15 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, 
 		}
 		break;
 	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
+		return DefWindowProc(_HWnd, _Message, _WParam, _LParam);
 	}
 	return 0;
 }
 
 
-void UEngineWindow::EngineWindowInit(HINSTANCE _Instance)
+void UEngineWindow::EngineWindowInit(HINSTANCE _HInstance)
 {
-	HInstance = _Instance;
+	HInstance = _HInstance;
 
 	WNDCLASSEXA wcex;
 	wcex.cbSize = sizeof(WNDCLASSEX);
@@ -85,21 +85,21 @@ int UEngineWindow::WindowMessageLoop(std::function<void()> _StartFunction, std::
 	return (int)msg.wParam;
 }
 
-void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _Class)
+void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _WNDClass)
 {
 	std::map<std::string, WNDCLASSEXA>::iterator EndIter = WindowClasses.end();
-	std::map<std::string, WNDCLASSEXA>::iterator FindIter = WindowClasses.find(std::string(_Class.lpszClassName));
+	std::map<std::string, WNDCLASSEXA>::iterator FindIter = WindowClasses.find(std::string(_WNDClass.lpszClassName));
 
 	// ckw
 	if (EndIter != FindIter)
 	{
-		MSGASSERT(std::string(_Class.lpszClassName) + " 같은 이름의 윈도우 클래스를 2번 등록했습니다");
+		MSGASSERT(std::string(_WNDClass.lpszClassName) + " 같은 이름의 윈도우 클래스를 2번 등록했습니다");
 		return;
 	}
 
-	RegisterClassExA(&_Class);
+	RegisterClassExA(&_WNDClass);
 
-	WindowClasses.insert(std::pair{ _Class.lpszClassName, _Class });
+	WindowClasses.insert(std::pair{ _WNDClass.lpszClassName, _WNDClass });
 }
 
 UEngineWindow::UEngineWindow()

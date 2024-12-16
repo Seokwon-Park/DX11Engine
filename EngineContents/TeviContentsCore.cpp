@@ -1,5 +1,7 @@
 #include "EnginePCH.h"
-#include "ContentsCore.h"
+#include "TeviContentsCore.h"
+#include "EngineCore/Level.h"
+#include "EngineCore/EngineCore.h"
 
 CreateContentsCoreDefine(UTeviContentsCore);
 
@@ -18,6 +20,8 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 
 	_Data.WindowPos = { 100, 100 };
 	_Data.WindowSize = { 300, 300 };
+
+	//std::shared_ptr<ULevel> Level = UEngineCore::CreateLevel<>();
 
 	// 윈도우 크기 지정
 }

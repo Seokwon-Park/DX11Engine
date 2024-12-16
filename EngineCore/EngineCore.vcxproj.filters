@@ -3,10 +3,44 @@
   <ItemGroup>
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EnginePCH.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="ActorComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMode.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EnginePCH.h" />
     <ClInclude Include="IContentsCore.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="ActorComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMode.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Components">
+      <UniqueIdentifier>{351dd623-45ad-4350-9628-326801572211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{08c3456d-1a1d-464a-90d9-5cb53ad355bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

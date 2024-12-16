@@ -31,7 +31,6 @@ public:
 			float _32;
 			float _33;
 		};
-
 	};
 
 	FMatrix();
