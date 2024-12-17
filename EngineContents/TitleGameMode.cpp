@@ -1,8 +1,10 @@
 #include "EnginePCH.h"
 #include "TitleGameMode.h"
+#include "TitleLogo.h"
 
 ATitleGameMode::ATitleGameMode()
 {
+	GetLevel()->SpawnActor<ATitleLogo>();
 }
 
 ATitleGameMode::~ATitleGameMode()
@@ -12,9 +14,9 @@ ATitleGameMode::~ATitleGameMode()
 
 void ATitleGameMode::Tick(float _DeltaTime)
 {
-	AGameMode::Tick(_DeltaTime);
+	AActor::Tick(_DeltaTime);
 }
 void ATitleGameMode::BeginPlay()
 {
-	AGameMode::BeginPlay();
+	AActor::BeginPlay();
 }

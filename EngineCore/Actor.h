@@ -1,7 +1,10 @@
 #pragma once
 
+#include <EngineBase/EngineDebug.h>
+#include "Level.h"
+
 // 설명 :
-class AActor
+class AActor : public UObject
 {
 	friend class ULevel;
 public:
@@ -15,46 +18,23 @@ public:
 	AActor& operator=(const AActor& _Other) = delete;
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
-<<<<<<< HEAD
-=======
-	void CreateDefaultSubobject()
-	{
-
-	}
-
-	ULevel* GetLevel()
-	{
-		return Level;
-	}
->>>>>>> e303e6160b12585f4d905ed7f018109223275f16
-	virtual void Tick(float _DeltaTime) = 0;
-
 	template<typename ComponentType>
 	void CreateDefaultSubObject()
 	{
-		static_assert(std::is_base_of_v<UActorComponent, ComponentType>, "액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
+		static_assert(std::is_base_of_v<UActorComponent, ComponentType>,
+			"액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
 
 		if (false == std::is_base_of_v<UActorComponent, ComponentType>)
 		{
 			MSGASSERT("액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
 			return nullptr;
-			// static_assert
 		}
 
-		char* ComMemory = new char[sizeof(ComponentType)];
+		ComponentType* ComponentPtr = new ComponentType();
+		UActorComponent* Temp = reinterpret_cast<UActorComponent>(ComponentPtr);
+		ComponentPtr->Actor = this;
 
-		UActorComponent* ComPtr = reinterpret_cast<ComponentType*>(ComMemory);
-		ComPtr->Actor = this;
-
-		ComponentType* NewPtr = reinterpret_cast<ComponentType*>(ComMemory);
-		// 레벨먼저 세팅하고
-		// 플레이스먼트 new 
-		std::shared_ptr<ComponentType> NewCom(NewPtr = new(ComMemory) ActorType());
-
-		// 내가 그냥 ActorComponent
-		// 내가 그냥 SceneComponent
-
-
+		std::shared_ptr<ComponentType> NewComponent(ComponentPtr);
 
 		if (std::is_base_of_v<USceneComponent, ComponentType>)
 		{
@@ -64,7 +44,7 @@ public:
 				MSGASSERT("아직 기하구조를 만들지 않았습니다.");
 			}
 
-			RootComponent = NewCom;
+			RootComponent = NewComponent;
 		}
 		else if (std::is_base_of_v<UActorComponent, ComponentType>)
 		{
@@ -75,10 +55,15 @@ public:
 			MSGASSERT("말도 안됨");
 		}
 
-		return NewActor;
+		return NewComponent;
 	}
+
+
+	inline ULevel* GetLevel() const {return Level;}
+	ENGINE_API virtual void Tick(float _DeltaTime);
+
 protected:
-	virtual void BeginPlay() = 0;
+	ENGINE_API virtual void BeginPlay();
 private:
 	ULevel* Level;
 

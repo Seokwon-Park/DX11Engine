@@ -15,16 +15,23 @@ public:
 
 	ENGINE_API static void EngineStart(HINSTANCE _Instance, std::string_view _DllName);
 
-	template<typename GameMode, typename MainPawn>
-	ENGINE_API static std::shared_ptr<class ULevel> CreateLevel(std::string_view _Name)
+	template<typename GameModeType, typename MainPawnType>
+	static class std::shared_ptr<class ULevel> CreateLevel(std::string_view _Name)
 	{
-		std::shared_ptr<ULevel> NewLevel = std::make_shared<ULevel>();
+		// 1 유지하고 있겠죠.
+		// shared_ptr을 사용하므로 new UEngineLevel()
+		std::shared_ptr<ULevel> NewLevel = NewLevelCreate(_Name);
+		// std::make_shared
+		// new UEngineLevel();
 
-		NewLevel->SpawnActor<GameMode>();
-		NewLevel->SpawnActor<MainPawn>();
+		NewLevel->SpawnActor<GameModeType>();
+		NewLevel->SpawnActor<MainPawnType>();
 
+		// 2가 됩니다
 		return NewLevel;
 	}
+
+	ENGINE_API static std::shared_ptr<ULevel> NewLevelCreate(std::string_view _Name);
 
 	ENGINE_API static void OpenLevel(std::string_view _Name);
 

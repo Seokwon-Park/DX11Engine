@@ -18,11 +18,8 @@ public:
 	inline std::string GetName() const { return Name; }
 	inline std::string_view GetNameView() const { return Name.c_str(); }
 	inline virtual void SetName(std::string_view _Name) { Name = _Name.data(); }
-
-	//virtual bool IsActive()
-	//{
-	//	return IsActiveValue && false == IsDestroyValue;
-	//}
+	inline virtual bool IsActive() const { return IsActivated; }
+	inline void SetActive(bool _Value) { IsActivated = _Value; }
 
 	//virtual bool IsDestroy()
 	//{
@@ -64,12 +61,7 @@ public:
 
 	//}
 
-	//// 모든 기능 정지.
-	//// 얼음 외부에서 다른 객체가 풀어줘야 한다.
-	//void SetActive(bool _IsActive)
-	//{
-	//	IsActiveValue = _IsActive;
-	//}
+
 
 	//void SetActiveSwitch()
 	//{
@@ -100,7 +92,7 @@ protected:
 
 private:
 	//bool IsDestroyValue = false;
-	//bool IsActiveValue = true;
+	bool IsActivated = true;
 
 	//bool IsDeathTimeCheck = false;
 	//float DeathTime = 0.0f;

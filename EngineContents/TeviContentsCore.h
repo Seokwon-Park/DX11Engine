@@ -5,7 +5,7 @@
 // 규칙을 만드는 수밖에 없다.
 
 // 설명 :
-class UTeviContentsCore : public IContentsCore
+class UTeviContentsCore : public UObject, public IContentsCore
 {
 public:
 	// constrcuter destructer

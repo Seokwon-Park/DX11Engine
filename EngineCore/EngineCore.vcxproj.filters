@@ -19,6 +19,9 @@
     <ClCompile Include="Pawn.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
+    <ClCompile Include="URendererComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -39,6 +42,9 @@
     </ClInclude>
     <ClInclude Include="Pawn.h">
       <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="URendererComponent.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

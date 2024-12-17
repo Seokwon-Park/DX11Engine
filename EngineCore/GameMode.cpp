@@ -10,9 +10,3 @@ AGameMode::~AGameMode()
 }
 
 
-void AGameMode::Tick(float _DeltaTime)
-{
-}
-void AGameMode::BeginPlay()
-{
-}

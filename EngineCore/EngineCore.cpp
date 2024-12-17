@@ -8,10 +8,10 @@
 UEngineWindow UEngineCore::MainWindow;
 HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
-std::map<std::string, std::shared_ptr<class ULevel>> UEngineCore::Levels;
 
 std::shared_ptr<class ULevel> UEngineCore::NextLevel;
 std::shared_ptr<class ULevel> UEngineCore::CurLevel = nullptr;
+std::map<std::string, std::shared_ptr<class ULevel>> UEngineCore::Levels;
 
 
 UEngineCore::UEngineCore()
@@ -22,6 +22,22 @@ UEngineCore::~UEngineCore()
 {
 }
 
+std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string_view _Name)
+{
+	// 만들기만 하고 보관을 안하면 앤 그냥 지워집니다. <= 
+
+	// 만들면 맵에 넣어서 레퍼런스 카운트를 증가시킵니다.
+	// UObject의 기능이었습니다.
+	std::shared_ptr<ULevel> Ptr = std::make_shared<ULevel>();
+	Ptr->SetName(_Name);
+
+	Levels.insert({ _Name.data(), Ptr });
+
+	std::cout << "NewLevelCreate" << std::endl;
+
+	return Ptr;
+}
+
 void UEngineCore::OpenLevel(std::string_view _Name)
 {
 	if (false == Levels.contains(_Name.data()))
@@ -29,7 +45,6 @@ void UEngineCore::OpenLevel(std::string_view _Name)
 		MSGASSERT("만들지 않은 레벨로 변경하려고 했습니다." + std::string(_Name));
 		return;
 	}
-
 
 	NextLevel = Levels[_Name.data()];
 }
@@ -93,13 +108,16 @@ void UEngineCore::Shutdown()
 
 void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 {
+	//메모리 누수 Check
 	UEngineDebug::LeakCheck();
 
+	//윈도우 초기화 
 	WindowInit(_Instance);
 
+	//Contents DLL 로딩
 	LoadContents(_DllName);
 
-	// 윈도우와는 무관합니다.
+	//게임 루프 시작
 	UEngineWindow::WindowMessageLoop(
 		[]()
 		{
@@ -120,11 +138,11 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		},
 		[]()
 		{
-			// 엔진이 돌아갈때 하고 싶은것
+			// 엔진이 돌아갈 때 하고 싶은것
 		},
 		[]()
 		{
-			// 엔진이 끝났을때 하고 싶은것.
+			// 엔진이 끝났을 때 하고 싶은것.
 			Shutdown();
 		});
 }

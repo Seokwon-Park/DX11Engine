@@ -2,7 +2,7 @@
 #include <EngineCore/GameMode.h>
 
 // Ό³Έν :
-class ATitleGameMode : public AGameMode
+class ATitleGameMode : public AActor
 {
 public:
 	// constrcuter destructer
