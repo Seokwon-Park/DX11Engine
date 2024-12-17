@@ -3,6 +3,9 @@
 #include "EngineCore/Level.h"
 #include "EngineCore/EngineCore.h"
 
+#include "TitleGameMode.h"
+#include "Player.h"
+
 CreateContentsCoreDefine(UTeviContentsCore);
 
 UTeviContentsCore::UTeviContentsCore()
@@ -21,7 +24,7 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	_Data.WindowPos = { 100, 100 };
 	_Data.WindowSize = { 300, 300 };
 
-	//std::shared_ptr<ULevel> Level = UEngineCore::CreateLevel<>();
+	std::shared_ptr<ULevel> Level = UEngineCore::CreateLevel<TitleGameMode>();
 
 	// 윈도우 크기 지정
 }

@@ -1,8 +1,8 @@
 #pragma once
-#include <EngineCore/Actor.h>
+#include <EngineCore/Pawn.h>
 
 // Ό³Έν :
-class APlayer : public AActor
+class APlayer : public APawn
 {
 public:
 	// constrcuter destructer

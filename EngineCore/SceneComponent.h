@@ -20,5 +20,8 @@ protected:
 
 private:
 	FTransform Transform;
+
+	USceneComponent* Parent;
+	std::list<std::shared_ptr<USceneComponent>> Childs;
 };
 

@@ -8,3 +8,7 @@ ULevel::ULevel()
 ULevel::~ULevel()
 {
 }
+
+void ULevel::Tick(float _DeltaTime)
+{
+}
