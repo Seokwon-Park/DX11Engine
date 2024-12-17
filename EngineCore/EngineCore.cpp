@@ -10,6 +10,10 @@ HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
 std::map<std::string, std::shared_ptr<class ULevel>> UEngineCore::Levels;
 
+std::shared_ptr<class ULevel> UEngineCore::NextLevel;
+std::shared_ptr<class ULevel> UEngineCore::CurLevel = nullptr;
+
+
 UEngineCore::UEngineCore()
 {
 }
@@ -17,6 +21,19 @@ UEngineCore::UEngineCore()
 UEngineCore::~UEngineCore()
 {
 }
+
+void UEngineCore::OpenLevel(std::string_view _Name)
+{
+	if (false == Levels.contains(_Name.data()))
+	{
+		MSGASSERT("만들지 않은 레벨로 변경하려고 했습니다." + std::string(_Name));
+		return;
+	}
+
+
+	NextLevel = Levels[_Name.data()];
+}
+
 
 void UEngineCore::WindowInit(HINSTANCE _Instance)
 {
