@@ -1,5 +1,7 @@
 #pragma once
 
+#define BASE_DLL
+
 #ifdef _WIN64 
 	#include <Windows.h>
 #endif

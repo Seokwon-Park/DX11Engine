@@ -10,7 +10,7 @@ EngineLogger::~EngineLogger()
 {
 }
 
-ENGINE_API void EngineLogger::StartLogger()
+BASE_API void EngineLogger::StartLogger()
 {
 	AllocConsole();
 	FILE* PtrCin= nullptr;
@@ -44,7 +44,7 @@ ENGINE_API void EngineLogger::StartLogger()
 	std::cout << "Start Engine Logger Successful.\n";
 }
 
-ENGINE_API void EngineLogger::EndLogger()
+BASE_API void EngineLogger::EndLogger()
 {
 	FreeConsole();
 }

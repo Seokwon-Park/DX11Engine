@@ -4,7 +4,7 @@
 #include <ostream>
 
 //float4 Vector
-class ENGINE_API FVector4
+class BASE_API FVector4
 {
 public:
 	union

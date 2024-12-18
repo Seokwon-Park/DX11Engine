@@ -6,8 +6,8 @@ class  UObject : public std::enable_shared_from_this<UObject>
 {
 public:
 	// constrcuter destructer
-	ENGINE_API UObject();
-	ENGINE_API ~UObject();
+	BASE_API UObject();
+	BASE_API ~UObject();
 
 	// delete Function
 	UObject(const UObject& _Other) = delete;

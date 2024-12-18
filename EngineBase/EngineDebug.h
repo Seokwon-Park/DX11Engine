@@ -1,7 +1,7 @@
 #pragma once
 #include <assert.h>
 
-#define ENGINE_DLL_BUILD
+#define BASE_DLL
 
 #ifdef _DEBUG
 #define MSGASSERT(VALUE)	{																\
@@ -22,6 +22,6 @@
 
 namespace UEngineDebug
 {
-	ENGINE_API void LeakCheck();
+	BASE_API void LeakCheck();
 }
 

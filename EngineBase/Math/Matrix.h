@@ -3,7 +3,7 @@
 #include "Vector4.h"
 
 //float4x4 Matrix
-class ENGINE_API FMatrix
+class BASE_API FMatrix
 {
 public:
 	union

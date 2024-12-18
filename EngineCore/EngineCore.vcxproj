@@ -156,7 +156,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\DX11DeviceContext.h" />
+    <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
     <ClInclude Include="Graphics\EngineDeviceContext.h" />
     <ClInclude Include="GameMode.h">
       <SubType>
@@ -167,6 +167,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EnginePCH.h" />
+    <ClInclude Include="Graphics\VertexBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="IContentsCore.h" />
     <ClInclude Include="Level.h">
       <SubType>
@@ -194,7 +198,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\DX11DeviceContext.cpp" />
+    <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
     <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
     <ClCompile Include="GameMode.cpp">
       <SubType>
@@ -207,6 +211,10 @@
     <ClCompile Include="EnginePCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Graphics\VertexBuffer.cpp">
+      <SubType>
+      </SubType>
     </ClCompile>
     <ClCompile Include="Level.cpp">
       <SubType>

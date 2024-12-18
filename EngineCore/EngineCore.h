@@ -5,6 +5,11 @@
 #include "Level.h"
 #include "IContentsCore.h"
 
+enum class RenderAPI
+{
+	DirectX11,
+	None
+};
 
 // Ό³Έν :
 class UEngineCore

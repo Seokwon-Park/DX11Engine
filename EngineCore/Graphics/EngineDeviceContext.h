@@ -16,6 +16,7 @@ public:
 	ENGINE_API virtual void ClearRenderTarget();
 	ENGINE_API virtual void SwapBuffers();
 	ENGINE_API inline void SetClearColor(FColor _Color) { ClearColor = _Color; }
+
 protected:
 	FColor ClearColor;
 

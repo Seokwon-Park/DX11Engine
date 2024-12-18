@@ -22,8 +22,9 @@
     <ClCompile Include="RendererComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\DX11DeviceContext.cpp" />
+    <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
     <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
+    <ClCompile Include="Graphics\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -48,8 +49,9 @@
     <ClInclude Include="RendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\DX11DeviceContext.h" />
+    <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
     <ClInclude Include="Graphics\EngineDeviceContext.h" />
+    <ClInclude Include="Graphics\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

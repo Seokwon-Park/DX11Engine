@@ -2,7 +2,7 @@
 #include "SceneComponent.h"
 
 // Ό³Έν :
-class URendererComponent
+class URendererComponent : public USceneComponent
 {
 	friend class ULevel;
 public:
@@ -19,7 +19,7 @@ public:
 	void SetOrder(int _Order);
 
 protected:
-	//ENGINE_API void BeginPlay() override;
+	ENGINE_API void BeginPlay() override;
 
 private:
 	virtual void Render(float _DeltaTime);

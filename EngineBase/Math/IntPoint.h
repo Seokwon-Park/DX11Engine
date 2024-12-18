@@ -1,6 +1,6 @@
 #pragma once
 
-class ENGINE_API FIntPoint
+class BASE_API FIntPoint
 {
 public:
 	union

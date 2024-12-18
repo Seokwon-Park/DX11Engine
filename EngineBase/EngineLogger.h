@@ -3,7 +3,7 @@
 #include <format>
 
 // Ό³Έν :
-class ENGINE_API EngineLogger
+class BASE_API EngineLogger
 {
 public:
 	// constrcuter destructer

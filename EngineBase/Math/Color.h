@@ -2,7 +2,7 @@
 
 #include "EngineBase.h"
 
-class ENGINE_API FColor
+class BASE_API FColor
 {
 public:
 	union

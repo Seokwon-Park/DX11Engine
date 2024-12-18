@@ -193,6 +193,8 @@ IDXGIAdapter* DX11DeviceContext::GetHighPerFormanceAdapter()
 	return Adapter;
 }
 
+
+
 void DX11DeviceContext::ClearRenderTarget()
 {
 	// 이미지 ClearColor으로 렌더타겟 초기화

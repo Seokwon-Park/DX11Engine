@@ -4,7 +4,7 @@
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
-#include "Graphics/DX11DeviceContext.h"
+#include "Graphics/DirectX11/DX11DeviceContext.h"
 
 
 UEngineDeviceContext* UEngineCore::Device;
@@ -120,7 +120,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
 			Device->Init(MainWindow);
-			Device->SetClearColor(FColor::GREEN);
+			Device->SetClearColor(FColor::WHITE);
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{
