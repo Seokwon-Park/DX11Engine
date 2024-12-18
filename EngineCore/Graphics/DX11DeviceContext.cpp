@@ -1,0 +1,217 @@
+#include "EnginePCH.h"
+#include "DX11DeviceContext.h"
+#include <EngineBase/EngineMath.h>
+
+DX11DeviceContext::DX11DeviceContext()
+{
+}
+
+DX11DeviceContext::~DX11DeviceContext()
+{
+}
+
+void DX11DeviceContext::Init(const UEngineWindow& _Window)
+{
+	Adapter = GetHighPerFormanceAdapter();
+
+	UINT DeviceFlag = 0;
+#if defined(DEBUG) || defined(_DEBUG)
+	DeviceFlag |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
+	//CreateDevice Inputs
+	// https://learn.microsoft.com/ko-kr/windows/win32/api/d3d11/nf-d3d11-d3d11createdevice
+	//D3D_DRIVER_TYPE DriverType,
+	// D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN Adapter로 찾아서 사용할 때
+	// D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_HARDWARE Default Adapter를 사용할때
+	// D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_SOFTWARE ?
+	// 
+	//HMODULE Software, // 특정 단계용(랜더링 파이프라인의 일부를 내가 만든 코드로 교체하기 위한 dll 핸들)
+	//UINT Flags, // 옵션
+
+	// _In_reads_opt_(FeatureLevels) CONST D3D_FEATURE_LEVEL* pFeatureLevels,
+	// UINT FeatureLevels, //FeatuerLevels 크기
+	// UINT SDKVersion, // DirectSDK버전.
+	// _COM_Outptr_opt_ ID3D11Device** ppDevice, // 디바이스 주소
+	// _Out_opt_ D3D_FEATURE_LEVEL* pFeatureLevel,
+	// _COM_Outptr_opt_ ID3D11DeviceContext** ppImmediateContext
+
+	D3D_FEATURE_LEVEL ResultLevel;
+	ComPtr<ID3D11Device> ResultDevice;
+	ComPtr<ID3D11DeviceContext> ResultContext;
+
+	if (FAILED(D3D11CreateDevice(
+		Adapter.Get(),
+		D3D_DRIVER_TYPE::D3D_DRIVER_TYPE_UNKNOWN,
+		nullptr, // 특정 단계를 내가 짠 코드로 대체
+		DeviceFlag,
+		nullptr, // 강제레벨 지정 11로 만들거니까. 배열을 넣어줄수
+		0, // 내가 지정한 팩처레벨 개수
+		D3D11_SDK_VERSION, // 현재 다이렉트x sdk 버전
+		&ResultDevice,
+		&ResultLevel,
+		&ResultContext)))
+	{
+		MSGASSERT("그래픽 디바이스 생성에 실패했습니다.");
+	}
+
+	ResultDevice.As(&Device);
+	ResultContext.As(&Context);
+
+	if (ResultLevel != D3D_FEATURE_LEVEL_11_0
+		&& ResultLevel != D3D_FEATURE_LEVEL_11_1)
+	{
+		MSGASSERT("다이렉트 11버전을 지원하지 않는 그래픽카드 입니다.");
+		return;
+	}
+
+	// 다이렉트 x가 기본적으로 쓰레드 안정성을 안챙겨준다.
+	// 고급 랜더링과 서버에서는 쓰레드는 필수이기 때문에
+	// 쓰레드를 사용하겠다는 것을 미리 명시해줄수 있다.
+	// Com라이브러리 초기화
+	if (FAILED(CoInitializeEx(nullptr, COINIT_MULTITHREADED)))
+	{
+		MSGASSERT("스레드 초기화에 실패했습니다.")
+	}
+
+	CreateSwapChain(_Window);
+}
+void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
+{
+	FIntPoint WindowSize = _Window.GetWindowSize();
+
+	DXGI_SWAP_CHAIN_DESC SwapChinDesc = { 0 };
+
+	SwapChinDesc.BufferCount = 2;
+	SwapChinDesc.BufferDesc.Width = WindowSize.X;
+	SwapChinDesc.BufferDesc.Height = WindowSize.Y;
+	SwapChinDesc.OutputWindow = _Window.GetHandle();
+	SwapChinDesc.Windowed = true;
+
+	SwapChinDesc.BufferDesc.RefreshRate.Denominator = 1;
+	SwapChinDesc.BufferDesc.RefreshRate.Numerator = 60;
+
+	SwapChinDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+	// 모니터나 윈도우에 픽셀이 갱신되는 순서를 어떻게 
+	// 그냥 제일 빠른걸로 해줘
+	SwapChinDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	// 진짜 기억안남 아예 
+	SwapChinDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+
+	SwapChinDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
+
+	//MSAA Sampling
+	SwapChinDesc.SampleDesc.Quality = 0;
+	// 점 개수도 1개면 충분하다.
+	SwapChinDesc.SampleDesc.Count = 1;
+
+	// 버퍼 n개 만들었네?
+	// n개의 버퍼에 대한 
+	SwapChinDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	// 전혀 기억안남
+	SwapChinDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
+
+	IDXGIFactory* pF = nullptr;
+
+	// 날 만든 팩토리를 얻어올수 있다.
+	Adapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&pF));
+
+	// IUnknown* pDevice,
+	// DXGI_SWAP_CHAIN_DESC* pDesc,
+	// IDXGISwapChain** ppSwapChain
+
+	pF->CreateSwapChain(Device.Get(), &SwapChinDesc, SwapChain.GetAddressOf());
+
+	pF->Release();
+	Adapter->Release();
+
+	if (nullptr == SwapChain)
+	{
+		MSGASSERT("스왑체인 제작에 실패했습니다.");
+	}
+
+	BackBufferTexture = nullptr;
+	if (S_OK != SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>
+		(BackBufferTexture.GetAddressOf())))
+	{
+		MSGASSERT("백버퍼 텍스처를 얻어오는데 실패했습니다.");
+	};
+
+	// id3d11texture2d* 이녀석 만으로는 할수 있는게 많이 없습니다.
+	// 애는 이미지의 2차원 데이터를 나타낼뿐 수정권한은 없기 때문입니다.
+	// 이미지를 수정하거나 사용할수 있는 권한을 id3d11texture2d*을 얻어내야 합니다.
+	// WINAPI에서 HDC 얻어내는 것처럼 id3d11texture2d* 수정권한인
+	// 텍스처에서 만들어내야 합니다.
+
+	//                             HBITMAP                       HDC
+	if (S_OK != Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, &RTV))
+	{
+		MSGASSERT("텍스처 수정권한 획득에 실패했습니다");
+	}
+
+}
+
+IDXGIAdapter* DX11DeviceContext::GetHighPerFormanceAdapter()
+{
+	IDXGIFactory* Factory = nullptr;
+	IDXGIAdapter* Adapter = nullptr;
+
+	HRESULT HR = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&Factory));
+
+	if (nullptr == Factory)
+	{
+		MSGASSERT("그래픽카드 조사용 팩토리 생성에 실패했습니다.");
+		return nullptr;
+	}
+
+	for (int Index = 0;; ++Index)
+	{
+		IDXGIAdapter* CurAdapter = nullptr;
+
+		Factory->EnumAdapters(Index, &CurAdapter);
+
+		if (nullptr == CurAdapter)
+		{
+			break;
+		}
+
+		Adapter = CurAdapter;
+	}
+
+	if (nullptr != Factory)
+	{
+		Factory->Release();
+	}
+
+	if (nullptr == Adapter)
+	{
+		MSGASSERT("그래픽카드를 찾을 수 없습니다.");
+		return nullptr;
+	}
+
+	return Adapter;
+}
+
+void DX11DeviceContext::ClearRenderTarget()
+{
+	// 이미지 ClearColor으로 렌더타겟 초기화
+	Context->ClearRenderTargetView(RTV.Get(), ClearColor.V);
+}
+
+
+void DX11DeviceContext::SwapBuffers()
+{
+	// 내가 지정한 hwnd에 다이렉트 랜더링 결과를 출력해라.
+	HRESULT Result = SwapChain->Present(0, 0);
+
+	//             디바이스가 랜더링 도중 삭제          디바이스가 리셋되었을경우
+	if (Result == DXGI_ERROR_DEVICE_REMOVED || Result == DXGI_ERROR_DEVICE_RESET)
+	{
+		MSGASSERT("해상도 변경이나 디바이스 관련 설정이 런타임 도중 수정되었습니다");
+		return;
+	}
+}
+
+
+

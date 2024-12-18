@@ -1,11 +1,10 @@
 #pragma once
 
-class FColor
+#include "EngineBase.h"
+
+class ENGINE_API FColor
 {
 public:
-	//static const FColor WHITE;
-	//static const FColor BLACK;
-
 	union
 	{
 		float V[4];
@@ -18,8 +17,15 @@ public:
 		};
 	};
 
+	FColor();
 	FColor(float _R, float _G, float _B, float _A);
 		
+
+	const static FColor WHITE;
+	const static FColor BLACK;
+	const static FColor RED;
+	const static FColor GREEN;
+	const static FColor BLUE;
 
 	//bool operator==(const FColor& _Other)
 	//{

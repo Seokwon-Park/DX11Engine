@@ -19,7 +19,7 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	template<typename ComponentType>
-	void CreateDefaultSubObject()
+	inline std::shared_ptr<ComponentType> CreateDefaultSubObject()
 	{
 		static_assert(std::is_base_of_v<UActorComponent, ComponentType>,
 			"액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
@@ -38,7 +38,6 @@ public:
 
 		if (std::is_base_of_v<USceneComponent, ComponentType>)
 		{
-			// 기하구조에 편입되어야 한다.
 			if (nullptr != RootComponent)
 			{
 				MSGASSERT("아직 기하구조를 만들지 않았습니다.");
@@ -48,7 +47,7 @@ public:
 		}
 		else if (std::is_base_of_v<UActorComponent, ComponentType>)
 		{
-
+			ActorComponentList.push_back(NewComponent);
 		}
 		else
 		{

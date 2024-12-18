@@ -19,9 +19,11 @@
     <ClCompile Include="Pawn.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="URendererComponent.cpp">
+    <ClCompile Include="RendererComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\DX11DeviceContext.cpp" />
+    <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -43,9 +45,11 @@
     <ClInclude Include="Pawn.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="URendererComponent.h">
+    <ClInclude Include="RendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\DX11DeviceContext.h" />
+    <ClInclude Include="Graphics\EngineDeviceContext.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

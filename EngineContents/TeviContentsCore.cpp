@@ -20,18 +20,12 @@ UTeviContentsCore::~UTeviContentsCore()
 
 void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 {
-	// mainwindow는 아무나 건들면 안된다.
-	// 넌 컨텐츠잖아 엔진이 관리하는 윈도우라는게 존재하는지도 몰라야한다.
-
+	// 윈도우 크기 지정
 	_Data.WindowPos = { 100, 100 };
 	_Data.WindowSize = { 1280, 720 };
 
-	std::shared_ptr<ULevel> Level = UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Titlelevel");
-	// UEngineCore::OpenLevel("Titlelevel");
-	//UEngineCore::OpenLevel("fasdfasdfasd");
-	//std::shared_ptr<ULevel> Level = UEngineCore::CreateLevel<>();
-
-	// 윈도우 크기 지정
+	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Titlelevel");
+	UEngineCore::OpenLevel("Titlelevel");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

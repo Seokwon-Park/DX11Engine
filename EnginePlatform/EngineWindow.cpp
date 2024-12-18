@@ -14,14 +14,13 @@ LRESULT CALLBACK UEngineWindow::WndProc(HWND _HWnd, UINT _Message, WPARAM _WPara
 	case WM_CREATE:
 		++WindowCount;
 		break;
-
 	case WM_PAINT:
 		break;
 	case WM_DESTROY:
 		--WindowCount;
 		if (0 >= WindowCount)
 		{
-			UEngineWindow::LoopActive = false;
+			LoopActive = false;
 		}
 		break;
 	default:
@@ -51,16 +50,15 @@ void UEngineWindow::EngineWindowInit(HINSTANCE _HInstance)
 	CreateWindowClass(wcex);
 }
 
-int UEngineWindow::WindowMessageLoop(std::function<void()> _StartFunction, std::function<void()> _FrameFunction, std::function<void()> _EndFunction)
+int UEngineWindow::WindowMessageLoop(std::function<void()> _InitFn, std::function<void()> _UpdateFn, std::function<void()> _ShutdownFn)
 {
-	MSG msg = MSG();
-
-	if (nullptr != _StartFunction)
+	MSG Message = MSG();
+	if (nullptr != _InitFn)
 	{
-		_StartFunction();
+		_InitFn();
 	}
 
-	if (nullptr == _FrameFunction)
+	if (nullptr == _UpdateFn)
 	{
 		MSGASSERT("업데이트 펑션이 바인드 되어 있지 않습니다.");
 		return 0;
@@ -68,21 +66,21 @@ int UEngineWindow::WindowMessageLoop(std::function<void()> _StartFunction, std::
 
 	while (true == LoopActive)
 	{
-		if (0 != PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		if (0 != PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
 		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+			TranslateMessage(&Message);
+			DispatchMessage(&Message);
 		}
 
-		_FrameFunction();
+		_UpdateFn();
 	}
 
-	if (nullptr != _EndFunction)
+	if (nullptr != _ShutdownFn)
 	{
-		_EndFunction();
+		_ShutdownFn();
 	}
 
-	return (int)msg.wParam;
+	return (int)Message.wParam;
 }
 
 void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _WNDClass)

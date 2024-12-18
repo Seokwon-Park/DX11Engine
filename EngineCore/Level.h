@@ -21,8 +21,8 @@ public:
 	//// 내가 교체 당했을때
 	//void LevelChangeEnd();
 
-
 	void Tick(float _DeltaTime);
+	void Render(float _DeltaTime);
 
 	template<typename ActorType>
 	std::shared_ptr<ActorType> SpawnActor()
@@ -34,6 +34,7 @@ public:
 			MSGASSERT("액터를 상속받지 않은 클래스를 SpawnActor하려고 했습니다.");
 			return nullptr;
 		}
+
 		ActorType* ActorMemory = new ActorType();
 		AActor* ActorPtr = reinterpret_cast<ActorType*>(ActorMemory);
 		ActorPtr->Level = this;
@@ -48,6 +49,8 @@ protected:
 private:
 	std::list<std::shared_ptr<class AActor>> BeginPlayList;
 	std::list<std::shared_ptr<class AActor>> AllActorList;
+
+	std::map<int, std::list<std::shared_ptr<class URendererComponent>>> Renderers;
 
 };
 

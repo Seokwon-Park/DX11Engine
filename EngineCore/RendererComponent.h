@@ -4,6 +4,7 @@
 // Ό³Έν :
 class URendererComponent
 {
+	friend class ULevel;
 public:
 	// constrcuter destructer
 	ENGINE_API URendererComponent();
@@ -18,7 +19,7 @@ public:
 	void SetOrder(int _Order);
 
 protected:
-	ENGINE_API void BeginPlay() override;
+	//ENGINE_API void BeginPlay() override;
 
 private:
 	virtual void Render(float _DeltaTime);

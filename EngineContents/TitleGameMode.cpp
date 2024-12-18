@@ -4,7 +4,6 @@
 
 ATitleGameMode::ATitleGameMode()
 {
-	GetLevel()->SpawnActor<ATitleLogo>();
 }
 
 ATitleGameMode::~ATitleGameMode()
@@ -19,4 +18,6 @@ void ATitleGameMode::Tick(float _DeltaTime)
 void ATitleGameMode::BeginPlay()
 {
 	AActor::BeginPlay();
+	GetLevel()->SpawnActor<ATitleLogo>();
+
 }

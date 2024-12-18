@@ -18,8 +18,8 @@ public:
 	inline std::string GetName() const { return Name; }
 	inline std::string_view GetNameView() const { return Name.c_str(); }
 	inline virtual void SetName(std::string_view _Name) { Name = _Name.data(); }
-	inline virtual bool IsActive() const { return IsActivated; }
-	inline void SetActive(bool _Value) { IsActivated = _Value; }
+	inline virtual bool IsActive() const { return bIsActive; }
+	inline void SetActive(bool _Value) { bIsActive = _Value; }
 
 	//virtual bool IsDestroy()
 	//{
@@ -92,7 +92,7 @@ protected:
 
 private:
 	//bool IsDestroyValue = false;
-	bool IsActivated = true;
+	bool bIsActive = true;
 
 	//bool IsDeathTimeCheck = false;
 	//float DeathTime = 0.0f;

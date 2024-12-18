@@ -34,6 +34,13 @@ ENGINE_API void EngineLogger::StartLogger()
 		fclose(PtrErr);
 	}
 
+	HWND hwnd = ::GetConsoleWindow();
+	if (hwnd != NULL)
+	{
+		HMENU hMenu = ::GetSystemMenu(hwnd, FALSE);
+		if (hMenu != NULL) DeleteMenu(hMenu, SC_CLOSE, MF_BYCOMMAND);
+	}
+
 	std::cout << "Start Engine Logger Successful.\n";
 }
 

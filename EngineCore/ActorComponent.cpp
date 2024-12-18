@@ -9,7 +9,7 @@ UActorComponent::~UActorComponent()
 {
 }
 
-std::shared_ptr<class AActor> UActorComponent::GetActor()
+std::shared_ptr<class AActor> UActorComponent::GetOwner()
 {
 	return Owner;
 }

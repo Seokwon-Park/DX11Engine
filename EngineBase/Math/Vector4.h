@@ -28,7 +28,6 @@ public:
 	static const FVector4 FORWARD;
 	static const FVector4 BACK;
 
-
 	FVector4();
 	FVector4(float _X, float _Y);
 	FVector4(float _X, float _Y, float _Z);

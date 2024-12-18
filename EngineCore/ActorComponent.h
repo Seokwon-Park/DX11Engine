@@ -3,6 +3,7 @@
 // Ό³Έν :
 class UActorComponent : public UObject
 {
+	friend class AActor;
 public:
 	// constrcuter destructer
 	UActorComponent();
@@ -14,8 +15,8 @@ public:
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
-	std::shared_ptr<class AActor> GetActor();
-	virtual void InitComponent() {}
+	std::shared_ptr<class AActor> GetOwner();
+	virtual void InitializeComponent() {}
 	virtual void BeginPlay() {}
 
 protected:

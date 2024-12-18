@@ -1,6 +1,8 @@
 #include "EnginePCH.h"
 #include "Level.h"
 #include "Actor.h"
+#include "RendererComponent.h"
+#include "EngineCore.h"
 
 ULevel::ULevel()
 {
@@ -30,9 +32,24 @@ void ULevel::Tick(float _DeltaTime)
 		AllActorList.push_back(CurActor);
 	}
 
-	// 절대 Ranged for안에서는 erase 리스트의 구조가 변경될 일을 하지 말라고 했ㅅ어요.
 	for (std::shared_ptr<AActor> CurActor : AllActorList)
 	{
 		CurActor->Tick(_DeltaTime);
 	}
+}
+
+void ULevel::Render(float _DeltaTime)
+{
+	UEngineCore::Device->ClearRenderTarget();
+
+	for (std::pair<const int, std::list<std::shared_ptr<URendererComponent>>>& RenderGroup : Renderers)
+	{
+		std::list<std::shared_ptr<URendererComponent>>& RenderList = RenderGroup.second;
+
+		for (std::shared_ptr<URendererComponent> Renderer : RenderList)
+		{
+			Renderer->Render(_DeltaTime);
+		}
+	}
+	UEngineCore::Device->SwapBuffers();
 }

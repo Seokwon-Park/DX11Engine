@@ -1,11 +1,10 @@
 #pragma once
 
-#define ENGINE_DLL_BUILD
-
 #ifdef _WIN64 
 	#include <Windows.h>
 #endif
 
+#include <map>
 #include <cmath>
 #include <string>
 #include <iostream>

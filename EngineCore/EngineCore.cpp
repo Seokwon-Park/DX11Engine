@@ -4,14 +4,16 @@
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
+#include "Graphics/DX11DeviceContext.h"
 
+
+UEngineDeviceContext* UEngineCore::Device;
 UEngineWindow UEngineCore::MainWindow;
 HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
 
 std::shared_ptr<class ULevel> UEngineCore::NextLevel;
 std::shared_ptr<class ULevel> UEngineCore::CurLevel = nullptr;
-std::map<std::string, std::shared_ptr<class ULevel>> UEngineCore::Levels;
 
 
 UEngineCore::UEngineCore()
@@ -20,22 +22,18 @@ UEngineCore::UEngineCore()
 
 UEngineCore::~UEngineCore()
 {
+
 }
 
-std::shared_ptr<ULevel> UEngineCore::NewLevelCreate(std::string_view _Name)
+void UEngineCore::AddLevel(std::string_view _Name, std::shared_ptr<ULevel> _Level)
 {
-	// 만들기만 하고 보관을 안하면 앤 그냥 지워집니다. <= 
+	if (true == Levels.contains(_Name.data()))
+	{
+		MSGASSERT("이미 존재하는 레벨 이름입니다." + std::string(_Name));
+		return;
+	}
 
-	// 만들면 맵에 넣어서 레퍼런스 카운트를 증가시킵니다.
-	// UObject의 기능이었습니다.
-	std::shared_ptr<ULevel> Ptr = std::make_shared<ULevel>();
-	Ptr->SetName(_Name);
-
-	Levels.insert({ _Name.data(), Ptr });
-
-	std::cout << "NewLevelCreate" << std::endl;
-
-	return Ptr;
+	Levels.insert({ _Name.data(), _Level });
 }
 
 void UEngineCore::OpenLevel(std::string_view _Name)
@@ -56,7 +54,7 @@ void UEngineCore::WindowInit(HINSTANCE _Instance)
 	MainWindow.Open("MainWindow");
 }
 
-void UEngineCore::LoadContents(std::string_view _DllName)
+void UEngineCore::LoadContentsDll(std::string_view _DllName)
 {
 	UEngineDirectory Dir;
 
@@ -73,7 +71,6 @@ void UEngineCore::LoadContents(std::string_view _DllName)
 	UEngineFile File = Dir.GetFile(_DllName);
 
 	std::string FullPath = File.ToString();
-	// 규칙이 생길수밖에 없다.
 	ContentsDLL = LoadLibraryA(FullPath.c_str());
 
 	if (nullptr == ContentsDLL)
@@ -82,7 +79,7 @@ void UEngineCore::LoadContents(std::string_view _DllName)
 		return;
 	}
 
-	INT_PTR(__stdcall * Ptr)(std::shared_ptr<IContentsCore>&) = (INT_PTR(__stdcall*)(std::shared_ptr<IContentsCore>&))GetProcAddress(ContentsDLL, "CreateContentsCore");
+	INT_PTR(__stdcall *Ptr)(std::shared_ptr<IContentsCore>&) = (INT_PTR(__stdcall*)(std::shared_ptr<IContentsCore>&))GetProcAddress(ContentsDLL, "CreateContentsCore");
 
 	if (nullptr == Ptr)
 	{
@@ -99,15 +96,10 @@ void UEngineCore::LoadContents(std::string_view _DllName)
 	}
 }
 
-void UEngineCore::Shutdown()
-{
-	Levels.clear();
-	EngineLogger::EndLogger();
-
-}
 
 void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 {
+	//_CrtSetBreakAlloc(265);
 	//메모리 누수 Check
 	UEngineDebug::LeakCheck();
 
@@ -115,16 +107,20 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 	WindowInit(_Instance);
 
 	//Contents DLL 로딩
-	LoadContents(_DllName);
+	LoadContentsDll(_DllName);
+
+	Device = new DX11DeviceContext();
 
 	//게임 루프 시작
 	UEngineWindow::WindowMessageLoop(
 		[]()
 		{
+			EngineLogger::StartLogger();
 			UEngineInitData Data;
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
-			EngineLogger::StartLogger();
+			Device->Init(MainWindow);
+			Device->SetClearColor(FColor::GREEN);
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{
@@ -139,10 +135,37 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		[]()
 		{
 			// 엔진이 돌아갈 때 하고 싶은것
+			EngineUpdate();
 		},
 		[]()
 		{
 			// 엔진이 끝났을 때 하고 싶은것.
-			Shutdown();
+			EngineShutdown();
+			delete Device;
 		});
+}
+
+void UEngineCore::EngineUpdate()
+{
+	if (nullptr != NextLevel)
+	{
+		if (nullptr != CurLevel)
+		{
+			//CurLevel->LevelChangeEnd();
+		}
+
+		CurLevel = NextLevel;
+
+		//CurLevel->LevelChangeStart();
+		NextLevel = nullptr;
+	}
+
+	CurLevel->Tick(0.0f);
+	CurLevel->Render(0.0f);
+}
+
+void UEngineCore::EngineShutdown()
+{
+	Levels.clear();
+	EngineLogger::EndLogger();
 }
