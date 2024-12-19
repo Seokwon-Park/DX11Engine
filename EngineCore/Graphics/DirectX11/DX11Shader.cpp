@@ -43,6 +43,7 @@ DX11Shader::DX11Shader(const std::string& filepath)
 	assert(SUCCEEDED(hResult));
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> InputLayOutData;
+
 	{
 		D3D11_INPUT_ELEMENT_DESC Desc;
 		Desc.SemanticName = "POSITION";
@@ -50,7 +51,7 @@ DX11Shader::DX11Shader(const std::string& filepath)
 		Desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		Desc.InputSlot = 0;
 		Desc.AlignedByteOffset = 0;
-		Desc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		Desc.InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
 		Desc.InstanceDataStepRate = 0;
 		InputLayOutData.push_back(Desc);
 	}
@@ -62,25 +63,24 @@ DX11Shader::DX11Shader(const std::string& filepath)
 		Desc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		Desc.InputSlot = 0;
 		Desc.AlignedByteOffset = 16;
-		Desc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+		Desc.InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
 		Desc.InstanceDataStepRate = 0;
 
 		// 인스턴싱을 설명할때 이야기 하겠습니다.
 		InputLayOutData.push_back(Desc);
 	}
 
-
-
 	// 쉐이더에서 어떤 인풋레이아웃을 사용하는지 알려줘.
 	HRESULT Result = DeviceContext->GetDevice()->CreateInputLayout(
 		&InputLayOutData[0],
-		static_cast<unsigned int>(InputLayOutData.size()),
+		InputLayOutData.size(),
 		vsBlob->GetBufferPointer(),
 		vsBlob->GetBufferSize(),
-		InputLayout.GetAddressOf());
+		&InputLayout);
 
 	if (S_OK != Result)
 	{
+		std::cerr << "CreateInputLayout failed with HRESULT: " << std::hex << Result << std::endl;
 		MSGASSERT("인풋 레이아웃 생성에 실패했습니다");
 	}
 	//DeviceContext->GetDevice()->CreateInputLayout(DeviceContext->GetInputElements().data(), UINT(DeviceContext->GetInputElements().size()),

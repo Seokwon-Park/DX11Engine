@@ -33,6 +33,8 @@ void URendererComponent::Render(float _DeltaTime)
 	Vertices[3] = Vertex{ FVector4(0.5f, 0.5f, -0.5f), {} };
 	Vertices[4] = Vertex{ FVector4(0.5f, -0.5f, -0.5f), {} };
 	Vertices[5] = Vertex{ FVector4(-0.5f, -0.5f, -0.5f), {} };
-	VertexBuffer::Create(Vertices, sizeof(Vertex)*6, 6);
-	EngineShader::Create("");
+	std::shared_ptr<VertexBuffer> Buffer = VertexBuffer::Create(Vertices, sizeof(Vertex)*6, 6);
+	Buffer->Bind();
+	std::shared_ptr<EngineShader> Shader = EngineShader::Create("");
+	Shader->Bind();
 }
