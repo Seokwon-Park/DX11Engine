@@ -15,4 +15,5 @@ void APlayer::Tick(float _DeltaTime)
 }
 void APlayer::BeginPlay()
 {
+
 }

@@ -5,11 +5,7 @@
 #include "Level.h"
 #include "IContentsCore.h"
 
-enum class RenderAPI
-{
-	DirectX11,
-	None
-};
+
 
 // Ό³Έν :
 class UEngineCore
@@ -39,7 +35,7 @@ public:
 
 	ENGINE_API static void OpenLevel(std::string_view _Name);
 
-	ENGINE_API static UEngineDeviceContext* Device;
+	ENGINE_API static UEngineDeviceContext* GraphicsDevice;
 protected:
 
 private:

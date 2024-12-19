@@ -156,7 +156,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Graphics\DirectX11\DX11Buffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
+    <ClInclude Include="Graphics\DirectX11\DX11Shader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Graphics\EngineDeviceContext.h" />
     <ClInclude Include="GameMode.h">
       <SubType>
@@ -167,7 +175,11 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EnginePCH.h" />
-    <ClInclude Include="Graphics\VertexBuffer.h">
+    <ClInclude Include="Graphics\EngineBuffer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Graphics\EngineShader.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -198,7 +210,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Graphics\DirectX11\DX11Buffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
+    <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
     <ClCompile Include="GameMode.cpp">
       <SubType>
@@ -212,7 +232,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Graphics\VertexBuffer.cpp">
+    <ClCompile Include="Graphics\EngineBuffer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Graphics\EngineShader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -240,6 +264,9 @@
     <ProjectReference Include="..\EnginePlatform\EnginePlatform.vcxproj">
       <Project>{be572462-9c30-47f3-8ee8-ef2bf2396314}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

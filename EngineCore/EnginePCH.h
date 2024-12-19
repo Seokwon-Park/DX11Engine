@@ -14,3 +14,4 @@
 // 이녀석이 그 함수들을 가지고 있다.
 #pragma comment(lib, "DXGI") 
 
+using namespace Microsoft::WRL;

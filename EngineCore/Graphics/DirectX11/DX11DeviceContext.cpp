@@ -46,7 +46,7 @@ void DX11DeviceContext::Init(const UEngineWindow& _Window)
 		nullptr, // 특정 단계를 내가 짠 코드로 대체
 		DeviceFlag,
 		nullptr, // 강제레벨 지정 11로 만들거니까. 배열을 넣어줄수
-		0, // 내가 지정한 팩처레벨 개수
+		0, // 내가 지정한 feature 레벨 개수
 		D3D11_SDK_VERSION, // 현재 다이렉트x sdk 버전
 		&ResultDevice,
 		&ResultLevel,
@@ -92,31 +92,23 @@ void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	SwapChinDesc.BufferDesc.RefreshRate.Numerator = 60;
 
 	SwapChinDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-
-	// 모니터나 윈도우에 픽셀이 갱신되는 순서를 어떻게 
-	// 그냥 제일 빠른걸로 해줘
 	SwapChinDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	// 진짜 기억안남 아예 
 	SwapChinDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
 	SwapChinDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT | DXGI_USAGE_SHADER_INPUT;
 
-	//MSAA Sampling
 	SwapChinDesc.SampleDesc.Quality = 0;
-	// 점 개수도 1개면 충분하다.
 	SwapChinDesc.SampleDesc.Count = 1;
 
-	// 버퍼 n개 만들었네?
-	// n개의 버퍼에 대한 
 	SwapChinDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
-	// 전혀 기억안남
 	SwapChinDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
 	IDXGIFactory* pF = nullptr;
 
 	// 날 만든 팩토리를 얻어올수 있다.
-	Adapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&pF));
+	Adapter->GetParent(IID_PPV_ARGS(&pF));
 
+	
 	// IUnknown* pDevice,
 	// DXGI_SWAP_CHAIN_DESC* pDesc,
 	// IDXGISwapChain** ppSwapChain
@@ -132,20 +124,12 @@ void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	}
 
 	BackBufferTexture = nullptr;
-	if (S_OK != SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>
-		(BackBufferTexture.GetAddressOf())))
+	if (FAILED(SwapChain->GetBuffer(0, IID_PPV_ARGS(&BackBufferTexture))))
 	{
 		MSGASSERT("백버퍼 텍스처를 얻어오는데 실패했습니다.");
-	};
+	}
 
-	// id3d11texture2d* 이녀석 만으로는 할수 있는게 많이 없습니다.
-	// 애는 이미지의 2차원 데이터를 나타낼뿐 수정권한은 없기 때문입니다.
-	// 이미지를 수정하거나 사용할수 있는 권한을 id3d11texture2d*을 얻어내야 합니다.
-	// WINAPI에서 HDC 얻어내는 것처럼 id3d11texture2d* 수정권한인
-	// 텍스처에서 만들어내야 합니다.
-
-	//                             HBITMAP                       HDC
-	if (S_OK != Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, &RTV))
+	if (FAILED(Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, &RTV)))
 	{
 		MSGASSERT("텍스처 수정권한 획득에 실패했습니다");
 	}
@@ -157,7 +141,7 @@ IDXGIAdapter* DX11DeviceContext::GetHighPerFormanceAdapter()
 	IDXGIFactory* Factory = nullptr;
 	IDXGIAdapter* Adapter = nullptr;
 
-	HRESULT HR = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&Factory));
+	HRESULT HR = CreateDXGIFactory(IID_PPV_ARGS(&Factory));
 
 	if (nullptr == Factory)
 	{

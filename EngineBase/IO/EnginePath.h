@@ -19,7 +19,7 @@ public:
 
 	inline std::filesystem::path GetPath() const { return Path; };
 	BASE_API std::string ToString();
-	std::string GetPathName();
+	BASE_API std::string GetPathName();
 	std::string GetFileExtension();
 	bool IsFile();
 	bool IsExists();

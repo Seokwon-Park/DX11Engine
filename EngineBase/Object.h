@@ -21,6 +21,11 @@ public:
 	inline virtual bool IsActive() const { return bIsActive; }
 	inline void SetActive(bool _Value) { bIsActive = _Value; }
 
+	template<typename ChildPtrType>
+	std::shared_ptr<ChildPtrType> GetThis()
+	{
+		return std::static_pointer_cast<ChildPtrType>(shared_from_this());
+	}
 	//virtual bool IsDestroy()
 	//{
 	//	return IsDestroyValue;

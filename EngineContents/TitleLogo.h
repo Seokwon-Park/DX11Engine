@@ -1,5 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
+#include <EngineCore/RendererComponent.h>
+
 
 // Ό³Έν :
 class ATitleLogo : public AActor
@@ -20,6 +22,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	std::shared_ptr<URendererComponent> Test;
 
 };
 

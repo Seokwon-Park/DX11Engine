@@ -15,14 +15,14 @@ public:
 	UActorComponent& operator=(const UActorComponent& _Other) = delete;
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
-	std::shared_ptr<class AActor> GetOwner();
+	class AActor* GetOwner();
 	virtual void InitializeComponent() {}
 	virtual void BeginPlay() {}
 
 protected:
 
 private:
-	std::shared_ptr<AActor> Owner;
+	AActor* Owner;
 
 };
 

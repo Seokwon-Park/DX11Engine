@@ -40,7 +40,7 @@ void ULevel::Tick(float _DeltaTime)
 
 void ULevel::Render(float _DeltaTime)
 {
-	UEngineCore::Device->ClearRenderTarget();
+	UEngineCore::GraphicsDevice->ClearRenderTarget();
 
 	for (std::pair<const int, std::list<std::shared_ptr<URendererComponent>>>& RenderGroup : Renderers)
 	{
@@ -51,5 +51,10 @@ void ULevel::Render(float _DeltaTime)
 			Renderer->Render(_DeltaTime);
 		}
 	}
-	UEngineCore::Device->SwapBuffers();
+	UEngineCore::GraphicsDevice->SwapBuffers();
+}
+
+void ULevel::PushRenderer(std::shared_ptr<class URendererComponent> _Renderer)
+{
+	Renderers[0].push_back(_Renderer);
 }

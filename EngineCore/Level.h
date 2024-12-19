@@ -24,6 +24,8 @@ public:
 	void Tick(float _DeltaTime);
 	void Render(float _DeltaTime);
 
+	void PushRenderer(std::shared_ptr<class URendererComponent> _Renderer);
+
 	template<typename ActorType>
 	std::shared_ptr<ActorType> SpawnActor()
 	{

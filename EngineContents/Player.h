@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/Pawn.h>
+#include <EngineCore/RendererComponent.h>
 
 // Ό³Έν :
 class APlayer : public APawn
@@ -20,6 +21,5 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-
 };
 

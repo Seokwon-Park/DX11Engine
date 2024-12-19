@@ -31,8 +31,8 @@ public:
 		}
 
 		ComponentType* ComponentPtr = new ComponentType();
-		UActorComponent* Temp = reinterpret_cast<UActorComponent>(ComponentPtr);
-		ComponentPtr->Actor = this;
+		UActorComponent* Temp = reinterpret_cast<UActorComponent*>(ComponentPtr);
+		Temp->Owner = this;
 
 		std::shared_ptr<ComponentType> NewComponent(ComponentPtr);
 

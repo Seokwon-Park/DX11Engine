@@ -7,7 +7,7 @@
 #include "Graphics/DirectX11/DX11DeviceContext.h"
 
 
-UEngineDeviceContext* UEngineCore::Device;
+UEngineDeviceContext* UEngineCore::GraphicsDevice;
 UEngineWindow UEngineCore::MainWindow;
 HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
@@ -109,7 +109,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 	//Contents DLL 로딩
 	LoadContentsDll(_DllName);
 
-	Device = new DX11DeviceContext();
+	GraphicsDevice = new DX11DeviceContext();
 
 	//게임 루프 시작
 	UEngineWindow::WindowMessageLoop(
@@ -119,8 +119,9 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			UEngineInitData Data;
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
-			Device->Init(MainWindow);
-			Device->SetClearColor(FColor::WHITE);
+			GraphicsDevice->Init(MainWindow);
+			GraphicsDevice->SetClearColor(FColor::BLACK);
+			GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{
@@ -141,7 +142,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		{
 			// 엔진이 끝났을 때 하고 싶은것.
 			EngineShutdown();
-			delete Device;
+			delete GraphicsDevice;
 		});
 }
 

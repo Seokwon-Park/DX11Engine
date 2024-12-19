@@ -24,7 +24,10 @@
     </ClCompile>
     <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
     <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
-    <ClCompile Include="Graphics\VertexBuffer.cpp" />
+    <ClCompile Include="Graphics\EngineBuffer.cpp" />
+    <ClCompile Include="Graphics\DirectX11\DX11Buffer.cpp" />
+    <ClCompile Include="Graphics\EngineShader.cpp" />
+    <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -51,7 +54,10 @@
     </ClInclude>
     <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
     <ClInclude Include="Graphics\EngineDeviceContext.h" />
-    <ClInclude Include="Graphics\VertexBuffer.h" />
+    <ClInclude Include="Graphics\EngineBuffer.h" />
+    <ClInclude Include="Graphics\DirectX11\DX11Buffer.h" />
+    <ClInclude Include="Graphics\EngineShader.h" />
+    <ClInclude Include="Graphics\DirectX11\DX11Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -60,5 +66,8 @@
     <Filter Include="Actor">
       <UniqueIdentifier>{08c3456d-1a1d-464a-90d9-5cb53ad355bc}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Graphics\Shaders\SpriteShader.hlsl" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,5 @@
 #pragma once
 
-
-
-using namespace Microsoft::WRL;
-
 // 설명 :
 class DX11DeviceContext : public UEngineDeviceContext
 {
@@ -23,6 +19,8 @@ public:
 	virtual void SwapBuffers()override;
 
 	void CreateSwapChain(const UEngineWindow& _Window);
+	ID3D11Device* GetDevice() const { return Device.Get(); }
+	ID3D11DeviceContext* GetContext() const { return Context.Get(); }
 
 	// Adapter 그래픽카드의 정보를 가지고 있는 인터페이스
 	IDXGIAdapter* GetHighPerFormanceAdapter();
