@@ -13,8 +13,8 @@ DX11VertexBuffer::DX11VertexBuffer(uint32 _DataSize, uint32 _VertexSize)
 	Desc.Usage = D3D11_USAGE_DYNAMIC;
 	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	Desc.MiscFlags = 0;
-	Desc.StructureByteStride = 0; // 구조적 버퍼에서만 필요함.
+	//Desc.MiscFlags = 0;
+	Desc.StructureByteStride = sizeof(Vertex); // 구조적 버퍼에서만 필요함.
 
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 	DeviceContext->GetDevice()->CreateBuffer(&Desc, nullptr, Buffer.GetAddressOf());
@@ -22,15 +22,15 @@ DX11VertexBuffer::DX11VertexBuffer(uint32 _DataSize, uint32 _VertexSize)
 
 DX11VertexBuffer::DX11VertexBuffer(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount)
 {
-	Stride = _DataSize/_VertexCount;
+	Stride = _DataSize / _VertexCount;
 	D3D11_BUFFER_DESC Desc;
 	ZeroMemory(&Desc, sizeof(D3D11_BUFFER_DESC));
 	Desc.ByteWidth = _DataSize;
 	Desc.Usage = D3D11_USAGE_IMMUTABLE;
 	Desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	Desc.CPUAccessFlags = 0;
-	Desc.MiscFlags = 0;
-	Desc.StructureByteStride = 0;
+	//Desc.MiscFlags = 0;
+	Desc.StructureByteStride = sizeof(Vertex);
 
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 
@@ -39,7 +39,7 @@ DX11VertexBuffer::DX11VertexBuffer(std::vector<Vertex>& _Vertices, uint32 _DataS
 	VerticesData.SysMemPitch = 0;
 	VerticesData.SysMemSlicePitch = 0;
 
-	DeviceContext->GetDevice()->CreateBuffer(&Desc, &VerticesData, Buffer.GetAddressOf());
+	assert(SUCCEEDED(DeviceContext->GetDevice()->CreateBuffer(&Desc, &VerticesData, Buffer.GetAddressOf())));
 }
 
 DX11VertexBuffer::~DX11VertexBuffer()
@@ -53,14 +53,35 @@ void DX11VertexBuffer::Bind() const
 	DeviceContext->GetContext()->IASetVertexBuffers(0, 1, Buffer.GetAddressOf(), &Stride, &Offset);
 }
 
-DX11IndexBuffer::DX11IndexBuffer(uint32 _DataSize, uint32 _VertexSize)
+DX11IndexBuffer::DX11IndexBuffer(std::vector<uint32>& _Indices, uint32 _IndexCount)
 {
-}
+	Buffer.Reset();
+	D3D11_BUFFER_DESC Desc = {};
+	ZeroMemory(&Desc, sizeof(D3D11_BUFFER_DESC));
+	Desc.ByteWidth = sizeof(uint32_t) * _IndexCount;
+	Desc.Usage = D3D11_USAGE_IMMUTABLE; // 초기화 후 변경X
+	Desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	Desc.CPUAccessFlags = 0; // 0 if no CPU access is necessary.
+	Desc.MiscFlags = 0;
+	Desc.StructureByteStride = 4;
 
-DX11IndexBuffer::DX11IndexBuffer(float* _Vertices, uint32 _DataSize, uint32 _VertexCount)
-{
+	D3D11_SUBRESOURCE_DATA indexBufferData = { 0 };
+	indexBufferData.pSysMem = _Indices.data();
+	indexBufferData.SysMemPitch = 0;
+	indexBufferData.SysMemSlicePitch = 0;
+
+	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
+
+	DeviceContext->GetDevice()->CreateBuffer(&Desc, &indexBufferData, Buffer.GetAddressOf());
 }
 
 DX11IndexBuffer::~DX11IndexBuffer()
 {
+
+}
+
+void DX11IndexBuffer::Bind() const
+{
+	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
+	DeviceContext->GetContext()->IASetIndexBuffer(Buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 }

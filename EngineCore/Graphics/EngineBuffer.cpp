@@ -45,3 +45,16 @@ IndexBuffer::IndexBuffer()
 IndexBuffer::~IndexBuffer()
 {
 }
+
+ENGINE_API std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<uint32> _Indices, uint32 _IndexCount)
+{
+	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	{
+	case ERendererAPI::DirectX11:
+		return std::make_shared<DX11IndexBuffer>(_Indices, _IndexCount);
+	case ERendererAPI::None:
+		return nullptr;
+	default:
+		return nullptr;
+	}
+}

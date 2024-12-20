@@ -5,7 +5,7 @@
 #include <EngineBase/EngineIO.h>
 #include <EngineBase/EngineString.h>
 
-DX11Shader::DX11Shader(const std::string& filepath)
+DX11Shader::DX11Shader(const std::string& _FilePath)
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 
@@ -16,31 +16,31 @@ DX11Shader::DX11Shader(const std::string& filepath)
 	UEngineFile File = CurDir.GetFile("SpriteShader.hlsl");
 	//CreateSamplerState();
 
-	UINT compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+	UINT CompilerFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 
 	std::wstring FilePath = UEngineString::ToWString(File.ToString());
-	ComPtr<ID3DBlob> vsBlob;
-	ComPtr<ID3DBlob> shaderCompileErrorsBlob;
-	HRESULT hResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, "vs_main", "vs_5_0", compileFlags, 0, &vsBlob, &shaderCompileErrorsBlob);
-	if (FAILED(hResult))
+	ComPtr<ID3DBlob> VertexShaderBlob;
+	ComPtr<ID3DBlob> ShaderCompileErrorsBlob;
+	HRESULT HResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, "vs_main", "vs_5_0", CompilerFlags, 0, &VertexShaderBlob, &ShaderCompileErrorsBlob);
+	if (FAILED(HResult))
 	{
-		const char* errorString = NULL;
-		if (hResult == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
-			errorString = "Could not compile shader; file not found";
-		else if (shaderCompileErrorsBlob) {
-			errorString = (const char*)shaderCompileErrorsBlob->GetBufferPointer();
-			shaderCompileErrorsBlob->Release();
+		const char* ErrorString = NULL;
+		if (HResult == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+			ErrorString = "Could not compile shader; file not found";
+		else if (ShaderCompileErrorsBlob) {
+			ErrorString = (const char*)ShaderCompileErrorsBlob->GetBufferPointer();
+			ShaderCompileErrorsBlob->Release();
 		}
-		MessageBoxA(0, errorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
+		MessageBoxA(0, ErrorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
 		return;
 	}
-	hResult = DeviceContext->GetDevice()->
+	HResult = DeviceContext->GetDevice()->
 		CreateVertexShader(
-			vsBlob->GetBufferPointer(),
-			vsBlob->GetBufferSize(),
+			VertexShaderBlob->GetBufferPointer(),
+			VertexShaderBlob->GetBufferSize(),
 			nullptr,
 			VertexShader.GetAddressOf());
-	assert(SUCCEEDED(hResult));
+	assert(SUCCEEDED(HResult));
 
 	std::vector<D3D11_INPUT_ELEMENT_DESC> InputLayOutData;
 	{
@@ -64,54 +64,48 @@ DX11Shader::DX11Shader(const std::string& filepath)
 		Desc.AlignedByteOffset = 16;
 		Desc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 		Desc.InstanceDataStepRate = 0;
-
-		// 인스턴싱을 설명할때 이야기 하겠습니다.
 		InputLayOutData.push_back(Desc);
 	}
-
 
 
 	// 쉐이더에서 어떤 인풋레이아웃을 사용하는지 알려줘.
 	HRESULT Result = DeviceContext->GetDevice()->CreateInputLayout(
 		&InputLayOutData[0],
 		static_cast<unsigned int>(InputLayOutData.size()),
-		vsBlob->GetBufferPointer(),
-		vsBlob->GetBufferSize(),
+		VertexShaderBlob->GetBufferPointer(),
+		VertexShaderBlob->GetBufferSize(),
 		InputLayout.GetAddressOf());
 
 	if (S_OK != Result)
 	{
 		MSGASSERT("인풋 레이아웃 생성에 실패했습니다");
 	}
-	//DeviceContext->GetDevice()->CreateInputLayout(DeviceContext->GetInputElements().data(), UINT(DeviceContext->GetInputElements().size()),
-	//	vsBlob->GetBufferPointer(), vsBlob->GetBufferSize(),
-	//	&InputLayout);
-
+	
 	// Create Pixel Shader
-	ID3DBlob* psBlob;
-	hResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, "ps_main", "ps_5_0", compileFlags, 0, &psBlob, &shaderCompileErrorsBlob);
-	if (FAILED(hResult))
+	ID3DBlob* PixelShaderBlob;
+	HResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, "ps_main", "ps_5_0", CompilerFlags, 0, &PixelShaderBlob, &ShaderCompileErrorsBlob);
+	if (FAILED(HResult))
 	{
-		const char* errorString = NULL;
-		if (hResult == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
-			errorString = "Could not compile shader; file not found";
-		else if (shaderCompileErrorsBlob) {
-			errorString = (const char*)shaderCompileErrorsBlob->GetBufferPointer();
-			shaderCompileErrorsBlob->Release();
+		const char* ErrorString = NULL;
+		if (HResult == HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND))
+			ErrorString = "Could not compile shader; file not found";
+		else if (ShaderCompileErrorsBlob) {
+			ErrorString = (const char*)ShaderCompileErrorsBlob->GetBufferPointer();
+			ShaderCompileErrorsBlob->Release();
 		}
-		MessageBoxA(0, errorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
+		MessageBoxA(0, ErrorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
 		return;
 	}
 
-	hResult = DeviceContext->GetDevice()->
+	HResult = DeviceContext->GetDevice()->
 		CreatePixelShader(
-			psBlob->GetBufferPointer(),
-			psBlob->GetBufferSize(),
+			PixelShaderBlob->GetBufferPointer(),
+			PixelShaderBlob->GetBufferSize(),
 			nullptr,
 			&PixelShader);
-	assert(SUCCEEDED(hResult));
-	vsBlob->Release();
-	psBlob->Release();
+	assert(SUCCEEDED(HResult));
+	VertexShaderBlob->Release();
+	PixelShaderBlob->Release();
 }
 
 DX11Shader::~DX11Shader()

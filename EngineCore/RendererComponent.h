@@ -23,6 +23,9 @@ protected:
 
 private:
 	virtual void Render(float _DeltaTime);
+	std::shared_ptr<class VertexBuffer> Test;
+	std::shared_ptr<class IndexBuffer> Test2;
+	std::shared_ptr<class EngineShader> Test3;
 
 
 };

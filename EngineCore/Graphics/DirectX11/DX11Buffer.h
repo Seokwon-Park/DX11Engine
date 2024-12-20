@@ -22,7 +22,7 @@ protected:
 private:
 	ComPtr<ID3D11Buffer> Buffer; // DirectX 11 ¹öÆÛ °´Ã¼
 	uint32 Stride;
-	uint32 Offset;
+	uint32 Offset = 0;
 };
 
 // ¼³¸í :
@@ -30,8 +30,7 @@ class DX11IndexBuffer : public IndexBuffer
 {
 public:
 	// constrcuter destructer
-	DX11IndexBuffer(uint32 _DataSize, uint32 _VertexSize);
-	DX11IndexBuffer(float* _Vertices, uint32 _DataSize, uint32 _VertexCount);
+	DX11IndexBuffer(std::vector<uint32>& _Indices, uint32 _IndexCount);
 	~DX11IndexBuffer();
 
 	// delete Function
@@ -40,11 +39,11 @@ public:
 	DX11IndexBuffer& operator=(const DX11IndexBuffer& _Other) = delete;
 	DX11IndexBuffer& operator=(DX11IndexBuffer&& _Other) noexcept = delete;
 
-	virtual void Bind() const override {};
+	virtual void Bind() const override;
 protected:
 
 private:
 	ComPtr<ID3D11Buffer> Buffer; // DirectX 11 ¹öÆÛ °´Ã¼
-	size_t VertexSize;
-	size_t VertexCount;
+	//size_t VertexSize;
+	//size_t VertexCount;
 };

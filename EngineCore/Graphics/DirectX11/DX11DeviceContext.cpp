@@ -75,6 +75,7 @@ void DX11DeviceContext::Init(const UEngineWindow& _Window)
 	}
 
 	CreateSwapChain(_Window);
+	CreateRasterizer();
 }
 void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 {
@@ -103,19 +104,12 @@ void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	SwapChinDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 	SwapChinDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
-	IDXGIFactory* pF = nullptr;
+	IDXGIFactory* FactoryPtr = nullptr;
 
-	// 날 만든 팩토리를 얻어올수 있다.
-	Adapter->GetParent(IID_PPV_ARGS(&pF));
+	Adapter->GetParent(IID_PPV_ARGS(&FactoryPtr));
 
-	
-	// IUnknown* pDevice,
-	// DXGI_SWAP_CHAIN_DESC* pDesc,
-	// IDXGISwapChain** ppSwapChain
-
-	pF->CreateSwapChain(Device.Get(), &SwapChinDesc, SwapChain.GetAddressOf());
-
-	pF->Release();
+	FactoryPtr->CreateSwapChain(Device.Get(), &SwapChinDesc, SwapChain.GetAddressOf());
+	FactoryPtr->Release();
 	Adapter->Release();
 
 	if (nullptr == SwapChain)
@@ -135,6 +129,47 @@ void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	}
 
 }
+
+void DX11DeviceContext::CreateRasterizer()
+{
+	D3D11_RASTERIZER_DESC Desc;
+	ZeroMemory(&Desc, sizeof(D3D11_RASTERIZER_DESC));
+
+	Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+	Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+	//Desc.FrontCounterClockwise;
+	//Desc.DepthBias;
+	//Desc.DepthBiasClamp;
+	//Desc.SlopeScaledDepthBias;
+	//Desc.DepthClipEnable;
+	//Desc.ScissorEnable;
+	//Desc.MultisampleEnable;
+	//Desc.AntialiasedLineEnable;
+
+	GetDevice()->CreateRasterizerState(&Desc, RasterizerState.GetAddressOf());
+	
+	Viewport.Height = 720.0f;
+	Viewport.Width = 1280.0f;
+	Viewport.TopLeftX = 0.0f;
+	Viewport.TopLeftY = 0.0f;
+	Viewport.MinDepth = 0.0f;
+	Viewport.MaxDepth = 1.0f;
+
+	GetContext()->RSSetViewports(1, &Viewport);
+	GetContext()->RSSetState(RasterizerState.Get());
+}
+
+void DX11DeviceContext::DrawCall()
+{
+	ID3D11RenderTargetView* ArrRtv[16] = { 0 };
+	ArrRtv[0] = RTV.Get(); // SV_Target0
+
+	GetContext()->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
+	GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	GetContext()->DrawIndexed(6, 0, 0);
+}
+
+
 
 IDXGIAdapter* DX11DeviceContext::GetHighPerFormanceAdapter()
 {
@@ -176,6 +211,7 @@ IDXGIAdapter* DX11DeviceContext::GetHighPerFormanceAdapter()
 
 	return Adapter;
 }
+
 
 
 

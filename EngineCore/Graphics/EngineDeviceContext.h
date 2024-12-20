@@ -21,8 +21,11 @@ public:
 	ENGINE_API virtual void SwapBuffers();
 	ENGINE_API inline void SetClearColor(FColor _Color) { ClearColor = _Color; }
 
+	ENGINE_API virtual void DrawCall() = 0;
 	ENGINE_API inline void SetRendererAPI(ERendererAPI _API) { API = _API; }
 	ENGINE_API inline ERendererAPI GetRendererAPI() { return API;  }
+
+	virtual inline UEngineDeviceContext* Get() = 0;
 protected:
 	ERendererAPI API;
 	FColor ClearColor;

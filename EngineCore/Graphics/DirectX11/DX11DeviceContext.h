@@ -19,8 +19,13 @@ public:
 	virtual void SwapBuffers()override;
 
 	void CreateSwapChain(const UEngineWindow& _Window);
+	void CreateRasterizer();
+	void DrawCall();
 	ID3D11Device* GetDevice() const { return Device.Get(); }
 	ID3D11DeviceContext* GetContext() const { return Context.Get(); }
+
+	// UEngineDeviceContext을(를) 통해 상속됨
+	inline virtual DX11DeviceContext* Get() override { return this; }
 
 	// Adapter 그래픽카드의 정보를 가지고 있는 인터페이스
 	IDXGIAdapter* GetHighPerFormanceAdapter();
@@ -38,8 +43,14 @@ private:
 	ComPtr<ID3D11Texture2D> BackBufferTexture = nullptr;
 	ComPtr<ID3D11RenderTargetView> RTV = nullptr;
 
+	ComPtr<ID3D11RasterizerState> RasterizerState = nullptr;
+	D3D11_VIEWPORT Viewport;
+
+
 
 	// Inherited via UEngineDeviceContext
+
+
 
 
 };

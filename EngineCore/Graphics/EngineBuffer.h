@@ -44,8 +44,7 @@ public:
 
 	virtual void Bind() const = 0;
 
-	ENGINE_API std::shared_ptr<IndexBuffer> Create(uint32 _Size, uint32 _VertexSize);
-	ENGINE_API std::shared_ptr<IndexBuffer> Create(float* _Vertices, uint32 _Size, uint32 _Count);
+	ENGINE_API static std::shared_ptr<IndexBuffer> Create(std::vector<uint32> _Indices, uint32 _IndexCount);
 protected:
 private:
 
