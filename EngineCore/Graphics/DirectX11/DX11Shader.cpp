@@ -68,7 +68,6 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 		InputLayOutData.push_back(Desc);
 	}
 
-<<<<<<< HEAD
 
 	// 쉐이더에서 어떤 인풋레이아웃을 사용하는지 알려줘.
 	HRESULT Result = DeviceContext->GetDevice()->CreateInputLayout(
@@ -77,15 +76,6 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 		VertexShaderBlob->GetBufferPointer(),
 		VertexShaderBlob->GetBufferSize(),
 		InputLayout.GetAddressOf());
-=======
-	// 쉐이더에서 어떤 인풋레이아웃을 사용하는지 알려줘.
-	HRESULT Result = DeviceContext->GetDevice()->CreateInputLayout(
-		&InputLayOutData[0],
-		InputLayOutData.size(),
-		vsBlob->GetBufferPointer(),
-		vsBlob->GetBufferSize(),
-		&InputLayout);
->>>>>>> 59ac2f97383e839d272725f1a70258eafd232c81
 
 	if (S_OK != Result)
 	{
@@ -94,7 +84,7 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 	}
 	
 	// Create Pixel Shader
-	ID3DBlob* PixelShaderBlob;
+	ComPtr<ID3DBlob> PixelShaderBlob;
 	HResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, "ps_main", "ps_5_0", CompilerFlags, 0, &PixelShaderBlob, &ShaderCompileErrorsBlob);
 	if (FAILED(HResult))
 	{
@@ -116,8 +106,6 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 			nullptr,
 			&PixelShader);
 	assert(SUCCEEDED(HResult));
-	VertexShaderBlob->Release();
-	PixelShaderBlob->Release();
 }
 
 DX11Shader::~DX11Shader()

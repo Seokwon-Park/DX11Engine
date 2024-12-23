@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EngineBase/EngineBase.h"
+#include <DirectXMath.h>
 #include <ostream>
 
 //float4 Vector
@@ -17,6 +18,7 @@ public:
 			float W;
 		};
 		float V[4];
+		DirectX::XMFLOAT4A XMFloat;
 	};
 
 	//Left handed
@@ -47,7 +49,6 @@ public:
 
 	//operators
 	static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector);
-
 
 	FVector4 operator+(const FVector4& _Other) const;
 	FVector4 operator-() const;

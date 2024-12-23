@@ -2,6 +2,8 @@
 
 #include "Vector4.h"
 
+#include <DirectXMath.h>
+
 //float4x4 Matrix
 class BASE_API FMatrix
 {
@@ -11,6 +13,7 @@ public:
 		float Array2D[4][4];
 		float Array1D[16];
 		FVector4 Rows[4];
+		DirectX::XMMATRIX Mat;
 
 		struct
 		{
@@ -38,11 +41,12 @@ public:
 	void MatrixIdentity();
 	void MatrixTranspose();
 
-	void MatrixScaling();
-	void MatrixRotationX();
-	void MatrixRotationY();
-	void MatrixRotationZ();
-	void MatrixTranslation();
+	void MatrixScaling(FVector4 _Scale);
+	void MatrixRotation(FVector4 _Rotation);
+	void MatrixRotationX(float _Radian);
+	void MatrixRotationY(float _Radian);
+	void MatrixRotationZ(float _Radian);
+	void MatrixTranslation(FVector4 _Translate);
 
 	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FMatrix& _Matrix)
 	{

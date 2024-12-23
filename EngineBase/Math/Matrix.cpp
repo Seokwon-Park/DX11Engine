@@ -8,46 +8,42 @@ FMatrix::FMatrix()
 
 void FMatrix::MatrixIdentity()
 {
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			Array2D[i][j] = (i == j) ? 1.0f : 0.0f;
-		}
-	}
+	Mat = DirectX::XMMatrixIdentity();
 }
 
 void FMatrix::MatrixTranspose()
 {
-	for (size_t y = 0; y < 4; y++)
-	{
-		for (size_t x = y; x < 4; x++)
-		{
-			float Swap = Array2D[y][x];
-			Array2D[y][x] = Array2D[x][y];
-			Array2D[x][y] = Swap;
-		}
-	}
+	Mat = DirectX::XMMatrixTranspose(Mat);
 }
 
-void FMatrix::MatrixScaling()
+void FMatrix::MatrixScaling(FVector4 _Scale)
 {
-
+	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Scale.XMFloat);
+	this->Mat = DirectX::XMMatrixScalingFromVector(Vec);
 }
 
-void FMatrix::MatrixRotationX()
+void FMatrix::MatrixRotation(FVector4 _Rotation)
 {
+	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Rotation.XMFloat);
+	this->Mat = DirectX::XMMatrixRotationRollPitchYawFromVector(Vec);
 }
 
-void FMatrix::MatrixRotationY()
+void FMatrix::MatrixRotationX(float _Radian)
 {
 }
 
-void FMatrix::MatrixRotationZ()
+void FMatrix::MatrixRotationY(float _Radian)
 {
 }
 
-void FMatrix::MatrixTranslation()
+void FMatrix::MatrixRotationZ(float _Radian)
 {
 }
+
+void FMatrix::MatrixTranslation(FVector4 _Translate)
+{
+	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Translate.XMFloat);
+	this->Mat = DirectX::XMMatrixTranslationFromVector(Vec);
+}
+
 

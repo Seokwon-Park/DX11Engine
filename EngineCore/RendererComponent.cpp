@@ -40,25 +40,8 @@ void URendererComponent::BeginPlay()
 
 void URendererComponent::Render(float _DeltaTime)
 {
-<<<<<<< HEAD
 	Test->Bind();
 	Test2->Bind();
 	Test3->Bind();
 	UEngineCore::GraphicsDevice->DrawCall();
-	
-=======
-	std::vector<Vertex> Vertices;
-	Vertices.resize(6);
-
-	Vertices[0] = Vertex{ FVector4(-0.5f, 0.5f, -0.5f), {} };
-	Vertices[1] = Vertex{ FVector4(0.5f, 0.5f, -0.5f), {} };
-	Vertices[2] = Vertex{ FVector4(-0.5f, -0.5f, -0.5f), {} };
-	Vertices[3] = Vertex{ FVector4(0.5f, 0.5f, -0.5f), {} };
-	Vertices[4] = Vertex{ FVector4(0.5f, -0.5f, -0.5f), {} };
-	Vertices[5] = Vertex{ FVector4(-0.5f, -0.5f, -0.5f), {} };
-	std::shared_ptr<VertexBuffer> Buffer = VertexBuffer::Create(Vertices, sizeof(Vertex)*6, 6);
-	Buffer->Bind();
-	std::shared_ptr<EngineShader> Shader = EngineShader::Create("");
-	Shader->Bind();
->>>>>>> 59ac2f97383e839d272725f1a70258eafd232c81
 }

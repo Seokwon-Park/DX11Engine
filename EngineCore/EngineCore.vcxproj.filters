@@ -28,6 +28,7 @@
     <ClCompile Include="Graphics\DirectX11\DX11Buffer.cpp" />
     <ClCompile Include="Graphics\EngineShader.cpp" />
     <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -58,6 +59,7 @@
     <ClInclude Include="Graphics\DirectX11\DX11Buffer.h" />
     <ClInclude Include="Graphics\EngineShader.h" />
     <ClInclude Include="Graphics\DirectX11\DX11Shader.h" />
+    <ClInclude Include="CameraComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
