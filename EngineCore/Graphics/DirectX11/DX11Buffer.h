@@ -17,6 +17,7 @@ public:
 	DX11VertexBuffer& operator=(DX11VertexBuffer&& _Other) noexcept = delete;
 
 	virtual void Bind() const override;
+
 protected:
 
 private:

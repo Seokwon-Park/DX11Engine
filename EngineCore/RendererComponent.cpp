@@ -11,7 +11,6 @@ URendererComponent::URendererComponent()
 
 URendererComponent::~URendererComponent()
 {
-
 }
 
 void URendererComponent::SetOrder(int _Order)
@@ -33,15 +32,20 @@ void URendererComponent::BeginPlay()
 	Vertices[3] = Vertex{ FVector4(0.5f, -0.5f, -0.0f,1.0f), {1.0f, 1.0f, 1.0f, 1.0f} };
 
 	Test = VertexBuffer::Create(Vertices, sizeof(Vertex) * Vertices.size(), Vertices.size());
-	Test2 = IndexBuffer::Create(Indices, 6);
-	Test3 = EngineShader::Create("");
+	//Test = temp;
+	//Test2 = IndexBuffer::Create(Indices, 6);
+	//Test3 = EngineShader::Create("");
+	//VertexBuffer::Create(Vertices, sizeof(Vertex) * Vertices.size(), Vertices.size())->Bind();
+	//IndexBuffer::Create(Indices, 6)->Bind();
+	//EngineShader::Create("")->Bind();
 
 }
 
 void URendererComponent::Render(float _DeltaTime)
 {
-	Test->Bind();
-	Test2->Bind();
-	Test3->Bind();
-	UEngineCore::GraphicsDevice->DrawCall();
+	
+	//Test->Bind();
+	//Test2->Bind();
+	//Test3->Bind();
+	//UEngineCore::GraphicsDevice->DrawCall();
 }

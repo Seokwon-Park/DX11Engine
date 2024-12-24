@@ -30,6 +30,7 @@ protected:
 	ERendererAPI API;
 	FColor ClearColor;
 
+
 private:
 
 };

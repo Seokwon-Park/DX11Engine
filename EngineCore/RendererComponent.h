@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneComponent.h"
+#include "Graphics/EngineBuffer.h"
 
 // Ό³Έν :
 class URendererComponent : public USceneComponent
@@ -23,8 +24,8 @@ protected:
 
 private:
 	virtual void Render(float _DeltaTime);
-	std::shared_ptr<class VertexBuffer> Test;
-	std::shared_ptr<class IndexBuffer> Test2;
+	std::shared_ptr<VertexBuffer> Test;
+	std::shared_ptr<IndexBuffer> Test2;
 	std::shared_ptr<class EngineShader> Test3;
 
 

@@ -12,7 +12,7 @@ class VertexBuffer
 public:
 	// Constrcuter Destructer
 	VertexBuffer();
-	~VertexBuffer();
+	virtual ~VertexBuffer();
 
 	// Delete Function
 	VertexBuffer(const VertexBuffer& _Other) = delete;

@@ -22,7 +22,6 @@ UEngineCore::UEngineCore()
 
 UEngineCore::~UEngineCore()
 {
-
 }
 
 void UEngineCore::AddLevel(std::string_view _Name, std::shared_ptr<ULevel> _Level)
@@ -119,9 +118,11 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			UEngineInitData Data;
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
+
 			GraphicsDevice->Init(MainWindow);
 			GraphicsDevice->SetClearColor(FColor::BLACK);
 			GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
+
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{
@@ -130,8 +131,6 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			}
 
 			// 시작할때 하고 싶은것
-			// 1. 윈도우창 크기 바꾸고 싶다.
-			//    문제 : 컨텐츠만이 할수 있다.
 		},
 		[]()
 		{

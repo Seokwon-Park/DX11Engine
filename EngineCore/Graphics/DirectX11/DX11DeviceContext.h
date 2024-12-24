@@ -1,5 +1,7 @@
 #pragma once
 
+#define ReleaseCOM(X) if(X != nullptr)		\
+					{ X->Release(); }   \
 // Ό³Έν :
 class DX11DeviceContext : public UEngineDeviceContext
 {

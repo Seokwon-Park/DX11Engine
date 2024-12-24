@@ -29,7 +29,7 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 			ErrorString = "Could not compile shader; file not found";
 		else if (ShaderCompileErrorsBlob) {
 			ErrorString = (const char*)ShaderCompileErrorsBlob->GetBufferPointer();
-			ShaderCompileErrorsBlob->Release();
+			//ShaderCompileErrorsBlob->Release();
 		}
 		MessageBoxA(0, ErrorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
 		return;
@@ -93,7 +93,7 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 			ErrorString = "Could not compile shader; file not found";
 		else if (ShaderCompileErrorsBlob) {
 			ErrorString = (const char*)ShaderCompileErrorsBlob->GetBufferPointer();
-			ShaderCompileErrorsBlob->Release();
+			//ShaderCompileErrorsBlob->Release();
 		}
 		MessageBoxA(0, ErrorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
 		return;

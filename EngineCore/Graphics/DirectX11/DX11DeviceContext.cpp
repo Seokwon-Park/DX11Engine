@@ -8,6 +8,23 @@ DX11DeviceContext::DX11DeviceContext()
 
 DX11DeviceContext::~DX11DeviceContext()
 {
+#if defined(DEBUG) || defined(_DEBUG)
+	Microsoft::WRL::ComPtr<ID3D11Debug> DXGIDebug;
+
+	if (SUCCEEDED(Device->QueryInterface(IID_PPV_ARGS(&DXGIDebug))))
+	{
+		DXGIDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL | D3D11_RLDO_IGNORE_INTERNAL);
+		DXGIDebug = nullptr;
+	}
+#endif
+	//Context.Reset();
+	//Device.Reset();
+	//RTV->Release();
+	//RasterizerState->Release();
+	//BackBufferTexture->Release();
+	//SwapChain->Release();
+	//Context->Release();
+	//Device->Release();
 }
 
 void DX11DeviceContext::Init(const UEngineWindow& _Window)
@@ -18,7 +35,6 @@ void DX11DeviceContext::Init(const UEngineWindow& _Window)
 #if defined(DEBUG) || defined(_DEBUG)
 	DeviceFlag |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
-
 	//CreateDevice Inputs
 	// https://learn.microsoft.com/ko-kr/windows/win32/api/d3d11/nf-d3d11-d3d11createdevice
 	//D3D_DRIVER_TYPE DriverType,
@@ -68,7 +84,6 @@ void DX11DeviceContext::Init(const UEngineWindow& _Window)
 	// 다이렉트 x가 기본적으로 쓰레드 안정성을 안챙겨준다.
 	// 고급 랜더링과 서버에서는 쓰레드는 필수이기 때문에
 	// 쓰레드를 사용하겠다는 것을 미리 명시해줄수 있다.
-	// Com라이브러리 초기화
 	if (FAILED(CoInitializeEx(nullptr, COINIT_MULTITHREADED)))
 	{
 		MSGASSERT("스레드 초기화에 실패했습니다.")
@@ -118,12 +133,12 @@ void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	}
 
 	BackBufferTexture = nullptr;
-	if (FAILED(SwapChain->GetBuffer(0, IID_PPV_ARGS(&BackBufferTexture))))
+	if (FAILED(SwapChain->GetBuffer(0, IID_PPV_ARGS(BackBufferTexture.GetAddressOf()))))
 	{
 		MSGASSERT("백버퍼 텍스처를 얻어오는데 실패했습니다.");
 	}
 
-	if (FAILED(Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, &RTV)))
+	if (FAILED(Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, RTV.GetAddressOf())))
 	{
 		MSGASSERT("텍스처 수정권한 획득에 실패했습니다");
 	}
@@ -147,7 +162,7 @@ void DX11DeviceContext::CreateRasterizer()
 	//Desc.AntialiasedLineEnable;
 
 	GetDevice()->CreateRasterizerState(&Desc, RasterizerState.GetAddressOf());
-	
+
 	Viewport.Height = 720.0f;
 	Viewport.Width = 1280.0f;
 	Viewport.TopLeftX = 0.0f;
@@ -155,8 +170,8 @@ void DX11DeviceContext::CreateRasterizer()
 	Viewport.MinDepth = 0.0f;
 	Viewport.MaxDepth = 1.0f;
 
-	GetContext()->RSSetViewports(1, &Viewport);
-	GetContext()->RSSetState(RasterizerState.Get());
+	Context->RSSetViewports(1, &Viewport);
+	Context->RSSetState(RasterizerState.Get());
 }
 
 void DX11DeviceContext::DrawCall()
@@ -164,9 +179,9 @@ void DX11DeviceContext::DrawCall()
 	ID3D11RenderTargetView* ArrRtv[16] = { 0 };
 	ArrRtv[0] = RTV.Get(); // SV_Target0
 
-	GetContext()->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
-	GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	GetContext()->DrawIndexed(6, 0, 0);
+	Context->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
+	Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	Context->DrawIndexed(6, 0, 0);
 }
 
 
