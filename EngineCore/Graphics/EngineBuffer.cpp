@@ -10,7 +10,6 @@ VertexBuffer::VertexBuffer()
 
 VertexBuffer::~VertexBuffer()
 {
-	int a= 0;
 }
 
 std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32 _DataSize, uint32 _VertexSize)

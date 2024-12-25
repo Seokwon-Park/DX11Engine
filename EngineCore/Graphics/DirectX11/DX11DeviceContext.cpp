@@ -8,6 +8,15 @@ DX11DeviceContext::DX11DeviceContext()
 
 DX11DeviceContext::~DX11DeviceContext()
 {
+
+	int a = 0;
+	
+	
+	RTV=nullptr;
+	RasterizerState=nullptr;
+	BackBufferTexture=nullptr;
+	SwapChain=nullptr;
+	Context=nullptr;
 #if defined(DEBUG) || defined(_DEBUG)
 	Microsoft::WRL::ComPtr<ID3D11Debug> DXGIDebug;
 
@@ -17,14 +26,7 @@ DX11DeviceContext::~DX11DeviceContext()
 		DXGIDebug = nullptr;
 	}
 #endif
-	//Context.Reset();
-	//Device.Reset();
-	//RTV->Release();
-	//RasterizerState->Release();
-	//BackBufferTexture->Release();
-	//SwapChain->Release();
-	//Context->Release();
-	//Device->Release();
+	Device=nullptr;
 }
 
 void DX11DeviceContext::Init(const UEngineWindow& _Window)
@@ -161,7 +163,7 @@ void DX11DeviceContext::CreateRasterizer()
 	//Desc.MultisampleEnable;
 	//Desc.AntialiasedLineEnable;
 
-	GetDevice()->CreateRasterizerState(&Desc, RasterizerState.GetAddressOf());
+	Device.Get()->CreateRasterizerState(&Desc, RasterizerState.GetAddressOf());
 
 	Viewport.Height = 720.0f;
 	Viewport.Width = 1280.0f;

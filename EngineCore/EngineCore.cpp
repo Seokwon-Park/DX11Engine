@@ -139,6 +139,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		},
 		[]()
 		{
+			Core = nullptr;
 			// 엔진이 끝났을 때 하고 싶은것.
 			EngineShutdown();
 			delete GraphicsDevice;

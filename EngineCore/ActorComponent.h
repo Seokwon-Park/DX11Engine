@@ -6,8 +6,8 @@ class UActorComponent : public UObject
 	friend class AActor;
 public:
 	// constrcuter destructer
-	UActorComponent();
-	~UActorComponent();
+	ENGINE_API UActorComponent();
+	ENGINE_API virtual ~UActorComponent();
 
 	// delete Function
 	UActorComponent(const UActorComponent& _Other) = delete;

@@ -8,7 +8,7 @@ class USceneComponent : public UActorComponent
 public:
 	// constrcuter destructer
 	USceneComponent();
-	~USceneComponent();
+	virtual ~USceneComponent();
 
 	// delete Function
 	USceneComponent(const USceneComponent& _Other) = delete;
