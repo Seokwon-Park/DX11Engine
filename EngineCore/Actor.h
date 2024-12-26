@@ -57,17 +57,19 @@ public:
 		return NewComponent;
 	}
 
+	void SetActorLocation(const FVector4& _Value);
+	void AddActorLocation(const FVector4& _Value);
 
 	inline ULevel* GetLevel() const {return Level;}
 	ENGINE_API virtual void Tick(float _DeltaTime);
 
 protected:
 	ENGINE_API virtual void BeginPlay();
+
+	std::shared_ptr<class USceneComponent> RootComponent;
 private:
 	ULevel* Level;
 
-	std::shared_ptr<class USceneComponent> RootComponent;
 	std::list<std::shared_ptr<class UActorComponent>> ActorComponentList;
-
 };
 

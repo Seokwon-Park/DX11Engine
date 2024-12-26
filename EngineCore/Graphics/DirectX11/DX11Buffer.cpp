@@ -50,7 +50,6 @@ DX11VertexBuffer::~DX11VertexBuffer()
 void DX11VertexBuffer::Bind() const
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
-
 	DeviceContext->GetContext()->IASetVertexBuffers(0, 1, Buffer.GetAddressOf(), &Stride, &Offset);
 }
 

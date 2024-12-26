@@ -18,7 +18,6 @@ public:
 	class AActor* GetOwner();
 	virtual void InitializeComponent() {}
 	virtual void BeginPlay() {}
-
 protected:
 
 private:

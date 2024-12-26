@@ -10,6 +10,26 @@ AActor::~AActor()
 {
 }
 
+void AActor::SetActorLocation(const FVector4& _Value)
+{
+	if (nullptr == RootComponent)
+	{
+		return;
+	}
+
+	//RootComponent->SetComponentLocation(_Value);
+}
+
+void AActor::AddActorLocation(const FVector4& _Value)
+{
+	if (nullptr == RootComponent)
+	{
+		return;
+	}
+
+	//RootComponent->AddComponentLocation(_Value);
+}
+
 void AActor::BeginPlay()
 {
 	if (nullptr != RootComponent)

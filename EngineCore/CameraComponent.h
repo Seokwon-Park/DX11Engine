@@ -15,10 +15,13 @@ public:
 	UCameraComponent& operator=(const UCameraComponent& _Other) = delete;
 	UCameraComponent& operator=(UCameraComponent&& _Other) noexcept = delete;
 
-	void GetViewMatrix();
-	void GetProjMatrix();
+	void CalculateView();
+	void CalculateProj();
+	FMatrix GetViewMatrix();
+	FMatrix GetProjMatrix();
 protected:
 
 private:
-
+	FMatrix ViewMat;
+	FMatrix ProjMat;
 };

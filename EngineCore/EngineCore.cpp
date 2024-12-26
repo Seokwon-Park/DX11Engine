@@ -167,6 +167,8 @@ void UEngineCore::EngineUpdate()
 
 void UEngineCore::EngineShutdown()
 {
+	CurLevel = nullptr;
+	NextLevel = nullptr;
 	Levels.clear();
 	EngineLogger::EndLogger();
 }

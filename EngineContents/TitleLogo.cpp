@@ -18,6 +18,4 @@ void ATitleLogo::Tick(float _DeltaTime)
 void ATitleLogo::BeginPlay()
 {
 	AActor::BeginPlay();
-
-
 }

@@ -29,6 +29,9 @@
     <ClCompile Include="Graphics\EngineShader.cpp" />
     <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="CameraActor.cpp" />
+    <ClCompile Include="Graphics\EngineTexture.cpp" />
+    <ClCompile Include="Graphics\DirectX11\DX11Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -60,6 +63,9 @@
     <ClInclude Include="Graphics\EngineShader.h" />
     <ClInclude Include="Graphics\DirectX11\DX11Shader.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="CameraActor.h" />
+    <ClInclude Include="Graphics\EngineTexture.h" />
+    <ClInclude Include="Graphics\DirectX11\DX11Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -71,5 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Graphics\Shaders\SpriteShader.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\ThirdParty\DirectXTex\DirectXTex_Debug.lib" />
   </ItemGroup>
 </Project>

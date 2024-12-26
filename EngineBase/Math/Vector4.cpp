@@ -7,7 +7,7 @@
 const FVector4 FVector4::ZERO = FVector4(0.0f, 0.0f, 0.0f, 0.0f);
 const FVector4 FVector4::LEFT = FVector4(-1.0f, 0.0f, 0.0f, 0.0f);
 const FVector4 FVector4::RIGHT = { 1.0f, 0.0f };
-const FVector4 FVector4::UP = { 0.0f, 1.0f };
+const FVector4 FVector4::UP = { 0.0f, 1.0f ,0.0f, 0.0f};
 const FVector4 FVector4::DOWN = { 0.0f, -1.0f };
 const FVector4 FVector4::FORWARD = { 0.0f, 0.0f, 1.0f };
 const FVector4 FVector4::BACK = { 0.0f, 0.0f , -1.0f };

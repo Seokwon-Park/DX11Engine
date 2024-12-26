@@ -19,13 +19,13 @@ void FMatrix::MatrixTranspose()
 void FMatrix::MatrixScaling(FVector4 _Scale)
 {
 	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Scale.XMFloat);
-	this->Mat = DirectX::XMMatrixScalingFromVector(Vec);
+	Mat = DirectX::XMMatrixScalingFromVector(Vec);
 }
 
 void FMatrix::MatrixRotation(FVector4 _Rotation)
 {
 	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Rotation.XMFloat);
-	this->Mat = DirectX::XMMatrixRotationRollPitchYawFromVector(Vec);
+	Mat = DirectX::XMMatrixRotationRollPitchYawFromVector(Vec);
 }
 
 void FMatrix::MatrixRotationX(float _Radian)
@@ -43,7 +43,38 @@ void FMatrix::MatrixRotationZ(float _Radian)
 void FMatrix::MatrixTranslation(FVector4 _Translate)
 {
 	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Translate.XMFloat);
-	this->Mat = DirectX::XMMatrixTranslationFromVector(Vec);
+	Mat = DirectX::XMMatrixTranslationFromVector(Vec);
 }
+
+void FMatrix::MatrixView(FVector4 _ViewPos, FVector4 _ViewDir, FVector4 _UpDir)
+{
+	DirectX::XMVECTOR ViewPos = DirectX::XMLoadFloat4A(&_ViewPos.XMFloat);
+	DirectX::XMVECTOR ViewDir = DirectX::XMLoadFloat4A(&_ViewDir.XMFloat);
+	DirectX::XMVECTOR UpDir = DirectX::XMLoadFloat4A(&_UpDir.XMFloat);
+
+	Mat = DirectX::XMMatrixLookToLH(ViewPos, ViewDir, UpDir);
+}
+
+void FMatrix::MatrixPerspectiveProj(float _Width, float _Height, float _Near, float _Far)
+{
+	Mat = DirectX::XMMatrixPerspectiveLH(_Width, _Height, _Near, _Far);
+}
+
+void FMatrix::MatrixPerspectiveFov(float _Fov, float _AspectRatio, float _Near, float _Far)
+{
+	Mat = DirectX::XMMatrixPerspectiveFovLH(_Fov, _AspectRatio, _Near, _Far);
+}
+
+void FMatrix::MatrixOrthoFovLH(float _Fov, float _AspectRatio, float _Near, float _Far)
+{
+	Mat = DirectX::XMMatrixOrthographicOffCenterLH(-_AspectRatio, _AspectRatio, -1.0f, 1.0f, _Near, _Far);
+}
+
+void FMatrix::MatrixOrthoLH(float _Width, float _Height, float _Near, float _Far)
+{
+	Mat = DirectX::XMMatrixOrthographicLH(_Width, _Height, _Near, _Far);
+}
+
+
 
 

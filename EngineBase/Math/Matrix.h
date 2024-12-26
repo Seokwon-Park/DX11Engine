@@ -48,6 +48,12 @@ public:
 	void MatrixRotationZ(float _Radian);
 	void MatrixTranslation(FVector4 _Translate);
 
+	void MatrixView(FVector4 _ViewPos, FVector4 _ViewDir, FVector4 _UpDir);
+	void MatrixPerspectiveProj(float _Width, float _Height, float _Near, float _Far);
+	void MatrixPerspectiveFov(float _Fov, float _AspectRatio, float _Near, float _Far);
+	void MatrixOrthoLH(float _Fov, float _AspectRatio, float _Near, float _Far);
+	void MatrixOrthoFovLH(float _Fov, float _AspectRatio, float _Near, float _Far);
+
 	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FMatrix& _Matrix)
 	{
 		for (int i = 0; i < 4; i++)

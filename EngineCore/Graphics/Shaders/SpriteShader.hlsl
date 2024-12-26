@@ -1,3 +1,10 @@
+cbuffer MVP : register(b0)
+{
+    float4x4 World;
+    float4x4 View;
+    float4x4 Proj;
+};
+
 struct VS_Input
 {
     float4 Pos: POSITION;
@@ -15,7 +22,9 @@ struct VS_Output
 VS_Output vs_main(VS_Input _Input)
 {
     VS_Output Output;
-    Output.Pos = _Input.Pos;
+    Output.Pos = mul(_Input.Pos, World);
+    Output.Pos = mul(Output.Pos, View);
+    Output.Pos = mul(Output.Pos, Proj);
     Output.Color = _Input.Color;    
     //Output.UV = _Input.UV;
 

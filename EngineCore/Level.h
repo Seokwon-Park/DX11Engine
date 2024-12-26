@@ -53,6 +53,5 @@ private:
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
 	std::map<int, std::list<std::shared_ptr<class URendererComponent>>> Renderers;
-
 };
 

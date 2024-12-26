@@ -1,5 +1,12 @@
 #pragma once
 
+struct VertexConstant
+{
+	FMatrix World;
+	FMatrix View;
+	FMatrix Proj;
+};
+
 // Ό³Έν :
 class EngineShader
 {
@@ -15,6 +22,8 @@ public:
 	EngineShader& operator=(EngineShader&& _Other) noexcept = delete;
 
 	virtual void Bind() const = 0;
+
+	virtual void SetVertexConstants(VertexConstant _Data) = 0;
 
 	ENGINE_API static std::shared_ptr<EngineShader> Create(const std::string& filepath);
 	ENGINE_API static std::shared_ptr<EngineShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);

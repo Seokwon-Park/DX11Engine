@@ -16,11 +16,18 @@ public:
 	USceneComponent& operator=(const USceneComponent& _Other) = delete;
 	USceneComponent& operator=(USceneComponent&& _Other) noexcept = delete;
 
+	inline void SetLocation(const FVector4& _Value)
+	{
+		Transform.Translation = _Value;
+	}
+
+	FTransform& GetTransformRef()
+	{
+		return Transform;
+	}
 protected:
-
-private:
 	FTransform Transform;
-
+private:
 	USceneComponent* Parent;
 	std::list<std::shared_ptr<USceneComponent>> Childs;
 };
