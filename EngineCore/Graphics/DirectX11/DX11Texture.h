@@ -1,11 +1,11 @@
 #pragma once
 #include "Graphics/EngineTexture.h"
 
-#ifdef _DEBUG
-#pragma comment(lib, "DirectXTex_Debug.lib")
-#else
-#pragma comment(lib, "DirectXTex_Release.lib")
-#endif
+//#ifdef _DEBUG
+//#pragma comment(lib, "DirectXTex_Debug.lib")
+//#else
+//#pragma comment(lib, "DirectXTex_Release.lib")
+//#endif
 
 // Ό³Έν :
 class DX11Texture2D : public Texture2D

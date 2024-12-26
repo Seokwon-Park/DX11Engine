@@ -13,7 +13,7 @@ public:
 	UEngineString& operator=(const UEngineString& _Other) = delete;
 	UEngineString& operator=(UEngineString&& _Other) noexcept = delete;
 
-	static std::string ToUpper(std::string_view);
+	BASE_API static std::string ToUpper(std::string_view);
 
 	BASE_API static std::wstring ToWString(std::string_view _String);
 

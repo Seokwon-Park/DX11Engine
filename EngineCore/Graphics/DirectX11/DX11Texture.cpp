@@ -73,3 +73,11 @@ DX11Texture2D::DX11Texture2D(UEngineFile _Path)
 DX11Texture2D::~DX11Texture2D()
 {
 }
+
+void DX11Texture2D::SetData(void* data, uint32 size)
+{
+}
+
+void DX11Texture2D::Bind(uint32 slot) const
+{
+}
