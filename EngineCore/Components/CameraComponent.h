@@ -19,8 +19,8 @@ public:
 	void CalculateProj();
 	FMatrix GetViewMatrix();
 	FMatrix GetProjMatrix();
-protected:
 
+protected:
 private:
 	FMatrix ViewMat;
 	FMatrix ProjMat;

@@ -3,15 +3,15 @@
 #include "EngineCore.h"
 #include "Graphics/DirectX11/DX11Shader.h"
 
-EngineShader::EngineShader()
+UEngineShader::UEngineShader()
 {
 }
 
-EngineShader::~EngineShader()
+UEngineShader::~UEngineShader()
 {
 }
 
-std::shared_ptr<EngineShader> EngineShader::Create(const std::string& _FilePath)
+std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& _FilePath)
 {
 	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
 	{
@@ -24,7 +24,7 @@ std::shared_ptr<EngineShader> EngineShader::Create(const std::string& _FilePath)
 	}
 }
 
-std::shared_ptr<EngineShader> EngineShader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 {
-	return std::shared_ptr<EngineShader>();
+	return std::shared_ptr<UEngineShader>();
 }

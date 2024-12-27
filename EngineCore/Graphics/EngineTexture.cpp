@@ -1,20 +1,30 @@
 #include "EnginePCH.h"
 #include "EngineTexture.h"
+#include "EngineCore.h"
+#include "Graphics/DirectX11/DX11Texture.h"
 
-Texture::Texture()
+UEngineTexture::UEngineTexture()
 {
 }
 
-Texture::~Texture()
+UEngineTexture::~UEngineTexture()
 {
 }
 
-std::shared_ptr<Texture2D> Texture2D::Create(uint32 width, uint32 height)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(uint32 width, uint32 height)
 {
-    return std::shared_ptr<Texture2D>();
+	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	{
+	case ERendererAPI::DirectX11:
+		return std::make_shared<DX11Texture2D>(1, 2);
+	case ERendererAPI::None:
+		return nullptr;
+	default:
+		return nullptr;
+	}
 }
 
-std::shared_ptr<Texture2D> Texture2D::Create(const std::string& path)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(const std::string& path)
 {
-    return std::shared_ptr<Texture2D>();
+    return std::shared_ptr<UEngineTexture2D>();
 }

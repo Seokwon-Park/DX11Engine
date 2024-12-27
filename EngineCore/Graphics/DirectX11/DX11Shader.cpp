@@ -2,7 +2,7 @@
 #include "EngineCore.h"
 #include "DX11Shader.h"
 #include "DX11DeviceContext.h"
-#include "CameraComponent.h"
+#include "Components/CameraComponent.h"
 #include <EngineBase/EngineIO.h>
 #include <EngineBase/EngineString.h>
 

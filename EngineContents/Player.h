@@ -1,6 +1,6 @@
 #pragma once
 #include <EngineCore/Pawn.h>
-#include <EngineCore/RendererComponent.h>
+#include <EngineCore/Components/RendererComponent.h>
 
 // Ό³Έν :
 class APlayer : public APawn

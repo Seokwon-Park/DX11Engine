@@ -1,6 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
-#include "CameraComponent.h"
+#include "Components/CameraComponent.h"
 
 // Ό³Έν :
 class ACameraActor : public AActor

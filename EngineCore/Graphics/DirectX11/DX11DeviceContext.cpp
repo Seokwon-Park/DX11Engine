@@ -88,7 +88,7 @@ void DX11DeviceContext::Init(const UEngineWindow& _Window)
 	// 쓰레드를 사용하겠다는 것을 미리 명시해줄수 있다.
 	if (FAILED(CoInitializeEx(nullptr, COINIT_MULTITHREADED)))
 	{
-		MSGASSERT("스레드 초기화에 실패했습니다.")
+		MSGASSERT("스레드 초기화에 실패했습니다.");
 	}
 
 	CreateSwapChain(_Window);

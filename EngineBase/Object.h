@@ -26,10 +26,11 @@ public:
 	{
 		return std::static_pointer_cast<ChildPtrType>(shared_from_this());
 	}
-	//virtual bool IsDestroy()
-	//{
-	//	return IsDestroyValue;
-	//}
+	
+	virtual bool IsDestroy()
+	{
+		return bIsDestroy;
+	}
 
 	// 바로 죽겠죠?
 	// _Time 시간후에 죽어라.
@@ -96,7 +97,7 @@ public:
 protected:
 
 private:
-	//bool IsDestroyValue = false;
+	bool bIsDestroy = false;
 	bool bIsActive = true;
 
 	//bool IsDeathTimeCheck = false;

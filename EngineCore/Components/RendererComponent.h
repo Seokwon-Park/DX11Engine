@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneComponent.h"
-#include "Graphics/EngineBuffer.h"
-#include "Graphics/EngineShader.h"
+#include <EngineCore/Graphics/EngineBuffer.h>
+#include <EngineCore/Graphics/EngineShader.h>
 
 // Ό³Έν :
 class URendererComponent : public USceneComponent
@@ -27,7 +27,7 @@ private:
 	virtual void Render(float _DeltaTime);
 	std::shared_ptr<VertexBuffer> VB;
 	std::shared_ptr<IndexBuffer> IB;
-	std::shared_ptr<EngineShader> Shader;
+	std::shared_ptr<UEngineShader> Shader;
 
 
 };

@@ -85,11 +85,7 @@ int UEngineWindow::WindowMessageLoop(std::function<void()> _InitFn, std::functio
 
 void UEngineWindow::CreateWindowClass(const WNDCLASSEXA& _WNDClass)
 {
-	std::map<std::string, WNDCLASSEXA>::iterator EndIter = WindowClasses.end();
-	std::map<std::string, WNDCLASSEXA>::iterator FindIter = WindowClasses.find(std::string(_WNDClass.lpszClassName));
-
-	// ckw
-	if (EndIter != FindIter)
+	if (WindowClasses.contains(std::string(_WNDClass.lpszClassName)))
 	{
 		MSGASSERT(std::string(_WNDClass.lpszClassName) + " 같은 이름의 윈도우 클래스를 2번 등록했습니다");
 		return;
@@ -153,7 +149,6 @@ void UEngineWindow::Open(std::string_view _TitleName /*= "Window"*/)
 
 	ShowWindow(WindowHandle, SW_SHOW);
 	UpdateWindow(WindowHandle);
-	// ShowWindow(WindowHandle, SW_HIDE);
 }
 
 void UEngineWindow::SetWindowPosAndScale(FIntPoint _Pos, FIntPoint _Scale)
@@ -170,7 +165,6 @@ FIntPoint UEngineWindow::GetMousePos()
 	POINT MouseCoord;
 
 	GetCursorPos(&MouseCoord);
-	// 윈도우창 위치기준으로 마우스 포지션을 
 	ScreenToClient(WindowHandle, &MouseCoord);
 
 	return FIntPoint(MouseCoord.x, MouseCoord.y);

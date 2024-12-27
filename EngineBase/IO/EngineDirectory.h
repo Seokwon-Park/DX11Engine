@@ -16,12 +16,13 @@ public:
 	UEngineDirectory& operator=(const UEngineDirectory& _Other) = delete;
 	UEngineDirectory& operator=(UEngineDirectory&& _Other) noexcept = delete;
 
-	BASE_API std::vector<class UEngineFile> GetAllFile(bool _IsRecur = true);
+	BASE_API std::vector<class UEngineFile> GetAllFile(bool _IsRecursive, const std::vector<std::string>& _Exts);
 	BASE_API UEngineFile GetFile(std::string_view _FileName);
 protected:
 
 private:
-	void GetAllFileRecur(std::filesystem::path _Path, std::vector<class UEngineFile>& _Result);
+	bool IsTargetExt(const std::vector<std::string>& _UpperExts, UEnginePath _Path);
+	void GetAllFileRecursive(std::filesystem::path _Path, std::vector<class UEngineFile>& _Result, const std::vector<std::string>& _Exts);
 
 };
 

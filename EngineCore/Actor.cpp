@@ -1,6 +1,6 @@
 #include "EnginePCH.h"
 #include "Actor.h"
-#include "SceneComponent.h"
+#include "Components/SceneComponent.h"
 
 AActor::AActor()
 {
@@ -27,7 +27,17 @@ void AActor::AddActorLocation(const FVector4& _Value)
 		return;
 	}
 
-	//RootComponent->AddComponentLocation(_Value);
+	RootComponent->AddLocation(_Value);
+}
+
+void AActor::SetActorRelativeScale3D(const FVector4& _Scale)
+{
+	if (nullptr == RootComponent)
+	{
+		return;
+	}
+
+	RootComponent->SetRelativeScale3D(_Scale);
 }
 
 void AActor::BeginPlay()

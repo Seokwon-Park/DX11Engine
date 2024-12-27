@@ -8,25 +8,25 @@ struct VertexConstant
 };
 
 // Ό³Έν :
-class EngineShader
+class UEngineShader
 {
 public:
 	// constrcuter destructer
-	EngineShader();
-	~EngineShader();
+	UEngineShader();
+	~UEngineShader();
 
 	// delete Function
-	EngineShader(const EngineShader& _Other) = delete;
-	EngineShader(EngineShader&& _Other) noexcept = delete;
-	EngineShader& operator=(const EngineShader& _Other) = delete;
-	EngineShader& operator=(EngineShader&& _Other) noexcept = delete;
+	UEngineShader(const UEngineShader& _Other) = delete;
+	UEngineShader(UEngineShader&& _Other) noexcept = delete;
+	UEngineShader& operator=(const UEngineShader& _Other) = delete;
+	UEngineShader& operator=(UEngineShader&& _Other) noexcept = delete;
 
 	virtual void Bind() const = 0;
 
 	virtual void SetVertexConstants(VertexConstant _Data) = 0;
 
-	ENGINE_API static std::shared_ptr<EngineShader> Create(const std::string& filepath);
-	ENGINE_API static std::shared_ptr<EngineShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& filepath);
+	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 protected:
 
 private:

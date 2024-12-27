@@ -11,7 +11,7 @@ UCameraComponent::~UCameraComponent()
 
 void UCameraComponent::CalculateView()
 {
-	ViewMat.MatrixView(Transform.Translation, FVector4::FORWARD, FVector4::UP);
+	ViewMat.MatrixView(Transform.Location, FVector4::FORWARD, FVector4::UP);
 }
 
 void UCameraComponent::CalculateProj()

@@ -152,7 +152,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ActorComponent.h">
+    <ClInclude Include="Components\ActorComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -160,7 +160,15 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CameraComponent.h">
+    <ClInclude Include="Components\CameraComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="EngineResource.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Components\SpriteRendererComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -199,6 +207,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="IContentsCore.h" />
     <ClInclude Include="Level.h">
       <SubType>
@@ -208,11 +220,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="SceneComponent.h">
+    <ClInclude Include="Components\SceneComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="RendererComponent.h">
+    <ClInclude Include="Components\RendererComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -222,7 +234,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ActorComponent.cpp">
+    <ClCompile Include="Components\ActorComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -230,7 +242,15 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
+    <ClCompile Include="Components\CameraComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EngineResource.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Components\SpriteRendererComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -272,6 +292,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Level.cpp">
       <SubType>
       </SubType>
@@ -280,11 +304,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="SceneComponent.cpp">
+    <ClCompile Include="Components\SceneComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="RendererComponent.cpp">
+    <ClCompile Include="Components\RendererComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -301,7 +325,12 @@
     <None Include="Graphics\Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\ThirdParty\DirectXTex\DirectXTex_Debug.lib" />
+    <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\DirectXTex\DirectXTex_Debug.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

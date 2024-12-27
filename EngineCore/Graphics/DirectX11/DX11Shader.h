@@ -4,7 +4,7 @@
 
 
 // Ό³Έν :
-class DX11Shader : public EngineShader
+class DX11Shader : public UEngineShader
 {
 public:
 	// constrcuter destructer

@@ -1,6 +1,7 @@
 #include "EnginePCH.h"
 #include "EngineDirectory.h"
 #include "EngineFile.h"
+#include "EngineString.h"
 
 
 UEngineDirectory::UEngineDirectory()
@@ -18,7 +19,42 @@ UEngineDirectory::~UEngineDirectory()
 {
 }
 
-void UEngineDirectory::GetAllFileRecur(std::filesystem::path _Path, std::vector<UEngineFile>& _Result)
+
+std::vector<class UEngineFile> UEngineDirectory::GetAllFile(bool _IsRecursive, const std::vector<std::string>& _Exts)
+{
+	std::vector<std::string> UpperExts;
+	for (size_t i = 0; i < _Exts.size(); i++)
+	{
+		UpperExts.push_back(UEngineString::ToUpper(_Exts[i]));
+	}
+
+	std::vector<class UEngineFile> Result;
+
+	std::filesystem::directory_iterator DirIter = std::filesystem::directory_iterator(Path);
+
+	while (false == DirIter._At_end())
+	{
+		std::filesystem::path FilePath = *DirIter;
+
+		UEnginePath Path = UEnginePath(FilePath);
+		if (true == Path.IsDirectory())
+		{
+			if (true == _IsRecursive)
+			{
+				GetAllFileRecursive(FilePath, Result, _Exts);
+			}
+		}
+		else if (true == IsTargetExt(_Exts, Path))
+		{
+			Result.push_back(UEngineFile(FilePath));
+		}
+		++DirIter;
+	}
+
+	return Result;
+}
+
+void UEngineDirectory::GetAllFileRecursive(std::filesystem::path _Path, std::vector<UEngineFile>& _Result, const std::vector<std::string>& _Exts)
 {
 	std::filesystem::directory_iterator DirItr = std::filesystem::directory_iterator(_Path);
 
@@ -29,41 +65,29 @@ void UEngineDirectory::GetAllFileRecur(std::filesystem::path _Path, std::vector<
 		UEnginePath Path = UEnginePath(FilePath);
 		if (true == Path.IsDirectory())
 		{
-			GetAllFileRecur(FilePath, _Result);
-			++DirItr;
-			continue;
+			GetAllFileRecursive(FilePath, _Result, _Exts);
 		}
-		_Result.push_back(UEngineFile(FilePath));
+		else if (true == IsTargetExt(_Exts, Path))
+		{
+			_Result.push_back(UEngineFile(FilePath));
+		}
 		++DirItr;
 	}
 }
 
-std::vector<UEngineFile> UEngineDirectory::GetAllFile(bool _IsRecur)
+
+bool UEngineDirectory::IsTargetExt(const std::vector<std::string>& _UpperExts, UEnginePath _Path)
 {
-	std::vector<UEngineFile> Result;
-
-	// 경로의 첫번째 파일을 가리키는 포인터
-	std::filesystem::directory_iterator DirItr = std::filesystem::directory_iterator(Path);
-
-	while (false == DirItr._At_end())
+	for (size_t i = 0; i < _UpperExts.size(); i++)
 	{
-		std::filesystem::path FilePath = *DirItr;
+		std::string CurUpperExt = UEngineString::ToUpper(_Path.GetFileExtension());
 
-		UEnginePath Path = UEnginePath(FilePath);
-		if (true == Path.IsDirectory())
+		if (CurUpperExt == _UpperExts[i])
 		{
-			if (true == _IsRecur)
-			{
-				GetAllFileRecur(FilePath, Result);
-			}
-			++DirItr;
-			continue;
+			return true;
 		}
-		Result.push_back(UEngineFile(FilePath));
-		++DirItr;
 	}
-
-	return Result;
+	return false;
 }
 
 UEngineFile UEngineDirectory::GetFile(std::string_view _FileName)

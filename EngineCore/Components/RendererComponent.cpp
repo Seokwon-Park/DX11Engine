@@ -35,7 +35,7 @@ void URendererComponent::BeginPlay()
 	VB->Bind();
 	IB = IndexBuffer::Create(Indices, 6);
 	IB->Bind();
-	Shader = EngineShader::Create("");
+	Shader = UEngineShader::Create("");
 	Shader->Bind();
 }
 

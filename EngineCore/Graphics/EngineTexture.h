@@ -1,19 +1,20 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
+#include "EngineResource.h"
 
 // Ό³Έν :
-class Texture
+class UEngineTexture : public UEngineResource
 {
 public:
 	// constrcuter destructer
-	Texture();
-	~Texture();
+	UEngineTexture();
+	~UEngineTexture();
 
 	// delete Function
-	Texture(const Texture& _Other) = delete;
-	Texture(Texture&& _Other) noexcept = delete;
-	Texture& operator=(const Texture& _Other) = delete;
-	Texture& operator=(Texture&& _Other) noexcept = delete;
+	UEngineTexture(const UEngineTexture& _Other) = delete;
+	UEngineTexture(UEngineTexture&& _Other) noexcept = delete;
+	UEngineTexture& operator=(const UEngineTexture& _Other) = delete;
+	UEngineTexture& operator=(UEngineTexture&& _Other) noexcept = delete;
 
 	virtual uint32 GetWidth() const = 0;
 	virtual uint32 GetHeight() const = 0;
@@ -28,11 +29,11 @@ private:
 };
 
 
-class Texture2D : public Texture
+class UEngineTexture2D : public UEngineTexture
 {
 public:
-	static std::shared_ptr<Texture2D> Create(uint32 width, uint32 height);
-	static std::shared_ptr<Texture2D> Create(const std::string& path);
+	static std::shared_ptr<UEngineTexture2D> Create(uint32 width, uint32 height);
+	static std::shared_ptr<UEngineTexture2D> Create(const std::string& path);
 };
 
 

@@ -5,7 +5,7 @@
 class FTransform
 {
 public:
-	FVector4 Translation;
+	FVector4 Location;
 	FVector4 Rotation;
 	FVector4 Scale;
 

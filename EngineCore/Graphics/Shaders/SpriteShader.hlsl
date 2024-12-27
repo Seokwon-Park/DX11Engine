@@ -31,6 +31,8 @@ VS_Output vs_main(VS_Input _Input)
     return Output;
 }
 
+Texture2D ImageTexture : register(t0);
+
 struct PS_Output
 {
     float4 Pos : SV_POSITION;

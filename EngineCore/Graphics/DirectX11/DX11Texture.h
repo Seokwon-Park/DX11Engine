@@ -8,7 +8,7 @@
 //#endif
 
 // Ό³Έν :
-class DX11Texture2D : public Texture2D
+class DX11Texture2D : public UEngineTexture2D
 {
 public:
 	// constrcuter destructer

@@ -4,10 +4,10 @@
     <ClCompile Include="EngineCore.cpp" />
     <ClCompile Include="EnginePCH.cpp" />
     <ClCompile Include="Level.cpp" />
-    <ClCompile Include="ActorComponent.cpp">
+    <ClCompile Include="Components\ActorComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="SceneComponent.cpp">
+    <ClCompile Include="Components\SceneComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
@@ -19,7 +19,7 @@
     <ClCompile Include="Pawn.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
-    <ClCompile Include="RendererComponent.cpp">
+    <ClCompile Include="Components\RendererComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
@@ -28,20 +28,23 @@
     <ClCompile Include="Graphics\DirectX11\DX11Buffer.cpp" />
     <ClCompile Include="Graphics\EngineShader.cpp" />
     <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="CameraActor.cpp" />
     <ClCompile Include="Graphics\EngineTexture.cpp" />
     <ClCompile Include="Graphics\DirectX11\DX11Texture.cpp" />
+    <ClCompile Include="Components\SpriteRendererComponent.cpp" />
+    <ClCompile Include="EngineResource.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
     <ClInclude Include="EnginePCH.h" />
     <ClInclude Include="IContentsCore.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="ActorComponent.h">
+    <ClInclude Include="Components\ActorComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="SceneComponent.h">
+    <ClInclude Include="Components\SceneComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
@@ -53,7 +56,7 @@
     <ClInclude Include="Pawn.h">
       <Filter>Actor</Filter>
     </ClInclude>
-    <ClInclude Include="RendererComponent.h">
+    <ClInclude Include="Components\RendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
@@ -62,10 +65,13 @@
     <ClInclude Include="Graphics\DirectX11\DX11Buffer.h" />
     <ClInclude Include="Graphics\EngineShader.h" />
     <ClInclude Include="Graphics\DirectX11\DX11Shader.h" />
-    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="CameraActor.h" />
     <ClInclude Include="Graphics\EngineTexture.h" />
     <ClInclude Include="Graphics\DirectX11\DX11Texture.h" />
+    <ClInclude Include="Components\SpriteRendererComponent.h" />
+    <ClInclude Include="EngineResource.h" />
+    <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -79,6 +85,7 @@
     <None Include="Graphics\Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="..\ThirdParty\DirectXTex\DirectXTex_Debug.lib" />
+    <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />
+    <Library Include="ThirdParty\DirectXTex\DirectXTex_Debug.lib" />
   </ItemGroup>
 </Project>

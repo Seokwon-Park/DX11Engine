@@ -18,7 +18,17 @@ public:
 
 	inline void SetLocation(const FVector4& _Value)
 	{
-		Transform.Translation = _Value;
+		Transform.Location = _Value;
+	}
+
+	void AddLocation(const FVector4& _Value)
+	{
+		Transform.Location += _Value;
+	}
+
+	void SetRelativeScale3D(const FVector4& _Value)
+	{
+		Transform.Scale = _Value;
 	}
 
 	FTransform& GetTransformRef()

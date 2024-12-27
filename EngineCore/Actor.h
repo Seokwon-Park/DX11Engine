@@ -59,7 +59,8 @@ public:
 
 	void SetActorLocation(const FVector4& _Value);
 	void AddActorLocation(const FVector4& _Value);
-
+	void SetActorRelativeScale3D(const FVector4& _Scale);
+	
 	inline ULevel* GetLevel() const {return Level;}
 	ENGINE_API virtual void Tick(float _DeltaTime);
 

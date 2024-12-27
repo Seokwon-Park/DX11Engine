@@ -12,7 +12,6 @@ DX11Texture2D::DX11Texture2D(uint32 _Width, uint32 _Height)
 
 DX11Texture2D::DX11Texture2D(UEngineFile _Path)
 {
-	
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 	m_TextureResourceView.Reset();
 	m_Texture.Reset();
@@ -80,4 +79,7 @@ void DX11Texture2D::SetData(void* data, uint32 size)
 
 void DX11Texture2D::Bind(uint32 slot) const
 {
+	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
+
+	DeviceContext->GetContext()->PSSetShaderResources(0, 1, m_TextureResourceView.GetAddressOf());
 }

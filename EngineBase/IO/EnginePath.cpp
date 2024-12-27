@@ -28,6 +28,27 @@ UEnginePath::UEnginePath(const UEnginePath& _Other)
 	Path = _Other.Path;
 }
 
+UEnginePath& UEnginePath::operator=(const UEnginePath& _Other)
+{
+	if (this != &_Other)
+	{
+		Path = _Other.Path;
+	}
+
+	return *this;
+}
+
+BASE_API UEnginePath& UEnginePath::operator=(UEnginePath&& _Other) noexcept
+{
+	Path = _Other.Path;
+
+	// Release the data pointer from the source object so that
+	// the destructor does not free the memory multiple times.
+	_Other.Path = nullptr;
+
+	return *this;
+}
+
 std::string UEnginePath::ToString()
 {
 	return Path.string();

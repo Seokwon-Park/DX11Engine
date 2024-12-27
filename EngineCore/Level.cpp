@@ -1,7 +1,7 @@
 #include "EnginePCH.h"
 #include "Level.h"
 #include "Actor.h"
-#include "RendererComponent.h"
+#include "Components/RendererComponent.h"
 #include "EngineCore.h"
 
 ULevel::ULevel()
