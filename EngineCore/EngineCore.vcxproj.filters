@@ -35,6 +35,7 @@
     <ClCompile Include="Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="EngineResource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="EngineSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -72,6 +73,7 @@
     <ClInclude Include="Components\SpriteRendererComponent.h" />
     <ClInclude Include="EngineResource.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="EngineSprite.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

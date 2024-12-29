@@ -4,6 +4,7 @@
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
+#include "ResourceManager.h"
 #include "Graphics/DirectX11/DX11DeviceContext.h"
 
 
@@ -116,10 +117,10 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		{
 			EngineLogger::StartLogger();
 			UEngineInitData Data;
+			GraphicsDevice->Init(MainWindow);
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
-
-			GraphicsDevice->Init(MainWindow);
+			GraphicsDevice->CreateBackBuffer(MainWindow);
 			GraphicsDevice->SetClearColor(FColor::BLACK);
 			GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 
@@ -142,7 +143,6 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			Core = nullptr;
 			// 엔진이 끝났을 때 하고 싶은것.
 			EngineShutdown();
-			delete GraphicsDevice;
 		});
 }
 
@@ -170,5 +170,7 @@ void UEngineCore::EngineShutdown()
 	CurLevel = nullptr;
 	NextLevel = nullptr;
 	Levels.clear();
+	UResourceManager::Release();
+	delete GraphicsDevice;
 	EngineLogger::EndLogger();
 }

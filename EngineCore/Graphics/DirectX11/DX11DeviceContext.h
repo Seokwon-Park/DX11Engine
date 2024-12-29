@@ -19,15 +19,13 @@ public:
 	virtual void Init(const UEngineWindow& _Window)override;
 	virtual void ClearRenderTarget()override;
 	virtual void SwapBuffers()override;
+	virtual void CreateBackBuffer(const UEngineWindow& _Window) override;
 
 	void CreateSwapChain(const UEngineWindow& _Window);
 	void CreateRasterizer();
 	void DrawCall();
 	ID3D11Device* GetDevice() const { return Device.Get(); }
 	ID3D11DeviceContext* GetContext() const { return Context.Get(); }
-
-	// UEngineDeviceContext을(를) 통해 상속됨
-	inline virtual DX11DeviceContext* Get() override { return this; }
 
 	// Adapter 그래픽카드의 정보를 가지고 있는 인터페이스
 	IDXGIAdapter* GetHighPerFormanceAdapter();

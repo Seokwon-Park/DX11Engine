@@ -26,5 +26,13 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(uint32 width, uint32 
 
 std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(const std::string& path)
 {
-    return std::shared_ptr<UEngineTexture2D>();
+	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	{
+	case ERendererAPI::DirectX11:
+		return std::make_shared<DX11Texture2D>(path);
+	case ERendererAPI::None:
+		return nullptr;
+	default:
+		return nullptr;
+	}
 }

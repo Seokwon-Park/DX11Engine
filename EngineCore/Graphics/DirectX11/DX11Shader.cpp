@@ -69,6 +69,18 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 		InputLayOutData.push_back(Desc);
 	}
 
+	{
+		D3D11_INPUT_ELEMENT_DESC Desc;
+		Desc.SemanticName = "TEXCOORD";
+		Desc.SemanticIndex = 0;
+		Desc.Format = DXGI_FORMAT_R32G32_FLOAT;
+		Desc.InputSlot = 0;
+		Desc.AlignedByteOffset = 32;
+		Desc.InputSlotClass = D3D11_INPUT_CLASSIFICATION::D3D11_INPUT_PER_VERTEX_DATA;
+		Desc.InstanceDataStepRate = 0;
+		InputLayOutData.push_back(Desc);
+	}
+
 
 	// 쉐이더에서 어떤 인풋레이아웃을 사용하는지 알려줘.
 	HRESULT Result = DeviceContext->GetDevice()->CreateInputLayout(
@@ -107,6 +119,18 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 			nullptr,
 			&PixelShader);
 	assert(SUCCEEDED(HResult));
+
+	D3D11_SAMPLER_DESC SamplerDesc;
+	ZeroMemory(&SamplerDesc, sizeof(SamplerDesc));
+	SamplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	SamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	SamplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	SamplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	SamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	SamplerDesc.MinLOD = 0;
+	SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	DeviceContext->GetDevice()->CreateSamplerState(&SamplerDesc, m_SamplerState.GetAddressOf());
 }
 
 DX11Shader::~DX11Shader()
@@ -151,7 +175,7 @@ void DX11Shader::Bind() const
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 
-	//DeviceContext->GetContext()->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
+	DeviceContext->GetContext()->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
 	DeviceContext->GetContext()->IASetInputLayout(InputLayout.Get());
 	DeviceContext->GetContext()->VSSetShader(VertexShader.Get(), nullptr, 0);
 	DeviceContext->GetContext()->PSSetShader(PixelShader.Get(), nullptr, 0);

@@ -26,16 +26,17 @@ public:
 
 	inline static bool IsExist(std::string_view _Name){return ResourceMap.contains(_Name.data());}
 	inline static void Release(){ResourceMap.clear();}
+	ENGINE_API static void LoadImages(std::vector<std::string> _Exts);
 
 	template<typename ResType>
-	ENGINE_API static void PushRes(std::shared_ptr<UEngineResource> _Resource, std::string_view _Name, std::string_view _Path)
+	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Resource, std::string_view _Name, std::string_view _Path)
 	{
 		const type_info& Info = typeid(ResType);
-		PushRes(_Resource, Info.name(), _Name, _Path);
+		AddResource(_Resource, Info.name(), _Name, _Path);
 	}
 
 	// 이 resources 관리 함수들은 전부다 core에서만 사용되게 하겠습니다.
-	ENGINE_API static void PushRes(std::shared_ptr<UEngineResource> _Res, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
+	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Res, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
 
 protected:
 

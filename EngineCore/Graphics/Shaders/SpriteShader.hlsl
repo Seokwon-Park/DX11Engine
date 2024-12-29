@@ -9,14 +9,14 @@ struct VS_Input
 {
     float4 Pos: POSITION;
     float4 Color : COLOR;
-    //float2 UV : TEXCOORD0;
+    float2 UV : TEXCOORD0;
 };
 
 struct VS_Output
 {
     float4 Pos: SV_POSITION;
     float4 Color : COLOR;
-    //float2 UV : TEXCOORD0;
+    float2 UV : TEXCOORD0;
 };
 
 VS_Output vs_main(VS_Input _Input)
@@ -26,12 +26,14 @@ VS_Output vs_main(VS_Input _Input)
     Output.Pos = mul(Output.Pos, View);
     Output.Pos = mul(Output.Pos, Proj);
     Output.Color = _Input.Color;    
-    //Output.UV = _Input.UV;
+    Output.UV = _Input.UV;
 
     return Output;
 }
 
 Texture2D ImageTexture : register(t0);
+
+SamplerState ImageSampler : register(s0);
 
 struct PS_Output
 {
@@ -41,5 +43,6 @@ struct PS_Output
 
 float4 ps_main(VS_Output _Input) : SV_TARGET0
 {
-    return float4(1.0f,1.0f,0.0f,1.0f);
+    float4 Color = ImageTexture.Sample(ImageSampler, _Input.UV.xy);
+    return Color;
 }

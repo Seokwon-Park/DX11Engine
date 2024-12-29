@@ -9,9 +9,6 @@ DX11DeviceContext::DX11DeviceContext()
 DX11DeviceContext::~DX11DeviceContext()
 {
 
-	int a = 0;
-	
-	
 	RTV=nullptr;
 	RasterizerState=nullptr;
 	BackBufferTexture=nullptr;
@@ -91,8 +88,7 @@ void DX11DeviceContext::Init(const UEngineWindow& _Window)
 		MSGASSERT("스레드 초기화에 실패했습니다.");
 	}
 
-	CreateSwapChain(_Window);
-	CreateRasterizer();
+
 }
 void DX11DeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 {
@@ -250,6 +246,12 @@ void DX11DeviceContext::SwapBuffers()
 		MSGASSERT("해상도 변경이나 디바이스 관련 설정이 런타임 도중 수정되었습니다");
 		return;
 	}
+}
+
+void DX11DeviceContext::CreateBackBuffer(const UEngineWindow& _Window)
+{
+	CreateSwapChain(_Window);
+	CreateRasterizer();
 }
 
 

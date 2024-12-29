@@ -4,6 +4,7 @@ struct Vertex
 {
 	FVector4 Pos;
 	FVector4 Color;
+	float UV[2];
 };
 
 // 클래스 설명 :

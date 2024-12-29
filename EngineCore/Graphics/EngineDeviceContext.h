@@ -17,6 +17,7 @@ public:
 	ENGINE_API virtual ~UEngineDeviceContext();
 
 	ENGINE_API virtual void Init(const UEngineWindow& _Window);
+	ENGINE_API virtual void CreateBackBuffer(const UEngineWindow& _Window) = 0;
 	ENGINE_API virtual void ClearRenderTarget();
 	ENGINE_API virtual void SwapBuffers();
 	ENGINE_API inline void SetClearColor(FColor _Color) { ClearColor = _Color; }
@@ -25,7 +26,8 @@ public:
 	ENGINE_API inline void SetRendererAPI(ERendererAPI _API) { API = _API; }
 	ENGINE_API inline ERendererAPI GetRendererAPI() { return API;  }
 
-	virtual inline UEngineDeviceContext* Get() = 0;
+	template <typename DeviceType>
+	inline DeviceType* Get() {};
 protected:
 	ERendererAPI API;
 	FColor ClearColor;

@@ -18,6 +18,7 @@ public:
 	DX11Shader& operator=(DX11Shader&& _Other) noexcept = delete;
 
 	void SetVertexConstants(VertexConstant _Data) override;
+	
 
 	virtual void Bind() const override;
 protected:
@@ -28,6 +29,7 @@ private:
 	ComPtr<ID3D11InputLayout> InputLayout;
 
 	ComPtr<ID3D11Buffer> VertexCBuffer;
+	ComPtr<ID3D11SamplerState> m_SamplerState;
 
 	// EngineShader을(를) 통해 상속됨
 };

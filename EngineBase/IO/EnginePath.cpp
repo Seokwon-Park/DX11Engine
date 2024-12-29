@@ -42,10 +42,6 @@ BASE_API UEnginePath& UEnginePath::operator=(UEnginePath&& _Other) noexcept
 {
 	Path = _Other.Path;
 
-	// Release the data pointer from the source object so that
-	// the destructor does not free the memory multiple times.
-	_Other.Path = nullptr;
-
 	return *this;
 }
 
@@ -54,7 +50,7 @@ std::string UEnginePath::ToString()
 	return Path.string();
 }
 
-std::string UEnginePath::GetPathName()
+std::string UEnginePath::GetCurrentName()
 {
 	return Path.filename().string();
 }

@@ -10,14 +10,16 @@ DX11Texture2D::DX11Texture2D(uint32 _Width, uint32 _Height)
 {
 }
 
-DX11Texture2D::DX11Texture2D(UEngineFile _Path)
+DX11Texture2D::DX11Texture2D(const std::string& _Path)
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
-	m_TextureResourceView.Reset();
-	m_Texture.Reset();
+	ShaderResourceView.Reset();
+	Texture.Reset();
 
-	std::string Str = _Path.ToString();
-	std::string Ext = _Path.GetFileExtension();
+	UEnginePath Path = UEnginePath(std::string_view(_Path));
+
+	std::string Str = _Path;
+	std::string Ext = Path.GetFileExtension();
 	std::wstring wLoadPath = UEngineString::ToWString(Str.c_str());
 	std::string UpperExt = UEngineString::ToUpper(Ext.c_str());
 
@@ -59,13 +61,11 @@ DX11Texture2D::DX11Texture2D(UEngineFile _Path)
 	txtDesc.Usage = D3D11_USAGE_IMMUTABLE;
 	txtDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 
-	ID3D11Resource** Res;
-	m_Texture->QueryInterface(__uuidof(ID3D11Resource), (void**)&Res);
-	DirectX::CreateTexture(DeviceContext->GetDevice(), ImageData.GetImages(), ImageData.GetImageCount(), ImageData.GetMetadata(), Res);
+	DirectX::CreateTexture(DeviceContext->GetDevice(), ImageData.GetImages(), ImageData.GetImageCount(), ImageData.GetMetadata(), (ID3D11Resource**)Texture.GetAddressOf());
 	
 
 	//DeviceContext->GetDevice()->CreateTexture2D(&txtDesc, &InitData, m_Texture.GetAddressOf());
-	DeviceContext->GetDevice()->CreateShaderResourceView(m_Texture.Get(), nullptr, m_TextureResourceView.GetAddressOf());
+	DeviceContext->GetDevice()->CreateShaderResourceView(Texture.Get(), nullptr, ShaderResourceView.GetAddressOf());
 	//m_Context->GetD3DContext()->PSSetShaderResources(0, 1, m_TextureResourceView.GetAddressOf());
 }
 
@@ -81,5 +81,5 @@ void DX11Texture2D::Bind(uint32 slot) const
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 
-	DeviceContext->GetContext()->PSSetShaderResources(0, 1, m_TextureResourceView.GetAddressOf());
+	DeviceContext->GetContext()->PSSetShaderResources(0, 1, ShaderResourceView.GetAddressOf());
 }

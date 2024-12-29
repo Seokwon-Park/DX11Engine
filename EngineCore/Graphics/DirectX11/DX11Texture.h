@@ -13,7 +13,7 @@ class DX11Texture2D : public UEngineTexture2D
 public:
 	// constrcuter destructer
 	DX11Texture2D(uint32 _Width, uint32 _Height);
-	DX11Texture2D(class UEngineFile _Path);
+	DX11Texture2D(const std::string& _Path);
 	virtual ~DX11Texture2D();
 	// delete Function
 	DX11Texture2D(const DX11Texture2D& _Other) = delete;
@@ -30,9 +30,9 @@ public:
 protected:
 
 private:
-	ComPtr<ID3D11Texture2D> m_Texture;
-	ComPtr<ID3D11ShaderResourceView> m_TextureResourceView;
-	std::string m_Path;
+	ComPtr<ID3D11Texture2D> Texture;
+	ComPtr<ID3D11ShaderResourceView> ShaderResourceView;
+	std::string _Path;
 	uint32 m_Width, m_Height;
 	uint32 m_RendererID;
 };

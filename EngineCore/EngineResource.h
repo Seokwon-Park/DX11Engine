@@ -8,7 +8,7 @@ class UEngineResource : public UObject
 public:
 	// constrcuter destructer
 	UEngineResource();
-	~UEngineResource();
+	virtual ~UEngineResource();
 
 	// delete Function
 	UEngineResource(const UEngineResource& _Other) = delete;
@@ -16,7 +16,7 @@ public:
 	UEngineResource& operator=(const UEngineResource& _Other) = delete;
 	UEngineResource& operator=(UEngineResource&& _Other) noexcept = delete;
 
-	inline void SetPath(std::string_view _Path) { Path = _Path; }
+	inline void SetPath(std::string_view _Path) { Path = UEnginePath(_Path); }
 
 protected:
 	UEnginePath Path;

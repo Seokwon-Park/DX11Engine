@@ -1,6 +1,6 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
-#include "EngineResource.h"
+#include <EngineCore/EngineResource.h>
 
 // Ό³Έν :
 class UEngineTexture : public UEngineResource
@@ -8,7 +8,7 @@ class UEngineTexture : public UEngineResource
 public:
 	// constrcuter destructer
 	UEngineTexture();
-	~UEngineTexture();
+	virtual ~UEngineTexture();
 
 	// delete Function
 	UEngineTexture(const UEngineTexture& _Other) = delete;
@@ -32,8 +32,8 @@ private:
 class UEngineTexture2D : public UEngineTexture
 {
 public:
-	static std::shared_ptr<UEngineTexture2D> Create(uint32 width, uint32 height);
-	static std::shared_ptr<UEngineTexture2D> Create(const std::string& path);
+	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(uint32 width, uint32 height);
+	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(const std::string& path);
 };
 
 

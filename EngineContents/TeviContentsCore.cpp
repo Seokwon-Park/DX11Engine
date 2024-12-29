@@ -4,6 +4,8 @@
 #include "EngineCore/EngineCore.h"
 #include <EngineCore/Pawn.h>
 #include <EngineCore/GameMode.h>
+#include <EngineCore/ResourceManager.h>
+#include <EngineBase/EngineIO.h>
 
 #include "TitleGameMode.h"
 #include "Player.h"
@@ -23,6 +25,8 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	// 윈도우 크기 지정
 	_Data.WindowPos = { 100, 100 };
 	_Data.WindowSize = { 1280, 720 };
+
+	UResourceManager::LoadImages({ ".PNG" });
 
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Titlelevel");
 	UEngineCore::OpenLevel("Titlelevel");
