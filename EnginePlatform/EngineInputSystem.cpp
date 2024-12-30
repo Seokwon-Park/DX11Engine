@@ -49,7 +49,8 @@ UEngineInputSystem::~UEngineInputSystem()
 
 void UEngineInputSystem::KeyCheck(float _DeltaTime)
 {
-	for (auto& Itr : Keys)
+	//std::cout << GetInstance().Keys[EKey::Left].IsDown<< '\n';
+	for (auto& Itr : GetInstance().Keys)
 	{
 		UEngineKey& CurKey = Itr.second;
 		CurKey.KeyCheck(_DeltaTime);

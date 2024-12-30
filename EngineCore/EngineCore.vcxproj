@@ -164,6 +164,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Components\DefaultSceneComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Components\EngineInputEvent.h">
       <SubType>
       </SubType>
@@ -255,6 +259,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\CameraComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Components\DefaultSceneComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>

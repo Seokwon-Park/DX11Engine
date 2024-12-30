@@ -3,6 +3,7 @@
 #include <EngineBase/EngineDebug.h>
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineWindow.h>
+#include <EnginePlatform/EngineInputSystem.h>
 #include "IContentsCore.h"
 #include "ResourceManager.h"
 #include "Graphics/DirectX11/DX11DeviceContext.h"
@@ -165,6 +166,7 @@ void UEngineCore::EngineUpdate()
 
 	Timer.TimeCheck();
 	float DeltaTime = Timer.GetDeltaTime();
+	UEngineInputSystem::KeyCheck(DeltaTime);
 
 	CurLevel->Tick(DeltaTime);
 	CurLevel->Render(DeltaTime);

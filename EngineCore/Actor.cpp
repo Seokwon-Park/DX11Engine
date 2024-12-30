@@ -1,11 +1,13 @@
 #include "EnginePCH.h"
 #include "Actor.h"
 #include "Components/SceneComponent.h"
+#include "Components/DefaultSceneComponent.h"
 #include "Level.h"
 
 
 AActor::AActor()
 {
+	RootComponent = CreateDefaultSubObject<UDefaultSceneComponent>();
 }
 
 AActor::~AActor()

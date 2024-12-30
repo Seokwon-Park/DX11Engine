@@ -22,7 +22,7 @@ void UEngineInputEvent::EventCheck(KeyCode _Key)
 			DownEvents[i]();
 		}
 	}
-	else if (true == UEngineInputSystem::GetKey(_Key))
+	if (true == UEngineInputSystem::GetKey(_Key))
 	{
 		for (size_t i = 0; i < PressEvents.size(); i++)
 		{

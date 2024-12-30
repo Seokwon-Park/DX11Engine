@@ -24,7 +24,7 @@ public:
 		return Inst;
 	}
 
-	void KeyCheck(float _DeltaTime);
+	ENGINE_API static void KeyCheck(float _DeltaTime);
 	static bool GetKeyDown(int _KeyIndex)
 	{
 		if (false == GetInstance().Keys.contains(_KeyIndex))

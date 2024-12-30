@@ -19,25 +19,33 @@ public:
 	inline void SetLocation(const FVector4& _Value)
 	{
 		Transform.Location = _Value;
-		Transform.UpdateTransform();
+		UpdateTransform();
 	}
 
 	void AddLocation(const FVector4& _Value)
 	{
 		Transform.Location += _Value;
-		Transform.UpdateTransform();
+		UpdateTransform();
 	}
 
 	void SetRelativeScale3D(const FVector4& _Value)
 	{
 		Transform.Scale = _Value;
-		Transform.UpdateTransform();
+		UpdateTransform();
 	}
 
 	FTransform& GetTransformRef()
 	{
 		return Transform;
 	}
+
+	void GetParentTransform();
+
+	ENGINE_API void SetupAttachment(std::shared_ptr<USceneComponent> _Parent);
+	void SetupAttachment(USceneComponent* _Parent);
+
+	//내가 업데이트 되면 자식도 업데이트 되어야한다.
+	ENGINE_API void UpdateTransform();
 protected:
 	FTransform Transform;
 private:

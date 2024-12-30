@@ -6,6 +6,8 @@ APlayer::APlayer()
 	Test = CreateDefaultSubObject<USpriteRendererComponent>();
 	Input = CreateDefaultSubObject<UInputComponent>();
 	Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::TestFn, this));
+
+	Test->SetupAttachment(RootComponent);
 }
 
 APlayer::~APlayer()

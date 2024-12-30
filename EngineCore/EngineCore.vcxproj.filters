@@ -38,6 +38,7 @@
     <ClCompile Include="EngineSprite.cpp" />
     <ClCompile Include="Components\InputComponent.cpp" />
     <ClCompile Include="Components\EngineInputEvent.cpp" />
+    <ClCompile Include="Components\DefaultSceneComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="EngineSprite.h" />
     <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="Components\EngineInputEvent.h" />
+    <ClInclude Include="Components\DefaultSceneComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
