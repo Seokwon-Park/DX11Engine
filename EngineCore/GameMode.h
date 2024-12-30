@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Actor.h"
 
 // Ό³Έν :
@@ -6,8 +7,8 @@ class AGameMode : public AActor
 {
 public:
 	// constrcuter destructer
-	AGameMode();
-	~AGameMode();
+	ENGINE_API AGameMode();
+	ENGINE_API virtual ~AGameMode();
 
 	// delete Function
 	AGameMode(const AGameMode& _Other) = delete;

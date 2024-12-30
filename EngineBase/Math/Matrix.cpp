@@ -16,6 +16,7 @@ void FMatrix::MatrixTranspose()
 	Mat = DirectX::XMMatrixTranspose(Mat);
 }
 
+
 void FMatrix::MatrixScaling(FVector4 _Scale)
 {
 	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Scale.XMFloat);
@@ -67,13 +68,25 @@ void FMatrix::MatrixPerspectiveFov(float _Fov, float _AspectRatio, float _Near, 
 
 void FMatrix::MatrixOrthoFovLH(float _Fov, float _AspectRatio, float _Near, float _Far)
 {
+	MatrixIdentity();
 	Mat = DirectX::XMMatrixOrthographicOffCenterLH(-_AspectRatio, _AspectRatio, -1.0f, 1.0f, _Near, _Far);
 }
 
 void FMatrix::MatrixOrthoLH(float _Width, float _Height, float _Near, float _Far)
 {
+	MatrixIdentity();
 	Mat = DirectX::XMMatrixOrthographicLH(_Width, _Height, _Near, _Far);
 }
+
+FMatrix FMatrix::operator*(FMatrix _Mat)
+{
+	DirectX::XMMATRIX Mat = DirectX::XMMatrixMultiply(this->Mat, _Mat.Mat);
+	FMatrix Result;
+	Result.Mat = Mat;
+	return Result;
+}
+
+
 
 
 

@@ -1,6 +1,11 @@
 #pragma once
-
 #include "Graphics/EngineTexture.h"
+
+struct FSpriteData
+{
+	float CuttingPos[2] = { 0.0f, 0.0f };
+	float CuttingSize[2] = { 1.0f, 1.0f };
+};
 
 // 클래스 설명 :
 class UEngineSprite 
@@ -19,5 +24,5 @@ protected:
 
 private:
 	UEngineTexture2D* Texture;
-	//std::vector<FSpriteData> SpriteDatas;
+	std::vector<FSpriteData> SpriteDatas;
 };

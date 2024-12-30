@@ -1,6 +1,8 @@
 #include "EnginePCH.h"
 #include "Actor.h"
 #include "Components/SceneComponent.h"
+#include "Level.h"
+
 
 AActor::AActor()
 {
@@ -17,7 +19,7 @@ void AActor::SetActorLocation(const FVector4& _Value)
 		return;
 	}
 
-	//RootComponent->SetComponentLocation(_Value);
+	RootComponent->SetLocation(_Value);
 }
 
 void AActor::AddActorLocation(const FVector4& _Value)
@@ -46,10 +48,24 @@ void AActor::BeginPlay()
 	{
 		RootComponent->BeginPlay();
 	}
+
+	for (std::shared_ptr<class UActorComponent>& ActorComponent : ActorComponentList)
+	{
+		ActorComponent->BeginPlay();
+	}
 }
 
 
 void AActor::Tick(float _DeltaTime)
 {
+	if (nullptr != RootComponent)
+	{
+		RootComponent->TickComponent(_DeltaTime);
+	}
+
+	for (std::shared_ptr<class UActorComponent>& ActorComponent : ActorComponentList)
+	{
+		ActorComponent->TickComponent(_DeltaTime);
+	}
 }
 

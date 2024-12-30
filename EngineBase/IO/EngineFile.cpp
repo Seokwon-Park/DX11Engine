@@ -1,6 +1,7 @@
 #include "EnginePCH.h"
 #include "EngineFile.h"
 #include "EngineDebug.h"
+#include "EngineSerializer.h"
 
 UEngineFile::UEngineFile()
 {
@@ -21,6 +22,22 @@ UEngineFile::UEngineFile(std::filesystem::path _Path)
 UEngineFile::~UEngineFile()
 {
 	Close();
+}
+
+void UEngineFile::Write(UEngineSerializer& _Ser)
+{
+	Write(_Ser.GetDataPtr(), _Ser.GetWriteOffset());
+}
+
+void UEngineFile::Read(UEngineSerializer& _Ser)
+{
+	// 파일 크기를 다 읽어서 
+
+	int FileSize = GetFileSize();
+
+	_Ser.DataResize(FileSize);
+
+	Read(_Ser.GetDataPtr(), FileSize);
 }
 
 void UEngineFile::FileOpen(const char* _Mode)
@@ -81,6 +98,25 @@ void UEngineFile::Read(void* _Ptr, size_t _Size)
 bool UEngineFile::IsExist()
 {
 	return std::filesystem::exists(Path);
+}
+
+int UEngineFile::GetFileSize()
+{
+	if (false == IsFile())
+	{
+		MSGASSERT(Path.string() + "는 파일이 아닙니다.");
+		return -1;
+	}
+
+	return static_cast<int>(std::filesystem::file_size(Path));
+}
+
+BASE_API std::string UEngineFile::GetTextFromFile()
+{
+	UEngineSerializer Ser;
+	Read(Ser);
+
+	return reinterpret_cast<const char*>(Ser.GetDataPtr());
 }
 
 void UEngineFile::Close()

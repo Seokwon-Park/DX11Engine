@@ -1,7 +1,7 @@
 #pragma once
 
+#include <EngineBase/Object.h>
 #include <EngineBase/EngineDebug.h>
-#include "Level.h"
 
 // 설명 :
 class AActor : public UObject
@@ -36,32 +36,17 @@ public:
 
 		std::shared_ptr<ComponentType> NewComponent(ComponentPtr);
 
-		if (std::is_base_of_v<USceneComponent, ComponentType>)
-		{
-			if (nullptr != RootComponent)
-			{
-				MSGASSERT("아직 기하구조를 만들지 않았습니다.");
-			}
-
-			RootComponent = NewComponent;
-		}
-		else if (std::is_base_of_v<UActorComponent, ComponentType>)
-		{
-			ActorComponentList.push_back(NewComponent);
-		}
-		else
-		{
-			MSGASSERT("말도 안됨");
-		}
+		ActorComponentList.push_back(NewComponent);
 
 		return NewComponent;
 	}
 
-	void SetActorLocation(const FVector4& _Value);
-	void AddActorLocation(const FVector4& _Value);
-	void SetActorRelativeScale3D(const FVector4& _Scale);
-	
-	inline ULevel* GetLevel() const {return Level;}
+	ENGINE_API void SetActorLocation(const FVector4& _Value);
+	ENGINE_API void AddActorLocation(const FVector4& _Value);
+	ENGINE_API void SetActorRelativeScale3D(const FVector4& _Scale);
+
+	inline ULevel* GetLevel() const { return Level; }
+	inline void SetLevel(class ULevel* _Level) { Level = _Level; }
 	ENGINE_API virtual void Tick(float _DeltaTime);
 
 protected:
@@ -69,7 +54,7 @@ protected:
 
 	std::shared_ptr<class USceneComponent> RootComponent;
 private:
-	ULevel* Level;
+	class ULevel* Level = nullptr;
 
 	std::list<std::shared_ptr<class UActorComponent>> ActorComponentList;
 };

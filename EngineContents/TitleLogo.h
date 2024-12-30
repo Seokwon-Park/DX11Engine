@@ -1,6 +1,6 @@
 #pragma once
 #include <EngineCore/Actor.h>
-#include <EngineCore/Components/RendererComponent.h>
+#include <EngineCore/Components/SpriteRendererComponent.h>
 
 
 // Ό³Έν :
@@ -22,7 +22,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	std::shared_ptr<URendererComponent> Test;
+
 
 };
 

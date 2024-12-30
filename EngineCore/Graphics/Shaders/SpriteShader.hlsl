@@ -5,6 +5,12 @@ cbuffer MVP : register(b0)
     float4x4 Proj;
 };
 
+cbuffer FSpriteData : register(b1)
+{
+    float2 CuttingPos;
+    float2 CuttingSize;
+};
+
 struct VS_Input
 {
     float4 Pos: POSITION;
@@ -19,6 +25,8 @@ struct VS_Output
     float2 UV : TEXCOORD0;
 };
 
+
+
 VS_Output vs_main(VS_Input _Input)
 {
     VS_Output Output;
@@ -26,7 +34,9 @@ VS_Output vs_main(VS_Input _Input)
     Output.Pos = mul(Output.Pos, View);
     Output.Pos = mul(Output.Pos, Proj);
     Output.Color = _Input.Color;    
-    Output.UV = _Input.UV;
+    
+    Output.UV.x = (_Input.UV.x * CuttingSize.x) + CuttingPos.x;
+    Output.UV.y = (_Input.UV.y * CuttingSize.y) + CuttingPos.y;
 
     return Output;
 }

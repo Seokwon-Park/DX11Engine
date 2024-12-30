@@ -36,6 +36,8 @@
     <ClCompile Include="EngineResource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="EngineSprite.cpp" />
+    <ClCompile Include="Components\InputComponent.cpp" />
+    <ClCompile Include="Components\EngineInputEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -74,6 +76,8 @@
     <ClInclude Include="EngineResource.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="EngineSprite.h" />
+    <ClInclude Include="Components\InputComponent.h" />
+    <ClInclude Include="Components\EngineInputEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

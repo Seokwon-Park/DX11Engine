@@ -1,4 +1,5 @@
 #pragma once
+//#include <EngineCore/Components/RendererComponent.h>
 
 struct VertexConstant
 {
@@ -24,6 +25,7 @@ public:
 	virtual void Bind() const = 0;
 
 	virtual void SetVertexConstants(VertexConstant _Data) = 0;
+	virtual void SetSpriteConstants(struct FSpriteData _Data) = 0;
 
 	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& filepath);
 	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);

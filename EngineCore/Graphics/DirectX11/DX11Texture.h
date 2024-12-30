@@ -34,6 +34,5 @@ private:
 	ComPtr<ID3D11ShaderResourceView> ShaderResourceView;
 	std::string _Path;
 	uint32 m_Width, m_Height;
-	uint32 m_RendererID;
 };
 

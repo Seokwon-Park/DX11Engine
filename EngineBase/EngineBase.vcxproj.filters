@@ -28,6 +28,7 @@
     <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="EngineString.cpp" />
+    <ClCompile Include="EngineTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnginePCH.h" />
@@ -61,6 +62,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="DataWrappers.h" />
     <ClInclude Include="EngineString.h" />
+    <ClInclude Include="EngineTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="EngineMath">

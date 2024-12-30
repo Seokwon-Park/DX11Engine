@@ -4,7 +4,6 @@
 #include "Graphics/EngineShader.h"
 #include "Graphics/EngineTexture.h"
 #include "ResourceManager.h"
-#include "EngineCore.h"
 #include "Actor.h"
 
 URendererComponent::URendererComponent()
@@ -44,9 +43,15 @@ void URendererComponent::BeginPlay()
 void URendererComponent::Render(float _DeltaTime)
 {
 	VertexConstant Data;
-	Data.World = GetTransformRef().WorldMatrix;
+	FMatrix W = GetTransformRef().WorldMatrix;
+	W.MatrixTranspose();
+	Data.World = W;
 	Data.View.MatrixView(FVector4::BACK, FVector4::FORWARD, FVector4::UP);
-	Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
+	Data.View.MatrixTranspose();
+
+	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
+	//std::cout << Data.Proj << '\n';
+	Data.Proj.MatrixOrthoLH(1280.f, 720.0f, 0.01f, 100.0f);
 	Data.Proj.MatrixTranspose();
 	//Test2->Bind();
 	//Test3->Bind();

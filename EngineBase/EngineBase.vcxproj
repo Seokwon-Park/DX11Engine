@@ -14,6 +14,10 @@
     <ClCompile Include="EngineDebug.cpp" />
     <ClCompile Include="EngineLogger.cpp" />
     <ClCompile Include="EngineString.cpp" />
+    <ClCompile Include="EngineTimer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="IO\EngineDirectory.cpp" />
     <ClCompile Include="IO\EngineFile.cpp" />
     <ClCompile Include="IO\EnginePath.cpp" />
@@ -44,6 +48,10 @@
     <ClInclude Include="EngineIO.h" />
     <ClInclude Include="EngineLogger.h" />
     <ClInclude Include="EngineString.h" />
+    <ClInclude Include="EngineTimer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="IO\EngineDirectory.h" />
     <ClInclude Include="IO\EngineFile.h" />
     <ClInclude Include="IO\EnginePath.h" />

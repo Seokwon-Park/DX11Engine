@@ -8,12 +8,11 @@ DX11DeviceContext::DX11DeviceContext()
 
 DX11DeviceContext::~DX11DeviceContext()
 {
-
-	RTV=nullptr;
-	RasterizerState=nullptr;
-	BackBufferTexture=nullptr;
-	SwapChain=nullptr;
-	Context=nullptr;
+	RTV = nullptr;
+	RasterizerState = nullptr;
+	BackBufferTexture = nullptr;
+	SwapChain = nullptr;
+	Context = nullptr;
 #if defined(DEBUG) || defined(_DEBUG)
 	Microsoft::WRL::ComPtr<ID3D11Debug> DXGIDebug;
 
@@ -23,7 +22,7 @@ DX11DeviceContext::~DX11DeviceContext()
 		DXGIDebug = nullptr;
 	}
 #endif
-	Device=nullptr;
+	Device = nullptr;
 }
 
 void DX11DeviceContext::Init(const UEngineWindow& _Window)

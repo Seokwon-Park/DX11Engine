@@ -15,9 +15,9 @@ public:
 	APawn(APawn&& _Other) noexcept = delete;
 	APawn& operator=(const APawn& _Other) = delete;
 	APawn& operator=(APawn&& _Other) noexcept = delete;
-	virtual void Tick(float _DeltaTime) override;
+	ENGINE_API virtual void Tick(float _DeltaTime) override;
 protected:
-	virtual void BeginPlay() override;
+	ENGINE_API virtual void BeginPlay() override;
 private:
 
 };

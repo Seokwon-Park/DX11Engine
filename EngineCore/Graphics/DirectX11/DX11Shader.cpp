@@ -1,10 +1,11 @@
 #include "EnginePCH.h"
-#include "EngineCore.h"
 #include "DX11Shader.h"
+#include "EngineCore.h"
 #include "DX11DeviceContext.h"
 #include "Components/CameraComponent.h"
 #include <EngineBase/EngineIO.h>
 #include <EngineBase/EngineString.h>
+#include <EngineCore/EngineSprite.h>
 
 DX11Shader::DX11Shader(const std::string& _FilePath)
 {
@@ -95,7 +96,7 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 		std::cerr << "CreateInputLayout failed with HRESULT: " << std::hex << Result << std::endl;
 		MSGASSERT("인풋 레이아웃 생성에 실패했습니다");
 	}
-	
+
 	// Create Pixel Shader
 	ComPtr<ID3DBlob> PixelShaderBlob;
 	HResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, "ps_main", "ps_5_0", CompilerFlags, 0, &PixelShaderBlob, &ShaderCompileErrorsBlob);
@@ -130,7 +131,7 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 	SamplerDesc.MinLOD = 0;
 	SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	DeviceContext->GetDevice()->CreateSamplerState(&SamplerDesc, m_SamplerState.GetAddressOf());
+	DeviceContext->GetDevice()->CreateSamplerState(&SamplerDesc, SamplerState.GetAddressOf());
 }
 
 DX11Shader::~DX11Shader()
@@ -171,11 +172,45 @@ void DX11Shader::SetVertexConstants(VertexConstant _Data)
 	DeviceContext->GetContext()->VSSetConstantBuffers(0, 1, ArrPtr);
 }
 
+void DX11Shader::SetSpriteConstants(FSpriteData _Data)
+{
+	UVBuffer.Reset();
+	D3D11_BUFFER_DESC BufferInfo = { 0 };
+	BufferInfo.ByteWidth = sizeof(FSpriteData);
+	BufferInfo.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	BufferInfo.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
+	BufferInfo.Usage = D3D11_USAGE_DYNAMIC;
+
+	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
+
+	if (S_OK != DeviceContext->GetDevice()->CreateBuffer(&BufferInfo, nullptr, UVBuffer.GetAddressOf()))
+	{
+		MSGASSERT("상수버퍼 생성에 실패했습니다..");
+		return;
+	}
+
+	D3D11_MAPPED_SUBRESOURCE Data = {};
+	DeviceContext->GetContext()->Map(UVBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &Data);
+
+	// Data.pData 그래픽카드와 연결된 주소값.
+	if (nullptr == Data.pData)
+	{
+		MSGASSERT("그래픽카드가 수정을 거부했습니다.");
+	}
+
+	memcpy_s(Data.pData, sizeof(FSpriteData), &_Data, sizeof(FSpriteData));
+	DeviceContext->GetContext()->Unmap(UVBuffer.Get(), 0);
+
+	// 같은 상수버퍼를 
+	ID3D11Buffer* ArrPtr[16] = { UVBuffer.Get() };
+	DeviceContext->GetContext()->VSSetConstantBuffers(1, 1, ArrPtr);
+}
+
 void DX11Shader::Bind() const
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 
-	DeviceContext->GetContext()->PSSetSamplers(0, 1, m_SamplerState.GetAddressOf());
+	DeviceContext->GetContext()->PSSetSamplers(0, 1, SamplerState.GetAddressOf());
 	DeviceContext->GetContext()->IASetInputLayout(InputLayout.Get());
 	DeviceContext->GetContext()->VSSetShader(VertexShader.Get(), nullptr, 0);
 	DeviceContext->GetContext()->PSSetShader(PixelShader.Get(), nullptr, 0);

@@ -3,7 +3,6 @@
 
 ATitleLogo::ATitleLogo()
 {
-	Test = CreateDefaultSubObject<URendererComponent>();
 }
 
 ATitleLogo::~ATitleLogo()

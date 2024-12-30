@@ -4,6 +4,7 @@
 #include "Graphics/EngineDeviceContext.h"
 #include "Level.h"
 #include "IContentsCore.h"
+#include <EngineBase/EngineTimer.h>	
 
 
 
@@ -23,8 +24,9 @@ public:
 	{
 		std::shared_ptr<ULevel> NewLevel = std::make_shared<ULevel>();
 
-		NewLevel->SpawnActor<GameModeType>();
-		NewLevel->SpawnActor<MainPawnType>();
+		NewLevel->Create<GameModeType, MainPawnType>();
+		//NewLevel->SpawnActor<GameModeType>();
+		//NewLevel->SpawnActor<MainPawnType>();
 
 		AddLevel(_Name, NewLevel);
 
@@ -42,6 +44,8 @@ private:
 	static UEngineWindow MainWindow;
 	static HMODULE ContentsDLL;
 	static std::shared_ptr<IContentsCore> Core;
+
+	static UEngineTimer Timer;
 
 	static void WindowInit(HINSTANCE _Instance);
 	static void LoadContentsDll(std::string_view _DllName);

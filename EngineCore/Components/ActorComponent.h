@@ -17,6 +17,7 @@ public:
 
 	class AActor* GetOwner();
 	virtual void InitializeComponent() {}
+	virtual void TickComponent(float _DeltaTime) {};
 	virtual void BeginPlay() {}
 protected:
 

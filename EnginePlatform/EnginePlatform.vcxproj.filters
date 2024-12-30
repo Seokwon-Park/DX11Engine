@@ -3,9 +3,12 @@
   <ItemGroup>
     <ClInclude Include="EngineWindow.h" />
     <ClInclude Include="EnginePCH.h" />
+    <ClInclude Include="EngineInputSystem.h" />
+    <ClInclude Include="KeyCode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineWindow.cpp" />
     <ClCompile Include="EnginePCH.cpp" />
+    <ClCompile Include="EngineInputSystem.cpp" />
   </ItemGroup>
 </Project>

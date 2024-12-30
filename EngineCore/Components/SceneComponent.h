@@ -19,16 +19,19 @@ public:
 	inline void SetLocation(const FVector4& _Value)
 	{
 		Transform.Location = _Value;
+		Transform.UpdateTransform();
 	}
 
 	void AddLocation(const FVector4& _Value)
 	{
 		Transform.Location += _Value;
+		Transform.UpdateTransform();
 	}
 
 	void SetRelativeScale3D(const FVector4& _Value)
 	{
 		Transform.Scale = _Value;
+		Transform.UpdateTransform();
 	}
 
 	FTransform& GetTransformRef()

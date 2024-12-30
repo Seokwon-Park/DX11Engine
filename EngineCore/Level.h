@@ -1,7 +1,7 @@
 #pragma once
 
-#include "EngineBase/Object.h"
 #include "Actor.h"
+#include "GameMode.h"
 
 // Ό³Έν :
 class  ULevel : public UObject
@@ -46,9 +46,36 @@ public:
 
 		return NewActor;
 	}
+	template<typename GameModeType>
+	std::shared_ptr<GameModeType> GetGameMode()
+	{
+		return dynamic_pointer_cast<GameModeType>(GameMode);
+	}
+
+	template<typename ActorType>
+	std::shared_ptr<ActorType> GetMainPawn()
+	{
+		return dynamic_pointer_cast<ActorType>(MainPawn);
+	}
+
+	template <typename GameModeType, typename MainPawnType>
+	void Create()
+	{
+		GameMode = SpawnActor<GameModeType>();
+		MainPawn = SpawnActor<MainPawnType>();
+
+		GameMode->SetLevel(this);
+		MainPawn->SetLevel(this);
+
+		BeginPlayList.push_back(GameMode);
+		BeginPlayList.push_back(MainPawn);
+	}
 protected:
 
 private:
+	std::shared_ptr<AGameMode> GameMode;
+	std::shared_ptr<AActor> MainPawn;
+
 	std::list<std::shared_ptr<class AActor>> BeginPlayList;
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 

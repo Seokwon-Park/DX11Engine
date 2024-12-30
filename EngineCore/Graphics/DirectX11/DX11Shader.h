@@ -1,8 +1,6 @@
 #pragma once
 #include "Graphics/EngineShader.h"
 
-
-
 // 설명 :
 class DX11Shader : public UEngineShader
 {
@@ -18,7 +16,7 @@ public:
 	DX11Shader& operator=(DX11Shader&& _Other) noexcept = delete;
 
 	void SetVertexConstants(VertexConstant _Data) override;
-	
+	void SetSpriteConstants(FSpriteData _Data) override;
 
 	virtual void Bind() const override;
 protected:
@@ -29,7 +27,8 @@ private:
 	ComPtr<ID3D11InputLayout> InputLayout;
 
 	ComPtr<ID3D11Buffer> VertexCBuffer;
-	ComPtr<ID3D11SamplerState> m_SamplerState;
+	ComPtr<ID3D11Buffer> UVBuffer;
+	ComPtr<ID3D11SamplerState> SamplerState;
 
 	// EngineShader을(를) 통해 상속됨
 };

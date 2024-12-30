@@ -12,13 +12,20 @@ public:
 	BASE_API UEngineFile(std::filesystem::path _Path);
 	BASE_API ~UEngineFile() override;
 
+	void Write(class UEngineSerializer& _Ser);
+	void Read(class UEngineSerializer& _Ser);
+
 	void Write(const void* _Ptr, size_t _Size);
 	void Read(void* _Ptr, size_t _Size);
 
-	void FileOpen(const char* _Mode);
+	BASE_API void FileOpen(const char* _Mode);
 	void Close();
 
 	bool IsExist();
+
+	int GetFileSize();
+
+	BASE_API std::string GetTextFromFile();
 
 private:
 	FILE* File = nullptr;
