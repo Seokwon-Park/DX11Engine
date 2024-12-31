@@ -1,5 +1,5 @@
 #pragma once
-#include <Graphics/EngineBuffer.h>
+#include <EngineCore/Resources/EngineBuffer.h>
 
 // Ό³Έν :
 class DX11VertexBuffer: public VertexBuffer

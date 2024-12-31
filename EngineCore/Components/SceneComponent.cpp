@@ -33,9 +33,16 @@ void USceneComponent::SetupAttachment(USceneComponent* _Parent)
 
 ENGINE_API void USceneComponent::UpdateTransform()
 {
-	GetParentTransform();
+	//GetParentTransform();
 	// 나의 트랜스폼 업데이트는 일단 한다.
-	Transform.UpdateTransform();//(IsAbsolute);
+	if (Parent == nullptr)
+	{
+		Transform.UpdateTransform();//(IsAbsolute);
+	}
+	else
+	{
+		Transform.UpdateTransform(Parent->Transform.WorldMatrix);
+	}
 
 	for (std::shared_ptr<USceneComponent> Child : Childs)
 	{

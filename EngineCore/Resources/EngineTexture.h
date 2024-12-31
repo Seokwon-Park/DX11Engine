@@ -1,6 +1,6 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
-#include <EngineCore/EngineResource.h>
+#include <EngineCore/Resources/EngineResource.h>
 
 // Ό³Έν :
 class UEngineTexture : public UEngineResource

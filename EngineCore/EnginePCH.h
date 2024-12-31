@@ -18,7 +18,7 @@
 #include <EngineBase/EngineLogger.h>
 #include <EnginePlatform/KeyCode.h>
 
-#include "Graphics/EngineDeviceContext.h"
+#include "EngineDeviceContext.h"
 #include <d3d11.h>
 #include <d3dcompiler.h> 
 #include <wrl.h>

@@ -12,5 +12,20 @@ void FTransform::UpdateTransform()
 	B.MatrixRotation(Rotation);
 	A.MatrixTranslation(Location);
 
-	WorldMatrix = A * B * C;
+
+
+	WorldMatrix = C * B * A;
+}
+
+BASE_API void FTransform::UpdateTransform(FMatrix _ParentWorld)
+{
+	FMatrix A;
+	FMatrix B;
+	FMatrix C;
+
+	A.MatrixTranslation(Location);
+	B.MatrixRotation(Rotation);
+	C.MatrixScaling(Scale);
+
+	WorldMatrix = C * B * A * _ParentWorld;
 }

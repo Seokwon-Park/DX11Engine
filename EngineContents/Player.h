@@ -19,7 +19,7 @@ public:
 
 	virtual void Tick(float _DeltaTime) override;
 
-	void TestFn();
+	void Move(FVector4 _Dir);
 protected:
 	virtual void BeginPlay() override;
 

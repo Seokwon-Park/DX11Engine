@@ -26,7 +26,7 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	_Data.WindowPos = { 100, 100 };
 	_Data.WindowSize = { 1280, 720 };
 
-	UResourceManager::LoadImages({ ".PNG" });
+	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Images");
 
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Titlelevel");
 	UEngineCore::OpenLevel("Titlelevel");

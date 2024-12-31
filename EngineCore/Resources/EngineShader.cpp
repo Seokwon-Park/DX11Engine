@@ -1,7 +1,7 @@
 #include "EnginePCH.h"
 #include "EngineShader.h"
 #include "EngineCore.h"
-#include "Graphics/DirectX11/DX11Shader.h"
+#include "DirectX11/DX11Shader.h"
 
 UEngineShader::UEngineShader()
 {
@@ -13,7 +13,7 @@ UEngineShader::~UEngineShader()
 
 std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& _FilePath)
 {
-	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	switch (UEngineCore::GetRendererAPI())
 	{
 	case ERendererAPI::DirectX11:
 		return std::make_shared<DX11Shader>(_FilePath);

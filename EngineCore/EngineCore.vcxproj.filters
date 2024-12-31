@@ -22,23 +22,25 @@
     <ClCompile Include="Components\RendererComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
-    <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
-    <ClCompile Include="Graphics\EngineBuffer.cpp" />
-    <ClCompile Include="Graphics\DirectX11\DX11Buffer.cpp" />
-    <ClCompile Include="Graphics\EngineShader.cpp" />
-    <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp" />
+    <ClCompile Include="DirectX11\DX11DeviceContext.cpp" />
+    <ClCompile Include="EngineDeviceContext.cpp" />
+    <ClCompile Include="Resources\EngineBuffer.cpp" />
+    <ClCompile Include="DirectX11\DX11Buffer.cpp" />
+    <ClCompile Include="Resources\EngineShader.cpp" />
+    <ClCompile Include="DirectX11\DX11Shader.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="CameraActor.cpp" />
-    <ClCompile Include="Graphics\EngineTexture.cpp" />
-    <ClCompile Include="Graphics\DirectX11\DX11Texture.cpp" />
+    <ClCompile Include="Resources\EngineTexture.cpp" />
+    <ClCompile Include="DirectX11\DX11Texture.cpp" />
     <ClCompile Include="Components\SpriteRendererComponent.cpp" />
-    <ClCompile Include="EngineResource.cpp" />
+    <ClCompile Include="Resources\EngineResource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="EngineSprite.cpp" />
+    <ClCompile Include="Resources\EngineSprite.cpp" />
     <ClCompile Include="Components\InputComponent.cpp" />
     <ClCompile Include="EngineInputEvent.cpp" />
     <ClCompile Include="Components\DefaultSceneComponent.cpp" />
+    <ClCompile Include="Components\AnimatorComponent.cpp" />
+    <ClCompile Include="Resources\EngineAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -63,23 +65,25 @@
     <ClInclude Include="Components\RendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
-    <ClInclude Include="Graphics\EngineDeviceContext.h" />
-    <ClInclude Include="Graphics\EngineBuffer.h" />
-    <ClInclude Include="Graphics\DirectX11\DX11Buffer.h" />
-    <ClInclude Include="Graphics\EngineShader.h" />
-    <ClInclude Include="Graphics\DirectX11\DX11Shader.h" />
+    <ClInclude Include="DirectX11\DX11DeviceContext.h" />
+    <ClInclude Include="EngineDeviceContext.h" />
+    <ClInclude Include="Resources\EngineBuffer.h" />
+    <ClInclude Include="DirectX11\DX11Buffer.h" />
+    <ClInclude Include="Resources\EngineShader.h" />
+    <ClInclude Include="DirectX11\DX11Shader.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="CameraActor.h" />
-    <ClInclude Include="Graphics\EngineTexture.h" />
-    <ClInclude Include="Graphics\DirectX11\DX11Texture.h" />
+    <ClInclude Include="Resources\EngineTexture.h" />
+    <ClInclude Include="DirectX11\DX11Texture.h" />
     <ClInclude Include="Components\SpriteRendererComponent.h" />
-    <ClInclude Include="EngineResource.h" />
+    <ClInclude Include="Resources\EngineResource.h" />
     <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="EngineSprite.h" />
+    <ClInclude Include="Resources\EngineSprite.h" />
     <ClInclude Include="Components\InputComponent.h" />
     <ClInclude Include="EngineInputEvent.h" />
     <ClInclude Include="Components\DefaultSceneComponent.h" />
+    <ClInclude Include="Components\AnimatorComponent.h" />
+    <ClInclude Include="Resources\EngineAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -90,7 +94,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\Shaders\SpriteShader.hlsl" />
+    <None Include="Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />

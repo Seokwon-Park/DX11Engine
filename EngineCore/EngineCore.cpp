@@ -5,8 +5,7 @@
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
 #include "ResourceManager.h"
-#include "Graphics/DirectX11/DX11DeviceContext.h"
-
+#include "DirectX11/DX11DeviceContext.h"
 
 UEngineDeviceContext* UEngineCore::GraphicsDevice;
 UEngineWindow UEngineCore::MainWindow;
@@ -110,8 +109,8 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 	//Contents DLL 로딩
 	LoadContentsDll(_DllName);
 
-	GraphicsDevice = new DX11DeviceContext();
-
+	SetRendererAPI(ERendererAPI::DirectX11);
+	GraphicsDevice = UEngineDeviceContext::Create();
 	//게임 루프 시작
 	UEngineWindow::WindowMessageLoop(
 		[]()
@@ -121,9 +120,9 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			GraphicsDevice->Init(MainWindow);
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
+			//GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 			GraphicsDevice->CreateBackBuffer(MainWindow);
 			GraphicsDevice->SetClearColor(FColor::BLACK);
-			GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 			UEngineInputSystem::InitKeys();
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)

@@ -5,7 +5,7 @@
 #include "Components/CameraComponent.h"
 #include <EngineBase/EngineIO.h>
 #include <EngineBase/EngineString.h>
-#include <EngineCore/EngineSprite.h>
+#include <EngineCore/Resources/EngineSprite.h>
 
 DX11Shader::DX11Shader(const std::string& _FilePath)
 {
@@ -13,10 +13,8 @@ DX11Shader::DX11Shader(const std::string& _FilePath)
 
 	UEngineDirectory CurDir;
 	CurDir.MoveParentToDirectory("EngineCore");
-	CurDir.Move("Graphics");
 	CurDir.Move("Shaders");
 	UEngineFile File = CurDir.GetFile("SpriteShader.hlsl");
-	//CreateSamplerState();
 
 	UINT CompilerFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 
@@ -172,11 +170,11 @@ void DX11Shader::SetVertexConstants(VertexConstant _Data)
 	DeviceContext->GetContext()->VSSetConstantBuffers(0, 1, ArrPtr);
 }
 
-void DX11Shader::SetSpriteConstants(FSpriteData _Data)
+void DX11Shader::SetSpriteConstants(FSpriteRect _Data)
 {
 	UVBuffer.Reset();
 	D3D11_BUFFER_DESC BufferInfo = { 0 };
-	BufferInfo.ByteWidth = sizeof(FSpriteData);
+	BufferInfo.ByteWidth = sizeof(FSpriteRect);
 	BufferInfo.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	BufferInfo.CPUAccessFlags = D3D11_CPU_ACCESS_FLAG::D3D11_CPU_ACCESS_WRITE;
 	BufferInfo.Usage = D3D11_USAGE_DYNAMIC;
@@ -198,7 +196,7 @@ void DX11Shader::SetSpriteConstants(FSpriteData _Data)
 		MSGASSERT("그래픽카드가 수정을 거부했습니다.");
 	}
 
-	memcpy_s(Data.pData, sizeof(FSpriteData), &_Data, sizeof(FSpriteData));
+	memcpy_s(Data.pData, sizeof(FSpriteRect), &_Data, sizeof(FSpriteRect));
 	DeviceContext->GetContext()->Unmap(UVBuffer.Get(), 0);
 
 	// 같은 상수버퍼를 

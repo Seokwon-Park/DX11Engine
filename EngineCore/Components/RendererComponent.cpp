@@ -1,10 +1,10 @@
 #include "EnginePCH.h"
-#include "RendererComponent.h"
-#include "Graphics/EngineBuffer.h"
-#include "Graphics/EngineShader.h"
-#include "Graphics/EngineTexture.h"
-#include "ResourceManager.h"
 #include "Actor.h"
+#include "RendererComponent.h"
+#include "ResourceManager.h"
+#include <EngineCore/Resources/EngineBuffer.h>
+#include <EngineCore/Resources/EngineShader.h>
+#include <EngineCore/Resources/EngineTexture.h>
 
 URendererComponent::URendererComponent()
 {
@@ -50,7 +50,6 @@ void URendererComponent::Render(float _DeltaTime)
 	Data.View.MatrixTranspose();
 
 	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
-	//std::cout << Data.Proj << '\n';
 	Data.Proj.MatrixOrthoLH(1280.f, 720.0f, 0.01f, 100.0f);
 	Data.Proj.MatrixTranspose();
 	//Test2->Bind();

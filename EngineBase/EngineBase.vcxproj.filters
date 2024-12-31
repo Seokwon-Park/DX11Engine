@@ -29,6 +29,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTimer.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnginePCH.h" />
@@ -63,6 +64,7 @@
     <ClInclude Include="DataWrappers.h" />
     <ClInclude Include="EngineString.h" />
     <ClInclude Include="EngineTimer.h" />
+    <ClInclude Include="Math\Vector2.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="EngineMath">

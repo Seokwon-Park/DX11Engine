@@ -1,6 +1,6 @@
 #pragma once
 #include "RendererComponent.h"
-#include <EngineCore/EngineSprite.h>
+#include <EngineCore/Resources/EngineSprite.h>
 
 // Ό³Έν :
 class USpriteRendererComponent : public URendererComponent
@@ -18,20 +18,21 @@ public:
 
 	ENGINE_API void SetSprite(std::string_view _Name, uint32 _Index);
 
-	void SetSpriteData(FSpriteData _Data)
-	{
-		for (int i = 0; i < 2; i++)
-		{
-			SpriteData.CuttingPos[i] = _Data.CuttingPos[i];
-			SpriteData.CuttingSize[i] = _Data.CuttingSize[i];
-		}
-	}
+	//void SetSpriteData(FSpriteData _Data)
+	//{
+	//	for (int i = 0; i < 2; i++)
+	//	{
+	//		SpriteData.CuttingPos[i] = _Data.CuttingPos[i];
+	//		SpriteData.CuttingSize[i] = _Data.CuttingSize[i];
+	//	}
+	//}
 
 protected:
 	ENGINE_API void BeginPlay() override;
 	void Render(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<UEngineSprite> Sprite;
 	FSpriteData SpriteData;
 
 };

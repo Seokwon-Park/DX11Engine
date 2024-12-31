@@ -160,11 +160,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Components\AnimatorComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Components\CameraComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Components\DefaultSceneComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Resources\EngineAnimation.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -176,7 +184,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="EngineResource.h">
+    <ClInclude Include="Resources\EngineResource.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -184,24 +192,24 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="EngineSprite.h">
+    <ClInclude Include="Resources\EngineSprite.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\DirectX11\DX11Buffer.h">
+    <ClInclude Include="DirectX11\DX11Buffer.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\DirectX11\DX11DeviceContext.h" />
-    <ClInclude Include="Graphics\DirectX11\DX11Shader.h">
+    <ClInclude Include="DirectX11\DX11DeviceContext.h" />
+    <ClInclude Include="DirectX11\DX11Shader.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\DirectX11\DX11Texture.h">
+    <ClInclude Include="DirectX11\DX11Texture.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\EngineDeviceContext.h" />
+    <ClInclude Include="EngineDeviceContext.h" />
     <ClInclude Include="GameMode.h">
       <SubType>
       </SubType>
@@ -211,15 +219,15 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="EnginePCH.h" />
-    <ClInclude Include="Graphics\EngineBuffer.h">
+    <ClInclude Include="Resources\EngineBuffer.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\EngineShader.h">
+    <ClInclude Include="Resources\EngineShader.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Graphics\EngineTexture.h">
+    <ClInclude Include="Resources\EngineTexture.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -258,11 +266,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Components\AnimatorComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Components\CameraComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\DefaultSceneComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Resources\EngineAnimation.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -274,7 +290,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="EngineResource.cpp">
+    <ClCompile Include="Resources\EngineResource.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -282,24 +298,24 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="EngineSprite.cpp">
+    <ClCompile Include="Resources\EngineSprite.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\DirectX11\DX11Buffer.cpp">
+    <ClCompile Include="DirectX11\DX11Buffer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\DirectX11\DX11DeviceContext.cpp" />
-    <ClCompile Include="Graphics\DirectX11\DX11Shader.cpp">
+    <ClCompile Include="DirectX11\DX11DeviceContext.cpp" />
+    <ClCompile Include="DirectX11\DX11Shader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\DirectX11\DX11Texture.cpp">
+    <ClCompile Include="DirectX11\DX11Texture.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\EngineDeviceContext.cpp" />
+    <ClCompile Include="EngineDeviceContext.cpp" />
     <ClCompile Include="GameMode.cpp">
       <SubType>
       </SubType>
@@ -312,15 +328,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Graphics\EngineBuffer.cpp">
+    <ClCompile Include="Resources\EngineBuffer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\EngineShader.cpp">
+    <ClCompile Include="Resources\EngineShader.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Graphics\EngineTexture.cpp">
+    <ClCompile Include="Resources\EngineTexture.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -354,7 +370,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Graphics\Shaders\SpriteShader.hlsl" />
+    <None Include="Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib">

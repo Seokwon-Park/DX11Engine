@@ -3,11 +3,7 @@
 #include <EnginePlatform/EngineWindow.h>
 #include <EngineBase/EngineMath.h>
 
-enum class ERendererAPI
-{
-	DirectX11,
-	None
-};
+
 // Ό³Έν :
 class UEngineDeviceContext
 {
@@ -23,14 +19,13 @@ public:
 	ENGINE_API inline void SetClearColor(FColor _Color) { ClearColor = _Color; }
 
 	ENGINE_API virtual void DrawCall() = 0;
-	ENGINE_API inline void SetRendererAPI(ERendererAPI _API) { API = _API; }
-	ENGINE_API inline ERendererAPI GetRendererAPI() { return API;  }
+
+	ENGINE_API static UEngineDeviceContext* Create();
 
 	template <typename DeviceType>
 	inline DeviceType* Get() {};
 protected:
-	ERendererAPI API;
-	FColor ClearColor;
+	FColor ClearColor = FColor::WHITE;
 
 
 private:

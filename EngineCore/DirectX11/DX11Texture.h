@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/EngineTexture.h"
+#include <EngineCore/Resources/EngineTexture.h>
 
 //#ifdef _DEBUG
 //#pragma comment(lib, "DirectXTex_Debug.lib")
@@ -32,7 +32,7 @@ protected:
 private:
 	ComPtr<ID3D11Texture2D> Texture;
 	ComPtr<ID3D11ShaderResourceView> ShaderResourceView;
-	std::string _Path;
+	std::string Path;
 	uint32 m_Width, m_Height;
 };
 

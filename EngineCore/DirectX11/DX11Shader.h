@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/EngineShader.h"
+#include <EngineCore/Resources/EngineShader.h>
 
 // Ό³Έν :
 class DX11Shader : public UEngineShader
@@ -16,7 +16,7 @@ public:
 	DX11Shader& operator=(DX11Shader&& _Other) noexcept = delete;
 
 	void SetVertexConstants(VertexConstant _Data) override;
-	void SetSpriteConstants(FSpriteData _Data) override;
+	void SetSpriteConstants(FSpriteRect _Data) override;
 
 	virtual void Bind() const override;
 protected:

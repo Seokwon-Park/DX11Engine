@@ -16,11 +16,13 @@ public:
 	EngineLogger& operator=(const EngineLogger& _Other) = delete;
 	EngineLogger& operator=(EngineLogger&& _Other) noexcept = delete;
 
-
 	static void StartLogger();
 	static void EndLogger();
 
-
+	template <typename T>
+	static void Test()
+	{
+	}
 protected:
 
 private:

@@ -6,6 +6,7 @@ class FTransform
 {
 public:
 	BASE_API void UpdateTransform();
+	BASE_API void UpdateTransform(FMatrix _ParentWorld);
 
 	FVector4 Location;
 	FVector4 Rotation;

@@ -14,7 +14,7 @@ VertexBuffer::~VertexBuffer()
 
 std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32 _DataSize, uint32 _VertexSize)
 {
-	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	switch (UEngineCore::GetRendererAPI())
 	{
 	case ERendererAPI::DirectX11:
 		return std::make_shared<DX11VertexBuffer>(_DataSize, _VertexSize);
@@ -27,7 +27,7 @@ std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32 _DataSize, uint32 _Ver
 
 std::shared_ptr<VertexBuffer> VertexBuffer::Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount)
 {
-	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	switch (UEngineCore::GetRendererAPI())
 	{
 	case ERendererAPI::DirectX11:
 		return std::make_shared<DX11VertexBuffer>(_Vertices, _DataSize, _VertexCount);
@@ -48,7 +48,7 @@ IndexBuffer::~IndexBuffer()
 
 ENGINE_API std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<uint32> _Indices, uint32 _IndexCount)
 {
-	switch (UEngineCore::GraphicsDevice->GetRendererAPI())
+	switch (UEngineCore::GetRendererAPI())
 	{
 	case ERendererAPI::DirectX11:
 		return std::make_shared<DX11IndexBuffer>(_Indices, _IndexCount);

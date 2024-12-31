@@ -1,8 +1,8 @@
 #pragma once
 #include "SceneComponent.h"
 #include <EngineCore/EngineCore.h>
-#include <EngineCore/Graphics/EngineBuffer.h>
-#include <EngineCore/Graphics/EngineShader.h>
+#include <EngineCore/Resources/EngineBuffer.h>
+#include <EngineCore/Resources/EngineShader.h>
 
 
 // Ό³Έν :
