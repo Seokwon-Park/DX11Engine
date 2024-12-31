@@ -63,12 +63,6 @@ public:
 	{
 		GameMode = SpawnActor<GameModeType>();
 		MainPawn = SpawnActor<MainPawnType>();
-
-		GameMode->SetLevel(this);
-		MainPawn->SetLevel(this);
-
-		BeginPlayList.push_back(GameMode);
-		BeginPlayList.push_back(MainPawn);
 	}
 protected:
 

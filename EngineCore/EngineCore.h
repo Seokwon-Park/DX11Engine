@@ -1,10 +1,11 @@
 #pragma once
 #include <EngineBase/EngineBase.h>
+#include <EngineBase/EngineTimer.h>	
 #include <EnginePlatform/EngineWindow.h>
-#include "Graphics/EngineDeviceContext.h"
+#include <EnginePlatform/EngineInputSystem.h>
 #include "Level.h"
 #include "IContentsCore.h"
-#include <EngineBase/EngineTimer.h>	
+#include "Graphics/EngineDeviceContext.h"
 
 
 
@@ -51,6 +52,7 @@ private:
 	static void LoadContentsDll(std::string_view _DllName);
 
 	static void EngineUpdate();
+	static void CheckLevelChange();
 	static void EngineShutdown();
 
 	static inline std::map<std::string, std::shared_ptr<ULevel>> Levels;

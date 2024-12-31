@@ -1,41 +1,19 @@
 #include "EnginePCH.h"
 #include "EngineInputSystem.h"
 
-
-void UEngineInputSystem::UEngineKey::KeyCheck(float _DeltaTime)
-{
-	if (0 != GetAsyncKeyState(Key))
-	{
-		PressTime += _DeltaTime;
-		if (true == IsFree)
-		{
-			IsDown = true;
-			IsPress = true;
-			IsFree = false;
-			IsUp = false;
-		}
-		else if (true == IsDown)
-		{
-			IsDown = false;
-		}
-	}
-	else
-	{
-		PressTime = 0.0f;
-		if (true == IsPress)
-		{
-			IsUp = true;
-			IsPress = false;
-			IsFree = true;
-		}
-		else if (true == IsUp)
-		{
-			IsUp = false;
-		}
-	}
-}
+std::map<int, UEngineKey> UEngineInputSystem::Keys;
 
 UEngineInputSystem::UEngineInputSystem()
+{
+
+}
+
+UEngineInputSystem::~UEngineInputSystem()
+{
+
+}
+
+void UEngineInputSystem::InitKeys()
 {
 	for (int i = 0; i < 255; i++)
 	{
@@ -43,18 +21,46 @@ UEngineInputSystem::UEngineInputSystem()
 	}
 }
 
-UEngineInputSystem::~UEngineInputSystem()
-{
-}
-
 void UEngineInputSystem::KeyCheck(float _DeltaTime)
 {
-	//std::cout << GetInstance().Keys[EKey::Left].IsDown<< '\n';
-	for (auto& Itr : GetInstance().Keys)
+	for (std::pair<const int,UEngineKey>& Itr : Keys)
 	{
 		UEngineKey& CurKey = Itr.second;
 		CurKey.KeyCheck(_DeltaTime);
 	}
+}
+
+bool UEngineInputSystem::GetKeyDown(int _KeyIndex)
+{
+	if (false == Keys.contains(_KeyIndex))
+	{
+		MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
+		return false;
+	}
+
+	return Keys[_KeyIndex].IsDown;
+}
+
+bool UEngineInputSystem::GetKeyUp(int _KeyIndex)
+{
+	if (false == Keys.contains(_KeyIndex))
+	{
+		MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
+		return false;
+	}
+
+	return Keys[_KeyIndex].IsUp;
+}
+
+bool UEngineInputSystem::GetKey(int _KeyIndex)
+{
+	if (false == Keys.contains(_KeyIndex))
+	{
+		MSGASSERT("아직도 등록되지 않은 키가 존재합니다.");
+		return false;
+	}
+
+	return Keys[_KeyIndex].IsPress;
 }
 
 

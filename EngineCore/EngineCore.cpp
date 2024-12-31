@@ -3,7 +3,6 @@
 #include <EngineBase/EngineDebug.h>
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineWindow.h>
-#include <EnginePlatform/EngineInputSystem.h>
 #include "IContentsCore.h"
 #include "ResourceManager.h"
 #include "Graphics/DirectX11/DX11DeviceContext.h"
@@ -125,7 +124,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			GraphicsDevice->CreateBackBuffer(MainWindow);
 			GraphicsDevice->SetClearColor(FColor::BLACK);
 			GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
-
+			UEngineInputSystem::InitKeys();
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{
@@ -150,6 +149,19 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 
 void UEngineCore::EngineUpdate()
 {
+	Timer.TimeCheck();
+	float DeltaTime = Timer.GetDeltaTime();
+
+	CheckLevelChange();
+
+	UEngineInputSystem::KeyCheck(DeltaTime);
+
+	CurLevel->Tick(DeltaTime);
+	CurLevel->Render(DeltaTime);
+}
+
+void UEngineCore::CheckLevelChange()
+{
 	if (nullptr != NextLevel)
 	{
 		if (nullptr != CurLevel)
@@ -163,13 +175,6 @@ void UEngineCore::EngineUpdate()
 		NextLevel = nullptr;
 		Timer.TimeReset();
 	}
-
-	Timer.TimeCheck();
-	float DeltaTime = Timer.GetDeltaTime();
-	UEngineInputSystem::KeyCheck(DeltaTime);
-
-	CurLevel->Tick(DeltaTime);
-	CurLevel->Render(DeltaTime);
 }
 
 void UEngineCore::EngineShutdown()

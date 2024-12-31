@@ -24,7 +24,7 @@ void UInputComponent::BeginPlay()
 	UActorComponent::BeginPlay();
 }
 
-void UInputComponent::BindAction(KeyCode _KeyCode, KeyEvent _EventType, std::function<void()> _Function)
+void UInputComponent::BindAction(KeyCode _KeyCode, KeyEvent _EventType, EventCallback _Function)
 {
 	if (_KeyCode == EKey::AnyKey)
 	{

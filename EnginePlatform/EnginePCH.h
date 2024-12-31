@@ -1,6 +1,6 @@
 #pragma once
 
-#define ENGINE_DLL_BUILD
+#define PLATFORM_DLL
 
 #ifdef _WIN64 
 #include <Windows.h>

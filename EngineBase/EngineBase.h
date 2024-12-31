@@ -6,6 +6,12 @@
 #define BASE_API __declspec(dllimport)
 #endif
 
+#ifdef PLATFORM_DLL
+#define PLATFORM_API __declspec(dllexport)
+#else
+#define PLATFORM_API __declspec(dllimport)
+#endif
+
 #ifdef ENGINE_DLL_BUILD
 #define ENGINE_API __declspec(dllexport)
 #else

@@ -2,9 +2,6 @@
 #include "EngineInputEvent.h"
 #include <EnginePlatform/EngineInputSystem.h>
 
-
-
-
 UEngineInputEvent::UEngineInputEvent()
 {
 }
