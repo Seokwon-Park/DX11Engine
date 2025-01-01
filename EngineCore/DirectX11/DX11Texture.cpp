@@ -51,9 +51,12 @@ DX11Texture2D::DX11Texture2D(const std::string& _Path)
 		}
 	}
 
+	TextureSize.X = static_cast<float>(Metadata.width);
+	TextureSize.Y = static_cast<float>(Metadata.height);
+
 	D3D11_TEXTURE2D_DESC txtDesc = {};
-	txtDesc.Width = m_Width;
-	txtDesc.Height = m_Height;
+	txtDesc.Width = static_cast<UINT>(TextureSize.X);
+	txtDesc.Height = static_cast<UINT>(TextureSize.Y);
 	txtDesc.MipLevels = 1;
 	txtDesc.ArraySize = 1;
 	txtDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -62,7 +65,6 @@ DX11Texture2D::DX11Texture2D(const std::string& _Path)
 	txtDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 
 	DirectX::CreateTexture(DeviceContext->GetDevice(), ImageData.GetImages(), ImageData.GetImageCount(), ImageData.GetMetadata(), (ID3D11Resource**)Texture.GetAddressOf());
-	
 
 	//DeviceContext->GetDevice()->CreateTexture2D(&txtDesc, &InitData, m_Texture.GetAddressOf());
 	DeviceContext->GetDevice()->CreateShaderResourceView(Texture.Get(), nullptr, ShaderResourceView.GetAddressOf());

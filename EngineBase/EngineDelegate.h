@@ -5,6 +5,7 @@ class UEngineDelegate
 {
 public:
 	using EventCallback = std::function<void()>;
+
 	// Constrcuter Destructer
 	BASE_API UEngineDelegate();
 	BASE_API UEngineDelegate(EventCallback _Function);

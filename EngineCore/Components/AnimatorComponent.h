@@ -28,7 +28,7 @@ public:
 	ENGINE_API void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName,
 		std::vector<int> _FrameIndices, std::vector<float> _FrameIntervals, bool _IsLoop = true);
 	ENGINE_API void SetAnimation(std::string_view _AnimationName, bool _IsForce = false);
-	void SetAnimationEvent(std::string_view _AnimationName, int _Frame, std::function<void()> _Function);
+	ENGINE_API void SetAnimationEvent(std::string_view _AnimationName, int _Frame, std::function<void()> _Function);
 
 	ENGINE_API void BeginPlay() override;
 	virtual void TickComponent(float _DeltaTime)override;

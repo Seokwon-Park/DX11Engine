@@ -22,8 +22,11 @@ public:
 
 	ENGINE_API static UEngineDeviceContext* Create();
 
-	template <typename DeviceType>
-	inline DeviceType* Get() {};
+	template <typename DeviceContextType>
+	inline DeviceContextType* GetDeviceContext()
+	{
+		return dynamic_cast<DeviceContextType>(this);
+	}
 protected:
 	FColor ClearColor = FColor::WHITE;
 
