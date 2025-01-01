@@ -2,7 +2,7 @@
 #include <EngineCore/Resources/EngineBuffer.h>
 
 // 설명 :
-class DX11VertexBuffer: public VertexBuffer
+class DX11VertexBuffer: public UEngineVertexBuffer
 {
 public:
 	// constrcuter destructer
@@ -27,7 +27,7 @@ private:
 };
 
 // 설명 :
-class DX11IndexBuffer : public IndexBuffer
+class DX11IndexBuffer : public UEngineIndexBuffer
 {
 public:
 	// constrcuter destructer

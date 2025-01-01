@@ -12,6 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineDebug.cpp" />
+    <ClCompile Include="EngineDelegate.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EngineLogger.cpp" />
     <ClCompile Include="EngineString.cpp" />
     <ClCompile Include="EngineTimer.cpp">
@@ -46,6 +50,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineDebug.h" />
+    <ClInclude Include="EngineDelegate.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EngineIO.h" />
     <ClInclude Include="EngineLogger.h" />
     <ClInclude Include="EngineString.h" />

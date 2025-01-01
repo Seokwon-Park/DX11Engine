@@ -28,6 +28,12 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 
 	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Images");
 
+
+	UEngineDirectory Dir;
+	Dir.MoveParentToDirectory("Resources");
+	Dir.AppendDirectory("Images/Tevi");
+	UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Titlelevel");
 	UEngineCore::OpenLevel("Titlelevel");
 }

@@ -1,7 +1,8 @@
 #pragma once
 #include <EngineCore/Pawn.h>
-#include <EngineCore/Components/SpriteRendererComponent.h>
 #include <EngineCore/Components/InputComponent.h>
+#include <EngineCore/Components/AnimatorComponent.h>
+#include <EngineCore/Components/SpriteRendererComponent.h>
 
 // Ό³Έν :
 class APlayer : public APawn
@@ -24,7 +25,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	std::shared_ptr<USpriteRendererComponent> Test;
 	std::shared_ptr<UInputComponent> Input;
+	std::shared_ptr<UAnimatorComponent> Animator;
+	std::shared_ptr<USpriteRendererComponent> SpriteRenderer;
 };
 

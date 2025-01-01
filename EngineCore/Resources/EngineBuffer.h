@@ -8,44 +8,44 @@ struct Vertex
 };
 
 // 클래스 설명 :
-class VertexBuffer 
+class UEngineVertexBuffer 
 {
 public:
 	// Constrcuter Destructer
-	VertexBuffer();
-	virtual ~VertexBuffer();
+	UEngineVertexBuffer();
+	virtual ~UEngineVertexBuffer();
 
 	// Delete Function
-	VertexBuffer(const VertexBuffer& _Other) = delete;
-	VertexBuffer(VertexBuffer&& _Other) noexcept = delete;
-	VertexBuffer& operator=(const VertexBuffer& _Other) = delete;
-	VertexBuffer& operator=(VertexBuffer&& _Other) noexcept = delete;
+	UEngineVertexBuffer(const UEngineVertexBuffer& _Other) = delete;
+	UEngineVertexBuffer(UEngineVertexBuffer&& _Other) noexcept = delete;
+	UEngineVertexBuffer& operator=(const UEngineVertexBuffer& _Other) = delete;
+	UEngineVertexBuffer& operator=(UEngineVertexBuffer&& _Other) noexcept = delete;
 
 	virtual void Bind() const = 0;
 
-	ENGINE_API static std::shared_ptr<VertexBuffer> Create(uint32 _Size, uint32 _VertexSize);
-	ENGINE_API static std::shared_ptr<VertexBuffer> Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount);
+	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(uint32 _Size, uint32 _VertexSize);
+	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount);
 private:
 
 };
 
 // 클래스 설명 :
-class IndexBuffer
+class UEngineIndexBuffer
 {
 public:
 	// Constrcuter Destructer
-	IndexBuffer();
-	~IndexBuffer();
+	UEngineIndexBuffer();
+	~UEngineIndexBuffer();
 
 	// Delete Function
-	IndexBuffer(const IndexBuffer& _Other) = delete;
-	IndexBuffer(IndexBuffer&& _Other) noexcept = delete;
-	IndexBuffer& operator=(const IndexBuffer& _Other) = delete;
-	IndexBuffer& operator=(IndexBuffer&& _Other) noexcept = delete;
+	UEngineIndexBuffer(const UEngineIndexBuffer& _Other) = delete;
+	UEngineIndexBuffer(UEngineIndexBuffer&& _Other) noexcept = delete;
+	UEngineIndexBuffer& operator=(const UEngineIndexBuffer& _Other) = delete;
+	UEngineIndexBuffer& operator=(UEngineIndexBuffer&& _Other) noexcept = delete;
 
 	virtual void Bind() const = 0;
 
-	ENGINE_API static std::shared_ptr<IndexBuffer> Create(std::vector<uint32> _Indices, uint32 _IndexCount);
+	ENGINE_API static std::shared_ptr<UEngineIndexBuffer> Create(std::vector<uint32> _Indices, uint32 _IndexCount);
 protected:
 private:
 

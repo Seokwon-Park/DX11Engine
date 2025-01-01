@@ -9,7 +9,7 @@ struct FSpriteRect
 
 struct FSpriteData
 {
-	UEngineTexture* Texture;
+	UEngineTexture2D* Texture;
 	FSpriteRect Rect;
 };
 // 클래스 설명 :
@@ -25,6 +25,8 @@ public:
 	UEngineSprite(UEngineSprite&& _Other) noexcept = delete;
 	UEngineSprite& operator=(const UEngineSprite& _Other) = delete;
 	UEngineSprite& operator=(UEngineSprite&& _Other) noexcept = delete;
+
+	FSpriteData GetSpriteData(int _Index);
 
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Name, std::string_view _Path);

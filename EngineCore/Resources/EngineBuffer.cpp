@@ -4,15 +4,15 @@
 #include "DirectX11/DX11Buffer.h"
 #include <EngineBase/EngineMath.h>
 
-VertexBuffer::VertexBuffer()
+UEngineVertexBuffer::UEngineVertexBuffer()
 {
 }
 
-VertexBuffer::~VertexBuffer()
+UEngineVertexBuffer::~UEngineVertexBuffer()
 {
 }
 
-std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32 _DataSize, uint32 _VertexSize)
+std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(uint32 _DataSize, uint32 _VertexSize)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{
@@ -25,7 +25,7 @@ std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32 _DataSize, uint32 _Ver
 	}
 }
 
-std::shared_ptr<VertexBuffer> VertexBuffer::Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount)
+std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{
@@ -38,15 +38,15 @@ std::shared_ptr<VertexBuffer> VertexBuffer::Create(std::vector<Vertex>& _Vertice
 	}
 }
 
-IndexBuffer::IndexBuffer()
+UEngineIndexBuffer::UEngineIndexBuffer()
 {
 }
 
-IndexBuffer::~IndexBuffer()
+UEngineIndexBuffer::~UEngineIndexBuffer()
 {
 }
 
-ENGINE_API std::shared_ptr<IndexBuffer> IndexBuffer::Create(std::vector<uint32> _Indices, uint32 _IndexCount)
+ENGINE_API std::shared_ptr<UEngineIndexBuffer> UEngineIndexBuffer::Create(std::vector<uint32> _Indices, uint32 _IndexCount)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{

@@ -28,8 +28,8 @@ protected:
 	ENGINE_API void BeginPlay() override;
 	virtual void Render(float _DeltaTime);
 
-	std::shared_ptr<VertexBuffer> VB;
-	std::shared_ptr<IndexBuffer> IB;
+	std::shared_ptr<UEngineVertexBuffer> VB;
+	std::shared_ptr<UEngineIndexBuffer> IB;
 	std::shared_ptr<UEngineShader> Shader;
 private:
 

@@ -32,9 +32,9 @@ void URendererComponent::BeginPlay()
 	Vertices[2] = Vertex{ FVector4(-0.5f, -0.5f, 1.0f,1.0f), {0.0f, 0.0f, 1.0f, 1.0f},{0.0f, 1.0f}};
 	Vertices[3] = Vertex{ FVector4(0.5f, -0.5f, 1.0f,1.0f), {1.0f, 1.0f, 1.0f, 1.0f},{1.0f, 1.0f}};
 
-	VB = VertexBuffer::Create(Vertices, sizeof(Vertex) * Vertices.size(), Vertices.size());
+	VB = UEngineVertexBuffer::Create(Vertices, sizeof(Vertex) * Vertices.size(), Vertices.size());
 	VB->Bind();
-	IB = IndexBuffer::Create(Indices, 6);
+	IB = UEngineIndexBuffer::Create(Indices, 6);
 	IB->Bind();
 	Shader = UEngineShader::Create("");
 	Shader->Bind();
@@ -55,8 +55,7 @@ void URendererComponent::Render(float _DeltaTime)
 	//Test2->Bind();
 	//Test3->Bind();
 	Shader->SetVertexConstants(Data);
-	std::shared_ptr<UEngineTexture2D> Test = UResourceManager::Find<UEngineTexture2D>("tevi_n_01.png");
-	Test->Bind(0);
+
 	
 	UEngineCore::GraphicsDevice->DrawCall();
 }

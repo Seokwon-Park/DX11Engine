@@ -4,8 +4,13 @@
 
 APlayer::APlayer()
 {
-	Test = CreateDefaultSubObject<USpriteRendererComponent>();
-	Test->SetRelativeScale3D({ 50.0f,50.0f,1.0f });
+	SpriteRenderer = CreateDefaultSubObject<USpriteRendererComponent>();
+	SpriteRenderer->SetRelativeScale3D({ 50.0f,50.0f,1.0f });
+
+	Animator = CreateDefaultSubObject<UAnimatorComponent>();
+	Animator->SetSpriteRenderer(SpriteRenderer);
+	Animator->CreateAnimation("Idle", "Tevi", { 0,1,2 }, 0.1f);
+	Animator->SetAnimation("Idle");
 
 	Input = CreateDefaultSubObject<UInputComponent>();
 	Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
@@ -13,7 +18,7 @@ APlayer::APlayer()
 	Input->BindAction(EKey::Up, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::UP));
 	Input->BindAction(EKey::Down, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::DOWN));
 
-	Test->SetupAttachment(RootComponent);
+	SpriteRenderer->SetupAttachment(RootComponent);
 }
 
 APlayer::~APlayer()

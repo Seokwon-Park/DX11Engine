@@ -12,17 +12,17 @@ enum class KeyEvent
 class UEngineInputEvent
 {
 public:
-	using EventCallback = std::function<void()>;
+	using InputEventCallback = std::function<void()>;
 
 	UEngineInputEvent();
 	~UEngineInputEvent();
 
 	void EventCheck(KeyCode _Key);
 
-	std::vector<EventCallback> PressEvents;
-	std::vector<EventCallback> DownEvents;
-	std::vector<EventCallback> UpEvents;
-	std::vector<EventCallback> FreeEvents;
+	std::vector<InputEventCallback> PressEvents;
+	std::vector<InputEventCallback> DownEvents;
+	std::vector<InputEventCallback> UpEvents;
+	std::vector<InputEventCallback> FreeEvents;
 private:
 
 };

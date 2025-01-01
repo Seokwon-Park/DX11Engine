@@ -11,6 +11,15 @@ UEngineSprite::~UEngineSprite()
 {
 }
 
+FSpriteData UEngineSprite::GetSpriteData(int _Index)
+{
+	if (_Index >= SpriteDatas.size() && _Index < 0)
+	{
+		MSGASSERT("유효하지 않은 범위입니다.");
+	}
+	return SpriteDatas[_Index];
+}
+
 ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path)
 {
 	UEngineDirectory Dir = _Path;
@@ -36,7 +45,7 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 	{
 		std::string UpperName = UEngineString::ToUpper(Files[i].GetCurrentName());
 
-		std::shared_ptr<UEngineTexture> Texture = UResourceManager::Find<UEngineTexture>(UpperName);
+		std::shared_ptr<UEngineTexture2D> Texture = UResourceManager::Find<UEngineTexture2D>(UpperName);
 
 		if (nullptr == Texture)
 		{
