@@ -22,7 +22,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-
+	std::shared_ptr<USpriteRendererComponent> SpriteRenderer;
 
 };
 

@@ -13,9 +13,11 @@ public:
 	UEngineString& operator=(const UEngineString& _Other) = delete;
 	UEngineString& operator=(UEngineString&& _Other) noexcept = delete;
 
-	BASE_API static std::string ToUpper(std::string_view);
+	BASE_API static std::string ToUpper(std::string_view _String);
 
 	BASE_API static std::wstring ToWString(std::string_view _String);
+
+	BASE_API static int ExtractNumber(const std::string& _String, std::string_view _Pattern);
 
 private:
 	UEngineString();

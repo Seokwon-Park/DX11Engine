@@ -24,7 +24,7 @@ std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& _FilePat
 	}
 }
 
-std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
+std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& _Name, const std::string& vertexSrc, const std::string& fragmentSrc)
 {
 	return std::shared_ptr<UEngineShader>();
 }

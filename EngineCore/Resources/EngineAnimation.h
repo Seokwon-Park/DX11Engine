@@ -22,6 +22,14 @@ public:
 		ResultIndex = 0;
 	}
 
+	// 스프라이트의 인덱스 범위를 기반으로 애니메이션을 생성
+	ENGINE_API static void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName,
+		int _StartFrame, int _EndFrame, float _FrameInterval = 0.1f, bool _IsLoop = true);
+	ENGINE_API static void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName,
+		std::vector<int> _Indices, float _FrameInterval, bool _IsLoop = true);
+	ENGINE_API static void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName,
+		std::vector<int> _FrameIndices, std::vector<float> _FrameIntervals, bool _IsLoop = true);
+
 	UEngineSprite* Sprite = nullptr;
 
 	int CurIndex = 0;

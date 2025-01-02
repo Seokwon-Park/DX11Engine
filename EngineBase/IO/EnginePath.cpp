@@ -28,6 +28,11 @@ UEnginePath::UEnginePath(const UEnginePath& _Other)
 	Path = _Other.Path;
 }
 
+UEnginePath::UEnginePath(UEnginePath&& _Other) noexcept
+{
+	Path = _Other.Path;
+}
+
 UEnginePath& UEnginePath::operator=(const UEnginePath& _Other)
 {
 	if (this != &_Other)

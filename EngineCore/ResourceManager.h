@@ -17,6 +17,11 @@ public:
 	UResourceManager& operator=(const UResourceManager& _Other) = delete;
 	UResourceManager& operator=(UResourceManager&& _Other) noexcept = delete;
 
+	ENGINE_API static void InitResources();
+	static void InitVertexBuffer();
+	static void InitIndexBuffer();
+	static void InitMesh();
+
 	template<typename ResourceType>
 	static std::shared_ptr<ResourceType> Find(std::string_view _Name)
 	{

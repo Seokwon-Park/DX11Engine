@@ -8,6 +8,7 @@
 #include <EngineBase/EngineIO.h>
 
 #include "TitleGameMode.h"
+#include "TestGameMode.h"
 #include "Player.h"
 
 CreateContentsCoreDefine(UTeviContentsCore);
@@ -28,14 +29,21 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 
 	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Images");
 
-
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/Tevi");
-	UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
 
-	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Titlelevel");
-	UEngineCore::OpenLevel("Titlelevel");
+	auto Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+	Sprite->SetPivot(EPivotType::BottomLeft);
+	Sprite->SetPivot(FVector2(0.05f, 0.0f), 2);
+	Sprite->SetPivot(FVector2(0.06f, 0.0f), 3);
+	UEngineAnimation::CreateAnimation("TeviIdle", "Tevi", 0,3, 0.1f);
+	UEngineAnimation::CreateAnimation("TeviWalk", "Tevi", 4, 9, 0.2f);
+	UEngineAnimation::CreateAnimation("TeviRun", "Tevi", 11, 16, 0.1f);
+
+	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
+	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");
+	UEngineCore::OpenLevel("Test");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

@@ -27,7 +27,7 @@ public:
 	virtual void SetSpriteConstants(struct FSpriteRect _Data) = 0;
 
 	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& filepath);
-	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
+	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& _Name, const std::string& vertexSrc, const std::string& fragmentSrc);
 protected:
 
 private:

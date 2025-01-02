@@ -4,15 +4,15 @@
 
 APlayer::APlayer()
 {
-	SpriteRenderer = CreateDefaultSubObject<USpriteRendererComponent>();
+	SpriteRenderer = CreateDefaultSubobject<USpriteRendererComponent>();
 	SpriteRenderer->SetRelativeScale3D({ 50.0f,50.0f,1.0f });
+	SpriteRenderer->SetOrder(ESortingLayer::Default, -1);
 
-	Animator = CreateDefaultSubObject<UAnimatorComponent>();
+	Animator = CreateDefaultSubobject<UAnimatorComponent>();
 	Animator->SetSpriteRenderer(SpriteRenderer);
-	Animator->CreateAnimation("Idle", "Tevi", { 0,1,2 }, 0.1f);
-	Animator->SetAnimation("Idle");
+	Animator->SetAnimation("TeviIdle");
 
-	Input = CreateDefaultSubObject<UInputComponent>();
+	Input = CreateDefaultSubobject<UInputComponent>();
 	Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
 	Input->BindAction(EKey::Right, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::RIGHT));
 	Input->BindAction(EKey::Up, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::UP));
@@ -33,12 +33,15 @@ void APlayer::Tick(float _DeltaTime)
 	//EngineLogger::Test<int>();
 
 }
-void APlayer::Move(FVector4 _Dir)
-{
-	//AddActorLocation(_Dir * UEngineCore::GetDeltaTime());
-	AddActorLocation(_Dir);
-}
+
 void APlayer::BeginPlay()
 {
 	APawn::BeginPlay();
+}
+
+void APlayer::Move(FVector4 _Dir)
+{
+	//AddActorLocation(_Dir * UEngineCore::GetDeltaTime());
+	AddActorLocation(_Dir * 0.1f);
+	//AddActorRotation(FVector4(0.0f, 0.0f, 0.01f, 0.0f));
 }

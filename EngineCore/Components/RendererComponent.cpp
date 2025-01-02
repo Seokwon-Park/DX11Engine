@@ -14,13 +14,8 @@ URendererComponent::~URendererComponent()
 {
 }
 
-void URendererComponent::SetOrder(int _Order)
-{
-}
-
 void URendererComponent::BeginPlay()
 {
-	GetOwner()->GetLevel()->PushRenderer(GetThis<URendererComponent>());
 
 	std::vector<Vertex> Vertices;
 	std::vector<uint32> Indices = { 0,1,2, 1,3,2 };
@@ -43,9 +38,9 @@ void URendererComponent::BeginPlay()
 void URendererComponent::Render(float _DeltaTime)
 {
 	VertexConstant Data;
-	FMatrix W = GetTransformRef().WorldMatrix;
-	W.MatrixTranspose();
-	Data.World = W;
+	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
+	WorldMatrix.MatrixTranspose();
+	Data.World = WorldMatrix;
 	Data.View.MatrixView(FVector4::BACK, FVector4::FORWARD, FVector4::UP);
 	Data.View.MatrixTranspose();
 

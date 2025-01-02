@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "GameMode.h"
 
+
 // Ό³Έν :
 class  ULevel : public UObject
 {
@@ -24,7 +25,8 @@ public:
 	void Tick(float _DeltaTime);
 	void Render(float _DeltaTime);
 
-	void PushRenderer(std::shared_ptr<class URendererComponent> _Renderer);
+	void PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer);
+	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer);
 
 	template<typename ActorType>
 	std::shared_ptr<ActorType> SpawnActor()
@@ -73,6 +75,6 @@ private:
 	std::list<std::shared_ptr<class AActor>> BeginPlayList;
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
-	std::map<int, std::list<std::shared_ptr<class URendererComponent>>> Renderers;
+	std::map<std::pair<int,int>, std::list<std::shared_ptr<class USpriteRendererComponent>>> SpriteRenderers;
 };
 

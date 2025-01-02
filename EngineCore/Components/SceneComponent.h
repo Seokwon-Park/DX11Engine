@@ -28,6 +28,12 @@ public:
 		UpdateTransform();
 	}
 
+	inline void AddRotation(const FVector4& _Rotation)
+	{
+		Transform.Rotation += _Rotation;
+		UpdateTransform();
+	}
+
 	void SetRelativeScale3D(const FVector4& _Value)
 	{
 		Transform.Scale = _Value;

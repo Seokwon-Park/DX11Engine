@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EngineBase/EngineBase.h"
+
 #include <DirectXMath.h>
 #include <ostream>
 
@@ -38,6 +39,7 @@ public:
 	FVector4(int _X, int _Y, int _Z);
 	FVector4(long _X, long _Y);
 	FVector4(long _X, long _Y, long _Z);
+	FVector4(class FVector2 _XY, float _Z, float _W);
 
 	static float Dot(const FVector4& _Left, const FVector4& _Right);
 	static float Length(const FVector4& _Value);

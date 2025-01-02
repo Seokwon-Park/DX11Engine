@@ -50,5 +50,6 @@ protected:
 
 private:
 	PLATFORM_API static std::map<int, UEngineKey> Keys;
+	
 };
 

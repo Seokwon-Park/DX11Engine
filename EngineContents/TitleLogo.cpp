@@ -3,6 +3,8 @@
 
 ATitleLogo::ATitleLogo()
 {
+	SpriteRenderer = CreateDefaultSubobject<USpriteRendererComponent>();
+	SpriteRenderer->SetSprite("Tevi", 99);
 }
 
 ATitleLogo::~ATitleLogo()

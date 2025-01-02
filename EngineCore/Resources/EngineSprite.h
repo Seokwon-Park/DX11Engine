@@ -1,10 +1,25 @@
 #pragma once
 #include <EngineCore/Resources/EngineTexture.h>
 
+enum class EPivotType
+{
+	TopLeft,
+	TopCenter,
+	TopRight,
+	LeftCenter,
+	Center,
+	RightCenter, 
+	BottomLeft,
+	BottomCenter,
+	BottomRight
+};
+
 struct FSpriteRect
 {
-	FVector2 CuttingPos = { 0.0f, 0.0f };
-	FVector2 CuttingSize = { 1.0f, 1.0f };
+	FVector2 CuttingPos = FVector2(0.0f, 0.0f);
+	FVector2 CuttingSize = FVector2(1.0f, 1.0f);
+	FVector2 Pivot = FVector2(0.5f, 0.5f);
+	FVector2 Dummy;
 };
 
 struct FSpriteData
@@ -30,7 +45,10 @@ public:
 
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Name, std::string_view _Path);
-
+	
+	ENGINE_API void SetPivot(EPivotType _Pivot);
+	ENGINE_API void SetPivot(FVector2 _Pos);
+	ENGINE_API void SetPivot(FVector2 _Pos, uint32 _Index);
 protected:
 
 private:

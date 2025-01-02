@@ -1,6 +1,6 @@
 #include "EnginePCH.h"
-
 #include "Vector4.h"
+#include "Vector2.h"
 
 #include "MathUtility.h"
 
@@ -42,6 +42,12 @@ FVector4::FVector4(long _X, long _Y)
 
 FVector4::FVector4(long _X, long _Y, long _Z)
 	:FVector4(static_cast<float>(_X), static_cast<float>(_Y), static_cast<float>(_Z), 0.0f) {
+}
+
+FVector4::FVector4(FVector2 _XY, float _Z, float _W)
+	:FVector4(_XY.X, _XY.Y, _Z, 0.0f)
+{
+
 }
 
 float FVector4::Dot(const FVector4& _Left, const FVector4& _Right)

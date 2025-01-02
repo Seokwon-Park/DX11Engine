@@ -12,9 +12,9 @@ public:
 	BASE_API virtual ~UEnginePath();
 
 	// delete Function
-	UEnginePath(const UEnginePath& _Other);
-	UEnginePath(UEnginePath&& _Other) noexcept;
-	UEnginePath& operator=(const UEnginePath& _Other);
+	BASE_API UEnginePath(const UEnginePath& _Other);
+	BASE_API UEnginePath(UEnginePath&& _Other) noexcept;
+	BASE_API UEnginePath& operator=(const UEnginePath& _Other);
 	BASE_API UEnginePath& operator=(UEnginePath&& _Other) noexcept;
 
 	inline std::filesystem::path GetPath() const { return Path; };

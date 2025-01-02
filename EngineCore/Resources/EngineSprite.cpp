@@ -38,6 +38,16 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 		MSGASSERT("폴더에 이미지 파일이 없습니다.");
 	}
 
+	//_(숫자).PNG 형태의 꼴인 파일이 있다면 오름차순으로 정렬시킨다.
+	// 이거 왜필요함? _10.PNG다음에 _100과 _11이 있으면 _100이 먼저 저장되는 문제가 생긴다.
+	std::sort(Files.begin(), Files.end(), [=](auto _FileA, auto _FileB)
+		{
+			
+			int AIndex = UEngineString::ExtractNumber(_FileA.GetCurrentName(), R"(\_(\d+)\.png$)");
+			int BIndex = UEngineString::ExtractNumber(_FileB.GetCurrentName(), R"(\_(\d+)\.png$)");
+			return AIndex < BIndex;
+		});
+
 	std::shared_ptr<UEngineSprite> NewSprite = std::make_shared<UEngineSprite>();
 	UResourceManager::AddResource<UEngineSprite>(NewSprite, _Name, "");
 
@@ -57,12 +67,67 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 
 		FSpriteData SpriteData;
 		SpriteData.Texture = Texture.get();
-		SpriteData.Rect.CuttingPos = { 0.0f, 0.0f };
-		SpriteData.Rect.CuttingSize = { 1.0f, 1.0f };
-		//SpriteData.Pivot = { 0.5f, 0.0f };
+		SpriteData.Rect.CuttingPos = FVector2(0.0f, 0.0f);
+		SpriteData.Rect.CuttingSize = FVector2(1.0f, 1.0f);
+		SpriteData.Rect.Pivot = FVector2(0.5f, 0.5f);
 		NewSprite->SpriteDatas.push_back(SpriteData);
 	}
 
 	return NewSprite;
+}
+
+void UEngineSprite::SetPivot(EPivotType _Pivot)
+{
+	FVector2 Pivot = FVector2(0.5f, 0.5f);
+	switch (_Pivot)
+	{
+	case EPivotType::TopLeft:
+		Pivot = FVector2(0.0f, 1.0f);
+		break;
+	case EPivotType::TopCenter:
+		Pivot = FVector2(0.5f, 1.0f);
+		break;
+	case EPivotType::TopRight:
+		Pivot = FVector2(1.0f, 1.0f);
+		break;
+	case EPivotType::LeftCenter:
+		Pivot = FVector2(0.0f, 0.5f);
+		break;
+	case EPivotType::Center:
+		Pivot = FVector2(0.5f, 0.5f);
+		break;
+	case EPivotType::RightCenter:
+		Pivot = FVector2(1.0f, 0.5f);
+		break;
+	case EPivotType::BottomLeft:
+		Pivot = FVector2(0.0f, 0.0f);
+		break;
+	case EPivotType::BottomCenter:
+		Pivot = FVector2(0.5f, 0.0f);
+		break;
+	case EPivotType::BottomRight:
+		Pivot = FVector2(1.0f, 0.0f);
+		break;
+	default:
+		break;
+	}
+	SetPivot(Pivot);
+}
+
+void UEngineSprite::SetPivot(FVector2 _Pos)
+{
+	for (FSpriteData& Data : SpriteDatas)
+	{
+		Data.Rect.Pivot = _Pos;
+	}
+}
+
+void UEngineSprite::SetPivot(FVector2 _Pos, uint32 _Index)
+{
+	if (_Index >= SpriteDatas.size())
+	{
+		return;
+	}
+	SpriteDatas[_Index].Rect.Pivot = _Pos;
 }
 

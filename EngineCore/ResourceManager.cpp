@@ -40,3 +40,7 @@ void UResourceManager::AddResource(std::shared_ptr<UEngineResource> _Resource, c
 
 	return;
 }
+
+void UResourceManager::InitResources()
+{
+}

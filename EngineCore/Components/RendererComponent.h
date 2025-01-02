@@ -20,10 +20,6 @@ public:
 	URendererComponent& operator=(const URendererComponent& _Other) = delete;
 	URendererComponent& operator=(URendererComponent&& _Other) noexcept = delete;
 
-	void SetOrder(int _Order);
-
-
-
 protected:
 	ENGINE_API void BeginPlay() override;
 	virtual void Render(float _DeltaTime);

@@ -7,7 +7,7 @@
 
 AActor::AActor()
 {
-	RootComponent = CreateDefaultSubObject<UDefaultSceneComponent>();
+	RootComponent = CreateDefaultSubobject<UDefaultSceneComponent>();
 }
 
 AActor::~AActor()
@@ -32,6 +32,16 @@ void AActor::AddActorLocation(const FVector4& _Value)
 	}
 
 	RootComponent->AddLocation(_Value);
+}
+
+void AActor::AddActorRotation(const FVector4& _Rotation)
+{
+	if (nullptr == RootComponent)
+	{
+		return;
+	}
+
+	RootComponent->AddRotation(_Rotation);
 }
 
 void AActor::SetActorRelativeScale3D(const FVector4& _Scale)

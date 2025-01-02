@@ -1,6 +1,6 @@
 #include "EnginePCH.h"
 #include "Level.h"
-#include "Components/RendererComponent.h"
+#include "Components/SpriteRendererComponent.h"
 #include "EngineCore.h"
 
 ULevel::ULevel()
@@ -41,9 +41,9 @@ void ULevel::Render(float _DeltaTime)
 {
 	UEngineCore::GraphicsDevice->ClearRenderTarget();
 
-	for (std::pair<const int, std::list<std::shared_ptr<URendererComponent>>>& RenderGroup : Renderers)
+	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<USpriteRendererComponent>>>& RenderGroup : SpriteRenderers)
 	{
-		std::list<std::shared_ptr<URendererComponent>>& RenderList = RenderGroup.second;
+		std::list<std::shared_ptr<USpriteRendererComponent>>& RenderList = RenderGroup.second;
 
 		for (std::shared_ptr<URendererComponent> Renderer : RenderList)
 		{
@@ -53,7 +53,13 @@ void ULevel::Render(float _DeltaTime)
 	UEngineCore::GraphicsDevice->SwapBuffers();
 }
 
-void ULevel::PushRenderer(std::shared_ptr<class URendererComponent> _Renderer)
+void ULevel::PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer)
 {
-	Renderers[0].push_back(_Renderer);
+	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
+}
+
+void ULevel::ChangeRenderOrder(std::pair<int,int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer)
+{
+	SpriteRenderers[_PrevRenderOrder].remove(_Renderer);
+	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
 }

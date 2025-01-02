@@ -164,6 +164,18 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TeviContentsCore.cpp">
       <SubType>
       </SubType>
@@ -182,7 +194,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseState.h" />
     <ClInclude Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TestGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
       <SubType>
       </SubType>
     </ClInclude>

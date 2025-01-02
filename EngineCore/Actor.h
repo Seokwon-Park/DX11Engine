@@ -19,7 +19,7 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	template<typename ComponentType>
-	inline std::shared_ptr<ComponentType> CreateDefaultSubObject()
+	inline std::shared_ptr<ComponentType> CreateDefaultSubobject()
 	{
 		static_assert(std::is_base_of_v<UActorComponent, ComponentType>,
 			"액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
@@ -43,6 +43,7 @@ public:
 
 	ENGINE_API void SetActorLocation(const FVector4& _Value);
 	ENGINE_API void AddActorLocation(const FVector4& _Value);
+	ENGINE_API void AddActorRotation(const FVector4& _Rotation);
 	ENGINE_API void SetActorRelativeScale3D(const FVector4& _Scale);
 
 	inline ULevel* GetLevel() const { return Level; }
@@ -57,5 +58,7 @@ private:
 	class ULevel* Level = nullptr;
 
 	std::list<std::shared_ptr<class UActorComponent>> ActorComponentList;
+	//std::map<int, std::shared_ptr<class ACameraActor>> CameraActors;
+
 };
 

@@ -9,6 +9,7 @@ cbuffer FSpriteData : register(b1)
 {
     float2 CuttingPos;
     float2 CuttingSize;
+    float2 Pivot;
 };
 
 struct VS_Input
@@ -25,11 +26,11 @@ struct VS_Output
     float2 UV : TEXCOORD0;
 };
 
-
-
 VS_Output vs_main(VS_Input _Input)
 {
     VS_Output Output;
+    _Input.Pos.x += (1.0f - Pivot.x) - 0.5f;
+    _Input.Pos.y += (1.0f - Pivot.y) - 0.5f;
     Output.Pos = mul(_Input.Pos, World);
     Output.Pos = mul(Output.Pos, View);
     Output.Pos = mul(Output.Pos, Proj);
