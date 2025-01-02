@@ -108,7 +108,7 @@ void UAnimatorComponent::TickComponent(float _DeltaTime)
 	}
 }
 
-void UAnimatorComponent::FrameEventCheck(uint32 _AnimationIndex)
+void UAnimatorComponent::FrameEventCheck(Uint32 _AnimationIndex)
 {
 	if (false == Animation->FrameEvents[_AnimationIndex].IsEmpty())
 	{

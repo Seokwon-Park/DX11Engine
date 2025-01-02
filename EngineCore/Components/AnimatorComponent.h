@@ -26,7 +26,7 @@ public:
 
 	ENGINE_API void BeginPlay() override;
 	virtual void TickComponent(float _DeltaTime)override;
-	void FrameEventCheck(uint32 _AnimationIndex);
+	void FrameEventCheck(Uint32 _AnimationIndex);
 protected:
 
 private:

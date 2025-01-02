@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineResource.h"
 
 struct Vertex
 {
@@ -8,7 +9,7 @@ struct Vertex
 };
 
 // 클래스 설명 :
-class UEngineVertexBuffer 
+class UEngineVertexBuffer : public UEngineResource
 {
 public:
 	// Constrcuter Destructer
@@ -23,14 +24,18 @@ public:
 
 	virtual void Bind() const = 0;
 
-	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(uint32 _Size, uint32 _VertexSize);
-	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount);
-private:
+	inline Uint32 GetVertexSize() { return VertexSize; }
+	inline Uint32 GetVertexCount() { return VertexCount; }
 
+	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(Uint32 _Size, Uint32 _VertexSize);
+	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(const void* _Data, Uint32 _DataSize, Uint32 _VertexCount);
+private:
+	Uint32 VertexSize;
+	Uint32 VertexCount;
 };
 
 // 클래스 설명 :
-class UEngineIndexBuffer
+class UEngineIndexBuffer : public UEngineResource
 {
 public:
 	// Constrcuter Destructer
@@ -45,7 +50,7 @@ public:
 
 	virtual void Bind() const = 0;
 
-	ENGINE_API static std::shared_ptr<UEngineIndexBuffer> Create(std::vector<uint32> _Indices, uint32 _IndexCount);
+	ENGINE_API static std::shared_ptr<UEngineIndexBuffer> Create(Uint32* _Indices, Uint32 _IndexCount);
 protected:
 private:
 

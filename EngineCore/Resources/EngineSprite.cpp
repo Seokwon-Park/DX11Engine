@@ -122,7 +122,7 @@ void UEngineSprite::SetPivot(FVector2 _Pos)
 	}
 }
 
-void UEngineSprite::SetPivot(FVector2 _Pos, uint32 _Index)
+void UEngineSprite::SetPivot(FVector2 _Pos, Uint32 _Index)
 {
 	if (_Index >= SpriteDatas.size())
 	{

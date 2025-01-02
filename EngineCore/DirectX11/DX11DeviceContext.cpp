@@ -147,8 +147,8 @@ void DX11DeviceContext::CreateRasterizer()
 	D3D11_RASTERIZER_DESC Desc;
 	ZeroMemory(&Desc, sizeof(D3D11_RASTERIZER_DESC));
 
-	Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-	Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_BACK;
+	Desc.FillMode = D3D11_FILL_SOLID;
+	Desc.CullMode = D3D11_CULL_BACK;
 	//Desc.FrontCounterClockwise;
 	//Desc.DepthBias;
 	//Desc.DepthBiasClamp;
@@ -224,9 +224,6 @@ IDXGIAdapter* DX11DeviceContext::GetHighPerFormanceAdapter()
 	return Adapter;
 }
 
-
-
-
 void DX11DeviceContext::ClearRenderTarget()
 {
 	// 이미지 ClearColor으로 렌더타겟 초기화
@@ -236,7 +233,6 @@ void DX11DeviceContext::ClearRenderTarget()
 
 void DX11DeviceContext::SwapBuffers()
 {
-	// 내가 지정한 hwnd에 다이렉트 랜더링 결과를 출력해라.
 	HRESULT Result = SwapChain->Present(0, 0);
 
 	//             디바이스가 랜더링 도중 삭제          디바이스가 리셋되었을경우

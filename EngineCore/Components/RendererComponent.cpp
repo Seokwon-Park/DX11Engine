@@ -18,7 +18,7 @@ void URendererComponent::BeginPlay()
 {
 
 	std::vector<Vertex> Vertices;
-	std::vector<uint32> Indices = { 0,1,2, 1,3,2 };
+	std::vector<Uint32> Indices = { 0,1,2, 1,3,2 };
 
 	Vertices.resize(4);
 
@@ -27,9 +27,9 @@ void URendererComponent::BeginPlay()
 	Vertices[2] = Vertex{ FVector4(-0.5f, -0.5f, 1.0f,1.0f), {0.0f, 0.0f, 1.0f, 1.0f},{0.0f, 1.0f}};
 	Vertices[3] = Vertex{ FVector4(0.5f, -0.5f, 1.0f,1.0f), {1.0f, 1.0f, 1.0f, 1.0f},{1.0f, 1.0f}};
 
-	VB = UEngineVertexBuffer::Create(Vertices, sizeof(Vertex) * Vertices.size(), Vertices.size());
+	VB = UEngineVertexBuffer::Create((void*)&Vertices[0], sizeof(Vertex) * Vertices.size(), Vertices.size());
 	VB->Bind();
-	IB = UEngineIndexBuffer::Create(Indices, 6);
+	IB = UEngineIndexBuffer::Create(Indices.data(), 6);
 	IB->Bind();
 	Shader = UEngineShader::Create("");
 	Shader->Bind();

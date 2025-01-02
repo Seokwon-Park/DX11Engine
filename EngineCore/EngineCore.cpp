@@ -124,6 +124,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			GraphicsDevice->CreateBackBuffer(MainWindow);
 			GraphicsDevice->SetClearColor(FColor::BLACK);
 			UEngineInputSystem::InitKeys();
+			UResourceManager::CreateDefaultResources();
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{

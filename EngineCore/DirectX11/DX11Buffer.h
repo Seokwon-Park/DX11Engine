@@ -6,8 +6,8 @@ class DX11VertexBuffer: public UEngineVertexBuffer
 {
 public:
 	// constrcuter destructer
-	DX11VertexBuffer(uint32 _DataSize, uint32 _VertexSize);
-	DX11VertexBuffer(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount);
+	DX11VertexBuffer(Uint32 _DataSize, Uint32 _VertexSize);
+	DX11VertexBuffer(const void* _Data, Uint32 _DataSize, Uint32 _VertexCount);
 	~DX11VertexBuffer();
 
 	// delete Function
@@ -22,8 +22,8 @@ protected:
 
 private:
 	ComPtr<ID3D11Buffer> Buffer; // DirectX 11 버퍼 객체
-	uint32 Stride;
-	uint32 Offset = 0;
+	Uint32 Stride;
+	Uint32 Offset = 0;
 };
 
 // 설명 :
@@ -31,7 +31,7 @@ class DX11IndexBuffer : public UEngineIndexBuffer
 {
 public:
 	// constrcuter destructer
-	DX11IndexBuffer(std::vector<uint32>& _Indices, uint32 _IndexCount);
+	DX11IndexBuffer(Uint32* _Indices, Uint32 _IndexCount);
 	~DX11IndexBuffer();
 
 	// delete Function

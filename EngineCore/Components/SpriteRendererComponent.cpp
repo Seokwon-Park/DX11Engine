@@ -11,7 +11,7 @@ USpriteRendererComponent::~USpriteRendererComponent()
 {
 }
 
-void USpriteRendererComponent::SetSprite(UEngineSprite* _Sprite, uint32 _Index)
+void USpriteRendererComponent::SetSprite(UEngineSprite* _Sprite, Uint32 _Index)
 {
 	Sprite = _Sprite;
 	SpriteData = Sprite->GetSpriteData(_Index);
@@ -22,13 +22,13 @@ void USpriteRendererComponent::SetSprite(UEngineSprite* _Sprite, uint32 _Index)
 	}
 }
 
-void USpriteRendererComponent::SetSprite(std::string_view _Name, uint32 _Index)
+void USpriteRendererComponent::SetSprite(std::string_view _Name, Uint32 _Index)
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 	SetSprite(UResourceManager::Find<UEngineSprite>(UpperName), _Index);
 }
 
-void USpriteRendererComponent::SetSprite(std::shared_ptr<UEngineSprite> _Sprite, uint32 _Index)
+void USpriteRendererComponent::SetSprite(std::shared_ptr<UEngineSprite> _Sprite, Uint32 _Index)
 {
 	SetSprite(_Sprite.get(), _Index);
 }

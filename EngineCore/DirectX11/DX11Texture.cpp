@@ -6,7 +6,7 @@
 #include <EngineBase/EngineString.h>
 #include <ThirdParty/DirectXTex/Include/DirectXTex.h>
 
-DX11Texture2D::DX11Texture2D(uint32 _Width, uint32 _Height)
+DX11Texture2D::DX11Texture2D(Uint32 _Width, Uint32 _Height)
 {
 }
 
@@ -75,11 +75,11 @@ DX11Texture2D::~DX11Texture2D()
 {
 }
 
-void DX11Texture2D::SetData(void* data, uint32 size)
+void DX11Texture2D::SetData(void* data, Uint32 size)
 {
 }
 
-void DX11Texture2D::Bind(uint32 slot) const
+void DX11Texture2D::Bind(Uint32 slot) const
 {
 	DX11DeviceContext* DeviceContext = static_cast<DX11DeviceContext*>(UEngineCore::GraphicsDevice);
 

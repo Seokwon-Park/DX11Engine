@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineResource.h"
 
 struct VertexConstant
 {
@@ -8,7 +9,7 @@ struct VertexConstant
 };
 
 // Ό³Έν :
-class UEngineShader
+class UEngineShader : public UEngineResource
 {
 public:
 	// constrcuter destructer

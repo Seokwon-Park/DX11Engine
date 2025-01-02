@@ -1,6 +1,6 @@
 #pragma once
 
-using uint32 = unsigned int;
+using Uint32 = unsigned int;
 
 #include "Math/Color.h"
 #include "Math/Matrix.h"

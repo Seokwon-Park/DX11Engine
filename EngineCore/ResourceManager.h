@@ -17,10 +17,10 @@ public:
 	UResourceManager& operator=(const UResourceManager& _Other) = delete;
 	UResourceManager& operator=(UResourceManager&& _Other) noexcept = delete;
 
-	ENGINE_API static void InitResources();
-	static void InitVertexBuffer();
-	static void InitIndexBuffer();
-	static void InitMesh();
+	ENGINE_API static void CreateDefaultResources();
+	static void CreateBaseVertexBuffer();
+	static void CreateBaseIndexBuffer();
+	static void CreateBaseMesh();
 
 	template<typename ResourceType>
 	static std::shared_ptr<ResourceType> Find(std::string_view _Name)
@@ -62,6 +62,8 @@ public:
 	template<typename ResourceType>
 	ENGINE_API inline static std::vector<ResourceType> LoadAllResources()
 	{
+		//if (std::is_base_of_v(ResourceType, UEngineTexture2D))
+		//	return;
 		const type_info& Info = typeid(ResourceType);
 		std::vector<ResourceType> Result;
 		auto Resources = ResourceMap[Info.name()];

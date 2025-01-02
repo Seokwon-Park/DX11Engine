@@ -252,6 +252,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RenderUnit.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Resources\EngineMesh.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
@@ -357,6 +365,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\RendererComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RenderUnit.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Resources\EngineMesh.cpp">
       <SubType>
       </SubType>
     </ClCompile>

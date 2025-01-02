@@ -12,7 +12,7 @@ class DX11Texture2D : public UEngineTexture2D
 {
 public:
 	// constrcuter destructer
-	DX11Texture2D(uint32 _Width, uint32 _Height);
+	DX11Texture2D(Uint32 _Width, Uint32 _Height);
 	DX11Texture2D(const std::string& _Path);
 	virtual ~DX11Texture2D();
 	// delete Function
@@ -21,9 +21,9 @@ public:
 	DX11Texture2D& operator=(const DX11Texture2D& _Other) = delete;
 	DX11Texture2D& operator=(DX11Texture2D&& _Other) noexcept = delete;
 
-	virtual void SetData(void* data, uint32 size) override;
+	virtual void SetData(void* data, Uint32 size) override;
 
-	virtual void Bind(uint32 slot = 0) const override;
+	virtual void Bind(Uint32 slot = 0) const override;
 protected:
 
 private:

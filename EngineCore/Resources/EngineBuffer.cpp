@@ -12,7 +12,7 @@ UEngineVertexBuffer::~UEngineVertexBuffer()
 {
 }
 
-std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(uint32 _DataSize, uint32 _VertexSize)
+std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(Uint32 _DataSize, Uint32 _VertexSize)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{
@@ -25,12 +25,12 @@ std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(uint32 _DataSiz
 	}
 }
 
-std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(std::vector<Vertex>& _Vertices, uint32 _DataSize, uint32 _VertexCount)
+std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(const void* _Data, Uint32 _DataSize, Uint32 _VertexCount)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{
 	case ERendererAPI::DirectX11:
-		return std::make_shared<DX11VertexBuffer>(_Vertices, _DataSize, _VertexCount);
+		return std::make_shared<DX11VertexBuffer>(_Data, _DataSize, _VertexCount);
 	case ERendererAPI::None:
 		return nullptr;
 	default:
@@ -46,7 +46,7 @@ UEngineIndexBuffer::~UEngineIndexBuffer()
 {
 }
 
-ENGINE_API std::shared_ptr<UEngineIndexBuffer> UEngineIndexBuffer::Create(std::vector<uint32> _Indices, uint32 _IndexCount)
+ENGINE_API std::shared_ptr<UEngineIndexBuffer> UEngineIndexBuffer::Create(Uint32* _Indices, Uint32 _IndexCount)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{

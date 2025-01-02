@@ -11,7 +11,7 @@ UEngineTexture::~UEngineTexture()
 {
 }
 
-std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(uint32 width, uint32 height)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(Uint32 width, Uint32 height)
 {
 	switch (UEngineCore::GetRendererAPI())
 	{

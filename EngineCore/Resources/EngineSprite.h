@@ -48,7 +48,7 @@ public:
 	
 	ENGINE_API void SetPivot(EPivotType _Pivot);
 	ENGINE_API void SetPivot(FVector2 _Pos);
-	ENGINE_API void SetPivot(FVector2 _Pos, uint32 _Index);
+	ENGINE_API void SetPivot(FVector2 _Pos, Uint32 _Index);
 protected:
 
 private:
