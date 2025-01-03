@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "Components/SpriteRendererComponent.h"
 #include "EngineCore.h"
+#include "EngineDeviceContext.h"
 
 ULevel::ULevel()
 {
@@ -39,7 +40,7 @@ void ULevel::Tick(float _DeltaTime)
 
 void ULevel::Render(float _DeltaTime)
 {
-	UEngineCore::GraphicsDevice->ClearRenderTarget();
+	UEngineCore::GraphicsDeviceContext->ClearRenderTarget();
 
 	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<USpriteRendererComponent>>>& RenderGroup : SpriteRenderers)
 	{
@@ -50,7 +51,7 @@ void ULevel::Render(float _DeltaTime)
 			Renderer->Render(_DeltaTime);
 		}
 	}
-	UEngineCore::GraphicsDevice->SwapBuffers();
+	UEngineCore::GraphicsDeviceContext->SwapBuffers();
 }
 
 void ULevel::PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer)

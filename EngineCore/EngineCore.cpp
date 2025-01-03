@@ -5,9 +5,9 @@
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
 #include "ResourceManager.h"
-#include "DirectX11/DX11DeviceContext.h"
+#include "EngineDeviceContext.h"
 
-UEngineDeviceContext* UEngineCore::GraphicsDevice;
+UEngineDeviceContext* UEngineCore::GraphicsDeviceContext;
 UEngineWindow UEngineCore::MainWindow;
 HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
@@ -47,6 +47,11 @@ void UEngineCore::OpenLevel(std::string_view _Name)
 	NextLevel = Levels[_Name.data()];
 }
 
+UEngineDeviceContext* UEngineCore::GetGraphicsDeviceContext()
+{
+	return GraphicsDeviceContext;
+}
+
 
 void UEngineCore::WindowInit(HINSTANCE _Instance)
 {
@@ -79,7 +84,7 @@ void UEngineCore::LoadContentsDll(std::string_view _DllName)
 		return;
 	}
 
-	INT_PTR(__stdcall *Ptr)(std::shared_ptr<IContentsCore>&) = (INT_PTR(__stdcall*)(std::shared_ptr<IContentsCore>&))GetProcAddress(ContentsDLL, "CreateContentsCore");
+	INT_PTR(__stdcall * Ptr)(std::shared_ptr<IContentsCore>&) = (INT_PTR(__stdcall*)(std::shared_ptr<IContentsCore>&))GetProcAddress(ContentsDLL, "CreateContentsCore");
 
 	if (nullptr == Ptr)
 	{
@@ -109,20 +114,19 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 	//Contents DLL 로딩
 	LoadContentsDll(_DllName);
 
-	SetRendererAPI(ERendererAPI::DirectX11);
-	GraphicsDevice = UEngineDeviceContext::Create();
+	GraphicsDeviceContext = new UEngineDeviceContext();
 	//게임 루프 시작
 	UEngineWindow::WindowMessageLoop(
 		[]()
 		{
 			EngineLogger::StartLogger();
 			UEngineInitData Data;
-			GraphicsDevice->Init(MainWindow);
+			GraphicsDeviceContext->Init(MainWindow);
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
 			//GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
-			GraphicsDevice->CreateBackBuffer(MainWindow);
-			GraphicsDevice->SetClearColor(FColor::BLACK);
+			GraphicsDeviceContext->CreateBackBuffer(MainWindow);
+			GraphicsDeviceContext->SetClearColor(FColor::BLACK);
 			UEngineInputSystem::InitKeys();
 			UResourceManager::CreateDefaultResources();
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
@@ -183,6 +187,6 @@ void UEngineCore::EngineShutdown()
 	NextLevel = nullptr;
 	Levels.clear();
 	UResourceManager::Release();
-	delete GraphicsDevice;
+	delete GraphicsDeviceContext;
 	EngineLogger::EndLogger();
 }

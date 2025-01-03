@@ -54,6 +54,7 @@ struct PS_Output
 
 float4 ps_main(VS_Output _Input) : SV_TARGET0
 {
-    float4 Color = ImageTexture.Sample(ImageSampler, _Input.UV.xy);
+    //float4 Color = ImageTexture.Sample(ImageSampler, _Input.UV.xy);
+    float4 Color = float4(1.0f, 0.0f, 1.0f, 1.0f);
     return Color;
 }

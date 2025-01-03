@@ -22,16 +22,13 @@
     <ClCompile Include="Components\RendererComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="DirectX11\DX11DeviceContext.cpp" />
     <ClCompile Include="EngineDeviceContext.cpp" />
     <ClCompile Include="Resources\EngineBuffer.cpp" />
-    <ClCompile Include="DirectX11\DX11Buffer.cpp" />
     <ClCompile Include="Resources\EngineShader.cpp" />
     <ClCompile Include="DirectX11\DX11Shader.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="CameraActor.cpp" />
     <ClCompile Include="Resources\EngineTexture.cpp" />
-    <ClCompile Include="DirectX11\DX11Texture.cpp" />
     <ClCompile Include="Components\SpriteRendererComponent.cpp" />
     <ClCompile Include="Resources\EngineResource.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -43,6 +40,8 @@
     <ClCompile Include="Resources\EngineAnimation.cpp" />
     <ClCompile Include="RenderUnit.cpp" />
     <ClCompile Include="Resources\EngineMesh.cpp" />
+    <ClCompile Include="Resources\EngineVertexShader.cpp" />
+    <ClCompile Include="Resources\EnginePixelShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -67,16 +66,13 @@
     <ClInclude Include="Components\RendererComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="DirectX11\DX11DeviceContext.h" />
     <ClInclude Include="EngineDeviceContext.h" />
     <ClInclude Include="Resources\EngineBuffer.h" />
-    <ClInclude Include="DirectX11\DX11Buffer.h" />
     <ClInclude Include="Resources\EngineShader.h" />
     <ClInclude Include="DirectX11\DX11Shader.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="CameraActor.h" />
     <ClInclude Include="Resources\EngineTexture.h" />
-    <ClInclude Include="DirectX11\DX11Texture.h" />
     <ClInclude Include="Components\SpriteRendererComponent.h" />
     <ClInclude Include="Resources\EngineResource.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -88,6 +84,8 @@
     <ClInclude Include="Resources\EngineAnimation.h" />
     <ClInclude Include="RenderUnit.h" />
     <ClInclude Include="Resources\EngineMesh.h" />
+    <ClInclude Include="Resources\EngineVertexShader.h" />
+    <ClInclude Include="Resources\EnginePixelShader.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

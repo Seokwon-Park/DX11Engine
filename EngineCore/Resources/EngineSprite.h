@@ -52,5 +52,5 @@ public:
 protected:
 
 private:
-	std::vector<FSpriteData> SpriteDatas;
+	std::vector<FSpriteData> SpriteData;
 };

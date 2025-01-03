@@ -1,5 +1,7 @@
 #pragma once
+#include <EngineCore/EngineCore.h>
 #include "EngineResource.h"
+
 
 struct VertexConstant
 {
@@ -8,30 +10,42 @@ struct VertexConstant
 	FMatrix Proj;
 };
 
+enum class EShaderType
+{
+	VS,
+	HS,
+	DS,
+	GS,
+	PS,
+	CS,
+};
+
 // Ό³Έν :
 class UEngineShader : public UEngineResource
 {
 public:
-	// constrcuter destructer
 	UEngineShader();
-	~UEngineShader();
-
-	// delete Function
-	UEngineShader(const UEngineShader& _Other) = delete;
-	UEngineShader(UEngineShader&& _Other) noexcept = delete;
-	UEngineShader& operator=(const UEngineShader& _Other) = delete;
-	UEngineShader& operator=(UEngineShader&& _Other) noexcept = delete;
+	virtual ~UEngineShader();
 
 	virtual void Bind() const = 0;
 
-	virtual void SetVertexConstants(VertexConstant _Data) = 0;
-	virtual void SetSpriteConstants(struct FSpriteRect _Data) = 0;
+	//virtual void SetVertexConstants(VertexConstant _Data) = 0;
+	//virtual void SetSpriteConstants(struct FSpriteRect _Data) = 0;
 
-	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& filepath);
-	ENGINE_API static std::shared_ptr<UEngineShader> Create(const std::string& _Name, const std::string& vertexSrc, const std::string& fragmentSrc);
+	ENGINE_API static std::vector<std::shared_ptr<UEngineShader>> CreateShaders(std::string_view _FilePath, std::vector<EShaderType> _ShaderTypes);
+	ENGINE_API static std::shared_ptr<UEngineShader> Create(std::string_view _FilePath, EShaderType _ShaderType);
+	//ENGINE_API static std::shared_ptr<UEngineVertexShader> Create(std::string_view& _Name, std::string_view _ShaderSrc);
+
+	ID3DBlob* GetShaderBlob() const { return ShaderBlob.Get(); }
 protected:
+	ComPtr<ID3DBlob> ShaderBlob;
+	ComPtr<ID3DBlob> ShaderCompileErrorBlob;
 
 private:
+	static std::shared_ptr<UEngineShader> DX11CreateShader(std::string_view _FilePath, EShaderType _ShaderType);
+	EShaderType ShaderType;
 
+	
 };
+
 

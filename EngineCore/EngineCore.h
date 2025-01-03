@@ -5,19 +5,11 @@
 #include <EnginePlatform/EngineInputSystem.h>
 #include "Level.h"
 #include "IContentsCore.h"
-#include "EngineDeviceContext.h"
-
-enum class ERendererAPI
-{
-	DirectX11,
-	None
-};
 
 // Ό³Έν :
 class UEngineCore
 {
 public:
-
 	// constrcuter destructer
 	ENGINE_API UEngineCore();
 	ENGINE_API virtual ~UEngineCore() = 0;
@@ -45,14 +37,13 @@ public:
 
 	//ENGINE_API inline static float GetDeltaTime() { return Timer.GetDeltaTime(); }
 
-	ENGINE_API inline static void SetRendererAPI(ERendererAPI _API) { RendererAPI = _API; }
-	ENGINE_API inline static ERendererAPI GetRendererAPI() { return RendererAPI; }
-	ENGINE_API static UEngineDeviceContext* GraphicsDevice;
+	ENGINE_API static class UEngineDeviceContext* GetGraphicsDeviceContext();
+	
 
+	static class UEngineDeviceContext* GraphicsDeviceContext;
 protected:
 
 private:
-	inline static ERendererAPI RendererAPI;
 
 	static UEngineWindow MainWindow;
 	static HMODULE ContentsDLL;

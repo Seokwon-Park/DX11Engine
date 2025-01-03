@@ -2,6 +2,7 @@
 
 #include <EngineBase/Object.h>
 #include <EngineBase/EngineDebug.h>
+#include <EngineBase/EngineMath.h>
 
 // Ό³Έν :
 class AActor : public UObject
@@ -46,7 +47,7 @@ public:
 	ENGINE_API void AddActorRotation(const FVector4& _Rotation);
 	ENGINE_API void SetActorRelativeScale3D(const FVector4& _Scale);
 
-	inline ULevel* GetLevel() const { return Level; }
+	inline class ULevel* GetLevel() const { return Level; }
 	inline void SetLevel(class ULevel* _Level) { Level = _Level; }
 	ENGINE_API virtual void Tick(float _DeltaTime);
 

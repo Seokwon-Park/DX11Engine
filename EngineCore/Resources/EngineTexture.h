@@ -30,11 +30,17 @@ class UEngineTexture2D : public UEngineTexture
 {
 public:
 	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(Uint32 width, Uint32 height);
-	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(const std::string& path);
+	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(std::string_view _Path);
 
+	virtual void SetData(void* data, Uint32 size);
+	virtual void Bind(Uint32 slot = 0) const override;
 	inline FVector2 GetTextureSize() { return TextureSize; }
-protected:
+private:
+	void LoadTextureFromPath(std::string_view _Path);
+	
 	FVector2 TextureSize;
+	ComPtr<ID3D11Texture2D> Texture;
+	ComPtr<ID3D11ShaderResourceView> ShaderResourceView;
 };
 
 

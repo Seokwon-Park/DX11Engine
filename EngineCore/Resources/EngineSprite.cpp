@@ -13,11 +13,11 @@ UEngineSprite::~UEngineSprite()
 
 FSpriteData UEngineSprite::GetSpriteData(int _Index)
 {
-	if (_Index >= SpriteDatas.size() && _Index < 0)
+	if (_Index >= SpriteData.size() && _Index < 0)
 	{
 		MSGASSERT("유효하지 않은 범위입니다.");
 	}
-	return SpriteDatas[_Index];
+	return SpriteData[_Index];
 }
 
 ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path)
@@ -70,7 +70,7 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 		SpriteData.Rect.CuttingPos = FVector2(0.0f, 0.0f);
 		SpriteData.Rect.CuttingSize = FVector2(1.0f, 1.0f);
 		SpriteData.Rect.Pivot = FVector2(0.5f, 0.5f);
-		NewSprite->SpriteDatas.push_back(SpriteData);
+		NewSprite->SpriteData.push_back(SpriteData);
 	}
 
 	return NewSprite;
@@ -116,7 +116,7 @@ void UEngineSprite::SetPivot(EPivotType _Pivot)
 
 void UEngineSprite::SetPivot(FVector2 _Pos)
 {
-	for (FSpriteData& Data : SpriteDatas)
+	for (FSpriteData& Data : SpriteData)
 	{
 		Data.Rect.Pivot = _Pos;
 	}
@@ -124,10 +124,10 @@ void UEngineSprite::SetPivot(FVector2 _Pos)
 
 void UEngineSprite::SetPivot(FVector2 _Pos, Uint32 _Index)
 {
-	if (_Index >= SpriteDatas.size())
+	if (_Index >= SpriteData.size())
 	{
 		return;
 	}
-	SpriteDatas[_Index].Rect.Pivot = _Pos;
+	SpriteData[_Index].Rect.Pivot = _Pos;
 }
 

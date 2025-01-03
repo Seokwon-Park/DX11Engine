@@ -2,6 +2,7 @@
 #include "ResourceManager.h"
 #include <EngineBase/EngineString.h>
 #include <EngineCore/Resources/EngineBuffer.h>
+#include <EngineCore/Resources/EngineShader.h>
 #include <EngineCore/Resources/EngineMesh.h>
 
 std::map<std::string, std::map<std::string, std::shared_ptr<UEngineResource>>> UResourceManager::ResourceMap;
@@ -39,13 +40,15 @@ void UResourceManager::AddResource(std::shared_ptr<UEngineResource> _Resource, c
 	_Resource->SetName(UpperName);
 	_Resource->SetPath(_Path);
 	ResourceMap[_Info.data()].insert(std::make_pair(UpperName, _Resource));
-
-	return;
 }
 
 void UResourceManager::CreateDefaultResources()
 {
+	CreateBaseShader();
 	CreateBaseVertexBuffer();
+	CreateBaseInputLayout();
+	CreateBaseIndexBuffer();
+	CreateBaseMesh();
 }
 
 void UResourceManager::CreateBaseVertexBuffer()
@@ -68,6 +71,22 @@ void UResourceManager::CreateBaseVertexBuffer()
 	AddResource(VertexBuffer, Info.name(), "Quad", "NoPath");
 }
 
+void UResourceManager::CreateBaseInputLayout()
+{
+	std::vector<FInputLayoutElement> InputLayoutElements =
+	{
+	{ EInputLayoutDataType::Float4, "POSITION" },
+	{ EInputLayoutDataType::Float4, "COLOR" },
+	{ EInputLayoutDataType::Float2, "TEXCOORD" },
+	};
+
+	std::shared_ptr<UEngineShader> VertexShader = Find<UEngineShader>("QuadVS");
+
+	std::shared_ptr<UEngineInputLayout> InputLayout = UEngineInputLayout::Create(VertexShader, InputLayoutElements);
+	const type_info& Info = typeid(UEngineInputLayout);
+	AddResource(InputLayout, Info.name(), "Quad", "NoPath");
+}
+
 void UResourceManager::CreateBaseIndexBuffer()
 {
 	std::vector<Uint32> Indices = { 0,1,2,1,3,2 };
@@ -81,4 +100,21 @@ void UResourceManager::CreateBaseMesh()
 	std::shared_ptr<UEngineMesh> Mesh = UEngineMesh::Create("Quad", "Quad", "Quad");
 	const type_info& Info = typeid(UEngineVertexBuffer);
 	AddResource(Mesh, Info.name(), "Quad", "NoPath");
+}
+
+void UResourceManager::CreateBaseShader()
+{
+	UEngineDirectory Dir;
+	Dir.MoveParentToDirectory("EngineCore");
+	Dir.AppendDirectory("Shaders");
+	std::vector<UEngineFile> Files = Dir.GetAllFile(false, { ".hlsl" });
+	const type_info& Info = typeid(UEngineShader);
+	for (UEngineFile File : Files)
+	{
+		std::shared_ptr<UEngineShader> VertexShader = UEngineShader::Create(File.ToString(), EShaderType::VS);
+		std::shared_ptr<UEngineShader> PixelShader = UEngineShader::Create(File.ToString(), EShaderType::PS);
+		AddResource(VertexShader, Info.name(), "QuadVS", Dir.ToString());
+		AddResource(PixelShader, Info.name(), "QuadPS", Dir.ToString());
+	}
+	
 }

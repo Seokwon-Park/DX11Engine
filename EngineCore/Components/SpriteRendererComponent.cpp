@@ -17,7 +17,10 @@ void USpriteRendererComponent::SetSprite(UEngineSprite* _Sprite, Uint32 _Index)
 	SpriteData = Sprite->GetSpriteData(_Index);
 	if (true == IsAutoScale)
 	{
-		FVector4 Scale = FVector4(SpriteData.Texture->GetTextureSize(), 1.0f, 0.0f);
+		FVector2 TextureSize = SpriteData.Texture->GetTextureSize();
+		FVector2 CuttingSize = SpriteData.Rect.CuttingSize;
+
+		FVector4 Scale = FVector4(TextureSize.X * CuttingSize.X, TextureSize.Y * CuttingSize.Y, 1.0f, 0.0f);
 		SetRelativeScale3D(Scale /** CurAnimation->AutoScaleRatio*/);
 	}
 }
@@ -61,7 +64,7 @@ void USpriteRendererComponent::BeginPlay()
 
 void USpriteRendererComponent::Render(float _DeltaTime)
 {
-	Shader->SetSpriteConstants(SpriteData.Rect);
+	//Shader->SetSpriteConstants(SpriteData.Rect);
 	SpriteData.Texture->Bind();
 	URendererComponent::Render(_DeltaTime);
 }

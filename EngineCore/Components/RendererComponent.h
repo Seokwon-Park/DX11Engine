@@ -26,7 +26,9 @@ protected:
 
 	std::shared_ptr<UEngineVertexBuffer> VB;
 	std::shared_ptr<UEngineIndexBuffer> IB;
-	std::shared_ptr<UEngineShader> Shader;
+	std::shared_ptr<UEngineShader> VS;
+	std::shared_ptr<UEngineShader> PS;
+
 private:
 
 

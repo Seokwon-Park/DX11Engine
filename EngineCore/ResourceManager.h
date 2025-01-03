@@ -19,8 +19,10 @@ public:
 
 	ENGINE_API static void CreateDefaultResources();
 	static void CreateBaseVertexBuffer();
+	static void CreateBaseInputLayout();
 	static void CreateBaseIndexBuffer();
 	static void CreateBaseMesh();
+	static void CreateBaseShader();
 
 	template<typename ResourceType>
 	static std::shared_ptr<ResourceType> Find(std::string_view _Name)
