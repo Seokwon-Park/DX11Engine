@@ -42,6 +42,8 @@
     <ClCompile Include="Resources\EngineMesh.cpp" />
     <ClCompile Include="Resources\EngineVertexShader.cpp" />
     <ClCompile Include="Resources\EnginePixelShader.cpp" />
+    <ClCompile Include="EngineShaderFactory.cpp" />
+    <ClCompile Include="Resources\EngineSamplerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -86,6 +88,8 @@
     <ClInclude Include="Resources\EngineMesh.h" />
     <ClInclude Include="Resources\EngineVertexShader.h" />
     <ClInclude Include="Resources\EnginePixelShader.h" />
+    <ClInclude Include="EngineShaderFactory.h" />
+    <ClInclude Include="Resources\EngineSamplerState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

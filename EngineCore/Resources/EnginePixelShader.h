@@ -1,7 +1,8 @@
 #pragma once
+#include "EngineShader.h"
 
 // Ό³Έν :
-class UEnginePixelShader
+class UEnginePixelShader : public UEngineShader
 {
 public:
 	// constrcuter destructer
@@ -14,9 +15,11 @@ public:
 	UEnginePixelShader& operator=(const UEnginePixelShader& _Other) = delete;
 	UEnginePixelShader& operator=(UEnginePixelShader&& _Other) noexcept = delete;
 
+	virtual void Bind() const override;
+	virtual void Compile() override;
 protected:
 
 private:
-
+	ComPtr<ID3D11PixelShader> PixelShader;
 };
 

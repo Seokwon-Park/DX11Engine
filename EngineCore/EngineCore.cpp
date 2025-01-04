@@ -5,7 +5,6 @@
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
 #include "ResourceManager.h"
-#include "EngineDeviceContext.h"
 
 UEngineDeviceContext* UEngineCore::GraphicsDeviceContext;
 UEngineWindow UEngineCore::MainWindow;

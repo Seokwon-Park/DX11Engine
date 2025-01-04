@@ -1,8 +1,8 @@
 #include "EnginePCH.h"
 #include "ResourceManager.h"
+#include "EngineShaderFactory.h"
 #include <EngineBase/EngineString.h>
 #include <EngineCore/Resources/EngineBuffer.h>
-#include <EngineCore/Resources/EngineShader.h>
 #include <EngineCore/Resources/EngineMesh.h>
 
 std::map<std::string, std::map<std::string, std::shared_ptr<UEngineResource>>> UResourceManager::ResourceMap;
@@ -67,8 +67,7 @@ void UResourceManager::CreateBaseVertexBuffer()
 
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create(
 		reinterpret_cast<void*>(&Vertices[0]), DataSize, VertexCount);
-	const type_info& Info = typeid(UEngineVertexBuffer);
-	AddResource(VertexBuffer, Info.name(), "Quad", "NoPath");
+	AddResource<UEngineVertexBuffer>(VertexBuffer, "Quad", "NoPath");
 }
 
 void UResourceManager::CreateBaseInputLayout()
@@ -91,8 +90,7 @@ void UResourceManager::CreateBaseIndexBuffer()
 {
 	std::vector<Uint32> Indices = { 0,1,2,1,3,2 };
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(&Indices[0], 6);
-	const type_info& Info = typeid(UEngineVertexBuffer);
-	AddResource(IndexBuffer, Info.name(), "Quad", "NoPath");
+	AddResource<UEngineIndexBuffer>(IndexBuffer, "Quad", "NoPath");
 }
 
 void UResourceManager::CreateBaseMesh()
@@ -111,8 +109,8 @@ void UResourceManager::CreateBaseShader()
 	const type_info& Info = typeid(UEngineShader);
 	for (UEngineFile File : Files)
 	{
-		std::shared_ptr<UEngineShader> VertexShader = UEngineShader::Create(File.ToString(), EShaderType::VS);
-		std::shared_ptr<UEngineShader> PixelShader = UEngineShader::Create(File.ToString(), EShaderType::PS);
+		std::shared_ptr<UEngineShader> VertexShader = UEngineShaderFactory::Create(File.ToString(), EShaderType::VS);
+		std::shared_ptr<UEngineShader> PixelShader = UEngineShaderFactory::Create(File.ToString(), EShaderType::PS);
 		AddResource(VertexShader, Info.name(), "QuadVS", Dir.ToString());
 		AddResource(PixelShader, Info.name(), "QuadPS", Dir.ToString());
 	}

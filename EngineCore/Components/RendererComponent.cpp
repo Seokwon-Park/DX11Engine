@@ -3,8 +3,8 @@
 #include "Actor.h"
 #include "ResourceManager.h"
 #include <EngineCore/Resources/EngineBuffer.h>
-#include <EngineCore/Resources/EngineShader.h>
 #include <EngineCore/Resources/EngineTexture.h>
+#include <EngineShaderFactory.h>
 #include "EngineDeviceContext.h"
 
 URendererComponent::URendererComponent()
@@ -28,17 +28,17 @@ void URendererComponent::BeginPlay()
 	Vertices[2] = Vertex{ FVector4(-0.5f, -0.5f, 1.0f,1.0f), {0.0f, 0.0f, 1.0f, 1.0f},{0.0f, 1.0f} };
 	Vertices[3] = Vertex{ FVector4(0.5f, -0.5f, 1.0f,1.0f), {1.0f, 1.0f, 1.0f, 1.0f},{1.0f, 1.0f} };
 
-	VB = UEngineVertexBuffer::Create((void*)&Vertices[0], sizeof(Vertex) * Vertices.size(), Vertices.size());
+	VB = UResourceManager::Find<UEngineVertexBuffer>("Quad");
 	VB->Bind();
-	IB = UEngineIndexBuffer::Create(Indices.data(), 6);
+	IB = UResourceManager::Find<UEngineIndexBuffer>("Quad");
 	IB->Bind();
 
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("EngineCore");
 	Dir.AppendDirectory("Shaders");
 
-	VS = UEngineShader::Create(Dir.GetFile("SpriteShader.hlsl").ToString(), EShaderType::VS);
-	PS = UEngineShader::Create(Dir.GetFile("SpriteShader.hlsl").ToString(), EShaderType::PS);
+	VS = UResourceManager::Find<UEngineShader>("QuadVS");
+	PS = UResourceManager::Find<UEngineShader>("QuadPS");
 	VS->Bind();
 	PS->Bind();
 	std::shared_ptr<UEngineInputLayout> IL = UResourceManager::Find<UEngineInputLayout>("Quad");

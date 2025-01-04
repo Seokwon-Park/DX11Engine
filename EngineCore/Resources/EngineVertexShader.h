@@ -5,7 +5,7 @@
 class UEngineVertexShader : public UEngineShader
 {
 public:
-	UEngineVertexShader(std::string_view _FilePath, EShaderType _ShaderType);
+	UEngineVertexShader();
 	virtual ~UEngineVertexShader();
 
 	// delete Function
@@ -15,8 +15,7 @@ public:
 	UEngineVertexShader& operator=(UEngineVertexShader&& _Other) noexcept = delete;
 
 	virtual void Bind() const;
-
-	ID3DBlob* GetShaderBlob() const { return ShaderBlob.Get(); }
+	virtual void Compile() override;
 protected:
 
 private:

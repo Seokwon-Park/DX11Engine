@@ -127,7 +127,8 @@ ENGINE_API std::shared_ptr<UEngineInputLayout> UEngineInputLayout::Create(std::s
 		Offset += Element.Size;
 	}
 
-	std::shared_ptr<UEngineInputLayout> NewInputLayout;
+	std::shared_ptr<UEngineInputLayout> NewInputLayout = std::make_shared<UEngineInputLayout>();
+	NewInputLayout->CreateLayout(_VertexShader, _Elements);
 	NewInputLayout->Stride = Offset;
 
 	return NewInputLayout;
