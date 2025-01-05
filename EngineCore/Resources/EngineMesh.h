@@ -21,6 +21,9 @@ public:
 	}
 	static std::shared_ptr<UEngineMesh> Create(std::string_view _Name, std::string_view _VBName, std::string_view _IBName);
 
+	inline UINT GetIndexCount() { return IndexBuffer->GetIndexCount(); }
+	void Bind() const;
+
 protected:
 private:
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer;

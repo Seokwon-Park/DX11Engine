@@ -62,11 +62,14 @@ void USpriteRendererComponent::BeginPlay()
 	GetOwner()->GetLevel()->PushRenderer(GetThis<USpriteRendererComponent>());
 }
 
-void USpriteRendererComponent::Render(float _DeltaTime)
+void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	//Shader->SetSpriteConstants(SpriteData.Rect);
 	SpriteData.Texture->Bind();
-	URendererComponent::Render(_DeltaTime);
+	
+	std::shared_ptr<UEngineConstantBuffer> Test = UEngineConstantBuffer::Create(SpriteData.Rect);
+	Test->Bind(EShaderType::VS, 1);
+
+	URendererComponent::Render(_Camera, _DeltaTime);
 }
 
 void USpriteRendererComponent::TickComponent(float _DeltaTime)

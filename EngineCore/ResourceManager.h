@@ -18,11 +18,12 @@ public:
 	UResourceManager& operator=(UResourceManager&& _Other) noexcept = delete;
 
 	ENGINE_API static void CreateDefaultResources();
-	static void CreateBaseVertexBuffer();
-	static void CreateBaseInputLayout();
-	static void CreateBaseIndexBuffer();
-	static void CreateBaseMesh();
-	static void CreateBaseShader();
+	static void CreateDefaultVertexBuffer();
+	static void CreateDefaultInputLayout();
+	static void CreateDefaultIndexBuffer();
+	static void CreateDefaultShader();
+	static void CreateDefaultMesh();
+	static void CreateDefaultMaterial();
 
 	template<typename ResourceType>
 	static std::shared_ptr<ResourceType> Find(std::string_view _Name)

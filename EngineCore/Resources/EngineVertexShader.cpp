@@ -28,6 +28,6 @@ void UEngineVertexShader::Compile()
 
 	if (FAILED(HResult))
 	{
-		MSGASSERT("버텍스 셰이더 컴파일에 실패했습니다.")
+		MSGASSERT("버텍스 셰이더 컴파일에 실패했습니다.");
 	}
 }

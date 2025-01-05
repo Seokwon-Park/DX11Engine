@@ -16,8 +16,8 @@
 							OutputDebugStringA(ResultText.c_str());\
 							}
 #else
-#define MSGASSERT(VALUE)	((void)0)
-#define	DBGPRINT(VALUE)		((void)0)
+#define MSGASSERT(VALUE)	((void)0);
+#define	DBGPRINT(VALUE)		((void)0);
 #endif
 
 namespace UEngineDebug

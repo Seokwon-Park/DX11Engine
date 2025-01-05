@@ -15,7 +15,7 @@ public:
 	UEngineSamplerState& operator=(UEngineSamplerState&& _Other) noexcept = delete;
 
 	static std::shared_ptr<UEngineSamplerState> Create();
-	void Init();
+	void CreateSamplerState(D3D11_SAMPLER_DESC _Desc);
 	void Bind() const;
 protected:
 

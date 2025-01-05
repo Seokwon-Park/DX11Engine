@@ -25,7 +25,6 @@
     <ClCompile Include="EngineDeviceContext.cpp" />
     <ClCompile Include="Resources\EngineBuffer.cpp" />
     <ClCompile Include="Resources\EngineShader.cpp" />
-    <ClCompile Include="DirectX11\DX11Shader.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
     <ClCompile Include="CameraActor.cpp" />
     <ClCompile Include="Resources\EngineTexture.cpp" />
@@ -44,6 +43,7 @@
     <ClCompile Include="Resources\EnginePixelShader.cpp" />
     <ClCompile Include="EngineShaderFactory.cpp" />
     <ClCompile Include="Resources\EngineSamplerState.cpp" />
+    <ClCompile Include="Resources\EngineMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -71,7 +71,6 @@
     <ClInclude Include="EngineDeviceContext.h" />
     <ClInclude Include="Resources\EngineBuffer.h" />
     <ClInclude Include="Resources\EngineShader.h" />
-    <ClInclude Include="DirectX11\DX11Shader.h" />
     <ClInclude Include="Components\CameraComponent.h" />
     <ClInclude Include="CameraActor.h" />
     <ClInclude Include="Resources\EngineTexture.h" />
@@ -90,6 +89,7 @@
     <ClInclude Include="Resources\EnginePixelShader.h" />
     <ClInclude Include="EngineShaderFactory.h" />
     <ClInclude Include="Resources\EngineSamplerState.h" />
+    <ClInclude Include="Resources\EngineMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

@@ -44,14 +44,15 @@ void UResourceManager::AddResource(std::shared_ptr<UEngineResource> _Resource, c
 
 void UResourceManager::CreateDefaultResources()
 {
-	CreateBaseShader();
-	CreateBaseVertexBuffer();
-	CreateBaseInputLayout();
-	CreateBaseIndexBuffer();
-	CreateBaseMesh();
+	CreateDefaultShader();
+	CreateDefaultVertexBuffer();
+	CreateDefaultInputLayout();
+	CreateDefaultIndexBuffer();
+	CreateDefaultMesh();
+	CreateDefaultMaterial();
 }
 
-void UResourceManager::CreateBaseVertexBuffer()
+void UResourceManager::CreateDefaultVertexBuffer()
 {
 	std::vector<Vertex> Vertices;
 
@@ -70,7 +71,7 @@ void UResourceManager::CreateBaseVertexBuffer()
 	AddResource<UEngineVertexBuffer>(VertexBuffer, "Quad", "NoPath");
 }
 
-void UResourceManager::CreateBaseInputLayout()
+void UResourceManager::CreateDefaultInputLayout()
 {
 	std::vector<FInputLayoutElement> InputLayoutElements =
 	{
@@ -86,21 +87,24 @@ void UResourceManager::CreateBaseInputLayout()
 	AddResource(InputLayout, Info.name(), "Quad", "NoPath");
 }
 
-void UResourceManager::CreateBaseIndexBuffer()
+void UResourceManager::CreateDefaultIndexBuffer()
 {
 	std::vector<Uint32> Indices = { 0,1,2,1,3,2 };
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(&Indices[0], 6);
 	AddResource<UEngineIndexBuffer>(IndexBuffer, "Quad", "NoPath");
 }
 
-void UResourceManager::CreateBaseMesh()
+void UResourceManager::CreateDefaultMesh()
 {
 	std::shared_ptr<UEngineMesh> Mesh = UEngineMesh::Create("Quad", "Quad", "Quad");
-	const type_info& Info = typeid(UEngineVertexBuffer);
-	AddResource(Mesh, Info.name(), "Quad", "NoPath");
+	AddResource<UEngineMesh>(Mesh, "Quad", "NoPath");
 }
 
-void UResourceManager::CreateBaseShader()
+void UResourceManager::CreateDefaultMaterial()
+{
+}
+
+void UResourceManager::CreateDefaultShader()
 {
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("EngineCore");

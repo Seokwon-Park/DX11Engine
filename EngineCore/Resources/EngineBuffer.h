@@ -1,5 +1,8 @@
 #pragma once
 #include "EngineResource.h"
+#include <EngineCore/EngineDeviceContext.h>
+#include <EngineCore/EngineCore.h>
+#include "EngineShader.h"
 
 struct Vertex
 {
@@ -22,6 +25,22 @@ enum class EInputLayoutDataType
 	Int3,
 	Int4,
 	Bool
+};
+
+class UEngineBuffer : public UEngineResource
+{
+public:
+	// Constrcuter Destructer
+	UEngineBuffer() {};
+	virtual ~UEngineBuffer() {};
+
+	// Delete Function
+	UEngineBuffer(const UEngineBuffer& _Other) = delete;
+	UEngineBuffer(UEngineBuffer&& _Other) noexcept = delete;
+	UEngineBuffer& operator=(const UEngineBuffer& _Other) = delete;
+	UEngineBuffer& operator=(UEngineBuffer&& _Other) noexcept = delete;
+protected:
+	ComPtr<ID3D11Buffer> Buffer = nullptr; 
 };
 
 struct FInputLayoutElement
@@ -86,7 +105,7 @@ private:
 };
 
 // 클래스 설명 :
-class UEngineVertexBuffer : public UEngineResource
+class UEngineVertexBuffer : public UEngineBuffer
 {
 public:
 	// Constrcuter Destructer
@@ -117,11 +136,10 @@ private:
 	Uint32 Offset = 0;
 	Uint32 VertexSize = 0;
 	Uint32 VertexCount = 0;
-	ComPtr<ID3D11Buffer> Buffer = nullptr; // DirectX 11 버퍼 객체
 };
 
 // 클래스 설명 :
-class UEngineIndexBuffer : public UEngineResource
+class UEngineIndexBuffer : public UEngineBuffer
 {
 public:
 	// Constrcuter Destructer
@@ -135,13 +153,65 @@ public:
 	UEngineIndexBuffer& operator=(UEngineIndexBuffer&& _Other) noexcept = delete;
 
 	void CreateIndexBuffer(Uint32* _Indices, Uint32 _IndexCount);
-
 	void Bind() const;
+	inline Uint32 GetIndexCount() const { return IndexCount; }
 
 	ENGINE_API static std::shared_ptr<UEngineIndexBuffer> Create(Uint32* _Indices, Uint32 _IndexCount);
 protected:
 private:
 	Uint32 IndexCount = 0;
-	ComPtr<ID3D11Buffer> Buffer = nullptr; // DirectX 11 버퍼 객체
+};
 
+class UEngineConstantBuffer : public UEngineBuffer
+{
+public:
+	UEngineConstantBuffer();
+	~UEngineConstantBuffer();
+
+	// Delete Function
+	UEngineConstantBuffer(const UEngineConstantBuffer& _Other) = delete;
+	UEngineConstantBuffer(UEngineConstantBuffer&& _Other) noexcept = delete;
+	UEngineConstantBuffer& operator=(const UEngineConstantBuffer& _Other) = delete;
+	UEngineConstantBuffer& operator=(UEngineConstantBuffer&& _Other) noexcept = delete;
+
+	template <typename DataType>
+	static std::shared_ptr<UEngineConstantBuffer> Create(DataType& _Data)
+	{
+		std::shared_ptr<UEngineConstantBuffer> NewConstantBuffer = std::make_shared<UEngineConstantBuffer>();
+
+		NewConstantBuffer->BufferSize = sizeof(DataType);
+		NewConstantBuffer->CreateConstantBuffer();
+		NewConstantBuffer->SetData(_Data, sizeof(DataType));
+
+		return NewConstantBuffer;
+	}
+
+	void CreateConstantBuffer();
+
+	template <typename DataType>
+	void SetData(const DataType& _Data, size_t _DataSize)
+	{
+		if (_DataSize != BufferSize)
+		{
+			MSGASSERT("버퍼와 데이터의 크기가 다름");
+		}
+
+		UEngineDeviceContext* DeviceContext = UEngineCore::GetGraphicsDeviceContext();
+
+		D3D11_MAPPED_SUBRESOURCE Data;
+		DeviceContext->GetContext()->Map(Buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &Data);
+		if (nullptr == Data.pData)
+		{
+			MSGASSERT("그래픽카드가 수정을 거부했습니다.");
+		}
+
+		memcpy_s(Data.pData, sizeof(_Data), &_Data, sizeof(_Data));
+		DeviceContext->GetContext()->Unmap(Buffer.Get(), 0);
+	}
+	
+	void Bind(EShaderType _Type, Uint32 _Slot = 0) const;
+private:
+	void* BufferData = nullptr;
+	size_t BufferSize = 0;
+	ComPtr<ID3D11Buffer> Buffer = nullptr;
 };

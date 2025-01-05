@@ -27,14 +27,6 @@ public:
 	ENGINE_API void SetSprite(std::string_view _Name, Uint32 _Index);
 	ENGINE_API void SetSprite(std::shared_ptr<UEngineSprite> _Sprite, Uint32 _Index);
 
-	//void SetSpriteData(FSpriteData _Data)
-	//{
-	//	for (int i = 0; i < 2; i++)
-	//	{
-	//		SpriteData.CuttingPos[i] = _Data.CuttingPos[i];
-	//		SpriteData.CuttingSize[i] = _Data.CuttingSize[i];
-	//	}
-	//}
 	ENGINE_API void SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer = 0);
 	ENGINE_API inline std::pair<int,int> GetOrder() { return std::make_pair(static_cast<int>(SortingLayer), OrderInLayer); }
 
@@ -45,14 +37,14 @@ public:
 	//Sorting Order : 같은 레이어에서의 렌더 순서.
 protected:
 	ENGINE_API void BeginPlay() override;
-	void Render(float _DeltaTime) override;
+	virtual void Render(class UCameraComponent* _Camera, float _DeltaTime) override;
 	virtual void TickComponent(float _DeltaTime)override;
 
 private:
+	UEngineSprite* Sprite;
 	ESortingLayer SortingLayer = ESortingLayer::Default;
 	int OrderInLayer = 0;
 	bool IsAutoScale = true;
-	UEngineSprite* Sprite;
 	FSpriteData SpriteData;
 
 };

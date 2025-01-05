@@ -26,6 +26,6 @@ void UEnginePixelShader::Compile()
 
 	if (FAILED(HResult))
 	{
-		MSGASSERT("픽셀 셰이더 컴파일에 실패했습니다.")
+		MSGASSERT("픽셀 셰이더 컴파일에 실패했습니다.");
 	}
 }

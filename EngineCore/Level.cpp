@@ -48,7 +48,7 @@ void ULevel::Render(float _DeltaTime)
 
 		for (std::shared_ptr<URendererComponent> Renderer : RenderList)
 		{
-			Renderer->Render(_DeltaTime);
+			Renderer->Render(CurrentCamera, _DeltaTime);
 		}
 	}
 	UEngineCore::GraphicsDeviceContext->SwapBuffers();

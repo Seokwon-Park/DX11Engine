@@ -29,7 +29,7 @@ void UEngineVertexBuffer::CreateVertexBuffer(Uint32 _Size, Uint32 _VertexSize)
 	//Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	////Desc.MiscFlags = 0;
 	//Desc.StructureByteStride = sizeof(Vertex); // 구조적 버퍼에서만 필요함.
-	
+
 	//UEngineCore::GraphicsDeviceContext->GetDevice()->CreateBuffer(&Desc, nullptr, Buffer.GetAddressOf());
 }
 
@@ -79,6 +79,7 @@ UEngineIndexBuffer::~UEngineIndexBuffer()
 
 void UEngineIndexBuffer::CreateIndexBuffer(Uint32* _Indices, Uint32 _IndexCount)
 {
+	IndexCount = _IndexCount;
 	D3D11_BUFFER_DESC Desc = {};
 	ZeroMemory(&Desc, sizeof(D3D11_BUFFER_DESC));
 	Desc.ByteWidth = sizeof(uint32_t) * _IndexCount;
@@ -199,4 +200,36 @@ DXGI_FORMAT UEngineInputLayout::ConvertToDXGI(EInputLayoutDataType _Type)
 	return DXGI_FORMAT_UNKNOWN;
 }
 
+UEngineConstantBuffer::UEngineConstantBuffer()
+{
+}
 
+UEngineConstantBuffer::~UEngineConstantBuffer()
+{
+}
+
+void UEngineConstantBuffer::CreateConstantBuffer()
+{
+	UEngineDeviceContext* DeviceContext = UEngineCore::GetGraphicsDeviceContext();
+
+	D3D11_BUFFER_DESC Desc;
+	ZeroMemory(&Desc, sizeof(D3D11_BUFFER_DESC));
+	Desc.ByteWidth = static_cast<UINT>(BufferSize);
+	Desc.Usage = D3D11_USAGE_DYNAMIC;
+	Desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	Desc.MiscFlags = 0;
+	Desc.StructureByteStride = 0;
+
+	if (S_OK != DeviceContext->GetDevice()->CreateBuffer(&Desc, nullptr, Buffer.GetAddressOf()))
+	{
+		MSGASSERT("상수버퍼 생성에 실패했습니다..");
+		return;
+	}
+}
+
+//Need Fix.
+void UEngineConstantBuffer::Bind(EShaderType _Type, Uint32 _Slot) const
+{
+	UEngineCore::GetGraphicsDeviceContext()->GetContext()->VSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+}

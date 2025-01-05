@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneComponent.h"
+#include <EngineCore/RenderUnit.h>
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/Resources/EngineBuffer.h>
 #include <EngineCore/Resources/EngineShader.h>
@@ -22,15 +23,14 @@ public:
 
 protected:
 	ENGINE_API void BeginPlay() override;
-	virtual void Render(float _DeltaTime);
+	virtual void Render(class UCameraComponent* _Camera, float _DeltaTime);
 
 	std::shared_ptr<UEngineVertexBuffer> VB;
 	std::shared_ptr<UEngineIndexBuffer> IB;
 	std::shared_ptr<UEngineShader> VS;
 	std::shared_ptr<UEngineShader> PS;
-
 private:
-
+	std::vector<URenderUnit*> RenderUnits;
 
 };
 

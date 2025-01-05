@@ -1,6 +1,6 @@
 #pragma once
-#include <EngineCore/EngineCore.h>
 #include "EngineResource.h"
+#include <EngineCore/EngineCore.h>
 #include <EngineCore/EngineDeviceContext.h>
 
 

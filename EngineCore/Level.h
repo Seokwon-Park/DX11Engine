@@ -76,5 +76,6 @@ private:
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
 	std::map<std::pair<int,int>, std::list<std::shared_ptr<class USpriteRendererComponent>>> SpriteRenderers;
+	class UCameraComponent* CurrentCamera;
 };
 

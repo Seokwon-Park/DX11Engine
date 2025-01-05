@@ -24,3 +24,9 @@ std::shared_ptr<UEngineMesh> UEngineMesh::Create(std::string_view _Name, std::st
 	return NewMesh;
 }
 
+void UEngineMesh::Bind() const
+{
+	VertexBuffer->Bind();
+	IndexBuffer->Bind();
+}
+
