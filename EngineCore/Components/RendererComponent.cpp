@@ -7,9 +7,10 @@
 #include "EngineDeviceContext.h"
 #include <EngineShaderFactory.h>
 #include <EngineCore/Resources/EngineMesh.h>
+#include <EngineCore/Resources/EngineMaterial.h>
 #include <EngineCore/Resources/EngineBuffer.h>
 #include <EngineCore/Resources/EngineTexture.h>
-#include <EngineCore/Resources/EngineSamplerState.h>
+#include <EngineCore/States/EngineSamplerState.h>
 
 
 URendererComponent::URendererComponent()
@@ -20,44 +21,33 @@ URendererComponent::~URendererComponent()
 {
 }
 
+std::shared_ptr<URenderUnit> URendererComponent::AddRenderUnit()
+{
+	std::shared_ptr<URenderUnit> RenderUnit = std::make_shared<URenderUnit>();
+	RenderUnits.emplace_back(RenderUnit);
+	RenderUnit->SetOwner(this);
+	return RenderUnit;
+}
+
+void URendererComponent::AddRenderUnit(std::shared_ptr<URenderUnit> _RenderUnit)
+{
+	RenderUnits.push_back(_RenderUnit);
+	_RenderUnit->SetOwner(this);
+}
+
 void URendererComponent::BeginPlay()
 {
-	auto Mesh = UResourceManager::Find<UEngineMesh>("Quad");
-	Mesh->Bind();
-	VS = UResourceManager::Find<UEngineShader>("QuadVS");
-	PS = UResourceManager::Find<UEngineShader>("QuadPS");
-	VS->Bind();
-	PS->Bind();
-	std::shared_ptr<UEngineInputLayout> IL = UResourceManager::Find<UEngineInputLayout>("Quad");
-	IL->Bind();
-
-	auto test = UEngineSamplerState::Create();
-	test->Bind();
+	//auto test = UEngineSamplerState::Create();
+	//test->Bind(EShaderType::PS, 0);
 }
 
 void URendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	VertexConstant VC;
-	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
-	WorldMatrix.MatrixTranspose();
-	VC.World = WorldMatrix;
-	VC.View.MatrixView(FVector4::BACK, FVector4::FORWARD, FVector4::UP);
-	VC.View.MatrixTranspose();
+	UEngineCore::GetGraphicsDeviceContext()->DrawCall();
 
-	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
-	VC.Proj.MatrixOrthoLH(1280.f, 720.0f, 0.01f, 100.0f);
-	VC.Proj.MatrixTranspose();
-	//Test2->Bind();
-	//Test3->Bind();
-	//Shader->SetVertexConstants(Data);
-	std::shared_ptr<UEngineConstantBuffer> Test = UEngineConstantBuffer::Create(VC);
-	Test->Bind(EShaderType::VS, 0);
-
-	for (URenderUnit* RenderUnit : RenderUnits)
+	for (std::shared_ptr<URenderUnit> RenderUnit : RenderUnits)
 	{
 		RenderUnit->Render(_Camera, _DeltaTime);
 	}
 
-
-	UEngineCore::GraphicsDeviceContext->DrawCall();
 }

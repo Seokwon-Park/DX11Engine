@@ -8,7 +8,6 @@ class UResourceManager
 {
 public:
 	// constrcuter destructer
-	UResourceManager();
 	~UResourceManager();
 
 	// delete Function
@@ -80,14 +79,14 @@ public:
 	inline static bool IsExist(std::string_view _Name){return ResourceMap.contains(_Name.data());}
 	inline static void Release(){ResourceMap.clear();}
 
-
-
 	ENGINE_API static std::shared_ptr<UEngineResource> Find(std::string_view _ResourceName, std::string_view _Name);
 	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Res, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
 
 protected:
 
 private:
+	UResourceManager();
+
 	ENGINE_API static std::map<std::string, std::map<std::string, std::shared_ptr<UEngineResource>>> ResourceMap;
 
 };

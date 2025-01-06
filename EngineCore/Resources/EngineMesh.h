@@ -28,4 +28,6 @@ protected:
 private:
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer;
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer;
+	D3D_PRIMITIVE_TOPOLOGY PrimitiveTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
 };

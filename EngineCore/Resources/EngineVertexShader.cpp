@@ -13,12 +13,11 @@ UEngineVertexShader::~UEngineVertexShader()
 void UEngineVertexShader::Bind() const
 {
 	UEngineCore::GetGraphicsDeviceContext()->GetContext()->VSSetShader(VertexShader.Get(), nullptr, 0);
-
 }
 
-void UEngineVertexShader::Compile()
+void UEngineVertexShader::CompilePath()
 {
-	UEngineShader::Compile();
+	UEngineShader::CompilePath();
 	HRESULT HResult = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->
 		CreateVertexShader(
 			ShaderBlob->GetBufferPointer(),

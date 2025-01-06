@@ -8,7 +8,7 @@ struct Vertex
 {
 	FVector4 Pos;
 	FVector4 Color;
-	float UV[2];
+	FVector2 UV;
 };
 
 enum class EInputLayoutDataType
@@ -40,7 +40,7 @@ public:
 	UEngineBuffer& operator=(const UEngineBuffer& _Other) = delete;
 	UEngineBuffer& operator=(UEngineBuffer&& _Other) noexcept = delete;
 protected:
-	ComPtr<ID3D11Buffer> Buffer = nullptr; 
+	ComPtr<ID3D11Buffer> Buffer = nullptr;
 };
 
 struct FInputLayoutElement
@@ -93,7 +93,7 @@ public:
 	UEngineInputLayout& operator=(UEngineInputLayout&& _Other) noexcept = delete;
 
 	ENGINE_API static std::shared_ptr<UEngineInputLayout> Create(std::shared_ptr<class UEngineShader> _VertexShader, std::vector<FInputLayoutElement>& _Elements);
-	
+
 	DXGI_FORMAT ConvertToDXGI(EInputLayoutDataType _Type);
 	void Bind() const;
 	void CreateLayout(std::shared_ptr<class UEngineShader> _VertexShader, std::vector<FInputLayoutElement>& _Elements);
@@ -130,7 +130,13 @@ public:
 	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(Uint32 _Size, Uint32 _VertexSize);
 
 	//정점 데이터로 정점 버퍼를 생성합니다.
-	ENGINE_API static std::shared_ptr<UEngineVertexBuffer> Create(const void* _Data, Uint32 _DataSize, Uint32 _VertexCount);
+	template<typename VertexType>
+	inline static std::shared_ptr<UEngineVertexBuffer> Create(const VertexType* _Data, Uint32 _DataSize, Uint32 _VertexCount)
+	{
+		std::shared_ptr<UEngineVertexBuffer> NewVertexBuffer = std::make_shared<UEngineVertexBuffer>();
+		NewVertexBuffer->CreateVertexBuffer(_Data, _DataSize, _VertexCount);
+		return NewVertexBuffer;
+	}
 private:
 	Uint32 Stride = 0;
 	Uint32 Offset = 0;
@@ -145,7 +151,7 @@ public:
 	// Constrcuter Destructer
 	UEngineIndexBuffer();
 	~UEngineIndexBuffer();
-	
+
 	// Delete Function
 	UEngineIndexBuffer(const UEngineIndexBuffer& _Other) = delete;
 	UEngineIndexBuffer(UEngineIndexBuffer&& _Other) noexcept = delete;
@@ -174,6 +180,16 @@ public:
 	UEngineConstantBuffer& operator=(const UEngineConstantBuffer& _Other) = delete;
 	UEngineConstantBuffer& operator=(UEngineConstantBuffer&& _Other) noexcept = delete;
 
+	static std::shared_ptr<UEngineConstantBuffer> CreateEmpty(size_t _BufferSize)
+	{
+		std::shared_ptr<UEngineConstantBuffer> NewConstantBuffer = std::make_shared<UEngineConstantBuffer>();
+
+		NewConstantBuffer->BufferSize = _BufferSize;
+		NewConstantBuffer->CreateConstantBuffer();
+
+		return NewConstantBuffer;
+	}
+
 	template <typename DataType>
 	static std::shared_ptr<UEngineConstantBuffer> Create(DataType& _Data)
 	{
@@ -181,7 +197,7 @@ public:
 
 		NewConstantBuffer->BufferSize = sizeof(DataType);
 		NewConstantBuffer->CreateConstantBuffer();
-		NewConstantBuffer->SetData(_Data, sizeof(DataType));
+		NewConstantBuffer->SetData(_Data);
 
 		return NewConstantBuffer;
 	}
@@ -189,11 +205,11 @@ public:
 	void CreateConstantBuffer();
 
 	template <typename DataType>
-	void SetData(const DataType& _Data, size_t _DataSize)
+	void SetData(const DataType& _Data)
 	{
-		if (_DataSize != BufferSize)
+		if (sizeof(_Data) != BufferSize)
 		{
-			MSGASSERT("버퍼와 데이터의 크기가 다름");
+			MSGASSERT("버퍼와 데이터의 크기가 다릅니다.");
 		}
 
 		UEngineDeviceContext* DeviceContext = UEngineCore::GetGraphicsDeviceContext();
@@ -208,10 +224,9 @@ public:
 		memcpy_s(Data.pData, sizeof(_Data), &_Data, sizeof(_Data));
 		DeviceContext->GetContext()->Unmap(Buffer.Get(), 0);
 	}
-	
+
 	void Bind(EShaderType _Type, Uint32 _Slot = 0) const;
 private:
 	void* BufferData = nullptr;
 	size_t BufferSize = 0;
-	ComPtr<ID3D11Buffer> Buffer = nullptr;
 };

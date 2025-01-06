@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "SpriteRendererComponent.h"
+#include "CameraComponent.h"
 #include <EngineBase/EngineString.h>
 #include <EngineCore/ResourceManager.h>
 
@@ -38,7 +39,7 @@ void USpriteRendererComponent::SetSprite(std::shared_ptr<UEngineSprite> _Sprite,
 
 void USpriteRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer)
 {
-	if (_SortingLayer == SortingLayer && OrderInLayer == _OrderInLayer)
+	if (SortingLayer == _SortingLayer && OrderInLayer == _OrderInLayer)
 	{
 		return;
 	}
@@ -48,7 +49,8 @@ void USpriteRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderI
 	int SortingLayerInt = static_cast<int>(_SortingLayer);
 	std::shared_ptr<USpriteRendererComponent> RendererPtr = GetThis<USpriteRendererComponent>();
 	ULevel* Level = GetOwner()->GetLevel();
-	//처음 렌더러 생성시에는 Level이 Null일 수 있으므로 BeginPlay에서 처리해준다.
+
+	//처음 렌더러 생성시에는 Level이 Null일 수 있으므로 미루고 BeginPlay에서 처리.
 	if (Level == nullptr)
 	{
 		return;
@@ -59,15 +61,29 @@ void USpriteRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderI
 void USpriteRendererComponent::BeginPlay()
 {
 	URendererComponent::BeginPlay();
+	SpriteRenderUnit = AddRenderUnit();
+	SpriteRenderUnit->Init("Quad", "Quad");
 	GetOwner()->GetLevel()->PushRenderer(GetThis<USpriteRendererComponent>());
 }
 
 void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	SpriteData.Texture->Bind();
+	VertexConstant VC;
+	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
+	WorldMatrix.MatrixTranspose();
+	VC.World = WorldMatrix;
+	VC.View = _Camera->GetViewMatrix();
+	VC.View.MatrixTranspose();
+
+	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
+	VC.Proj = _Camera->GetProjMatrix();
+	VC.Proj.MatrixTranspose();
+
+	SpriteRenderUnit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
+	SpriteRenderUnit->SetConstantBufferData("SpriteData", EShaderType::VS, SpriteData.Rect);
+	SpriteRenderUnit->SetTexture("SpriteTexture", EShaderType::PS, SpriteData.Texture);
+	SpriteRenderUnit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
 	
-	std::shared_ptr<UEngineConstantBuffer> Test = UEngineConstantBuffer::Create(SpriteData.Rect);
-	Test->Bind(EShaderType::VS, 1);
 
 	URendererComponent::Render(_Camera, _DeltaTime);
 }

@@ -41,10 +41,10 @@ public:
 	ENGINE_API static class UEngineDeviceContext* GetGraphicsDeviceContext();
 	
 
-	static class UEngineDeviceContext* GraphicsDeviceContext;
 protected:
 
 private:
+	static class UEngineDeviceContext* GraphicsDeviceContext;
 
 	static UEngineWindow MainWindow;
 	static HMODULE ContentsDLL;

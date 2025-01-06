@@ -24,7 +24,7 @@ struct FSpriteRect
 
 struct FSpriteData
 {
-	UEngineTexture2D* Texture;
+	std::shared_ptr<UEngineTexture2D> Texture;
 	FSpriteRect Rect;
 };
 // 클래스 설명 :

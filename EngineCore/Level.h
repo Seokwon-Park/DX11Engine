@@ -2,6 +2,7 @@
 
 #include "Actor.h"
 #include "GameMode.h"
+#include "CameraActor.h"
 
 
 // Ό³Έν :
@@ -27,6 +28,8 @@ public:
 
 	void PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer);
 	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer);
+
+	std::shared_ptr<class ACameraActor> SpawnCamera(std::string_view _Name);
 
 	template<typename ActorType>
 	std::shared_ptr<ActorType> SpawnActor()
@@ -76,6 +79,7 @@ private:
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
 	std::map<std::pair<int,int>, std::list<std::shared_ptr<class USpriteRendererComponent>>> SpriteRenderers;
+	std::map<std::string,std::shared_ptr<class UCameraComponent>> CameraComponents;
 	class UCameraComponent* CurrentCamera;
 };
 

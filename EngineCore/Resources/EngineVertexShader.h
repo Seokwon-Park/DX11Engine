@@ -15,7 +15,7 @@ public:
 	UEngineVertexShader& operator=(UEngineVertexShader&& _Other) noexcept = delete;
 
 	virtual void Bind() const;
-	virtual void Compile() override;
+	virtual void CompilePath() override;
 protected:
 
 private:

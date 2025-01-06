@@ -30,7 +30,7 @@ void UEngineVertexBuffer::CreateVertexBuffer(Uint32 _Size, Uint32 _VertexSize)
 	////Desc.MiscFlags = 0;
 	//Desc.StructureByteStride = sizeof(Vertex); // 구조적 버퍼에서만 필요함.
 
-	//UEngineCore::GraphicsDeviceContext->GetDevice()->CreateBuffer(&Desc, nullptr, Buffer.GetAddressOf());
+	//UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateBuffer(&Desc, nullptr, Buffer.GetAddressOf());
 }
 
 void UEngineVertexBuffer::CreateVertexBuffer(const void* _Data, Uint32 _DataSize, Uint32 _VertexCount)
@@ -59,12 +59,7 @@ std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(Uint32 _DataSiz
 	return nullptr;
 }
 
-std::shared_ptr<UEngineVertexBuffer> UEngineVertexBuffer::Create(const void* _Data, Uint32 _DataSize, Uint32 _VertexCount)
-{
-	std::shared_ptr<UEngineVertexBuffer> NewVertexBuffer = std::make_shared<UEngineVertexBuffer>();
-	NewVertexBuffer->CreateVertexBuffer(_Data, _DataSize, _VertexCount);
-	return NewVertexBuffer;
-}
+
 // Vertex Buffer ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -94,7 +89,7 @@ void UEngineIndexBuffer::CreateIndexBuffer(Uint32* _Indices, Uint32 _IndexCount)
 	indexBufferData.SysMemPitch = 0;
 	indexBufferData.SysMemSlicePitch = 0;
 
-	UEngineCore::GraphicsDeviceContext->GetDevice()->CreateBuffer(&Desc, &indexBufferData, Buffer.GetAddressOf());
+	UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateBuffer(&Desc, &indexBufferData, Buffer.GetAddressOf());
 }
 
 void UEngineIndexBuffer::Bind() const
@@ -143,7 +138,7 @@ void UEngineInputLayout::Bind() const
 
 void UEngineInputLayout::CreateLayout(std::shared_ptr<UEngineShader> _VertexShader, std::vector<FInputLayoutElement>& _Elements)
 {
-	auto DeviceContext = UEngineCore::GraphicsDeviceContext;
+	auto DeviceContext = UEngineCore::GetGraphicsDeviceContext();
 
 	std::map<std::string, UINT> SemanticIndexMap;
 
@@ -173,7 +168,6 @@ void UEngineInputLayout::CreateLayout(std::shared_ptr<UEngineShader> _VertexShad
 
 	if (S_OK != Result)
 	{
-		//std::cerr << "CreateInputLayout failed with HRESULT: " << std::hex << Result << std::endl;
 		MSGASSERT("인풋 레이아웃 생성에 실패했습니다");
 	}
 }
@@ -228,8 +222,29 @@ void UEngineConstantBuffer::CreateConstantBuffer()
 	}
 }
 
-//Need Fix.
 void UEngineConstantBuffer::Bind(EShaderType _Type, Uint32 _Slot) const
 {
-	UEngineCore::GetGraphicsDeviceContext()->GetContext()->VSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+	switch (_Type)
+	{
+	case EShaderType::VS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->VSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+		break;
+	case EShaderType::HS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->HSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+		break;
+	case EShaderType::DS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->DSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+		break;
+	case EShaderType::GS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->GSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+		break;
+	case EShaderType::PS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->PSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+		break;
+	case EShaderType::CS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->CSSetConstantBuffers(_Slot, 1, Buffer.GetAddressOf());
+		break;
+	default:
+		break;
+	}
 }

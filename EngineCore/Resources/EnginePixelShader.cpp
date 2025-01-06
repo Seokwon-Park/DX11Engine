@@ -9,14 +9,9 @@ UEnginePixelShader::~UEnginePixelShader()
 {
 }
 
-void UEnginePixelShader::Bind() const
+void UEnginePixelShader::CompilePath()
 {
-	UEngineCore::GetGraphicsDeviceContext()->GetContext()->PSSetShader(PixelShader.Get(), nullptr, 0);
-}
-
-void UEnginePixelShader::Compile()
-{
-	UEngineShader::Compile();
+	UEngineShader::CompilePath();
 	HRESULT HResult = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->
 		CreatePixelShader(
 			ShaderBlob->GetBufferPointer(),
@@ -28,4 +23,9 @@ void UEnginePixelShader::Compile()
 	{
 		MSGASSERT("픽셀 셰이더 컴파일에 실패했습니다.");
 	}
+}
+
+void UEnginePixelShader::Bind() const
+{
+	UEngineCore::GetGraphicsDeviceContext()->GetContext()->PSSetShader(PixelShader.Get(), nullptr, 0);
 }

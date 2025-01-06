@@ -90,9 +90,30 @@ void UEngineTexture2D::SetData(void* data, Uint32 size)
 {
 }
 
-void UEngineTexture2D::Bind(Uint32 slot) const
+void UEngineTexture2D::Bind(EShaderType _ShaderType, Uint32 _Slot) const
 {
-	auto DeviceContext = UEngineCore::GraphicsDeviceContext;
+	switch (_ShaderType)
+	{
+	case EShaderType::VS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->VSSetShaderResources(_Slot, 1, ShaderResourceView.GetAddressOf());
+		break;
+	case EShaderType::HS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->HSSetShaderResources(_Slot, 1, ShaderResourceView.GetAddressOf());
+		break;
+	case EShaderType::DS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->DSSetShaderResources(_Slot, 1, ShaderResourceView.GetAddressOf());
+		break;
+	case EShaderType::GS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->GSSetShaderResources(_Slot, 1, ShaderResourceView.GetAddressOf());
+		break;
+	case EShaderType::PS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->PSSetShaderResources(_Slot, 1, ShaderResourceView.GetAddressOf());
+		break;
+	case EShaderType::CS:
+		UEngineCore::GetGraphicsDeviceContext()->GetContext()->CSSetShaderResources(_Slot, 1, ShaderResourceView.GetAddressOf());
+		break;
+	default:
+		break;
+	}
 
-	DeviceContext->GetContext()->PSSetShaderResources(0, 1, ShaderResourceView.GetAddressOf());
 }

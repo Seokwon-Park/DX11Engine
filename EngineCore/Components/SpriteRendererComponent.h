@@ -41,7 +41,8 @@ protected:
 	virtual void TickComponent(float _DeltaTime)override;
 
 private:
-	UEngineSprite* Sprite;
+	std::shared_ptr<URenderUnit> SpriteRenderUnit;
+	UEngineSprite* Sprite = nullptr;
 	ESortingLayer SortingLayer = ESortingLayer::Default;
 	int OrderInLayer = 0;
 	bool IsAutoScale = true;

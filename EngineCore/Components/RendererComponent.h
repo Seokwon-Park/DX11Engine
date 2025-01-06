@@ -21,16 +21,13 @@ public:
 	URendererComponent& operator=(const URendererComponent& _Other) = delete;
 	URendererComponent& operator=(URendererComponent&& _Other) noexcept = delete;
 
+	std::shared_ptr<URenderUnit> AddRenderUnit();
+	void AddRenderUnit(std::shared_ptr<URenderUnit> _RenderUnit);
 protected:
 	ENGINE_API void BeginPlay() override;
 	virtual void Render(class UCameraComponent* _Camera, float _DeltaTime);
-
-	std::shared_ptr<UEngineVertexBuffer> VB;
-	std::shared_ptr<UEngineIndexBuffer> IB;
-	std::shared_ptr<UEngineShader> VS;
-	std::shared_ptr<UEngineShader> PS;
 private:
-	std::vector<URenderUnit*> RenderUnits;
+	std::vector<std::shared_ptr<URenderUnit>> RenderUnits;
 
 };
 

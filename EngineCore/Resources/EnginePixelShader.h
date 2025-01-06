@@ -16,7 +16,7 @@ public:
 	UEnginePixelShader& operator=(UEnginePixelShader&& _Other) noexcept = delete;
 
 	virtual void Bind() const override;
-	virtual void Compile() override;
+	virtual void CompilePath() override;
 protected:
 
 private:

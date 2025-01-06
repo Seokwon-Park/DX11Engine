@@ -10,7 +10,8 @@ APlayer::APlayer()
 
 	Animator = CreateDefaultSubobject<UAnimatorComponent>();
 	Animator->SetSpriteRenderer(SpriteRenderer);
-	Animator->SetAnimation("TeviIdle");
+	//Animator->SetAnimation("TeviIdle");
+	Animator->SetAnimation("TeviRun");
 
 	Input = CreateDefaultSubobject<UInputComponent>();
 	Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
@@ -37,6 +38,8 @@ void APlayer::Tick(float _DeltaTime)
 void APlayer::BeginPlay()
 {
 	APawn::BeginPlay();
+
+	int a = 0;
 }
 
 void APlayer::Move(FVector4 _Dir)

@@ -8,7 +8,7 @@ UEngineDeviceContext::UEngineDeviceContext()
 
 UEngineDeviceContext::~UEngineDeviceContext()
 {
-	RTV = nullptr;
+	RenderTargetView = nullptr;
 	RasterizerState = nullptr;
 	BackBufferTexture = nullptr;
 	SwapChain = nullptr;
@@ -51,8 +51,6 @@ void UEngineDeviceContext::Init(const UEngineWindow& _Window)
 	// _COM_Outptr_opt_ ID3D11DeviceContext** ppImmediateContext
 
 	D3D_FEATURE_LEVEL ResultLevel;
-	ComPtr<ID3D11Device> ResultDevice;
-	ComPtr<ID3D11DeviceContext> ResultContext;
 
 	if (FAILED(D3D11CreateDevice(
 		Adapter.Get(),
@@ -62,20 +60,17 @@ void UEngineDeviceContext::Init(const UEngineWindow& _Window)
 		nullptr, // 강제레벨 지정 11로 만들거니까. 배열을 넣어줄수
 		0, // 내가 지정한 feature 레벨 개수
 		D3D11_SDK_VERSION, // 현재 다이렉트x sdk 버전
-		&ResultDevice,
+		Device.GetAddressOf(),
 		&ResultLevel,
-		&ResultContext)))
+		Context.GetAddressOf())))
 	{
 		MSGASSERT("그래픽 디바이스 생성에 실패했습니다.");
 	}
 
-	ResultDevice.As(&Device);
-	ResultContext.As(&Context);
-
 	if (ResultLevel != D3D_FEATURE_LEVEL_11_0
 		&& ResultLevel != D3D_FEATURE_LEVEL_11_1)
 	{
-		MSGASSERT("다이렉트 11버전을 지원하지 않는 그래픽카드 입니다.");
+		MSGASSERT("다이렉트 11버전을 지원하지 않는 그래픽카드입니다.");
 		return;
 	}
 
@@ -120,21 +115,18 @@ void UEngineDeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	Adapter->GetParent(IID_PPV_ARGS(&FactoryPtr));
 
 	FactoryPtr->CreateSwapChain(Device.Get(), &SwapChinDesc, SwapChain.GetAddressOf());
-	FactoryPtr->Release();
-	Adapter->Release();
 
 	if (nullptr == SwapChain)
 	{
-		MSGASSERT("스왑체인 제작에 실패했습니다.");
+		MSGASSERT("스왑체인 생성에 실패했습니다.");
 	}
 
-	BackBufferTexture = nullptr;
 	if (FAILED(SwapChain->GetBuffer(0, IID_PPV_ARGS(BackBufferTexture.GetAddressOf()))))
 	{
 		MSGASSERT("백버퍼 텍스처를 얻어오는데 실패했습니다.");
 	}
 
-	if (FAILED(Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, RTV.GetAddressOf())))
+	if (FAILED(Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, RenderTargetView.GetAddressOf())))
 	{
 		MSGASSERT("텍스처 수정권한 획득에 실패했습니다");
 	}
@@ -173,11 +165,9 @@ void UEngineDeviceContext::CreateRasterizer()
 void UEngineDeviceContext::DrawCall()
 {
 	ID3D11RenderTargetView* ArrRtv[16] = { 0 };
-	ArrRtv[0] = RTV.Get(); // SV_Target0
+	ArrRtv[0] = RenderTargetView.Get(); // SV_Target0
 
 	Context->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
-	Context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	Context->DrawIndexed(6, 0, 0);
 }
 
 IDXGIAdapter* UEngineDeviceContext::GetHighPerFormanceAdapter()
@@ -224,7 +214,8 @@ IDXGIAdapter* UEngineDeviceContext::GetHighPerFormanceAdapter()
 void UEngineDeviceContext::ClearRenderTarget()
 {
 	// 이미지 ClearColor으로 렌더타겟 초기화
-	Context->ClearRenderTargetView(RTV.Get(), ClearColor.V);
+	//Context->ClearDepthStencilView(DepthStencilView.Get());
+	Context->ClearRenderTargetView(RenderTargetView.Get(), ClearColor.V);
 }
 
 

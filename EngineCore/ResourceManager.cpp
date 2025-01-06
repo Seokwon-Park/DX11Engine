@@ -4,6 +4,7 @@
 #include <EngineBase/EngineString.h>
 #include <EngineCore/Resources/EngineBuffer.h>
 #include <EngineCore/Resources/EngineMesh.h>
+#include <EngineCore/Resources/EngineMaterial.h>
 
 std::map<std::string, std::map<std::string, std::shared_ptr<UEngineResource>>> UResourceManager::ResourceMap;
 
@@ -67,7 +68,7 @@ void UResourceManager::CreateDefaultVertexBuffer()
 	Uint32 VertexCount = static_cast<Uint32>(Vertices.size());
 
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create(
-		reinterpret_cast<void*>(&Vertices[0]), DataSize, VertexCount);
+		Vertices.data(), DataSize, VertexCount);
 	AddResource<UEngineVertexBuffer>(VertexBuffer, "Quad", "NoPath");
 }
 
@@ -83,8 +84,7 @@ void UResourceManager::CreateDefaultInputLayout()
 	std::shared_ptr<UEngineShader> VertexShader = Find<UEngineShader>("QuadVS");
 
 	std::shared_ptr<UEngineInputLayout> InputLayout = UEngineInputLayout::Create(VertexShader, InputLayoutElements);
-	const type_info& Info = typeid(UEngineInputLayout);
-	AddResource(InputLayout, Info.name(), "Quad", "NoPath");
+	AddResource<UEngineInputLayout>(InputLayout, "Quad", "NoPath");
 }
 
 void UResourceManager::CreateDefaultIndexBuffer()
@@ -102,6 +102,9 @@ void UResourceManager::CreateDefaultMesh()
 
 void UResourceManager::CreateDefaultMaterial()
 {
+	std::shared_ptr<UEngineMaterial> Material = UEngineMaterial::Create();
+	AddResource<UEngineMaterial>(Material, "Quad", "NoPath");
+
 }
 
 void UResourceManager::CreateDefaultShader()

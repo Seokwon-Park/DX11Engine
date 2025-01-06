@@ -1,6 +1,8 @@
 #include "EnginePCH.h"
 #include "EngineShader.h"
+#include "EngineBuffer.h"
 #include <EngineBase/EngineString.h>
+#include <EngineCore/EngineShaderResources.h>
 
 
 UEngineShader::UEngineShader()
@@ -11,39 +13,40 @@ UEngineShader::~UEngineShader()
 {
 }
 
-void UEngineShader::Compile()
+void UEngineShader::CompilePath()
 {
-	auto DeviceContext = UEngineCore::GraphicsDeviceContext;
+	auto DeviceContext = UEngineCore::GetGraphicsDeviceContext();
 
 	UEngineFile File = std::string_view(Path.ToString());
 	UINT CompilerFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 	std::wstring FilePath = UEngineString::ToWString(File.ToString());
 
-	std::string EntryPoint;
-	std::string Target;
+	std::string Prefix = "";
 	switch (ShaderType)
 	{
 	case EShaderType::VS:
-		EntryPoint = "vs_main";
-		Target = "vs_5_0";
+		Prefix = "vs";
 		break;
 	case EShaderType::HS:
-		EntryPoint = "hs_main";
-		Target = "hs_5_0";
+		Prefix = "hs";
 		break;
 	case EShaderType::DS:
+		Prefix = "ds";
 		break;
 	case EShaderType::GS:
+		Prefix = "gs";
 		break;
 	case EShaderType::PS:
-		EntryPoint = "ps_main";
-		Target = "ps_5_0";
+		Prefix = "ps";
 		break;
 	case EShaderType::CS:
+		Prefix = "cs";
 		break;
 	default:
 		break;
 	}
+	std::string EntryPoint = Prefix + "_main";
+	std::string Target = Prefix + "_5_0";
 
 	HRESULT HResult = D3DCompileFromFile(FilePath.c_str(), nullptr, nullptr, EntryPoint.c_str(), Target.c_str(), CompilerFlags, 0, ShaderBlob.GetAddressOf(), ShaderCompileErrorBlob.GetAddressOf());
 	if (FAILED(HResult))
@@ -57,7 +60,19 @@ void UEngineShader::Compile()
 		MessageBoxA(0, ErrorString, "Shader Compiler Error", MB_ICONERROR | MB_OK);
 		return;
 	}
+
+	HResult = D3DReflect(ShaderBlob->GetBufferPointer(), ShaderBlob->GetBufferSize(), IID_PPV_ARGS(&ShaderReflection));
+
+	if (FAILED(HResult))
+	{
+		MSGASSERT("쉐이더 정보를 가져오는데 실패했습니다.");
+		return;
+	}
+
+	ShaderResources = UEngineShaderResources::Create(GetThis<UEngineShader>());
 }
+
+
 
 //ENGINE_API std::vector<std::shared_ptr<UEngineShader>> UEngineShader::CreateShaders(std::string_view _FilePath, std::vector<EShaderType> _ShaderTypes)
 //{
@@ -69,20 +84,6 @@ void UEngineShader::Compile()
 //	return Result;
 //}
 
-
-//std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& _FilePath)
-//{
-//	switch (UEngineCore::GetRendererAPI())
-//	{
-//	case ERendererAPI::DirectX11:
-//		return std::make_shared<DX11Shader>(_FilePath);
-//	case ERendererAPI::None:
-//		return nullptr;
-//	default:
-//		return nullptr;
-//	}
-//}
-//
 //std::shared_ptr<UEngineShader> UEngineShader::Create(const std::string& _Name, const std::string& vertexSrc, const std::string& fragmentSrc)
 //{
 //	return std::shared_ptr<UEngineShader>();

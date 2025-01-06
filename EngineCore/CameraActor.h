@@ -16,6 +16,7 @@ public:
 	ACameraActor& operator=(const ACameraActor& _Other) = delete;
 	ACameraActor& operator=(ACameraActor&& _Other) noexcept = delete;
 
+	inline std::shared_ptr<UCameraComponent> GetCameraComponent() { return CameraComponent; }
 	virtual void Tick(float _DeltaTime) override;
 protected:
 	virtual void BeginPlay() override;

@@ -1,11 +1,11 @@
-cbuffer MVP : register(b0)
+cbuffer WorldViewProjection : register(b0)
 {
     float4x4 World;
     float4x4 View;
     float4x4 Proj;
 };
 
-cbuffer FSpriteData : register(b1)
+cbuffer SpriteData : register(b1)
 {
     float2 CuttingPos;
     float2 CuttingSize;
@@ -43,9 +43,9 @@ VS_Output vs_main(VS_Input _Input)
     return Output;
 }
 
-Texture2D ImageTexture : register(t0);
+Texture2D SpriteTexture : register(t0);
 
-SamplerState ImageSampler : register(s0);
+SamplerState PSSampler : register(s0);
 
 struct PS_Output
 {
@@ -55,7 +55,7 @@ struct PS_Output
 
 float4 ps_main(VS_Output _Input) : SV_TARGET0
 {
-    float4 Color = ImageTexture.Sample(ImageSampler, _Input.UV.xy);
+    float4 Color = SpriteTexture.Sample(PSSampler, _Input.UV.xy);
     //float4 Color = float4(1.0f, 0.0f, 1.0f, 1.0f);
     return Color;
 }

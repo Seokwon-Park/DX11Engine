@@ -66,7 +66,7 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 		//NewSprite->Texture.push_back(Texture.get());
 
 		FSpriteData SpriteData;
-		SpriteData.Texture = Texture.get();
+		SpriteData.Texture = Texture;
 		SpriteData.Rect.CuttingPos = FVector2(0.0f, 0.0f);
 		SpriteData.Rect.CuttingSize = FVector2(1.0f, 1.0f);
 		SpriteData.Rect.Pivot = FVector2(0.5f, 0.5f);

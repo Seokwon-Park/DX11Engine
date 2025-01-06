@@ -20,6 +20,7 @@ enum class EShaderType
 	GS,
 	PS,
 	CS,
+
 };
 
 // Ό³Έν :
@@ -35,16 +36,21 @@ public:
 
 	//ENGINE_API static std::vector<std::shared_ptr<UEngineShader>> CreateShaders(std::string_view _FilePath, std::vector<EShaderType> _ShaderTypes);
 	virtual void Bind() const = 0;
-	virtual void Compile();
+	virtual void CompilePath();
 	inline void Init(std::string_view _FilePath, EShaderType _Type) 
 	{
 		Path = _FilePath; 
 		ShaderType = _Type;
 	}
+	inline EShaderType GetShaderType() const { return ShaderType; }
 	inline ID3DBlob* GetShaderBlob() const { return ShaderBlob.Get(); }
+	inline ID3D11ShaderReflection* GetShaderReflection() const { return ShaderReflection.Get(); }
+	inline std::shared_ptr<class UEngineShaderResources> GetShaderResources() const { return ShaderResources; }
 protected:
-	ComPtr<ID3DBlob> ShaderBlob;
-	ComPtr<ID3DBlob> ShaderCompileErrorBlob;
+	ComPtr<ID3DBlob> ShaderBlob = nullptr;
+	ComPtr<ID3DBlob> ShaderCompileErrorBlob = nullptr;
+	ComPtr<ID3D11ShaderReflection> ShaderReflection = nullptr;
+	std::shared_ptr<class UEngineShaderResources> ShaderResources;
 
 private:
 	EShaderType ShaderType = EShaderType::NONE;

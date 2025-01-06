@@ -20,6 +20,7 @@ void ACameraActor::BeginPlay()
 void ACameraActor::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
+
 	CameraComponent->CalculateView();
 	CameraComponent->CalculateProj();
 }

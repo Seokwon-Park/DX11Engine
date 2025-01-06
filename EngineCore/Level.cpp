@@ -3,9 +3,11 @@
 #include "Components/SpriteRendererComponent.h"
 #include "EngineCore.h"
 #include "EngineDeviceContext.h"
+#include <EngineCore/Components/CameraComponent.h>
 
 ULevel::ULevel()
 {
+	CurrentCamera = SpawnCamera("MainCamera")->GetCameraComponent().get();
 }
 
 ULevel::~ULevel()
@@ -16,7 +18,7 @@ void ULevel::Tick(float _DeltaTime)
 {
 	std::list<std::shared_ptr<class AActor>>::iterator StartIter = BeginPlayList.begin();
 	std::list<std::shared_ptr<class AActor>>::iterator EndIter = BeginPlayList.end();
-	for (; StartIter != EndIter; )
+	while(StartIter != EndIter)
 	{
 		std::shared_ptr<AActor> CurActor = *StartIter;
 
@@ -40,7 +42,7 @@ void ULevel::Tick(float _DeltaTime)
 
 void ULevel::Render(float _DeltaTime)
 {
-	UEngineCore::GraphicsDeviceContext->ClearRenderTarget();
+	UEngineCore::GetGraphicsDeviceContext()->ClearRenderTarget();
 
 	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<USpriteRendererComponent>>>& RenderGroup : SpriteRenderers)
 	{
@@ -51,7 +53,7 @@ void ULevel::Render(float _DeltaTime)
 			Renderer->Render(CurrentCamera, _DeltaTime);
 		}
 	}
-	UEngineCore::GraphicsDeviceContext->SwapBuffers();
+	UEngineCore::GetGraphicsDeviceContext()->SwapBuffers();
 }
 
 void ULevel::PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer)
@@ -63,4 +65,12 @@ void ULevel::ChangeRenderOrder(std::pair<int,int> _PrevRenderOrder, std::shared_
 {
 	SpriteRenderers[_PrevRenderOrder].remove(_Renderer);
 	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
+}
+
+std::shared_ptr<ACameraActor> ULevel::SpawnCamera(std::string_view _Name)
+{
+	std::shared_ptr<ACameraActor> CameraActor = SpawnActor<ACameraActor>();
+	CameraComponents.insert(std::make_pair(_Name, CameraActor->GetCameraComponent()));
+
+	return CameraActor;
 }

@@ -122,13 +122,13 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			EngineLogger::StartLogger();
 			UEngineInitData Data;
 			GraphicsDeviceContext->Init(MainWindow);
+			UResourceManager::CreateDefaultResources();
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
 			//GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 			GraphicsDeviceContext->CreateBackBuffer(MainWindow);
-			GraphicsDeviceContext->SetClearColor(FColor::BLACK);
+			GraphicsDeviceContext->SetClearColor(FColor::WHITE);
 			UEngineInputSystem::InitKeys();
-			UResourceManager::CreateDefaultResources();
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{

@@ -1,4 +1,5 @@
 #pragma once
+#include "EngineShader.h"
 #include <EngineBase/EngineMath.h>
 #include <EngineCore/Resources/EngineResource.h>
 
@@ -18,7 +19,7 @@ public:
 
 	virtual void SetData(void* data, Uint32 size) = 0;
 
-	virtual void Bind(Uint32 slot = 0) const = 0;
+	virtual void Bind(EShaderType _ShaderType, Uint32 slot = 0) const = 0;
 protected:
 
 private:
@@ -33,7 +34,7 @@ public:
 	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(std::string_view _Path);
 
 	virtual void SetData(void* data, Uint32 size);
-	virtual void Bind(Uint32 slot = 0) const override;
+	virtual void Bind(EShaderType _ShaderType, Uint32 _Slot = 0) const override;
 	inline FVector2 GetTextureSize() { return TextureSize; }
 private:
 	void LoadTextureFromPath(std::string_view _Path);
@@ -41,6 +42,9 @@ private:
 	FVector2 TextureSize;
 	ComPtr<ID3D11Texture2D> Texture;
 	ComPtr<ID3D11ShaderResourceView> ShaderResourceView;
+	ComPtr<ID3D11RenderTargetView> RenderTargetView;
+	ComPtr<ID3D11DepthStencilView> DepthStencilView;
+	ComPtr<ID3D11UnorderedAccessView> UnorderedAccessView;
 };
 
 

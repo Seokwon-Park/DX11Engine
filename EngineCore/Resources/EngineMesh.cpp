@@ -15,7 +15,7 @@ std::shared_ptr<UEngineMesh> UEngineMesh::Create(std::string_view _Name, std::st
 {
 	std::string UpperName = UEngineString::ToUpper(_Name);
 
-	std::shared_ptr<UEngineMesh> NewMesh= std::make_shared<UEngineMesh>();
+	std::shared_ptr<UEngineMesh> NewMesh = std::make_shared<UEngineMesh>();
 	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UResourceManager::Find<UEngineVertexBuffer>(_VBName);
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UResourceManager::Find<UEngineIndexBuffer>(_IBName);
 	NewMesh->VertexBuffer = VertexBuffer;
@@ -28,5 +28,6 @@ void UEngineMesh::Bind() const
 {
 	VertexBuffer->Bind();
 	IndexBuffer->Bind();
+	UEngineCore::GetGraphicsDeviceContext()->GetContext()->IASetPrimitiveTopology(PrimitiveTopology);
 }
 

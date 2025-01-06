@@ -32,17 +32,19 @@ public:
 	IDXGIAdapter* GetHighPerFormanceAdapter();
 
 protected:
-	ComPtr<IDXGIAdapter> Adapter;
+	ComPtr<IDXGIAdapter> Adapter = nullptr;
 	// Device - 府家胶 包府, Context - 疙飞
-	ComPtr<ID3D11Device> Device;
-	ComPtr<ID3D11DeviceContext> Context;
-	ComPtr<IDXGISwapChain> SwapChain;
+	ComPtr<ID3D11Device> Device = nullptr;
+	ComPtr<ID3D11DeviceContext> Context = nullptr;
+	ComPtr<IDXGISwapChain> SwapChain = nullptr;
 
 	//Resources
-	ComPtr<ID3D11Texture2D> BackBufferTexture;
-	ComPtr<ID3D11RenderTargetView> RTV;
+	ComPtr<ID3D11Texture2D> BackBufferTexture = nullptr;
+	ComPtr<ID3D11RenderTargetView> RenderTargetView = nullptr;
+	ComPtr<ID3D11DepthStencilView> DepthStencilView = nullptr;
 
-	ComPtr<ID3D11RasterizerState> RasterizerState;
+	ComPtr<ID3D11RasterizerState> RasterizerState = nullptr;
+	ComPtr<ID3D11BlendState> BlendState = nullptr;
 	D3D11_VIEWPORT Viewport;
 
 	FColor ClearColor = FColor::WHITE;

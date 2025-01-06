@@ -34,7 +34,7 @@ ENGINE_API std::shared_ptr<UEngineShader> UEngineShaderFactory::Create(std::stri
 		return nullptr;
 	}
 	NewShader->Init(_FilePath, _ShaderType);
-	NewShader->Compile();
+	NewShader->CompilePath();
 	return NewShader;
 }
 
