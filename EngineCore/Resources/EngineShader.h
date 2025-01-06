@@ -4,12 +4,7 @@
 #include <EngineCore/EngineDeviceContext.h>
 
 
-struct VertexConstant
-{
-	FMatrix World;
-	FMatrix View;
-	FMatrix Proj;
-};
+
 
 enum class EShaderType
 {

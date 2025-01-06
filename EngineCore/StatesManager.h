@@ -1,22 +1,19 @@
 #pragma once
 
 // Ό³Έν :
-class UStatesManager
+class UStateManager
 {
 public:
 	// constrcuter destructer
-	UStatesManager();
-	~UStatesManager();
+	UStateManager();
+	~UStateManager();
 
 	// delete Function
-	UStatesManager(const UStatesManager& _Other) = delete;
-	UStatesManager(UStatesManager&& _Other) noexcept = delete;
-	UStatesManager& operator=(const UStatesManager& _Other) = delete;
-	UStatesManager& operator=(UStatesManager&& _Other) noexcept = delete;
+	UStateManager(const UStateManager& _Other) = delete;
+	UStateManager(UStateManager&& _Other) noexcept = delete;
+	UStateManager& operator=(const UStateManager& _Other) = delete;
+	UStateManager& operator=(UStateManager&& _Other) noexcept = delete;
 
-protected:
-
-private:
 
 };
 

@@ -1,22 +1,23 @@
 #pragma once
 
 // Ό³Έν :
-class EngineRasterizerState
+class UEngineRasterizerState 
 {
 public:
 	// constrcuter destructer
-	EngineRasterizerState();
-	~EngineRasterizerState();
+	UEngineRasterizerState();
+	~UEngineRasterizerState();
 
 	// delete Function
-	EngineRasterizerState(const EngineRasterizerState& _Other) = delete;
-	EngineRasterizerState(EngineRasterizerState&& _Other) noexcept = delete;
-	EngineRasterizerState& operator=(const EngineRasterizerState& _Other) = delete;
-	EngineRasterizerState& operator=(EngineRasterizerState&& _Other) noexcept = delete;
+	UEngineRasterizerState(const UEngineRasterizerState& _Other) = delete;
+	UEngineRasterizerState(UEngineRasterizerState&& _Other) noexcept = delete;
+	UEngineRasterizerState& operator=(const UEngineRasterizerState& _Other) = delete;
+	UEngineRasterizerState& operator=(UEngineRasterizerState&& _Other) noexcept = delete;
 
 protected:
 
 private:
+	ComPtr<ID3D11RasterizerState> RasterizerState = nullptr;
 
 };
 

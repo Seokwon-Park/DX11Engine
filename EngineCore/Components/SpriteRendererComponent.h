@@ -31,10 +31,8 @@ public:
 	ENGINE_API inline std::pair<int,int> GetOrder() { return std::make_pair(static_cast<int>(SortingLayer), OrderInLayer); }
 
 	inline void SetAutoScale(bool _IsAutoScale) { IsAutoScale = _IsAutoScale; }
-	//Material: 렌더링에 사용될 재질.
-	//Bounds : 렌더러의 경계 영역.(?)
-	//Sorting Layer : 2D 렌더링 시 레이어를 정렬.
-	//Sorting Order : 같은 레이어에서의 렌더 순서.
+
+
 protected:
 	ENGINE_API void BeginPlay() override;
 	virtual void Render(class UCameraComponent* _Camera, float _DeltaTime) override;
@@ -43,10 +41,16 @@ protected:
 private:
 	std::shared_ptr<URenderUnit> SpriteRenderUnit;
 	UEngineSprite* Sprite = nullptr;
+
+	//Sorting Layer : 2D 렌더링 시 레이어 정렬.
+	//OrderInLayer : 같은 레이어에서의 렌더 순서
 	ESortingLayer SortingLayer = ESortingLayer::Default;
 	int OrderInLayer = 0;
-	bool IsAutoScale = true;
+
 	FSpriteData SpriteData;
+
+	//스프라이트 크기 자동조절 여부
+	bool IsAutoScale = true;
 
 };
 

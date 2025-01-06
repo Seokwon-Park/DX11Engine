@@ -2,7 +2,7 @@
 #include <EngineCore/Resources/EngineShader.h>
 
 // 클래스 설명 :
-class UEngineSamplerState 
+class UEngineSamplerState : public UEngineResource
 {
 public:
 	// Constrcuter Destructer

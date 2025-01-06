@@ -1,10 +1,10 @@
 #include "EnginePCH.h"
 #include "EngineRasterizerState.h"
 
-EngineRasterizerState::EngineRasterizerState()
+UEngineRasterizerState::UEngineRasterizerState()
 {
 }
 
-EngineRasterizerState::~EngineRasterizerState()
+UEngineRasterizerState::~UEngineRasterizerState()
 {
 }

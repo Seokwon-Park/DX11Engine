@@ -15,7 +15,9 @@ public:
 	ATestGameMode& operator=(const ATestGameMode& _Other) = delete;
 	ATestGameMode& operator=(ATestGameMode&& _Other) noexcept = delete;
 
+	virtual void Tick(float _DeltaTime) override;
 protected:
+	virtual void BeginPlay() override;
 
 private:
 

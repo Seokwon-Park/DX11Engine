@@ -42,11 +42,13 @@
     <ClCompile Include="Resources\EngineVertexShader.cpp" />
     <ClCompile Include="Resources\EnginePixelShader.cpp" />
     <ClCompile Include="EngineShaderFactory.cpp" />
-    <ClCompile Include="States\EngineSamplerState.cpp" />
+    <ClCompile Include="Resources\EngineSamplerState.cpp" />
     <ClCompile Include="Resources\EngineMaterial.cpp" />
     <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="States\EngineRasterizerState.cpp" />
     <ClCompile Include="StatesManager.cpp" />
+    <ClCompile Include="States\EngineBlendState.cpp" />
+    <ClCompile Include="States\EngineDepthStencilState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -91,11 +93,13 @@
     <ClInclude Include="Resources\EngineVertexShader.h" />
     <ClInclude Include="Resources\EnginePixelShader.h" />
     <ClInclude Include="EngineShaderFactory.h" />
-    <ClInclude Include="States\EngineSamplerState.h" />
+    <ClInclude Include="Resources\EngineSamplerState.h" />
     <ClInclude Include="Resources\EngineMaterial.h" />
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="States\EngineRasterizerState.h" />
     <ClInclude Include="StatesManager.h" />
+    <ClInclude Include="States\EngineBlendState.h" />
+    <ClInclude Include="States\EngineDepthStencilState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

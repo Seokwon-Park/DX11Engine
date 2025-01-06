@@ -4,6 +4,13 @@
 #include <EngineBase/EngineString.h>
 #include <EngineCore/ResourceManager.h>
 
+struct VertexConstant
+{
+	FMatrix World;
+	FMatrix View;
+	FMatrix Proj;
+};
+
 USpriteRendererComponent::USpriteRendererComponent()
 {
 }

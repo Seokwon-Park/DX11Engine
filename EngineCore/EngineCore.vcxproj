@@ -196,6 +196,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="States\EngineBlendState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="States\EngineDepthStencilState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="States\EngineRasterizerState.h">
       <SubType>
       </SubType>
@@ -208,7 +216,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="States\EngineSamplerState.h">
+    <ClInclude Include="Resources\EngineSamplerState.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -329,6 +337,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="States\EngineBlendState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="States\EngineDepthStencilState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="States\EngineRasterizerState.cpp">
       <SubType>
       </SubType>
@@ -341,7 +357,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="States\EngineSamplerState.cpp">
+    <ClCompile Include="Resources\EngineSamplerState.cpp">
       <SubType>
       </SubType>
     </ClCompile>

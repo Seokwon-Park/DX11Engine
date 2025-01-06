@@ -1,10 +1,13 @@
 #include "EnginePCH.h"
 #include "StatesManager.h"
+#include <EngineBase/EngineString.h>
 
-UStatesManager::UStatesManager()
+
+UStateManager::UStateManager()
 {
 }
 
-UStatesManager::~UStatesManager()
+UStateManager::~UStateManager()
 {
 }
+

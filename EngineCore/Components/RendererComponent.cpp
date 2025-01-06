@@ -10,7 +10,7 @@
 #include <EngineCore/Resources/EngineMaterial.h>
 #include <EngineCore/Resources/EngineBuffer.h>
 #include <EngineCore/Resources/EngineTexture.h>
-#include <EngineCore/States/EngineSamplerState.h>
+#include <EngineCore/Resources/EngineSamplerState.h>
 
 
 URendererComponent::URendererComponent()
@@ -37,8 +37,6 @@ void URendererComponent::AddRenderUnit(std::shared_ptr<URenderUnit> _RenderUnit)
 
 void URendererComponent::BeginPlay()
 {
-	//auto test = UEngineSamplerState::Create();
-	//test->Bind(EShaderType::PS, 0);
 }
 
 void URendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)

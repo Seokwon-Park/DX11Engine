@@ -3,7 +3,7 @@
 #include <EngineCore/Resources/EngineShader.h>
 #include <EngineCore/Resources/EngineBuffer.h>
 #include <EngineCore/Resources/EngineTexture.h>
-#include <EngineCore/States/EngineSamplerState.h>
+#include <EngineCore/Resources/EngineSamplerState.h>
 
 // Ό³Έν :
 class UEngineShaderResources
