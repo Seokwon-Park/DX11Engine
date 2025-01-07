@@ -39,8 +39,6 @@ protected:
 	//Resources
 	std::shared_ptr<class UEngineTexture2D> BackBufferTexture = nullptr;
 	std::shared_ptr<class UEngineTexture2D> DepthStencilTexture = nullptr;
-
-	ComPtr<ID3D11RasterizerState> RasterizerState = nullptr;
 	D3D11_VIEWPORT Viewport;
 
 	FColor ClearColor = FColor::WHITE;

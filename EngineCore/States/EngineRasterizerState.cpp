@@ -23,9 +23,9 @@ ENGINE_API std::shared_ptr<UEngineRasterizerState> UEngineRasterizerState::Creat
 	Desc.FillMode = D3D11_FILL_SOLID;
 	Desc.CullMode = D3D11_CULL_NONE;
 	//Desc.FrontCounterClockwise;
-	//Desc.DepthBias;
-	//Desc.DepthBiasClamp;
-	//Desc.SlopeScaledDepthBias;
+	//Desc.DepthBias = 1;
+	//Desc.DepthBiasClamp =0.0f;
+	//Desc.SlopeScaledDepthBias= 0.1f;
 	//Desc.DepthClipEnable;
 	//Desc.ScissorEnable;
 	//Desc.MultisampleEnable;

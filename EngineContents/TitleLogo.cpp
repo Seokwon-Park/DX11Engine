@@ -6,6 +6,8 @@ ATitleLogo::ATitleLogo()
 	SpriteRenderer = CreateDefaultSubobject<USpriteRendererComponent>();
 	SpriteRenderer->SetSprite("Tevi", 99);
 	SpriteRenderer->SetOrder(ESortingLayer::Default, -1);
+
+	SpriteRenderer->SetupAttachment(RootComponent);
 }
 
 ATitleLogo::~ATitleLogo()

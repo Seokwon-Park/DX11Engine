@@ -6,16 +6,20 @@
 #include "IContentsCore.h"
 #include "ResourceManager.h"
 #include "EngineDeviceContext.h"
+#include "ImGuiLayer.h"
 
 UEngineDeviceContext* UEngineCore::GraphicsDeviceContext;
-UEngineWindow UEngineCore::MainWindow;
+
 HMODULE UEngineCore::ContentsDLL = nullptr;
 std::shared_ptr<IContentsCore> UEngineCore::Core;
+
 UEngineTimer UEngineCore::Timer;
+UEngineInitData UEngineCore::Data;
+UEngineWindow UEngineCore::MainWindow;
+FTimerManager UEngineCore::TimerManager;
 
 std::shared_ptr<class ULevel> UEngineCore::NextLevel;
 std::shared_ptr<class ULevel> UEngineCore::CurLevel = nullptr;
-
 
 UEngineCore::UEngineCore()
 {
@@ -51,6 +55,13 @@ UEngineDeviceContext* UEngineCore::GetGraphicsDeviceContext()
 {
 	return GraphicsDeviceContext;
 }
+
+FTimerManager& UEngineCore::GetTimerManager()
+{
+	return TimerManager;
+}
+
+
 
 
 void UEngineCore::WindowInit(HINSTANCE _Instance)
@@ -120,15 +131,15 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		[]()
 		{
 			EngineLogger::StartLogger();
-			UEngineInitData Data;
+			UEngineInputSystem::InitKeys();
 			GraphicsDeviceContext->Init(MainWindow);
+			ImGuiLayer::Init();
 			UResourceManager::CreateDefaultResources();
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
 			//GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 			GraphicsDeviceContext->CreateBackBuffer(MainWindow);
 			GraphicsDeviceContext->SetClearColor(FColor::WHITE);
-			UEngineInputSystem::InitKeys();
 			HWND ConsoleWindow = GetConsoleWindow(); // 콘솔 창 핸들 가져오기
 			if (ConsoleWindow)
 			{
@@ -145,8 +156,8 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		},
 		[]()
 		{
-			Core = nullptr;
 			// 엔진이 끝났을 때 하고 싶은것.
+			Core = nullptr;
 			EngineShutdown();
 		});
 }
@@ -157,10 +168,12 @@ void UEngineCore::EngineUpdate()
 	float DeltaTime = Timer.GetDeltaTime();
 
 	CheckLevelChange();
-
 	UEngineInputSystem::KeyCheck(DeltaTime);
 
+	TimerManager.Tick(DeltaTime);
 	CurLevel->Tick(DeltaTime);
+	//ImGuiLayer::RenderStart();
+	//ImGuiLayer::RenderEnd();
 	CurLevel->Render(DeltaTime);
 }
 
@@ -187,6 +200,7 @@ void UEngineCore::EngineShutdown()
 	NextLevel = nullptr;
 	Levels.clear();
 	UResourceManager::Release();
+	ImGuiLayer::Shutdown();
 	delete GraphicsDeviceContext;
 	EngineLogger::EndLogger();
 }

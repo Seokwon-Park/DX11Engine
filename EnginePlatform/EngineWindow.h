@@ -14,6 +14,7 @@
 class UEngineWindow
 {
 public:
+	using UserWndProc = std::function<bool(HWND, UINT, WPARAM, LPARAM)>;
 	// constrcuter destructer
 	PLATFORM_API UEngineWindow();
 	PLATFORM_API ~UEngineWindow();
@@ -42,6 +43,8 @@ public:
 		LoopActive = false;
 	}
 
+	inline void SetUserWndProc(UserWndProc _Proc) { UserProc = _Proc; }
+
 protected:
 
 private:
@@ -52,6 +55,7 @@ private:
 
 	FIntPoint WindowSize;
 	HWND WindowHandle = nullptr;
+	std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserProc;
 };
 
 

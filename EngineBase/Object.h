@@ -18,8 +18,8 @@ public:
 	inline std::string GetName() const { return Name; }
 	inline std::string_view GetNameView() const { return Name.c_str(); }
 	inline virtual void SetName(std::string_view _Name) { Name = _Name.data(); }
-	inline virtual bool IsActive() const { return bIsActive; }
-	inline void SetActive(bool _Value) { bIsActive = _Value; }
+	inline virtual bool GetIsActive() const { return IsActive; }
+	inline void SetActive(bool _Value) { IsActive = _Value; }
 
 	template<typename ChildPtrType>
 	std::shared_ptr<ChildPtrType> GetThis()
@@ -27,9 +27,9 @@ public:
 		return std::static_pointer_cast<ChildPtrType>(shared_from_this());
 	}
 	
-	virtual bool IsDestroy()
+	virtual bool GetIsDestroy()
 	{
-		return bIsDestroy;
+		return IsDestroy;
 	}
 
 	// ╧ы╥н ав╟зар?
@@ -97,8 +97,8 @@ public:
 protected:
 
 private:
-	bool bIsDestroy = false;
-	bool bIsActive = true;
+	bool IsDestroy = false;
+	bool IsActive = true;
 
 	//bool IsDeathTimeCheck = false;
 	//float DeathTime = 0.0f;

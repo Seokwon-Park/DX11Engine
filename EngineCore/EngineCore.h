@@ -4,6 +4,7 @@
 #include <EnginePlatform/EngineWindow.h>
 #include <EnginePlatform/EngineInputSystem.h>
 #include "Level.h"
+#include "TimerManager.h"
 #include "IContentsCore.h"
 
 
@@ -39,11 +40,12 @@ public:
 	//ENGINE_API inline static float GetDeltaTime() { return Timer.GetDeltaTime(); }
 
 	ENGINE_API static class UEngineDeviceContext* GetGraphicsDeviceContext();
-	
-
+	ENGINE_API static class FTimerManager& GetTimerManager();
+	ENGINE_API static class UEngineWindow& GetMainWindow() { return MainWindow; };
 protected:
 
 private:
+	static UEngineInitData Data;
 	static class UEngineDeviceContext* GraphicsDeviceContext;
 
 	static UEngineWindow MainWindow;
@@ -51,6 +53,7 @@ private:
 	static std::shared_ptr<IContentsCore> Core;
 
 	static UEngineTimer Timer;
+	static FTimerManager TimerManager;
 
 	static void WindowInit(HINSTANCE _Instance);
 	static void LoadContentsDll(std::string_view _DllName);

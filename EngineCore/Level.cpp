@@ -8,7 +8,7 @@
 ULevel::ULevel()
 {
 	CurrentCamera = SpawnCamera("MainCamera")->GetCameraComponent().get();
-	CurrentCamera->SetLocation({ 0.0f, 0.0f, -100.0f, 1.0f });
+	CurrentCamera->SetLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
 }
 
 ULevel::~ULevel()

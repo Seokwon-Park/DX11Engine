@@ -22,7 +22,7 @@ std::shared_ptr<UEngineDepthStencilState> UEngineDepthStencilState::Create(std::
 	ZeroMemory(&Desc, sizeof(D3D11_DEPTH_STENCIL_DESC));
 	Desc.DepthEnable = false;
 	Desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	Desc.DepthFunc = D3D11_COMPARISON_LESS;
+	Desc.DepthFunc = D3D11_COMPARISON_ALWAYS;
 	Desc.StencilEnable = false;
 	//Desc.StencilReadMask;
 	//Desc.StencilWriteMask;

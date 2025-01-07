@@ -49,6 +49,16 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="States\EngineBlendState.cpp" />
     <ClCompile Include="States\EngineDepthStencilState.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_demo.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_tables.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_impl_win32.cpp" />
+    <ClCompile Include="Components\UBoxCollider2DComponent.cpp" />
+    <ClCompile Include="ImGuiLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -100,6 +110,17 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="States\EngineBlendState.h" />
     <ClInclude Include="States\EngineDepthStencilState.h" />
+    <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imconfig.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui_internal.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imstb_rectpack.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imstb_textedit.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imstb_truetype.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui_impl_dx11.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui_impl_win32.h" />
+    <ClInclude Include="Components\UBoxCollider2DComponent.h" />
+    <ClInclude Include="ImGuiLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

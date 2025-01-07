@@ -172,6 +172,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ImGuiLayer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Components\UBoxCollider2DComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Resources\EngineAnimation.h">
       <SubType>
       </SubType>
@@ -287,6 +295,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ThirdParty\IMGUI\imconfig.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui_impl_dx11.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui_impl_win32.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imgui_internal.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imstb_rectpack.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imstb_textedit.h" />
+    <ClInclude Include="ThirdParty\IMGUI\imstb_truetype.h" />
+    <ClInclude Include="TimerManager.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
@@ -310,6 +330,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\DefaultSceneComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ImGuiLayer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Components\UBoxCollider2DComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -427,6 +455,17 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EngineShaderFactory.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\IMGUI\imgui.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_demo.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_impl_dx11.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_impl_win32.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_tables.cpp" />
+    <ClCompile Include="ThirdParty\IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="TimerManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>

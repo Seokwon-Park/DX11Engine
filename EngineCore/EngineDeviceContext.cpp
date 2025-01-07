@@ -13,8 +13,6 @@ UEngineDeviceContext::~UEngineDeviceContext()
 	// 렌더 타겟, 뎁스 스텐실 텍스쳐는 참조를 여기서 지워줘야함.
 	DepthStencilTexture = nullptr;
 	BackBufferTexture = nullptr;
-	//
-	RasterizerState = nullptr;
 	SwapChain = nullptr;
 	Context = nullptr;
 #if defined(DEBUG) || defined(_DEBUG)
