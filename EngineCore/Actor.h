@@ -20,7 +20,7 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	template<typename ComponentType>
-	inline std::shared_ptr<ComponentType> CreateDefaultSubobject()
+	inline std::shared_ptr<ComponentType> CreateDefaultSubobject(std::string_view _Name = "")
 	{
 		static_assert(std::is_base_of_v<UActorComponent, ComponentType>,
 			"액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
@@ -34,10 +34,11 @@ public:
 		ComponentType* ComponentPtr = new ComponentType();
 		UActorComponent* ActorPtr = reinterpret_cast<UActorComponent*>(ComponentPtr);
 		ActorPtr->Owner = this;
-
+		ActorPtr->SetName(_Name);
 		std::shared_ptr<ComponentType> NewComponent(ComponentPtr);
 
 		ActorComponentList.push_back(NewComponent);
+		
 
 		return NewComponent;
 	}

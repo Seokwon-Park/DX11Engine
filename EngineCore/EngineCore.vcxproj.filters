@@ -46,7 +46,7 @@
     <ClCompile Include="Resources\EngineMaterial.cpp" />
     <ClCompile Include="EngineShaderResources.cpp" />
     <ClCompile Include="States\EngineRasterizerState.cpp" />
-    <ClCompile Include="StatesManager.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="States\EngineBlendState.cpp" />
     <ClCompile Include="States\EngineDepthStencilState.cpp" />
   </ItemGroup>
@@ -97,7 +97,7 @@
     <ClInclude Include="Resources\EngineMaterial.h" />
     <ClInclude Include="EngineShaderResources.h" />
     <ClInclude Include="States\EngineRasterizerState.h" />
-    <ClInclude Include="StatesManager.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="States\EngineBlendState.h" />
     <ClInclude Include="States\EngineDepthStencilState.h" />
   </ItemGroup>

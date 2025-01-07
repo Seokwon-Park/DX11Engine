@@ -1,5 +1,7 @@
 #include "EnginePCH.h"
 #include "EngineDeviceContext.h"
+#include <EngineCore/Resources/EngineTexture.h>
+
 
 UEngineDeviceContext::UEngineDeviceContext()
 {
@@ -8,9 +10,11 @@ UEngineDeviceContext::UEngineDeviceContext()
 
 UEngineDeviceContext::~UEngineDeviceContext()
 {
-	RenderTargetView = nullptr;
-	RasterizerState = nullptr;
+	// 렌더 타겟, 뎁스 스텐실 텍스쳐는 참조를 여기서 지워줘야함.
+	DepthStencilTexture = nullptr;
 	BackBufferTexture = nullptr;
+	//
+	RasterizerState = nullptr;
 	SwapChain = nullptr;
 	Context = nullptr;
 #if defined(DEBUG) || defined(_DEBUG)
@@ -83,7 +87,7 @@ void UEngineDeviceContext::Init(const UEngineWindow& _Window)
 	}
 }
 
-void UEngineDeviceContext::CreateSwapChain(const UEngineWindow& _Window)
+void UEngineDeviceContext::CreateBackBuffer(const UEngineWindow& _Window)
 {
 	FIntPoint WindowSize = _Window.GetWindowSize();
 
@@ -94,10 +98,10 @@ void UEngineDeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 	SwapChinDesc.BufferDesc.Height = WindowSize.Y;
 	SwapChinDesc.OutputWindow = _Window.GetHandle();
 	SwapChinDesc.Windowed = true;
-
+	
 	SwapChinDesc.BufferDesc.RefreshRate.Denominator = 1;
 	SwapChinDesc.BufferDesc.RefreshRate.Numerator = 60;
-
+	
 	SwapChinDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	SwapChinDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	SwapChinDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
@@ -121,54 +125,47 @@ void UEngineDeviceContext::CreateSwapChain(const UEngineWindow& _Window)
 		MSGASSERT("스왑체인 생성에 실패했습니다.");
 	}
 
-	if (FAILED(SwapChain->GetBuffer(0, IID_PPV_ARGS(BackBufferTexture.GetAddressOf()))))
+	//백버퍼 생성
+	BackBufferTexture = std::make_shared<UEngineTexture2D>();
+	if (FAILED(SwapChain->GetBuffer(0, IID_PPV_ARGS(&BackBufferTexture->GetTextureRef()))))
 	{
 		MSGASSERT("백버퍼 텍스처를 얻어오는데 실패했습니다.");
 	}
+	BackBufferTexture->CreateRTV();
 
-	if (FAILED(Device->CreateRenderTargetView(BackBufferTexture.Get(), nullptr, RenderTargetView.GetAddressOf())))
-	{
-		MSGASSERT("텍스처 수정권한 획득에 실패했습니다");
-	}
+	D3D11_TEXTURE2D_DESC Desc;
+	ZeroMemory(&Desc, sizeof(D3D11_TEXTURE2D_DESC));
+	Desc.Width = WindowSize.X;
+	Desc.Height = WindowSize.Y;
+	Desc.MipLevels = 1;
+	Desc.ArraySize = 1;
+	Desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	Desc.SampleDesc.Count = 1;
+	Desc.SampleDesc.Quality = 0;
+	Desc.Usage = D3D11_USAGE_DEFAULT;
+	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	Desc.CPUAccessFlags = 0;
+	Desc.MiscFlags = 0;
+
+	DepthStencilTexture = UEngineTexture2D::Create("DepthStencil", Desc);
+	DepthStencilTexture->CreateDSV();
+	//수정이 필요하당.
+	SetViewport(0.0f, 0.0f, (float)WindowSize.X, (float)WindowSize.Y);
 
 }
 
-void UEngineDeviceContext::CreateRasterizer()
+void UEngineDeviceContext::SetViewport(float _TopLeftX, float _TopLeftY, float _Width, float _Height, float _MinDepth, float _MaxDepth)
 {
-	D3D11_RASTERIZER_DESC Desc;
-	ZeroMemory(&Desc, sizeof(D3D11_RASTERIZER_DESC));
-
-	Desc.FillMode = D3D11_FILL_SOLID;
-	Desc.CullMode = D3D11_CULL_BACK;
-	//Desc.FrontCounterClockwise;
-	//Desc.DepthBias;
-	//Desc.DepthBiasClamp;
-	//Desc.SlopeScaledDepthBias;
-	//Desc.DepthClipEnable;
-	//Desc.ScissorEnable;
-	//Desc.MultisampleEnable;
-	//Desc.AntialiasedLineEnable;
-
-	Device.Get()->CreateRasterizerState(&Desc, RasterizerState.GetAddressOf());
-
-	Viewport.Height = 720.0f;
-	Viewport.Width = 1280.0f;
-	Viewport.TopLeftX = 0.0f;
-	Viewport.TopLeftY = 0.0f;
-	Viewport.MinDepth = 0.0f;
-	Viewport.MaxDepth = 1.0f;
+	Viewport.TopLeftX = _TopLeftX;
+	Viewport.TopLeftY = _TopLeftY;
+	Viewport.Width = _Width;
+	Viewport.Height = _Height;
+	Viewport.MinDepth = _MinDepth;
+	Viewport.MaxDepth = _MaxDepth;
 
 	Context->RSSetViewports(1, &Viewport);
-	Context->RSSetState(RasterizerState.Get());
 }
 
-void UEngineDeviceContext::DrawCall()
-{
-	ID3D11RenderTargetView* ArrRtv[16] = { 0 };
-	ArrRtv[0] = RenderTargetView.Get(); // SV_Target0
-
-	Context->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
-}
 
 IDXGIAdapter* UEngineDeviceContext::GetHighPerFormanceAdapter()
 {
@@ -182,9 +179,10 @@ IDXGIAdapter* UEngineDeviceContext::GetHighPerFormanceAdapter()
 		MSGASSERT("그래픽카드 조사용 팩토리 생성에 실패했습니다.");
 		return nullptr;
 	}
-
-	for (int Index = 0;; ++Index)
+	int Index = 0;
+	while(true)
 	{
+		Index++;
 		IDXGIAdapter* CurAdapter = nullptr;
 
 		Factory->EnumAdapters(Index, &CurAdapter);
@@ -214,14 +212,19 @@ IDXGIAdapter* UEngineDeviceContext::GetHighPerFormanceAdapter()
 void UEngineDeviceContext::ClearRenderTarget()
 {
 	// 이미지 ClearColor으로 렌더타겟 초기화
-	//Context->ClearDepthStencilView(DepthStencilView.Get());
-	Context->ClearRenderTargetView(RenderTargetView.Get(), ClearColor.V);
+	ID3D11RenderTargetView* ArrRtv[16] = { 0 };
+	ArrRtv[0] = BackBufferTexture->GetRTV(); // SV_Target0
+
+	//Context->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
+	Context->OMSetRenderTargets(1, &ArrRtv[0], DepthStencilTexture->GetDSV());
+	Context->ClearDepthStencilView(DepthStencilTexture->GetDSV(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	Context->ClearRenderTargetView(BackBufferTexture->GetRTV(), ClearColor.V);
 }
 
 
 void UEngineDeviceContext::SwapBuffers()
 {
-	HRESULT Result = SwapChain->Present(0, 0);
+	HRESULT Result = SwapChain->Present(1, 0);
 
 	//             디바이스가 랜더링 도중 삭제          디바이스가 리셋되었을경우
 	if (Result == DXGI_ERROR_DEVICE_REMOVED || Result == DXGI_ERROR_DEVICE_RESET)
@@ -231,10 +234,6 @@ void UEngineDeviceContext::SwapBuffers()
 	}
 }
 
-void UEngineDeviceContext::CreateBackBuffer(const UEngineWindow& _Window)
-{
-	CreateSwapChain(_Window);
-	CreateRasterizer();
-}
+
 
 

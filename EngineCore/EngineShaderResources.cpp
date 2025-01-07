@@ -79,7 +79,7 @@ void UEngineShaderResources::Bind() const
 	{
 		Uint32 Slot = Value.first;
 		std::shared_ptr<UEngineTexture2D> Texture = Value.second;
-		Texture->Bind(ShaderType, Slot);
+		Texture->BindSRV(ShaderType, Slot);
 	}
 	for (auto& [Key, Value] : SamplerStates)
 	{

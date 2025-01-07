@@ -80,5 +80,5 @@ void UEngineAnimation::CreateAnimation(std::string_view _AnimationName, std::str
 
 	NewAnimation->Reset();
 
-	UResourceManager::AddResource<UEngineAnimation>(NewAnimation, UpperName, "NoPath");
+	UResourceManager::AddResource<UEngineAnimation>(NewAnimation, UpperName, "");
 }

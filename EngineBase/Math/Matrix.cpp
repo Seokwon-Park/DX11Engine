@@ -63,7 +63,7 @@ void FMatrix::MatrixPerspectiveProj(float _Width, float _Height, float _Near, fl
 
 void FMatrix::MatrixPerspectiveFov(float _Fov, float _AspectRatio, float _Near, float _Far)
 {
-	Mat = DirectX::XMMatrixPerspectiveFovLH(_Fov, _AspectRatio, _Near, _Far);
+	Mat = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(_Fov), _AspectRatio, _Near, _Far);
 }
 
 void FMatrix::MatrixOrthoFovLH(float _Fov, float _AspectRatio, float _Near, float _Far)

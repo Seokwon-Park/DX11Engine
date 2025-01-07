@@ -3,6 +3,7 @@
 #include <EngineCore/EngineDeviceContext.h>
 #include <EngineCore/EngineCore.h>
 #include "EngineShader.h"
+#include <EngineCore/ResourceManager.h>
 
 struct Vertex
 {
@@ -131,10 +132,11 @@ public:
 
 	//정점 데이터로 정점 버퍼를 생성합니다.
 	template<typename VertexType>
-	inline static std::shared_ptr<UEngineVertexBuffer> Create(const VertexType* _Data, Uint32 _DataSize, Uint32 _VertexCount)
+	inline static std::shared_ptr<UEngineVertexBuffer> Create(std::string_view _Name, const VertexType* _Data, Uint32 _DataSize, Uint32 _VertexCount)
 	{
 		std::shared_ptr<UEngineVertexBuffer> NewVertexBuffer = std::make_shared<UEngineVertexBuffer>();
 		NewVertexBuffer->CreateVertexBuffer(_Data, _DataSize, _VertexCount);
+		UResourceManager::AddResource<UEngineVertexBuffer>(NewVertexBuffer, _Name, "");
 		return NewVertexBuffer;
 	}
 private:

@@ -56,8 +56,7 @@ public:
 		for (size_t i = 0; i < Files.size(); i++)
 		{
 			std::string FilePath = Files[i].ToString();
-			std::shared_ptr<ResourceType> Resource = ResourceType::Create(FilePath);
-			AddResource(Resource, Info.name(), Files[i].GetCurrentName(), FilePath);
+			std::shared_ptr<ResourceType> Resource = ResourceType::Create(Files[i].GetCurrentName(), FilePath);
 		}
 	}
 

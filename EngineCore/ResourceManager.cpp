@@ -67,9 +67,8 @@ void UResourceManager::CreateDefaultVertexBuffer()
 	Uint32 DataSize = static_cast<Uint32>(sizeof(Vertex) * Vertices.size());
 	Uint32 VertexCount = static_cast<Uint32>(Vertices.size());
 
-	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create(
+	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Quad", 
 		Vertices.data(), DataSize, VertexCount);
-	AddResource<UEngineVertexBuffer>(VertexBuffer, "Quad", "NoPath");
 }
 
 void UResourceManager::CreateDefaultInputLayout()
@@ -84,26 +83,26 @@ void UResourceManager::CreateDefaultInputLayout()
 	std::shared_ptr<UEngineShader> VertexShader = Find<UEngineShader>("QuadVS");
 
 	std::shared_ptr<UEngineInputLayout> InputLayout = UEngineInputLayout::Create(VertexShader, InputLayoutElements);
-	AddResource<UEngineInputLayout>(InputLayout, "Quad", "NoPath");
+	AddResource<UEngineInputLayout>(InputLayout, "Quad", "");
 }
 
 void UResourceManager::CreateDefaultIndexBuffer()
 {
 	std::vector<Uint32> Indices = { 0,1,2,1,3,2 };
 	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(&Indices[0], 6);
-	AddResource<UEngineIndexBuffer>(IndexBuffer, "Quad", "NoPath");
+	AddResource<UEngineIndexBuffer>(IndexBuffer, "Quad", "");
 }
 
 void UResourceManager::CreateDefaultMesh()
 {
 	std::shared_ptr<UEngineMesh> Mesh = UEngineMesh::Create("Quad", "Quad", "Quad");
-	AddResource<UEngineMesh>(Mesh, "Quad", "NoPath");
+	AddResource<UEngineMesh>(Mesh, "Quad", "");
 }
 
 void UResourceManager::CreateDefaultMaterial()
 {
 	std::shared_ptr<UEngineMaterial> Material = UEngineMaterial::Create();
-	AddResource<UEngineMaterial>(Material, "Quad", "NoPath");
+	AddResource<UEngineMaterial>(Material, "Quad", "");
 
 }
 

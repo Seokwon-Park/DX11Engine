@@ -20,12 +20,10 @@ public:
 	ENGINE_API void SwapBuffers();
 	ENGINE_API void ClearRenderTarget();
 	ENGINE_API void CreateBackBuffer(const UEngineWindow& _Window);
-	ENGINE_API void CreateRasterizer();
-	ENGINE_API void CreateSwapChain(const UEngineWindow& _Window);
-
-	ENGINE_API void DrawCall();
+	ENGINE_API void SetViewport(float _TopLeftX, float _TopLeftY, float _Width, float _Height, float _MinDepth= 0.0f, float _MaxDepth = 1.0f);
 
 	ENGINE_API inline void SetClearColor(FColor _Color) { ClearColor = _Color; }
+	ENGINE_API inline FColor GetClearColor() const { return ClearColor; }
 	inline ID3D11Device* GetDevice() const { return Device.Get(); }
 	inline ID3D11DeviceContext* GetContext() const { return Context.Get(); }
 
@@ -39,12 +37,10 @@ protected:
 	ComPtr<IDXGISwapChain> SwapChain = nullptr;
 
 	//Resources
-	ComPtr<ID3D11Texture2D> BackBufferTexture = nullptr;
-	ComPtr<ID3D11RenderTargetView> RenderTargetView = nullptr;
-	ComPtr<ID3D11DepthStencilView> DepthStencilView = nullptr;
+	std::shared_ptr<class UEngineTexture2D> BackBufferTexture = nullptr;
+	std::shared_ptr<class UEngineTexture2D> DepthStencilTexture = nullptr;
 
 	ComPtr<ID3D11RasterizerState> RasterizerState = nullptr;
-	ComPtr<ID3D11BlendState> BlendState = nullptr;
 	D3D11_VIEWPORT Viewport;
 
 	FColor ClearColor = FColor::WHITE;

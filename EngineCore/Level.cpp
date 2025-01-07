@@ -8,6 +8,7 @@
 ULevel::ULevel()
 {
 	CurrentCamera = SpawnCamera("MainCamera")->GetCameraComponent().get();
+	CurrentCamera->SetLocation({ 0.0f, 0.0f, -100.0f, 1.0f });
 }
 
 ULevel::~ULevel()
@@ -16,11 +17,10 @@ ULevel::~ULevel()
 
 void ULevel::Tick(float _DeltaTime)
 {
-	std::list<std::shared_ptr<class AActor>>::iterator StartIter = BeginPlayList.begin();
-	std::list<std::shared_ptr<class AActor>>::iterator EndIter = BeginPlayList.end();
-	while(StartIter != EndIter)
+	std::list<std::shared_ptr<class AActor>>::iterator Iterator = BeginPlayList.begin();
+	while(Iterator != BeginPlayList.end())
 	{
-		std::shared_ptr<AActor> CurActor = *StartIter;
+		std::shared_ptr<AActor> CurActor = *Iterator;
 
 		/*if (false == CurActor->IsActive())
 		{
@@ -28,7 +28,7 @@ void ULevel::Tick(float _DeltaTime)
 			continue;
 		}*/
 
-		StartIter = BeginPlayList.erase(StartIter);
+		Iterator = BeginPlayList.erase(Iterator);
 
 		CurActor->BeginPlay();
 		AllActorList.push_back(CurActor);

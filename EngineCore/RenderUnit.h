@@ -33,7 +33,6 @@ public:
 		Material->GetShaderResources(_Type)->SetSamplerState(_Name, _SamplerState);
 	}
 
-
 	void SetMesh(std::string_view _Name);
 	void SetMaterial(std::string_view _Name);
 	inline void Init(std::string_view _MeshName, std::string_view _MaterialName) { SetMesh(_MeshName); SetMaterial(_MaterialName); };

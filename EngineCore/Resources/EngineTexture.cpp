@@ -2,6 +2,7 @@
 #include "EngineTexture.h"
 #include "EngineCore.h"
 #include "EngineDeviceContext.h"
+#include "ResourceManager.h"
 #include <EngineBase/EngineIO.h>
 #include <EngineBase/EngineString.h>
 #include <ThirdParty/DirectXTex/Include/DirectXTex.h>
@@ -15,16 +16,25 @@ UEngineTexture::~UEngineTexture()
 {
 }
 
-std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(Uint32 width, Uint32 height)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Name, D3D11_TEXTURE2D_DESC _Desc)
 {
-	return nullptr;
+	std::shared_ptr<UEngineTexture2D> NewTexture = std::make_shared<UEngineTexture2D>();
+	NewTexture->CreateTexture(_Desc);
+	UResourceManager::AddResource<UEngineTexture2D>(NewTexture, _Name, "");
+	return NewTexture;
 }
 
-std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Path)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Name, std::string_view _Path)
 {
 	std::shared_ptr<UEngineTexture2D> NewTexture = std::make_shared<UEngineTexture2D>();
 	NewTexture->LoadTextureFromPath(_Path);
+	UResourceManager::AddResource<UEngineTexture2D>(NewTexture, _Name, _Path);
 	return NewTexture;
+}
+
+void UEngineTexture2D::CreateTexture(D3D11_TEXTURE2D_DESC _Desc)
+{
+	UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateTexture2D(&_Desc, nullptr, Texture.GetAddressOf());
 }
 
 void UEngineTexture2D::LoadTextureFromPath(std::string_view _Path)
@@ -71,27 +81,46 @@ void UEngineTexture2D::LoadTextureFromPath(std::string_view _Path)
 	TextureSize.X = static_cast<float>(Metadata.width);
 	TextureSize.Y = static_cast<float>(Metadata.height);
 
-	D3D11_TEXTURE2D_DESC TextureDesc = {};
-	TextureDesc.Width = static_cast<UINT>(TextureSize.X);
-	TextureDesc.Height = static_cast<UINT>(TextureSize.Y);
-	TextureDesc.MipLevels = 1;
-	TextureDesc.ArraySize = 1;
-	TextureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	TextureDesc.SampleDesc.Count = 1;
-	TextureDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	TextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	D3D11_TEXTURE2D_DESC Desc;
+	ZeroMemory(&Desc, sizeof(D3D11_TEXTURE2D_DESC));
+	Desc.Width = static_cast<UINT>(TextureSize.X);
+	Desc.Height = static_cast<UINT>(TextureSize.Y);
+	Desc.MipLevels = 1;
+	Desc.ArraySize = 1;
+	Desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	Desc.SampleDesc.Count = 1;
+	Desc.Usage = D3D11_USAGE_IMMUTABLE;
+	Desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 
-	DirectX::CreateTexture(DeviceContext->GetDevice(), ImageData.GetImages(), ImageData.GetImageCount(), ImageData.GetMetadata(), reinterpret_cast<ID3D11Resource**>(Texture.GetAddressOf()));
+	DirectX::CreateTexture(UEngineCore::GetGraphicsDeviceContext()->GetDevice(), ImageData.GetImages(), ImageData.GetImageCount(), ImageData.GetMetadata(), reinterpret_cast<ID3D11Resource**>(Texture.GetAddressOf()));
 
 	DeviceContext->GetDevice()->CreateShaderResourceView(Texture.Get(), nullptr, ShaderResourceView.GetAddressOf());
+}
+
+bool UEngineTexture2D::IsCreatable(D3D11_BIND_FLAG _BindFlag)
+{
+	D3D11_TEXTURE2D_DESC Desc;
+	Texture->GetDesc(&Desc);
+	if ((Desc.BindFlags | _BindFlag) != 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void UEngineTexture2D::SetData(void* data, Uint32 size)
 {
 }
 
-void UEngineTexture2D::Bind(EShaderType _ShaderType, Uint32 _Slot) const
+void UEngineTexture2D::BindSRV(EShaderType _ShaderType, Uint32 _Slot) const
 {
+	if (nullptr == ShaderResourceView)
+	{
+		MSGASSERT("텍스쳐가 셰이더 리소스 뷰로 생성되지 않았습니다.")
+	}
 	switch (_ShaderType)
 	{
 	case EShaderType::VS:
@@ -116,4 +145,57 @@ void UEngineTexture2D::Bind(EShaderType _ShaderType, Uint32 _Slot) const
 		break;
 	}
 
+}
+
+
+void UEngineTexture2D::CreateRTV()
+{
+	if (false == IsCreatable(D3D11_BIND_RENDER_TARGET))
+	{
+		MSGASSERT("렌더타겟뷰를 만들 수 있는 텍스쳐가 아닙니다.")
+	}
+	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateRenderTargetView(Texture.Get(), nullptr, RenderTargetView.GetAddressOf());
+	if (FAILED(Result))
+	{
+		MSGASSERT("렌더타겟뷰 생성에 실패했습니다.")
+	}
+}
+
+void UEngineTexture2D::CreateDSV()
+{
+	if (false == IsCreatable(D3D11_BIND_DEPTH_STENCIL))
+	{
+		MSGASSERT("뎁스 스텐실 뷰를 만들 수 있는 텍스쳐가 아닙니다.")
+	}
+	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateDepthStencilView(Texture.Get(), nullptr, DepthStencilView.GetAddressOf());
+	if (FAILED(Result))
+	{
+		MSGASSERT("뎁스 스텐실 뷰 생성에 실패했습니다.")
+	}
+}
+
+void UEngineTexture2D::CreateSRV()
+{
+	if (false == IsCreatable(D3D11_BIND_SHADER_RESOURCE))
+	{
+		MSGASSERT("셰이더 리소스 뷰를 만들 수 있는 텍스쳐가 아닙니다.")
+	}
+	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateShaderResourceView(Texture.Get(), nullptr, ShaderResourceView.GetAddressOf());
+	if (FAILED(Result))
+	{
+		MSGASSERT("셰이더 리소스 뷰 생성에 실패했습니다.")
+	}
+}
+
+void UEngineTexture2D::CreateUAV()
+{
+	if (false == IsCreatable(D3D11_BIND_UNORDERED_ACCESS))
+	{
+		MSGASSERT("UAV를 만들 수 있는 텍스쳐가 아닙니다.")
+	}
+	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateUnorderedAccessView(Texture.Get(), nullptr, UnorderedAccessView.GetAddressOf());
+	if (FAILED(Result))
+	{
+		MSGASSERT("컴퓨트 셰이더 리소스 생성에 실패했습니다.")
+	}
 }

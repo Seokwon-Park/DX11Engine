@@ -4,28 +4,26 @@
 
 void FTransform::UpdateTransform()
 {
-	FMatrix A;
-	FMatrix B;
-	FMatrix C;
+	FMatrix ScaleMatrix;
+	FMatrix RotateMatrix;
+	FMatrix TranslationMatrix;
 
-	C.MatrixScaling(Scale);
-	B.MatrixRotation(Rotation);
-	A.MatrixTranslation(Location);
+	ScaleMatrix.MatrixScaling(Scale);
+	RotateMatrix.MatrixRotation(Rotation);
+	TranslationMatrix.MatrixTranslation(Location);
 
-
-
-	WorldMatrix = C * B * A;
+	WorldMatrix = ScaleMatrix * RotateMatrix * TranslationMatrix;
 }
 
 BASE_API void FTransform::UpdateTransform(FMatrix _ParentWorld)
 {
-	FMatrix A;
-	FMatrix B;
-	FMatrix C;
+	FMatrix ScaleMatrix;
+	FMatrix RotateMatrix;
+	FMatrix TranslationMatrix;
 
-	A.MatrixTranslation(Location);
-	B.MatrixRotation(Rotation);
-	C.MatrixScaling(Scale);
+	ScaleMatrix.MatrixScaling(Scale);
+	RotateMatrix.MatrixRotation(Rotation);
+	TranslationMatrix.MatrixTranslation(Location);
 
-	WorldMatrix = C * B * A * _ParentWorld;
+	WorldMatrix = ScaleMatrix * RotateMatrix * TranslationMatrix * _ParentWorld;
 }

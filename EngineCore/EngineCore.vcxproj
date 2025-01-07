@@ -192,7 +192,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="StatesManager.h">
+    <ClInclude Include="StateManager.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -333,7 +333,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StatesManager.cpp">
+    <ClCompile Include="StateManager.cpp">
       <SubType>
       </SubType>
     </ClCompile>

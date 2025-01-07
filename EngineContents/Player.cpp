@@ -6,7 +6,6 @@ APlayer::APlayer()
 {
 	SpriteRenderer = CreateDefaultSubobject<USpriteRendererComponent>();
 	SpriteRenderer->SetRelativeScale3D({ 50.0f,50.0f,1.0f });
-	SpriteRenderer->SetOrder(ESortingLayer::Default, -1);
 
 	Animator = CreateDefaultSubobject<UAnimatorComponent>();
 	Animator->SetSpriteRenderer(SpriteRenderer);
@@ -45,6 +44,6 @@ void APlayer::BeginPlay()
 void APlayer::Move(FVector4 _Dir)
 {
 	//AddActorLocation(_Dir * UEngineCore::GetDeltaTime());
-	AddActorLocation(_Dir * 0.1f);
-	//AddActorRotation(FVector4(0.0f, 0.0f, 0.01f, 0.0f));
+	AddActorLocation(_Dir);
+	//AddActorRotation(FVector4(0.0f, 0.001f, 0.0f, 0.0f));
 }

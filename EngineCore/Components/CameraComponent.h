@@ -2,6 +2,12 @@
 
 #include "SceneComponent.h"
 
+enum class EProjectionType
+{
+	Orthographic,
+	Perspective,
+};
+
 // 클래스 설명 :
 class UCameraComponent : public USceneComponent
 {
@@ -23,6 +29,8 @@ public:
 
 protected:
 private:
+	EProjectionType ProjectionType = EProjectionType::Orthographic;
+
 	FMatrix ViewMat;
 	FMatrix ProjMat;
 };

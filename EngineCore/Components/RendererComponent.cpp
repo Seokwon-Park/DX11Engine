@@ -11,6 +11,9 @@
 #include <EngineCore/Resources/EngineBuffer.h>
 #include <EngineCore/Resources/EngineTexture.h>
 #include <EngineCore/Resources/EngineSamplerState.h>
+#include <EngineCore/States/EngineBlendState.h>
+#include <EngineCore/States/EngineRasterizerState.h>
+#include <EngineCore/States/EngineDepthStencilState.h>
 
 
 URendererComponent::URendererComponent()
@@ -37,11 +40,14 @@ void URendererComponent::AddRenderUnit(std::shared_ptr<URenderUnit> _RenderUnit)
 
 void URendererComponent::BeginPlay()
 {
+
 }
 
 void URendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	UEngineCore::GetGraphicsDeviceContext()->DrawCall();
+	UEngineBlendState::Create("")->Bind();
+	UEngineRasterizerState::Create("")->Bind();
+	//UEngineDepthStencilState::Create("")->Bind();
 
 	for (std::shared_ptr<URenderUnit> RenderUnit : RenderUnits)
 	{
