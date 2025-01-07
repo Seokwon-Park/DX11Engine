@@ -19,11 +19,10 @@ void ImGuiLayer::Init()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 	float fontSize = 18.0f;
 	/*io.Fonts->AddFontFromFileTTF("assets/fonts/Naver/NanumBarun/NanumBarunGothicBold.ttf", fontSize);
@@ -48,6 +47,7 @@ void ImGuiLayer::Init()
 	//Device->Release();
 	//Context->Release();
 	std::function<bool(HWND, UINT, WPARAM, LPARAM)> WndProc = ImGui_ImplWin32_WndProcHandler;
+	UEngineCore::GetMainWindow().SetUserWndProc(WndProc);
 }
 
 void ImGuiLayer::RenderStart()
@@ -55,6 +55,7 @@ void ImGuiLayer::RenderStart()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
+	ImGui::ShowDemoWindow();
 	//ImGui::ShowDemoWindow(); // Show demo window! :)
 }
 
@@ -62,6 +63,12 @@ void ImGuiLayer::RenderEnd()
 {
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+	{
+		ImGui::UpdatePlatformWindows();
+		ImGui::RenderPlatformWindowsDefault();
+	}
 }
 
 void ImGuiLayer::Shutdown()

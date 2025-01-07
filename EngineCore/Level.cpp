@@ -3,6 +3,7 @@
 #include "Components/SpriteRendererComponent.h"
 #include "EngineCore.h"
 #include "EngineDeviceContext.h"
+#include "ImGuiLayer.h"
 #include <EngineCore/Components/CameraComponent.h>
 
 ULevel::ULevel()
@@ -53,6 +54,9 @@ void ULevel::Render(float _DeltaTime)
 			Renderer->Render(CurrentCamera, _DeltaTime);
 		}
 	}
+
+	ImGuiLayer::RenderStart();
+	ImGuiLayer::RenderEnd();
 	UEngineCore::GetGraphicsDeviceContext()->SwapBuffers();
 }
 

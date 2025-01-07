@@ -133,7 +133,6 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			EngineLogger::StartLogger();
 			UEngineInputSystem::InitKeys();
 			GraphicsDeviceContext->Init(MainWindow);
-			ImGuiLayer::Init();
 			UResourceManager::CreateDefaultResources();
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
@@ -147,6 +146,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 				SetWindowPos(ConsoleWindow, MainWindow.GetHandle(), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 			}
 
+			ImGuiLayer::Init();
 			// 시작할때 하고 싶은것
 		},
 		[]()
@@ -172,8 +172,6 @@ void UEngineCore::EngineUpdate()
 
 	TimerManager.Tick(DeltaTime);
 	CurLevel->Tick(DeltaTime);
-	//ImGuiLayer::RenderStart();
-	//ImGuiLayer::RenderEnd();
 	CurLevel->Render(DeltaTime);
 }
 

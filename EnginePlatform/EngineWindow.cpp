@@ -7,9 +7,16 @@ HINSTANCE UEngineWindow::HInstance = nullptr;
 std::map<std::string, WNDCLASSEXA> UEngineWindow::WindowClasses;
 int WindowCount = 0;
 bool UEngineWindow::LoopActive = true;
+UEngineWindow::UserWndProc UEngineWindow::UserProc;
 
 LRESULT CALLBACK UEngineWindow::WndProc(HWND _HWnd, UINT _Message, WPARAM _WParam, LPARAM _LParam)
 {
+	if (nullptr != UserProc)
+	{
+		if (UserProc(_HWnd, _Message, _WParam, _LParam))
+			return true;
+	}
+
 	switch (_Message)
 	{
 	case WM_CREATE:

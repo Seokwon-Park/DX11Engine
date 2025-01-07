@@ -43,7 +43,7 @@ public:
 		LoopActive = false;
 	}
 
-	inline void SetUserWndProc(UserWndProc _Proc) { UserProc = _Proc; }
+	PLATFORM_API static void SetUserWndProc(UserWndProc _Proc) { UserProc = _Proc; }
 
 protected:
 
@@ -53,9 +53,10 @@ private:
 	static bool LoopActive;
 	static std::map<std::string, WNDCLASSEXA> WindowClasses;
 
+	static UserWndProc UserProc;
+
 	FIntPoint WindowSize;
 	HWND WindowHandle = nullptr;
-	std::function<bool(HWND, UINT, WPARAM, LPARAM)> UserProc;
 };
 
 
