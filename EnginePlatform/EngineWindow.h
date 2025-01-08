@@ -40,8 +40,10 @@ public:
 
 	inline void ApplicationOff()
 	{
-		LoopActive = false;
+		IsLoopActive = false;
 	}
+
+	PLATFORM_API inline bool GetIsLoopActive() { return IsLoopActive; }
 
 	PLATFORM_API static void SetUserWndProc(UserWndProc _Proc) { UserProc = _Proc; }
 
@@ -50,7 +52,7 @@ protected:
 private:
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	static HINSTANCE HInstance;
-	static bool LoopActive;
+	static bool IsLoopActive;
 	static std::map<std::string, WNDCLASSEXA> WindowClasses;
 
 	static UserWndProc UserProc;

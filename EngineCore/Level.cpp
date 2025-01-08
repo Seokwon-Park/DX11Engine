@@ -3,21 +3,27 @@
 #include "Components/SpriteRendererComponent.h"
 #include "EngineCore.h"
 #include "EngineDeviceContext.h"
-#include "ImGuiLayer.h"
+#include "GUI/ImGuiLayer.h"
 #include <EngineCore/Components/CameraComponent.h>
 
 ULevel::ULevel()
 {
 	CurrentCamera = SpawnCamera("MainCamera")->GetCameraComponent().get();
 	CurrentCamera->SetLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
+
+	b2WorldDef worldDef = b2DefaultWorldDef();
+	worldDef.gravity = b2Vec2(0.0f, -10.0f);
+	WorldId = b2CreateWorld(&worldDef);
 }
 
 ULevel::~ULevel()
 {
+	b2DestroyWorld(WorldId);
 }
 
 void ULevel::Tick(float _DeltaTime)
 {
+	
 	std::list<std::shared_ptr<class AActor>>::iterator Iterator = BeginPlayList.begin();
 	while(Iterator != BeginPlayList.end())
 	{
@@ -55,8 +61,7 @@ void ULevel::Render(float _DeltaTime)
 		}
 	}
 
-	ImGuiLayer::RenderStart();
-	ImGuiLayer::RenderEnd();
+	ImGuiLayer::OnImGuiRender();
 	UEngineCore::GetGraphicsDeviceContext()->SwapBuffers();
 }
 

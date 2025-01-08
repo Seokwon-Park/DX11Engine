@@ -58,7 +58,10 @@
     <ClCompile Include="ThirdParty\IMGUI\imgui_impl_dx11.cpp" />
     <ClCompile Include="ThirdParty\IMGUI\imgui_impl_win32.cpp" />
     <ClCompile Include="Components\UBoxCollider2DComponent.cpp" />
-    <ClCompile Include="ImGuiLayer.cpp" />
+    <ClCompile Include="GUI\ImGuiLayer.cpp" />
+    <ClCompile Include="GUI\EngineImGuiWindow.cpp" />
+    <ClCompile Include="GUI\HierarchyWindow.cpp" />
+    <ClCompile Include="Components\RigidBody2DComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -120,7 +123,16 @@
     <ClInclude Include="ThirdParty\IMGUI\imgui_impl_dx11.h" />
     <ClInclude Include="ThirdParty\IMGUI\imgui_impl_win32.h" />
     <ClInclude Include="Components\UBoxCollider2DComponent.h" />
-    <ClInclude Include="ImGuiLayer.h" />
+    <ClInclude Include="GUI\ImGuiLayer.h" />
+    <ClInclude Include="GUI\EngineImGuiWindow.h" />
+    <ClInclude Include="GUI\HierarchyWindow.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\base.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\box2d.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\collision.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\id.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\math_functions.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\types.h" />
+    <ClInclude Include="Components\RigidBody2DComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -136,5 +148,7 @@
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Debug.lib" />
+    <Library Include="ThirdParty\Box2D\box2d.lib" />
+    <Library Include="ThirdParty\Box2D\box2dd.lib" />
   </ItemGroup>
 </Project>

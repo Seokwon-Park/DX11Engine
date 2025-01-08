@@ -6,7 +6,7 @@
 #include "IContentsCore.h"
 #include "ResourceManager.h"
 #include "EngineDeviceContext.h"
-#include "ImGuiLayer.h"
+#include "GUI/ImGuiLayer.h"
 
 UEngineDeviceContext* UEngineCore::GraphicsDeviceContext;
 
@@ -166,7 +166,7 @@ void UEngineCore::EngineUpdate()
 {
 	Timer.TimeCheck();
 	float DeltaTime = Timer.GetDeltaTime();
-
+	
 	CheckLevelChange();
 	UEngineInputSystem::KeyCheck(DeltaTime);
 
@@ -194,11 +194,11 @@ void UEngineCore::CheckLevelChange()
 
 void UEngineCore::EngineShutdown()
 {
+	ImGuiLayer::Shutdown();
 	CurLevel = nullptr;
 	NextLevel = nullptr;
 	Levels.clear();
 	UResourceManager::Release();
-	ImGuiLayer::Shutdown();
 	delete GraphicsDeviceContext;
 	EngineLogger::EndLogger();
 }

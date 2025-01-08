@@ -3,7 +3,7 @@
 #include "Actor.h"
 #include "GameMode.h"
 #include "CameraActor.h"
-
+#include <EngineCore/ThirdParty/Box2D/include/box2d.h>
 
 // Ό³Έν :
 class  ULevel : public UObject
@@ -69,9 +69,14 @@ public:
 		GameMode = SpawnActor<GameModeType>();
 		MainPawn = SpawnActor<MainPawnType>();
 	}
+
+	inline b2WorldId GetPhysicsWorld() const { return WorldId; }
+
 protected:
 
 private:
+	b2WorldId WorldId;
+
 	std::shared_ptr<AGameMode> GameMode;
 	std::shared_ptr<AActor> MainPawn;
 

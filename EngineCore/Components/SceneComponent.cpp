@@ -51,3 +51,13 @@ ENGINE_API void USceneComponent::UpdateTransform()
 
 	//IsAbsolute = false;
 }
+
+void USceneComponent::TickComponent(float _DeltaTime)
+{
+	UActorComponent::TickComponent(_DeltaTime);
+}
+
+void USceneComponent::BeginPlay()
+{
+	UActorComponent::BeginPlay();
+}

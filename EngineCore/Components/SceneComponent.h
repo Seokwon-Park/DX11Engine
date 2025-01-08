@@ -52,10 +52,12 @@ public:
 
 	//내가 업데이트 되면 자식도 업데이트 되어야한다.
 	ENGINE_API void UpdateTransform();
+	virtual void TickComponent(float _DeltaTime);
+	virtual void BeginPlay();
 protected:
 	FTransform Transform;
-private:
 	USceneComponent* Parent;
+private:
 	std::list<std::shared_ptr<USceneComponent>> Childs;
 };
 

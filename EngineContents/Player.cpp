@@ -4,6 +4,7 @@
 
 APlayer::APlayer()
 {
+	RigidBody = CreateDefaultSubobject<RigidBody2DComponent>();
 	SpriteRenderer = CreateDefaultSubobject<USpriteRendererComponent>();
 
 	Animator = CreateDefaultSubobject<UAnimatorComponent>();
@@ -17,6 +18,7 @@ APlayer::APlayer()
 	Input->BindAction(EKey::Up, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::UP));
 	Input->BindAction(EKey::Down, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::DOWN));
 
+	RigidBody->SetupAttachment(RootComponent);
 	SpriteRenderer->SetupAttachment(RootComponent);
 }
 

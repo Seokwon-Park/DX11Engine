@@ -17,9 +17,9 @@ public:
 
 	static std::shared_ptr<UEngineMesh> Create(std::string_view _Name)
 	{
-		return Create(_Name, _Name, _Name);
+		return Create(_Name, _Name, _Name, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	}
-	static std::shared_ptr<UEngineMesh> Create(std::string_view _Name, std::string_view _VBName, std::string_view _IBName);
+	static std::shared_ptr<UEngineMesh> Create(std::string_view _Name, std::string_view _VBName, std::string_view _IBName, D3D_PRIMITIVE_TOPOLOGY _PrimitiveTopology);
 
 	inline UINT GetIndexCount() { return IndexBuffer->GetIndexCount(); }
 	void Bind() const;

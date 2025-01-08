@@ -2,10 +2,13 @@
 #include "ImGuiLayer.h"
 #include "EngineCore.h"
 #include "EngineDeviceContext.h"
+#include "HierarchyWindow.h"
 #include <EngineCore/ThirdParty/IMGUI/imgui.h>
 #include <EngineCore/ThirdParty/IMGUI/imgui_impl_dx11.h>
 #include <EngineCore/ThirdParty/IMGUI/imgui_impl_win32.h>
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+std::list<std::shared_ptr<UEngineImGuiWindow>> ImGuiLayer::Windows;
 
 ImGuiLayer::ImGuiLayer()
 {
@@ -48,6 +51,27 @@ void ImGuiLayer::Init()
 	//Context->Release();
 	std::function<bool(HWND, UINT, WPARAM, LPARAM)> WndProc = ImGui_ImplWin32_WndProcHandler;
 	UEngineCore::GetMainWindow().SetUserWndProc(WndProc);
+
+
+	//std::shared_ptr<UEngineImGuiWindow> Hierarchy = std::make_shared<HierarchyWindow>();
+	Windows.push_back(std::make_shared<HierarchyWindow>());
+}
+
+void ImGuiLayer::OnImGuiRender()
+{
+	if (false == UEngineCore::GetMainWindow().GetIsLoopActive())
+	{
+		return;
+	}
+	RenderStart();
+	//ImGui::ShowDemoWindow(); // Show demo window! :)
+	for (std::shared_ptr<UEngineImGuiWindow> Window : Windows)
+	{
+		ImGui::Begin(Window->GetName().c_str());
+		Window->Update();
+		ImGui::End();
+	}
+	RenderEnd();
 }
 
 void ImGuiLayer::RenderStart()
@@ -55,8 +79,6 @@ void ImGuiLayer::RenderStart()
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-	ImGui::ShowDemoWindow();
-	//ImGui::ShowDemoWindow(); // Show demo window! :)
 }
 
 void ImGuiLayer::RenderEnd()

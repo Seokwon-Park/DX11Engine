@@ -95,7 +95,7 @@ void UResourceManager::CreateDefaultIndexBuffer()
 
 void UResourceManager::CreateDefaultMesh()
 {
-	std::shared_ptr<UEngineMesh> Mesh = UEngineMesh::Create("Quad", "Quad", "Quad");
+	std::shared_ptr<UEngineMesh> Mesh = UEngineMesh::Create("Quad", "Quad", "Quad", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	AddResource<UEngineMesh>(Mesh, "Quad", "");
 }
 

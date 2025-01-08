@@ -26,5 +26,10 @@
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler") 
 #pragma comment(lib, "DXGI") 
+#ifdef _DEBUG
+#pragma comment(lib, "box2dd")
+#elif
+##pragma comment(lib, "box2d")
+#endif
 
 using namespace Microsoft::WRL;

@@ -76,6 +76,7 @@ void USpriteRendererComponent::BeginPlay()
 void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
 	VertexConstant VC;
+	auto& Test= Parent->GetTransformRef();
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
 	VC.World = WorldMatrix;

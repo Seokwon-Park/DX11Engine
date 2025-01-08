@@ -172,11 +172,23 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="ImGuiLayer.h">
+    <ClInclude Include="Components\RigidBody2DComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GUI\HierarchyWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GUI\ImGuiLayer.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="Components\UBoxCollider2DComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GUI\EngineImGuiWindow.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -295,6 +307,12 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ThirdParty\Box2D\include\base.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\box2d.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\collision.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\id.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\math_functions.h" />
+    <ClInclude Include="ThirdParty\Box2D\include\types.h" />
     <ClInclude Include="ThirdParty\IMGUI\imconfig.h" />
     <ClInclude Include="ThirdParty\IMGUI\imgui.h" />
     <ClInclude Include="ThirdParty\IMGUI\imgui_impl_dx11.h" />
@@ -333,11 +351,23 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="ImGuiLayer.cpp">
+    <ClCompile Include="Components\RigidBody2DComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GUI\HierarchyWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GUI\ImGuiLayer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\UBoxCollider2DComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GUI\EngineImGuiWindow.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -482,6 +512,13 @@
     <None Include="Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
+    <Library Include="ThirdParty\Box2D\box2d.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\Box2D\box2dd.lib">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Library>

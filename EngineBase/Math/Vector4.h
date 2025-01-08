@@ -50,7 +50,11 @@ public:
 	float Length() const;
 
 	//operators
-	static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector);
+	inline static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
+	{
+		_Ostream << "(" << _Vector.X << ", " << _Vector.Y << ", " << _Vector.Z << ")";
+		return _Ostream;
+	}
 
 	FVector4 operator+(const FVector4& _Other) const;
 	FVector4 operator-() const;

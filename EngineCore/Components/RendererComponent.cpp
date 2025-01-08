@@ -38,9 +38,14 @@ void URendererComponent::AddRenderUnit(std::shared_ptr<URenderUnit> _RenderUnit)
 	_RenderUnit->SetOwner(this);
 }
 
+void URendererComponent::TickComponent(float _DeltaTime)
+{
+	USceneComponent::TickComponent(_DeltaTime);
+}
+
 void URendererComponent::BeginPlay()
 {
-
+	USceneComponent::BeginPlay();
 }
 
 void URendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)

@@ -17,7 +17,7 @@ void ATestGameMode::Tick(float _DeltaTime)
 
 void ATestGameMode::BeginPlay()
 {
-	std::shared_ptr<ATitleLogo> Test = GetLevel()->SpawnActor<ATitleLogo>();
+	//std::shared_ptr<ATitleLogo> Test = GetLevel()->SpawnActor<ATitleLogo>();
 	//Test->SetActorLocation({ 120.0f,0.0f,100.0f,1.0f });
 	//Logo->SetActorRelativeScale3D({ 100.0f,100.0f,1.0f });
 

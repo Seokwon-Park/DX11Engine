@@ -23,8 +23,9 @@ public:
 
 	std::shared_ptr<URenderUnit> AddRenderUnit();
 	void AddRenderUnit(std::shared_ptr<URenderUnit> _RenderUnit);
+	virtual void TickComponent(float _DeltaTime) override;
+	virtual void BeginPlay()override;
 protected:
-	ENGINE_API void BeginPlay() override;
 	virtual void Render(class UCameraComponent* _Camera, float _DeltaTime);
 private:
 	std::vector<std::shared_ptr<URenderUnit>> RenderUnits;
