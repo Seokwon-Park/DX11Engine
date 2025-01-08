@@ -45,6 +45,10 @@ void APlayer::Tick(float _DeltaTime)
 	{
 		RigidBody2D->SetVelocity(FVector2::RIGHT * 100.0f);
 	}
+	if (UEngineInputSystem::GetKeyDown(EKey::Space))
+	{
+		RigidBody2D->SetVelocity(FVector2::UP* 500.0f);
+	}
 }
 
 void APlayer::BeginPlay()
