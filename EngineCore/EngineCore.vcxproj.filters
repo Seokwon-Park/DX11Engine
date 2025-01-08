@@ -61,7 +61,7 @@
     <ClCompile Include="GUI\ImGuiLayer.cpp" />
     <ClCompile Include="GUI\EngineImGuiWindow.cpp" />
     <ClCompile Include="GUI\HierarchyWindow.cpp" />
-    <ClCompile Include="Components\RigidBody2DComponent.cpp" />
+    <ClCompile Include="Components\Rigidbody2DComponent.cpp" />
     <ClCompile Include="States\EngineState.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +133,7 @@
     <ClInclude Include="ThirdParty\Box2D\include\id.h" />
     <ClInclude Include="ThirdParty\Box2D\include\math_functions.h" />
     <ClInclude Include="ThirdParty\Box2D\include\types.h" />
-    <ClInclude Include="Components\RigidBody2DComponent.h" />
+    <ClInclude Include="Components\Rigidbody2DComponent.h" />
     <ClInclude Include="States\EngineState.h" />
   </ItemGroup>
   <ItemGroup>

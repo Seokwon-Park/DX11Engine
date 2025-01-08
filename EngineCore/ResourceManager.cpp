@@ -81,7 +81,7 @@ void UResourceManager::CreateDefaultInputLayout()
 	{ EInputLayoutDataType::Float2, "TEXCOORD" },
 	};
 
-	std::shared_ptr<UEngineShader> VertexShader = Find<UEngineShader>("QuadVS");
+	std::shared_ptr<UEngineShader> VertexShader = Find<UEngineShader>("SpriteShaderVS");
 
 	std::shared_ptr<UEngineInputLayout> InputLayout = UEngineInputLayout::Create(VertexShader, InputLayoutElements);
 	AddResource<UEngineInputLayout>(InputLayout, "Quad", "");
@@ -104,8 +104,8 @@ void UResourceManager::CreateDefaultMaterial()
 	UEngineMaterial::Create("Quad");
 
 	FMaterialDescription Desc;
-	Desc.VSName = "QuadVS";
-	Desc.PSName = "QuadPs";
+	Desc.VSName = "SpriteShaderVS";
+	Desc.PSName = "SpriteShaderPS";
 	Desc.InputLayoutName = "Quad";
 	Desc.BSName = "Default";
 	Desc.RSName = "Default";
@@ -125,10 +125,9 @@ void UResourceManager::CreateDefaultShader()
 	const type_info& Info = typeid(UEngineShader);
 	for (UEngineFile File : Files)
 	{
-		std::shared_ptr<UEngineShader> VertexShader = UEngineShaderFactory::Create(File.ToString(), EShaderType::VS);
-		std::shared_ptr<UEngineShader> PixelShader = UEngineShaderFactory::Create(File.ToString(), EShaderType::PS);
-		AddResource(VertexShader, Info.name(), "QuadVS", Dir.ToString());
-		AddResource(PixelShader, Info.name(), "QuadPS", Dir.ToString());
+		std::shared_ptr<UEngineShader> VertexShader = UEngineShaderFactory::Create(File, EShaderType::VS);
+		std::shared_ptr<UEngineShader> PixelShader = UEngineShaderFactory::Create(File, EShaderType::PS);
+		//AddResource(PixelShader, Info.name(), "QuadPS", Dir.ToString());
 	}
 
 }

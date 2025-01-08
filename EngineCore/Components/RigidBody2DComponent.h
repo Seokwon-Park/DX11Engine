@@ -9,21 +9,21 @@ enum class EBodyType
 	Kinematic
 };
 // Ό³Έν :
-class RigidBody2DComponent: public USceneComponent
+class URigidbody2DComponent: public USceneComponent
 {
 public:
 	// constrcuter destructer
-	ENGINE_API RigidBody2DComponent();
-	ENGINE_API ~RigidBody2DComponent();
+	ENGINE_API URigidbody2DComponent();
+	ENGINE_API ~URigidbody2DComponent();
 
 	// delete Function
-	RigidBody2DComponent(const RigidBody2DComponent& _Other) = delete;
-	RigidBody2DComponent(RigidBody2DComponent&& _Other) noexcept = delete;
-	RigidBody2DComponent& operator=(const RigidBody2DComponent& _Other) = delete;
-	RigidBody2DComponent& operator=(RigidBody2DComponent&& _Other) noexcept = delete;
+	URigidbody2DComponent(const URigidbody2DComponent& _Other) = delete;
+	URigidbody2DComponent(URigidbody2DComponent&& _Other) noexcept = delete;
+	URigidbody2DComponent& operator=(const URigidbody2DComponent& _Other) = delete;
+	URigidbody2DComponent& operator=(URigidbody2DComponent&& _Other) noexcept = delete;
 
 	ENGINE_API void SetVelocity(FVector2 _Velocity);
-
+	b2BodyId GetBodyId() { return BodyId; }
 	virtual void TickComponent(float _DeltaTime);
 	virtual void BeginPlay();
 protected:
@@ -32,11 +32,7 @@ private:
 	b2Vec2 Velocity;
 	EBodyType Type;
 
-	b2BodyDef bodyDef;
-	b2BodyId bodyId;
-	b2Polygon dynamicBox;
-	b2ShapeDef shapeDef;
-
-
+	b2BodyDef BodyDef;
+	b2BodyId BodyId;
 };
 

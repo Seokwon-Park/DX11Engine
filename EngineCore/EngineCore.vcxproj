@@ -172,7 +172,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Components\RigidBody2DComponent.h">
+    <ClInclude Include="Components\Rigidbody2DComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -355,7 +355,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Components\RigidBody2DComponent.cpp">
+    <ClCompile Include="Components\Rigidbody2DComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>

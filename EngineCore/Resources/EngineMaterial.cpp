@@ -91,8 +91,8 @@ void UEngineMaterial::Bind()
 std::shared_ptr<UEngineMaterial> UEngineMaterial::Create(std::string _Name)
 {
 	FMaterialDescription Desc;
-	Desc.VSName = "QuadVS";
-	Desc.PSName = "QuadPS";
+	Desc.VSName = "SpriteShaderVS";
+	Desc.PSName = "SpriteShaderPS";
 	Desc.InputLayoutName = "Quad";
 	Desc.RSName = "Default";
 	Desc.BSName = "Default";

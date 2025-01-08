@@ -21,6 +21,7 @@ public:
 	BASE_API std::string ToString();
 	BASE_API std::string GetCurrentName();
 	BASE_API std::string GetFileExtension();
+	BASE_API std::string GetFileNameWithoutExtension();
 	BASE_API bool IsFile();
 	BASE_API bool IsExists();
 	BASE_API bool IsDirectory();

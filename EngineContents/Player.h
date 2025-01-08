@@ -3,7 +3,8 @@
 #include <EngineCore/Components/InputComponent.h>
 #include <EngineCore/Components/AnimatorComponent.h>
 #include <EngineCore/Components/SpriteRendererComponent.h>
-#include <EngineCore/Components/RigidBody2DComponent.h>
+#include <EngineCore/Components/Rigidbody2DComponent.h>
+#include <EngineCore/Components/BoxCollider2DComponent.h>
 
 // Ό³Έν :
 class APlayer : public APawn
@@ -29,6 +30,7 @@ private:
 	std::shared_ptr<UInputComponent> Input;
 	std::shared_ptr<UAnimatorComponent> Animator;
 	std::shared_ptr<USpriteRendererComponent> SpriteRenderer;
-	std::shared_ptr<RigidBody2DComponent> RigidBody;
+	std::shared_ptr<URigidbody2DComponent> RigidBody2D;
+	std::shared_ptr<UBoxCollider2DComponent> BoxCollider2D;
 };
 

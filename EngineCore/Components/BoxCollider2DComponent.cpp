@@ -38,7 +38,26 @@ void UBoxCollider2DComponent::DebugRender(UCameraComponent* _Camera, float _Delt
 void UBoxCollider2DComponent::BeginPlay()
 {
 	USceneComponent::BeginPlay();
+
 	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
+
+	dynamicBox = b2MakeBox(1.0f, 1.0f);
+	shapeDef = b2DefaultShapeDef();
+	shapeDef.density = 1.0f;
+	shapeDef.friction = 0.3f;
+	if (Rigidbody2D != nullptr)
+	{
+		BodyId = Rigidbody2D->GetBodyId();
+		b2CreatePolygonShape(BodyId, &shapeDef, &dynamicBox);
+	}
+	else
+	{
+		b2BodyDef BodyDef = b2DefaultBodyDef();
+		BodyDef.type = b2_staticBody;
+		BodyDef.position = { Parent->GetLocation().X, Parent->GetLocation().Y };
+		BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
+		b2CreatePolygonShape(BodyId, &shapeDef, &dynamicBox);
+	}
 }
 
 void UBoxCollider2DComponent::TickComponent(float _DeltaTime)

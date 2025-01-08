@@ -65,6 +65,11 @@ std::string UEnginePath::GetFileExtension()
 	return Path.extension().string();
 }
 
+BASE_API std::string UEnginePath::GetFileNameWithoutExtension()
+{
+	return Path.stem().string();
+}
+
 bool UEnginePath::IsFile()
 {
 	return false == IsDirectory();

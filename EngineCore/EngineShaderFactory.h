@@ -16,7 +16,7 @@ public:
 	UEngineShaderFactory& operator=(const UEngineShaderFactory& _Other) = delete;
 	UEngineShaderFactory& operator=(UEngineShaderFactory&& _Other) noexcept = delete;
 
-	ENGINE_API static std::shared_ptr<class UEngineShader> Create(std::string_view _FilePath, EShaderType _ShaderType);
+	ENGINE_API static std::shared_ptr<class UEngineShader> Create(UEngineFile _File, EShaderType _ShaderType);
 protected:
 
 private:
