@@ -1,6 +1,13 @@
 #include "EnginePCH.h"
 #include "Vector2.h"
 
+const FVector2 FVector2::ZERO = FVector2(0.0f, 0.0f);
+const FVector2 FVector2::LEFT = FVector2(-1.0f, 0.0f);
+const FVector2 FVector2::RIGHT = FVector2(1.0f, 0.0f);
+const FVector2 FVector2::UP = FVector2(0.0f, 1.0f);
+const FVector2 FVector2::DOWN = FVector2(0.0f, -1.0f);
+
+
 FVector2::FVector2()
 	:X(0.0f), Y(0.0f)
 {
@@ -17,7 +24,8 @@ FVector2::FVector2(float _X, float _Y)
 
 }
 
-std::ostream& operator<<(std::ostream& _Ostream, const FVector2& _Vector)
+FVector2 FVector2::operator*(const float& _Value) const
 {
-	// TODO: 여기에 return 문을 삽입합니다.
+	return FVector2(X * _Value, Y * _Value);
 }
+

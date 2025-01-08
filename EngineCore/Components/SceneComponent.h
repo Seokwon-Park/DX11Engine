@@ -16,6 +16,8 @@ public:
 	USceneComponent& operator=(const USceneComponent& _Other) = delete;
 	USceneComponent& operator=(USceneComponent&& _Other) noexcept = delete;
 
+	inline FVector4 GetLocation() { return Transform.Location; }
+
 	inline void SetLocation(const FVector4& _Value)
 	{
 		Transform.Location = _Value;

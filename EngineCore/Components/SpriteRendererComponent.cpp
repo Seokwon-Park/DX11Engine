@@ -4,13 +4,6 @@
 #include <EngineBase/EngineString.h>
 #include <EngineCore/ResourceManager.h>
 
-struct VertexConstant
-{
-	FMatrix World;
-	FMatrix View;
-	FMatrix Proj;
-};
-
 USpriteRendererComponent::USpriteRendererComponent()
 {
 }
@@ -87,8 +80,10 @@ void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTim
 	VC.Proj = _Camera->GetProjMatrix();
 	VC.Proj.MatrixTranspose();
 
+	auto test = FColor(1.0f, 1.0f, 1.0f, 1.0f);
 	SpriteRenderUnit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 	SpriteRenderUnit->SetConstantBufferData("SpriteData", EShaderType::VS, SpriteData.Rect);
+	SpriteRenderUnit->SetConstantBufferData("PSColor", EShaderType::PS, test);
 	SpriteRenderUnit->SetTexture("SpriteTexture", EShaderType::PS, SpriteData.Texture);
 	SpriteRenderUnit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
 	

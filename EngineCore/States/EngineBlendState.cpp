@@ -35,11 +35,12 @@ std::shared_ptr<UEngineBlendState> UEngineBlendState::Create(std::string_view _N
 	return Create(_Name, Desc);
 }
 
-std::shared_ptr<UEngineBlendState> UEngineBlendState::Create(std::string_view _Name, D3D11_BLEND_DESC _Desc)
+std::shared_ptr<UEngineBlendState> UEngineBlendState::Create(std::string_view _Name, const D3D11_BLEND_DESC& _Desc)
 {
-	std::shared_ptr<UEngineBlendState> NewBlend = std::make_shared<UEngineBlendState>();
-	NewBlend->CreateBlendState(_Desc);
-	return NewBlend;
+	std::shared_ptr<UEngineBlendState> NewBlendState = std::make_shared<UEngineBlendState>();
+	NewBlendState->CreateBlendState(_Desc);
+	UStateManager::AddState<UEngineBlendState>(NewBlendState, _Name);
+	return NewBlendState;
 }
 
 void UEngineBlendState::CreateBlendState(D3D11_BLEND_DESC _Desc)

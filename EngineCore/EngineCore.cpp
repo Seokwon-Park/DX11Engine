@@ -5,6 +5,7 @@
 #include <EnginePlatform/EngineWindow.h>
 #include "IContentsCore.h"
 #include "ResourceManager.h"
+#include "StateManager.h"
 #include "EngineDeviceContext.h"
 #include "GUI/ImGuiLayer.h"
 
@@ -133,6 +134,8 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			EngineLogger::StartLogger();
 			UEngineInputSystem::InitKeys();
 			GraphicsDeviceContext->Init(MainWindow);
+			//Default States가 반드시 먼저 생성되어야 함.
+			UStateManager::CreateDefaultStates();
 			UResourceManager::CreateDefaultResources();
 			Core->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
@@ -199,6 +202,7 @@ void UEngineCore::EngineShutdown()
 	NextLevel = nullptr;
 	Levels.clear();
 	UResourceManager::Release();
+	UStateManager::Release();
 	delete GraphicsDeviceContext;
 	EngineLogger::EndLogger();
 }

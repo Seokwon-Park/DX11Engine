@@ -8,6 +8,12 @@ enum class ESortingLayer
 	UI = 1000,
 };
 
+struct VertexConstant
+{
+	FMatrix World;
+	FMatrix View;
+	FMatrix Proj;
+};
 
 // Ό³Έν :
 class USpriteRendererComponent : public URendererComponent

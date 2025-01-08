@@ -49,6 +49,7 @@ public:
 	float Dot(const FVector4& _Other) const;
 	float Length() const;
 
+
 	//operators
 	inline static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector4& _Vector)
 	{

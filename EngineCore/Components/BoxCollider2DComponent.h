@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneComponent.h"
+#include <EngineCore/RenderUnit.h>
 #include <EngineCore/ThirdParty/Box2D/include/box2d.h>
 
 // Ό³Έν :
@@ -15,18 +16,22 @@ public:
 	UBoxCollider2DComponent(UBoxCollider2DComponent&& _Other) noexcept = delete;
 	UBoxCollider2DComponent& operator=(const UBoxCollider2DComponent& _Other) = delete;
 	UBoxCollider2DComponent& operator=(UBoxCollider2DComponent&& _Other) noexcept = delete;
+
+	ENGINE_API void DebugRender(UCameraComponent* _Camera, float _DeltaTime);
+
 protected:
+	virtual void BeginPlay();
+	virtual void TickComponent(float _DeltaTime);
 
 private:
 	FVector2 Offset = { 0.0f, 0.0f };
 	FVector2 Size = { 0.5f, 0.5f };
 
-	// TODO: move into physics material in the future maybe
 	float Density = 1.0f;
 	float Friction = 0.5f;
 	float Restitution = 0.0f;
 	float RestitutionThreshold = 0.5f;
 
-
+	std::shared_ptr<URenderUnit> ColliderDebugRenderUnit;
 };
 

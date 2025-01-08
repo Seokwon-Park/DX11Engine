@@ -2,6 +2,10 @@
 #include "EngineBuffer.h"
 #include "EngineShader.h"
 #include "EngineShaderResources.h"
+#include "EngineShaderResources.h"
+#include <EngineCore/States/EngineBlendState.h>
+#include <EngineCore/States/EngineRasterizerState.h>
+#include <EngineCore/States/EngineDepthStencilState.h>
 
 struct FMaterialDescription
 {
@@ -12,6 +16,9 @@ struct FMaterialDescription
 	std::string_view PSName = "";
 	std::string_view CSName = "";
 	std::string_view InputLayoutName = "";
+	std::string_view BSName= "";
+	std::string_view RSName = "";
+	std::string_view DSSName= "";
 
 };
 
@@ -36,8 +43,12 @@ public:
 	std::shared_ptr<UEngineShaderResources> GetShaderResources(EShaderType _Type) { return ShaderResources[_Type]; }
 	void Bind();
 
-	ENGINE_API static std::shared_ptr<UEngineMaterial> Create();
-	ENGINE_API static std::shared_ptr<UEngineMaterial> Create(FMaterialDescription _Desc);
+	inline void SetBlendState(std::shared_ptr<UEngineBlendState> _BlendState) { BlendState = _BlendState; }
+	inline void SetRasterizerState(std::shared_ptr<UEngineRasterizerState> _RasterizerState) { RasterizerState = _RasterizerState; }
+	inline void SetDepthStencilState(std::shared_ptr<UEngineDepthStencilState> _DepthStencilState) { DepthStencilState = _DepthStencilState; }
+
+	ENGINE_API static std::shared_ptr<UEngineMaterial> Create(std::string _Name);
+	ENGINE_API static std::shared_ptr<UEngineMaterial> Create(std::string _Name, FMaterialDescription _Desc);
 protected:
 
 private:
@@ -54,9 +65,10 @@ private:
 	//std::shared_ptr<UEngineShader> ComputeShader;
 
 	std::map<EShaderType, std::shared_ptr<UEngineShaderResources>> ShaderResources;
-	//std::shared_ptr<BlendState> blendState;
-	//std::shared_ptr<RasterizerState> rasterizerState;
-	//std::shared_ptr<DepthStencilState> depthStencilState;
+	std::shared_ptr<UEngineBlendState> BlendState;
+	std::shared_ptr<UEngineRasterizerState> RasterizerState;
+	std::shared_ptr<UEngineDepthStencilState> DepthStencilState;
+	
 
 	//std::map<EShaderType, std::vector<std::shared_ptr<UEngineTexture2D>>> Textures;
 

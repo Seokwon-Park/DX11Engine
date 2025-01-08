@@ -50,10 +50,6 @@ void URendererComponent::BeginPlay()
 
 void URendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	UEngineBlendState::Create("")->Bind();
-	UEngineRasterizerState::Create("")->Bind();
-	UEngineDepthStencilState::Create("")->Bind();
-
 	for (std::shared_ptr<URenderUnit> RenderUnit : RenderUnits)
 	{
 		RenderUnit->Render(_Camera, _DeltaTime);

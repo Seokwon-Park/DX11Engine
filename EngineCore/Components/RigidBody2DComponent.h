@@ -22,11 +22,14 @@ public:
 	RigidBody2DComponent& operator=(const RigidBody2DComponent& _Other) = delete;
 	RigidBody2DComponent& operator=(RigidBody2DComponent&& _Other) noexcept = delete;
 
+	ENGINE_API void SetVelocity(FVector2 _Velocity);
+
 	virtual void TickComponent(float _DeltaTime);
 	virtual void BeginPlay();
 protected:
 
 private:
+	b2Vec2 Velocity;
 	EBodyType Type;
 
 	b2BodyDef bodyDef;

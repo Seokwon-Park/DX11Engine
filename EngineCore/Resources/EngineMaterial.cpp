@@ -20,7 +20,11 @@ void UEngineMaterial::SetShader(std::string_view _ShaderName, EShaderType _Type)
 
 void UEngineMaterial::SetShader(std::shared_ptr<UEngineShader> _Shader, EShaderType _Type)
 {
-	if (_Shader == nullptr)
+	if (_Type != _Shader->GetShaderType())
+	{
+		MSGASSERT("타입에 맞는 쉐이더가 아닙니다.")
+	}
+	if (_Shader == nullptr )
 	{
 		MSGASSERT("쉐이더가 nullptr이었습니다.")
 	}
@@ -42,7 +46,7 @@ void UEngineMaterial::Bind()
 		MSGASSERT("정점쉐이더와 픽셀쉐이더는 반드시 설정되어야 합니다.")
 	}
 	Shaders[EShaderType::VS]->Bind();
-	
+
 	if (true == Shaders.contains(EShaderType::HS) && true == Shaders.contains(EShaderType::DS))
 	{
 		Shaders[EShaderType::HS]->Bind();
@@ -67,52 +71,69 @@ void UEngineMaterial::Bind()
 	{
 		ShaderResources->Bind();
 	}*/
+	if (RasterizerState == nullptr)
+	{
+		MSGASSERT("래스터라이저는 nullptr일 수 없습니다.");
+	}
+	RasterizerState->Bind();
+
+	if (BlendState != nullptr)
+	{
+		BlendState->Bind();
+	}
+	if (DepthStencilState != nullptr)
+	{
+		DepthStencilState->Bind();
+	}
 }
 
 //기본적인 머티리얼 - 사각형(Quad)
-std::shared_ptr<UEngineMaterial> UEngineMaterial::Create()
+std::shared_ptr<UEngineMaterial> UEngineMaterial::Create(std::string _Name)
 {
 	FMaterialDescription Desc;
 	Desc.VSName = "QuadVS";
 	Desc.PSName = "QuadPS";
 	Desc.InputLayoutName = "Quad";
-	return Create(Desc);
+	Desc.RSName = "Default";
+	Desc.BSName = "Default";
+	Desc.DSSName = "Default";
+
+	return Create(_Name, Desc);
 }
 
-ENGINE_API std::shared_ptr<UEngineMaterial> UEngineMaterial::Create(FMaterialDescription _Desc)
+ENGINE_API std::shared_ptr<UEngineMaterial> UEngineMaterial::Create(std::string _Name, FMaterialDescription _Desc)
 {
 	std::shared_ptr<UEngineMaterial> NewMaterial = std::make_shared<UEngineMaterial>();
 	NewMaterial->CreateMaterial(_Desc);
+	UResourceManager::AddResource<UEngineMaterial>(NewMaterial, _Name, "");
 	return NewMaterial;
 }
 
 void UEngineMaterial::CreateMaterial(FMaterialDescription _Desc)
 {
-	InputLayout = UResourceManager::Find<UEngineInputLayout>(_Desc.InputLayoutName);
+	if (true == _Desc.VSName.empty()) { MSGASSERT("없으면 안돼"); }
+	if (true == _Desc.PSName.empty()) { MSGASSERT("없으면 안돼"); }
+	if (true == _Desc.RSName.empty()) { MSGASSERT("없으면 안돼"); }
+	if (true == _Desc.InputLayoutName.empty()) { MSGASSERT("없으면 안돼"); }
 
-	if (false == _Desc.VSName.empty())
+
+	SetShader(_Desc.VSName, EShaderType::VS);
+	if (false == _Desc.HSName.empty()) { SetShader(_Desc.HSName, EShaderType::HS); }
+	if (false == _Desc.DSName.empty()) { SetShader(_Desc.DSName, EShaderType::DS); }
+	if (false == _Desc.GSName.empty()) { SetShader(_Desc.GSName, EShaderType::GS); }
+	SetShader(_Desc.PSName, EShaderType::PS);
+	if (false == _Desc.CSName.empty()) { SetShader(_Desc.CSName, EShaderType::CS); }
+	InputLayout = UResourceManager::Find<UEngineInputLayout>(_Desc.InputLayoutName);
+	RasterizerState = UStateManager::Find<UEngineRasterizerState>(_Desc.RSName);
+	if (false == _Desc.BSName.empty())
 	{
-		SetShader(_Desc.VSName, EShaderType::VS);
+		BlendState = UStateManager::Find<UEngineBlendState>(_Desc.BSName);
 	}
-	if (false == _Desc.HSName.empty())
+	if (false == _Desc.DSSName.empty())
 	{
-		SetShader(_Desc.HSName, EShaderType::HS);
-	}
-	if (false == _Desc.DSName.empty())
-	{
-		SetShader(_Desc.DSName, EShaderType::DS);
-	}
-	if (false == _Desc.GSName.empty())
-	{
-		SetShader(_Desc.GSName, EShaderType::GS);
-	}
-	if (false == _Desc.PSName.empty())
-	{
-		SetShader(_Desc.PSName, EShaderType::PS);
-	}
-	if (false == _Desc.CSName.empty())
-	{
-		SetShader(_Desc.CSName, EShaderType::CS);
+		DepthStencilState = UStateManager::Find<UEngineDepthStencilState>(_Desc.DSSName);
 	}
 }
+
+
 

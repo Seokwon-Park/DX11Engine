@@ -31,10 +31,11 @@ std::shared_ptr<UEngineDepthStencilState> UEngineDepthStencilState::Create(std::
 	return Create(_Name, Desc);
 }
 
-std::shared_ptr<UEngineDepthStencilState> UEngineDepthStencilState::Create(std::string_view _Name, D3D11_DEPTH_STENCIL_DESC _Desc)
+std::shared_ptr<UEngineDepthStencilState> UEngineDepthStencilState::Create(std::string_view _Name, const D3D11_DEPTH_STENCIL_DESC& _Desc)
 {
 	std::shared_ptr<UEngineDepthStencilState> NewDepthStencilState = std::make_shared<UEngineDepthStencilState>();
 	NewDepthStencilState->CreateDepthStencilState(_Desc);
+	UStateManager::AddState<UEngineDepthStencilState>(NewDepthStencilState, _Name);
 	return NewDepthStencilState;
 }
 

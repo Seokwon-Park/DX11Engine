@@ -75,11 +75,15 @@ public:
 		return Resources;
 	}
 
-	inline static bool IsExist(std::string_view _Name){return ResourceMap.contains(_Name.data());}
+	template <typename ResourceType>
+	inline static bool IsExist(std::string_view _Name){
+		const type_info& Info = typeid(ResourceType); 
+		return ResourceMap[Info.name()].contains(_Name.data()); 
+	}
 	inline static void Release(){ResourceMap.clear();}
 
-	ENGINE_API static std::shared_ptr<UEngineResource> Find(std::string_view _ResourceName, std::string_view _Name);
-	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Res, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
+	ENGINE_API static std::shared_ptr<UEngineResource> Find(std::string_view _ResourceType, std::string_view _ResourceName);
+	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Resource, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
 
 protected:
 

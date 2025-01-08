@@ -3,6 +3,7 @@
 #include <EngineCore/EngineCore.h>
 #include <EngineCore/EngineDeviceContext.h>
 
+
 UEngineRasterizerState::UEngineRasterizerState()
 {
 }
@@ -33,10 +34,11 @@ ENGINE_API std::shared_ptr<UEngineRasterizerState> UEngineRasterizerState::Creat
 	return Create(_Name, Desc);
 }
 
-ENGINE_API std::shared_ptr<UEngineRasterizerState> UEngineRasterizerState::Create(std::string_view _Name, D3D11_RASTERIZER_DESC _Desc)
+ENGINE_API std::shared_ptr<UEngineRasterizerState> UEngineRasterizerState::Create(std::string_view _Name,const D3D11_RASTERIZER_DESC& _Desc)
 {
 	std::shared_ptr<UEngineRasterizerState> RasterizerState = std::make_shared<UEngineRasterizerState>();
 	RasterizerState->CreateRasterizerState(_Desc);
+	UStateManager::AddState<UEngineRasterizerState>(RasterizerState, _Name);
 	return RasterizerState;
 }
 

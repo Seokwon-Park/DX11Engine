@@ -12,7 +12,7 @@ ULevel::ULevel()
 	CurrentCamera->SetLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
 
 	b2WorldDef worldDef = b2DefaultWorldDef();
-	worldDef.gravity = b2Vec2(0.0f, -10.0f);
+	worldDef.gravity = b2Vec2(0.0f, -100.0f);
 	WorldId = b2CreateWorld(&worldDef);
 }
 

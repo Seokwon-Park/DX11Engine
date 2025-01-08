@@ -10,18 +10,6 @@ UEngineAnimation::~UEngineAnimation()
 {
 }
 
-//UEngineAnimation::UEngineAnimation(const UEngineAnimation& _Other)
-//{
-//	Sprite = _Other.Sprite;
-//
-//	CurIndex = _Other.CurIndex;
-//	ResultIndex = _Other.ResultIndex;
-//	IsLoop = _Other.IsLoop;
-//	FrameIndices = _Other.FrameIndices;
-//	FrameIntervals = _Other.FrameIntervals;
-//	FrameEvents = _Other.FrameEvents;
-//}
-
 void UEngineAnimation::CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName,
 	int _StartFrame, int _EndFrame, float _FrameInterval, bool _IsLoop)
 {

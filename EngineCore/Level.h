@@ -29,6 +29,9 @@ public:
 	void PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer);
 	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer);
 
+	void PushCollider(std::shared_ptr<class USpriteRendererComponent> _Renderer);
+
+
 	std::shared_ptr<class ACameraActor> SpawnCamera(std::string_view _Name);
 
 	template<typename ActorType>

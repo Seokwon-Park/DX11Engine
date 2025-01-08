@@ -33,11 +33,9 @@ void USceneComponent::SetupAttachment(USceneComponent* _Parent)
 
 ENGINE_API void USceneComponent::UpdateTransform()
 {
-	//GetParentTransform();
-	// 나의 트랜스폼 업데이트는 일단 한다.
 	if (Parent == nullptr)
 	{
-		Transform.UpdateTransform();//(IsAbsolute);
+		Transform.UpdateTransform();
 	}
 	else
 	{
@@ -49,15 +47,24 @@ ENGINE_API void USceneComponent::UpdateTransform()
 		Child->UpdateTransform();
 	}
 
-	//IsAbsolute = false;
 }
 
 void USceneComponent::TickComponent(float _DeltaTime)
 {
 	UActorComponent::TickComponent(_DeltaTime);
+
+	for (std::shared_ptr<USceneComponent> Child : Childs)
+	{
+		Child->TickComponent(_DeltaTime);
+	}
 }
 
 void USceneComponent::BeginPlay()
 {
 	UActorComponent::BeginPlay();
+
+	for (std::shared_ptr<USceneComponent> Child : Childs)
+	{
+		Child->BeginPlay();
+	}
 }

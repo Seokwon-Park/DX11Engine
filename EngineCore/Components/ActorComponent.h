@@ -16,9 +16,9 @@ public:
 	UActorComponent& operator=(UActorComponent&& _Other) noexcept = delete;
 
 	class AActor* GetOwner();
-	virtual void TickComponent(float _DeltaTime) {};
-	virtual void BeginPlay() {}
 protected:
+	virtual void BeginPlay() {}
+	virtual void TickComponent(float _DeltaTime) {};
 
 private:
 	AActor* Owner;

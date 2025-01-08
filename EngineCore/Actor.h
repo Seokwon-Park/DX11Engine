@@ -37,8 +37,11 @@ public:
 		ActorPtr->SetName(_Name);
 		std::shared_ptr<ComponentType> NewComponent(ComponentPtr);
 
-		ActorComponentList.push_back(NewComponent);
-		
+		//Scene Component는 SetupAttachment를 호출하지 않으면 생성해도 적용되지 않도록 한다.
+		if (false == std::is_base_of_v<USceneComponent, ComponentType>)
+		{
+			ActorComponentList.push_back(NewComponent);
+		}
 
 		return NewComponent;
 	}

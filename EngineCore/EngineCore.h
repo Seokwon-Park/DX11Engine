@@ -42,6 +42,7 @@ public:
 	ENGINE_API static class UEngineDeviceContext* GetGraphicsDeviceContext();
 	ENGINE_API static class FTimerManager& GetTimerManager();
 	ENGINE_API static class UEngineWindow& GetMainWindow() { return MainWindow; };
+	ENGINE_API static float GetEngineDeltaTime() { return Timer.GetDeltaTime(); }
 protected:
 
 private:

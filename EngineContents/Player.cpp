@@ -12,11 +12,11 @@ APlayer::APlayer()
 	//Animator->SetAnimation("TeviIdle");
 	Animator->SetAnimation("TeviWalk");
 
-	Input = CreateDefaultSubobject<UInputComponent>();
-	Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
-	Input->BindAction(EKey::Right, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::RIGHT));
-	Input->BindAction(EKey::Up, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::UP));
-	Input->BindAction(EKey::Down, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::DOWN));
+	//Input = CreateDefaultSubobject<UInputComponent>();
+	//Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
+	//Input->BindAction(EKey::Right, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::RIGHT));
+	//Input->BindAction(EKey::Up, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::UP));
+	//Input->BindAction(EKey::Down, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::DOWN));
 
 	RigidBody->SetupAttachment(RootComponent);
 	SpriteRenderer->SetupAttachment(RootComponent);
@@ -32,7 +32,15 @@ void APlayer::Tick(float _DeltaTime)
 	APawn::Tick(_DeltaTime);
 
 	//EngineLogger::Test<int>();
-
+	RigidBody->SetVelocity({ 0.0f, 0.0f });
+	if (UEngineInputSystem::GetKey(EKey::Left))
+	{
+		RigidBody->SetVelocity(FVector2::LEFT*100.0f);
+	}
+	if (UEngineInputSystem::GetKey(EKey::Right))
+	{
+		RigidBody->SetVelocity(FVector2::RIGHT * 100.0f);
+	}
 }
 
 void APlayer::BeginPlay()
@@ -43,5 +51,6 @@ void APlayer::BeginPlay()
 void APlayer::Move(FVector4 _Dir)
 {
 	//AddActorLocation(_Dir * UEngineCore::GetDeltaTime());
-	AddActorLocation(_Dir);
+	RigidBody->SetVelocity({100.0f, 0.0f});
+	//AddActorLocation(_Dir*UEngineCore::GetEngineDeltaTime());
 }

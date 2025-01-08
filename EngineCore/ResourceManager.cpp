@@ -30,13 +30,14 @@ std::shared_ptr<UEngineResource> UResourceManager::Find(std::string_view _Resour
 
 void UResourceManager::AddResource(std::shared_ptr<UEngineResource> _Resource, const std::string_view _Info, std::string_view _Name, std::string_view _Path)
 {
-	if (true == ResourceMap[_Info.data()].contains(_Name.data()))
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (true == ResourceMap[_Info.data()].contains(UpperName))
 	{
 		MSGASSERT("이미 추가한 리소스를 또 추가하려고 했습니다" + std::string(_Info.data()) + "  " + _Name.data());
 		return;
 	}
 
-	std::string UpperName = UEngineString::ToUpper(_Name);
 
 	_Resource->SetName(UpperName);
 	_Resource->SetPath(_Path);
@@ -67,7 +68,7 @@ void UResourceManager::CreateDefaultVertexBuffer()
 	Uint32 DataSize = static_cast<Uint32>(sizeof(Vertex) * Vertices.size());
 	Uint32 VertexCount = static_cast<Uint32>(Vertices.size());
 
-	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Quad", 
+	std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("Quad",
 		Vertices.data(), DataSize, VertexCount);
 }
 
@@ -95,14 +96,23 @@ void UResourceManager::CreateDefaultIndexBuffer()
 
 void UResourceManager::CreateDefaultMesh()
 {
-	std::shared_ptr<UEngineMesh> Mesh = UEngineMesh::Create("Quad", "Quad", "Quad", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	AddResource<UEngineMesh>(Mesh, "Quad", "");
+	UEngineMesh::Create("Quad", "Quad", "Quad", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
 void UResourceManager::CreateDefaultMaterial()
 {
-	std::shared_ptr<UEngineMaterial> Material = UEngineMaterial::Create();
-	AddResource<UEngineMaterial>(Material, "Quad", "");
+	UEngineMaterial::Create("Quad");
+
+	FMaterialDescription Desc;
+	Desc.VSName = "QuadVS";
+	Desc.PSName = "QuadPs";
+	Desc.InputLayoutName = "Quad";
+	Desc.BSName = "Default";
+	Desc.RSName = "Default";
+	Desc.DSSName = "Default";
+	UEngineMaterial::Create("ColliderDebug", Desc);
+
+
 
 }
 
@@ -120,5 +130,5 @@ void UResourceManager::CreateDefaultShader()
 		AddResource(VertexShader, Info.name(), "QuadVS", Dir.ToString());
 		AddResource(PixelShader, Info.name(), "QuadPS", Dir.ToString());
 	}
-	
+
 }

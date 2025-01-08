@@ -1,7 +1,8 @@
 #pragma once
+#include "EngineState.h"
 
 // 클래스 설명 :
-class UEngineDepthStencilState 
+class UEngineDepthStencilState : public UEngineState
 {
 public:
 	// Constrcuter Destructer
@@ -13,10 +14,10 @@ public:
 	UEngineDepthStencilState(UEngineDepthStencilState&& _Other) noexcept = delete;
 	UEngineDepthStencilState& operator=(const UEngineDepthStencilState& _Other) = delete;
 	UEngineDepthStencilState& operator=(UEngineDepthStencilState&& _Other) noexcept = delete;
-	void Bind();
+	virtual void Bind()override;
 
 	ENGINE_API static std::shared_ptr<UEngineDepthStencilState> Create(std::string_view _Name);
-	ENGINE_API static std::shared_ptr<UEngineDepthStencilState> Create(std::string_view _Name, D3D11_DEPTH_STENCIL_DESC _Desc);
+	ENGINE_API static std::shared_ptr<UEngineDepthStencilState> Create(std::string_view _Name, const D3D11_DEPTH_STENCIL_DESC& _Desc);
 protected:
 
 private:

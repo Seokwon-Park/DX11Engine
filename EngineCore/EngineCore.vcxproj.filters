@@ -57,11 +57,12 @@
     <ClCompile Include="ThirdParty\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="ThirdParty\IMGUI\imgui_impl_dx11.cpp" />
     <ClCompile Include="ThirdParty\IMGUI\imgui_impl_win32.cpp" />
-    <ClCompile Include="Components\UBoxCollider2DComponent.cpp" />
+    <ClCompile Include="Components\BoxCollider2DComponent.cpp" />
     <ClCompile Include="GUI\ImGuiLayer.cpp" />
     <ClCompile Include="GUI\EngineImGuiWindow.cpp" />
     <ClCompile Include="GUI\HierarchyWindow.cpp" />
     <ClCompile Include="Components\RigidBody2DComponent.cpp" />
+    <ClCompile Include="States\EngineState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -122,7 +123,7 @@
     <ClInclude Include="ThirdParty\IMGUI\imstb_truetype.h" />
     <ClInclude Include="ThirdParty\IMGUI\imgui_impl_dx11.h" />
     <ClInclude Include="ThirdParty\IMGUI\imgui_impl_win32.h" />
-    <ClInclude Include="Components\UBoxCollider2DComponent.h" />
+    <ClInclude Include="Components\BoxCollider2DComponent.h" />
     <ClInclude Include="GUI\ImGuiLayer.h" />
     <ClInclude Include="GUI\EngineImGuiWindow.h" />
     <ClInclude Include="GUI\HierarchyWindow.h" />
@@ -133,6 +134,7 @@
     <ClInclude Include="ThirdParty\Box2D\include\math_functions.h" />
     <ClInclude Include="ThirdParty\Box2D\include\types.h" />
     <ClInclude Include="Components\RigidBody2DComponent.h" />
+    <ClInclude Include="States\EngineState.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
