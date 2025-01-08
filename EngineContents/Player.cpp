@@ -13,6 +13,8 @@ APlayer::APlayer()
 	//Animator->SetAnimation("TeviIdle");
 	Animator->SetAnimation("TeviWalk");
 
+	BoxCollider2D->SetRigidbody(RigidBody2D);
+	BoxCollider2D->SetCollisionLayer(ECollisionLayer::Player);
 	//Input = CreateDefaultSubobject<UInputComponent>();
 	//Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
 	//Input->BindAction(EKey::Right, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::RIGHT));
@@ -20,6 +22,7 @@ APlayer::APlayer()
 	//Input->BindAction(EKey::Down, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::DOWN));
 	
 	RigidBody2D->SetupAttachment(RootComponent);
+	BoxCollider2D->SetupAttachment(RootComponent);
 	SpriteRenderer->SetupAttachment(RootComponent);
 }
 

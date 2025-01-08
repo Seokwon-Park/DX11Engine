@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/Actor.h>
 #include <EngineCore/Components/SpriteRendererComponent.h>
+#include <EngineCore/Components/BoxCollider2DComponent.h>
 
 
 // Ό³Έν :
@@ -23,6 +24,7 @@ protected:
 
 private:
 	std::shared_ptr<USpriteRendererComponent> SpriteRenderer;
+	std::shared_ptr<UBoxCollider2DComponent> Collider;
 
 };
 

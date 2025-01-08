@@ -14,7 +14,7 @@ URigidbody2DComponent::~URigidbody2DComponent()
 
 void URigidbody2DComponent::SetVelocity(FVector2 _Velocity)
 {
-	Velocity = b2Vec2(_Velocity.X, _Velocity.Y); // 오른쪽으로 힘 가하기
+	Velocity = b2Vec2(_Velocity.X, _Velocity.Y);
 }
 
 void URigidbody2DComponent::TickComponent(float _DeltaTime)
@@ -34,4 +34,5 @@ void URigidbody2DComponent::BeginPlay()
 	BodyDef.type = b2_dynamicBody;
 	BodyDef.position = { Parent->GetLocation().X, Parent->GetLocation().Y };
 	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
+	std::cout << b2Body_GetPosition(BodyId).x << ',' << b2Body_GetPosition(BodyId).y << '\n';
 }

@@ -7,7 +7,11 @@ ATitleLogo::ATitleLogo()
 	SpriteRenderer->SetSprite("Tevi", 99);
 	SpriteRenderer->SetOrder(ESortingLayer::Default, -1);
 
+	Collider = CreateDefaultSubobject<UBoxCollider2DComponent>();
+	Collider->SetCollisionLayer(ECollisionLayer::Enemy);
+
 	SpriteRenderer->SetupAttachment(RootComponent);
+	Collider->SetupAttachment(RootComponent);
 }
 
 ATitleLogo::~ATitleLogo()

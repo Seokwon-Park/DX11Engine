@@ -29,7 +29,7 @@ public:
 	void PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer);
 	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer);
 
-	void PushCollider(std::shared_ptr<class UColliderComponent> _Renderer);
+	//void PushCollider(std::shared_ptr<class UColliderComponent> _Renderer);
 
 
 	std::shared_ptr<class ACameraActor> SpawnCamera(std::string_view _Name);
@@ -74,7 +74,6 @@ public:
 	}
 
 	inline b2WorldId GetPhysicsWorld() const { return WorldId; }
-
 protected:
 
 private:

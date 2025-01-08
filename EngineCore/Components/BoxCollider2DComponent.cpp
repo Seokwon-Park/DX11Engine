@@ -39,12 +39,15 @@ void UBoxCollider2DComponent::BeginPlay()
 {
 	USceneComponent::BeginPlay();
 
+	ColliderDebugRenderUnit = std::make_shared<URenderUnit>();
 	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
 
-	dynamicBox = b2MakeBox(1.0f, 1.0f);
+	dynamicBox = b2MakeBox(10.0f, 10.0f);
 	shapeDef = b2DefaultShapeDef();
 	shapeDef.density = 1.0f;
 	shapeDef.friction = 0.3f;
+	shapeDef.filter.categoryBits = Layer;
+	shapeDef.filter.maskBits = Layer;
 	if (Rigidbody2D != nullptr)
 	{
 		BodyId = Rigidbody2D->GetBodyId();
@@ -63,6 +66,7 @@ void UBoxCollider2DComponent::BeginPlay()
 void UBoxCollider2DComponent::TickComponent(float _DeltaTime)
 {
 	USceneComponent::TickComponent(_DeltaTime);
+	std::cout << b2Body_GetPosition(BodyId).x << ',' << b2Body_GetPosition(BodyId).y << '\n';
 
 
 }
