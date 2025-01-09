@@ -3,7 +3,7 @@
 #include "Player.h"
 
 PlayerRunState::PlayerRunState(APlayer* _Player, BaseStateMachine* _StateMachine, std::string_view _AnimationName)
-	:PlayerState(_Player, _StateMachine, _AnimationName)
+	:PlayerGroundState(_Player, _StateMachine, _AnimationName)
 {
 }
 
@@ -13,12 +13,12 @@ PlayerRunState::~PlayerRunState()
 
 void PlayerRunState::Enter()
 {
-	PlayerState::Enter();
+	PlayerGroundState::Enter();
 }
 
 void PlayerRunState::Update()
 {
-	PlayerState::Update();
+	PlayerGroundState::Update();
 
 	Player->SetVelocity({ 100.0f * XInput , Rigidbody2D->GetVelocity().Y });
 //	//EngineLogger::Test<int>();
@@ -37,11 +37,11 @@ void PlayerRunState::Update()
 //	}
 	if (XInput == 0.0f)
 	{
-		StateMachine->ChangeState(Player->IdleState.get());
+		StateMachine->ChangeState(Player->IdleState);
 	}
 }
 
 void PlayerRunState::Exit()
 {
-	PlayerState::Exit();
+	PlayerGroundState::Exit();
 }

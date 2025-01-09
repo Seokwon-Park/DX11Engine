@@ -10,9 +10,6 @@
     <ClCompile Include="BaseStateMachine.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="TitleGameMode.cpp">
       <Filter>GameMode</Filter>
     </ClCompile>
@@ -22,14 +19,23 @@
     <ClCompile Include="PlayerStateMachine.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Player\States</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerRunState.cpp">
-      <Filter>Player</Filter>
+      <Filter>Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGroundState.cpp">
+      <Filter>Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Player\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,9 +51,6 @@
     <ClInclude Include="BaseState.h">
       <Filter>FSM</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="TitleGameMode.h">
       <Filter>GameMode</Filter>
     </ClInclude>
@@ -57,14 +60,23 @@
     <ClInclude Include="PlayerStateMachine.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>FSM</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Player\States</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerRunState.h">
-      <Filter>Player</Filter>
+      <Filter>Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGroundState.h">
+      <Filter>Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Player\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +88,9 @@
     </Filter>
     <Filter Include="GameMode">
       <UniqueIdentifier>{c7cbe238-28f2-487b-81c8-0b371ca35338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\States">
+      <UniqueIdentifier>{35962318-6623-45ab-a851-323d6d91dfd5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

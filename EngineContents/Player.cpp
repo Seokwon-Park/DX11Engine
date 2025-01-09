@@ -14,7 +14,7 @@ APlayer::~APlayer()
 
 void APlayer::Tick(float _DeltaTime)
 {
-	APawn::Tick(_DeltaTime);
+	AEntity::Tick(_DeltaTime);
 
 	StateMachine->CurrentState->Update();
 
@@ -22,13 +22,14 @@ void APlayer::Tick(float _DeltaTime)
 
 void APlayer::BeginPlay()
 {
-	APawn::BeginPlay();
+	AEntity::BeginPlay();
 
 	StateMachine = std::make_shared<PlayerStateMachine>();
 	IdleState = std::make_shared<PlayerIdleState>(this, StateMachine.get(), "TeviIdle");
 	RunState = std::make_shared<PlayerRunState>(this, StateMachine.get(), "TeviRun");
+	JumpState = std::make_shared<PlayerJumpState>(this, StateMachine.get(), "TeviJump");
 
-	StateMachine->InitState(IdleState.get());
+	StateMachine->InitState(IdleState);
 }
 
 void APlayer::SetVelocity(FVector2 _Velocity)
