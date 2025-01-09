@@ -1,13 +1,12 @@
 #pragma once
 #include "BaseState.h"
-#include "Player.h"
 
 // Ό³Έν :
 class PlayerState : public BaseState
 {
 public:
 	// constrcuter destructer
-	PlayerState();
+	PlayerState(class APlayer* _Player, class BaseStateMachine* _StateMachine, std::string_view _AnimationName);
 	~PlayerState();
 
 	// delete Function
@@ -21,7 +20,12 @@ public:
 	virtual void Exit() override;
 
 protected:
-	APlayer* Player;
+	class APlayer* Player;
+	std::string AnimationName;
+	class URigidbody2DComponent* Rigidbody2D;
+
+	float XInput = 0.0f;
+	float YInput = 0.0f;
 	
 private:
 

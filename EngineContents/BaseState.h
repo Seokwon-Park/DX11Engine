@@ -1,5 +1,5 @@
 #pragma once
-#include "StateMachine.h"
+#include "BaseStateMachine.h"
 
 class BaseState
 {
@@ -8,7 +8,7 @@ public:
 	virtual void Update() = 0;
 	virtual void Exit() = 0;
 protected:
-	class StateMachine* StateMachine;
+	class BaseStateMachine* StateMachine;
 private:
 
 };

@@ -17,6 +17,7 @@ public:
 	USceneComponent& operator=(USceneComponent&& _Other) noexcept = delete;
 
 	inline FVector4 GetLocation() { return Transform.Location; }
+	inline FVector4 GetRotation() { return Transform.Rotation; }
 
 	inline void SetLocation(const FVector4& _Value)
 	{
@@ -56,6 +57,7 @@ public:
 	ENGINE_API void UpdateTransform();
 	virtual void TickComponent(float _DeltaTime);
 	virtual void BeginPlay();
+	std::list<std::shared_ptr<USceneComponent>>& GetChilds() { return Childs; }
 protected:
 	FTransform Transform;
 	USceneComponent* Parent;

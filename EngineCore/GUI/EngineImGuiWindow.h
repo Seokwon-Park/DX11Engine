@@ -14,7 +14,7 @@ public:
 	UEngineImGuiWindow& operator=(const UEngineImGuiWindow& _Other) = delete;
 	UEngineImGuiWindow& operator=(UEngineImGuiWindow&& _Other) noexcept = delete;
 
-	virtual void Update() = 0;
+	virtual void OnImGuiRender() = 0;
 protected:
 
 private:

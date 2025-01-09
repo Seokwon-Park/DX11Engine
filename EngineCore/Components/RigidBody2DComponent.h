@@ -9,7 +9,7 @@ enum class EBodyType
 	Kinematic
 };
 // Ό³Έν :
-class URigidbody2DComponent: public USceneComponent
+class URigidbody2DComponent : public USceneComponent
 {
 public:
 	// constrcuter destructer
@@ -23,6 +23,7 @@ public:
 	URigidbody2DComponent& operator=(URigidbody2DComponent&& _Other) noexcept = delete;
 
 	ENGINE_API void SetVelocity(FVector2 _Velocity);
+	ENGINE_API FVector2 GetVelocity() { return { Velocity.x, Velocity.y }; }
 	b2BodyId GetBodyId() { return BodyId; }
 	virtual void TickComponent(float _DeltaTime);
 	virtual void BeginPlay();

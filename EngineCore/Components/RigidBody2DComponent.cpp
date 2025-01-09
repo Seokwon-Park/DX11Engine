@@ -14,14 +14,17 @@ URigidbody2DComponent::~URigidbody2DComponent()
 
 void URigidbody2DComponent::SetVelocity(FVector2 _Velocity)
 {
-	Velocity = b2Vec2(_Velocity.X, _Velocity.Y);
+	Velocity = b2Vec2(_Velocity.X, _Velocity.Y); 
+	//b2Body_ApplyForceToCenter(BodyId, Velocity, true);
 }
 
 void URigidbody2DComponent::TickComponent(float _DeltaTime)
 {
 	b2WorldId Id = GetOwner()->GetLevel()->GetPhysicsWorld();
-	b2Body_SetLinearVelocity(BodyId, Velocity + b2World_GetGravity(Id));
-	b2World_Step(Id, 1.0f / 60.0f, 4);
+	//Velocity = Velocity + b2World_GetGravity(Id);
+	//Velocity.y = b2MaxFloat(Velocity.y, b2World_GetGravity(Id).y);
+	b2Body_SetLinearVelocity(BodyId, Velocity);
+	//b2World_Step(Id, 1.0f / 60.0f, 4);
 	b2Vec2 XY = b2Body_GetPosition(BodyId);
 	Parent->SetLocation({ XY.x, XY.y, 0.0f, 1.0f });
 	b2Rot rotation = b2Body_GetRotation(BodyId);
@@ -34,5 +37,7 @@ void URigidbody2DComponent::BeginPlay()
 	BodyDef.type = b2_dynamicBody;
 	BodyDef.position = { Parent->GetLocation().X, Parent->GetLocation().Y };
 	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
+	
 	std::cout << b2Body_GetPosition(BodyId).x << ',' << b2Body_GetPosition(BodyId).y << '\n';
+
 }

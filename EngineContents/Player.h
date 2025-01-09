@@ -1,13 +1,14 @@
 #pragma once
-#include <EngineCore/Pawn.h>
 #include <EngineCore/Components/InputComponent.h>
-#include <EngineCore/Components/AnimatorComponent.h>
-#include <EngineCore/Components/SpriteRendererComponent.h>
-#include <EngineCore/Components/Rigidbody2DComponent.h>
-#include <EngineCore/Components/BoxCollider2DComponent.h>
+
+
+#include "Entity.h"
+#include "PlayerStateMachine.h"
+#include "PlayerIdleState.h"
+#include "PlayerRunState.h"
 
 // Ό³Έν :
-class APlayer : public APawn
+class APlayer : public AEntity
 {
 public:
 	// constrcuter destructer
@@ -22,15 +23,18 @@ public:
 
 	virtual void Tick(float _DeltaTime) override;
 
-	void Move(FVector4 _Dir);
+	void SetVelocity(FVector2 _Velocity);
+
+	std::shared_ptr<PlayerStateMachine> StateMachine;
+	std::shared_ptr<PlayerIdleState> IdleState;
+	std::shared_ptr<PlayerRunState> RunState;
 protected:
 	virtual void BeginPlay() override;
 
 private:
 	std::shared_ptr<UInputComponent> Input;
-	std::shared_ptr<UAnimatorComponent> Animator;
-	std::shared_ptr<USpriteRendererComponent> SpriteRenderer;
-	std::shared_ptr<URigidbody2DComponent> RigidBody2D;
-	std::shared_ptr<UBoxCollider2DComponent> BoxCollider2D;
+
+
+	
 };
 

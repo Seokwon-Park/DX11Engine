@@ -48,6 +48,8 @@ public:
 
 	float Dot(const FVector4& _Other) const;
 	float Length() const;
+	FVector4 Normalize();
+
 
 
 	//operators

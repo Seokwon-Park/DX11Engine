@@ -104,16 +104,13 @@ void UResourceManager::CreateDefaultMaterial()
 	UEngineMaterial::Create("Quad");
 
 	FMaterialDescription Desc;
-	Desc.VSName = "SpriteShaderVS";
-	Desc.PSName = "SpriteShaderPS";
+	Desc.VSName = "ColliderShaderVS";
+	Desc.PSName = "ColliderShaderPS";
 	Desc.InputLayoutName = "Quad";
 	Desc.BSName = "Default";
-	Desc.RSName = "Default";
+	Desc.RSName = "Wired";
 	Desc.DSSName = "Default";
 	UEngineMaterial::Create("ColliderDebug", Desc);
-
-
-
 }
 
 void UResourceManager::CreateDefaultShader()

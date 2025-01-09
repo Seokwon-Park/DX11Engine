@@ -2,7 +2,7 @@
 #include "EngineBase/EngineBase.h"
 #include <cmath>
 
-class FMath
+class BASE_API FMath
 {
 public:
 	inline static float Sqrt(float _Value) { return std::sqrtf(_Value); }
@@ -15,6 +15,10 @@ public:
 	inline static float Cosf(float _Radian) { return std::cosf(_Radian); }
 	
 	inline static float DegreeToRadian(float _Degree) { return _Degree * (PI / 180.0f); }
+	inline static float RadianToDegree(float _Radian) { return _Radian * (180.0f/ PI); }
+
+	static class FVector4 DegreeToRadian(class FVector4 _DegreeVec4);
+	static class FVector4 RadianToDegree(class FVector4 _RadianVec4);
 
 	template <typename T>
 	inline static T Max(T _AValue, T _BValue)

@@ -9,6 +9,6 @@ UEngineImGuiWindow::~UEngineImGuiWindow()
 {
 }
 
-void UEngineImGuiWindow::Update()
+void UEngineImGuiWindow::OnImGuiRender()
 {
 }

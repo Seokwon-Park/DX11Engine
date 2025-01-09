@@ -8,6 +8,7 @@
 class AActor : public UObject
 {
 	friend class ULevel;
+	friend class HierarchyWindow;
 public:
 	// constrcuter destructer
 	ENGINE_API AActor();
@@ -20,7 +21,7 @@ public:
 	AActor& operator=(AActor&& _Other) noexcept = delete;
 
 	template<typename ComponentType>
-	inline std::shared_ptr<ComponentType> CreateDefaultSubobject(std::string_view _Name = "")
+	inline std::shared_ptr<ComponentType> CreateDefaultSubobject()
 	{
 		static_assert(std::is_base_of_v<UActorComponent, ComponentType>,
 			"액터 컴포넌트를 상속받지 않은 클래스를 CreateDefaultSubObject하려고 했습니다.");
@@ -31,10 +32,19 @@ public:
 			return nullptr;
 		}
 
+		//이게 괜찮은지 모르겠네 ㅋ.
+		std::string TypeName = typeid(ComponentType).name();
+		size_t ix = 0;
+		while (TypeName[ix] != ' ')
+		{
+			ix++;
+		}
+		//공백의 위치 + U도 안붙게? (어차피 무조건 U 접두사가 붙어버리기 때문에)
+		TypeName = TypeName.substr(ix + 2);
 		ComponentType* ComponentPtr = new ComponentType();
 		UActorComponent* ActorPtr = reinterpret_cast<UActorComponent*>(ComponentPtr);
 		ActorPtr->Owner = this;
-		ActorPtr->SetName(_Name);
+		ActorPtr->SetName(TypeName);
 		std::shared_ptr<ComponentType> NewComponent(ComponentPtr);
 
 		//Scene Component는 SetupAttachment를 호출하지 않으면 생성해도 적용되지 않도록 한다.

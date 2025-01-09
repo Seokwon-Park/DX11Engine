@@ -7,7 +7,7 @@
     <ClCompile Include="Player.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
+    <ClCompile Include="BaseStateMachine.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
     <ClCompile Include="PlayerState.cpp">
@@ -19,6 +19,18 @@
     <ClCompile Include="TestGameMode.cpp">
       <Filter>GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStateMachine.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -27,7 +39,7 @@
     <ClInclude Include="Player.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="StateMachine.h">
+    <ClInclude Include="BaseStateMachine.h">
       <Filter>FSM</Filter>
     </ClInclude>
     <ClInclude Include="BaseState.h">
@@ -41,6 +53,18 @@
     </ClInclude>
     <ClInclude Include="TestGameMode.h">
       <Filter>GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStateMachine.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

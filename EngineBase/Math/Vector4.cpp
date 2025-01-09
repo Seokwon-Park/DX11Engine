@@ -73,9 +73,7 @@ FVector4 FVector4::Normalize(FVector4 _Value)
 {
 	float Len = Length(_Value);
 	FVector4 Result;
-	Result.X /= Len;
-	Result.Y /= Len;
-	Result.Z /= Len;
+	Result = _Value / Len;
 	return Result;
 }
 
@@ -87,6 +85,15 @@ float FVector4::Dot(const FVector4& _Other) const
 float FVector4::Length() const
 {
 	return X * X + Y * Y + Z * Z;
+}
+
+FVector4 FVector4::Normalize() 
+{
+	float Len = this->Length();
+	X /= Len;
+	Y /= Len;
+	Z /= Len;
+	return *this;
 }
 
 FVector4 FVector4::operator+(const FVector4& _Other) const

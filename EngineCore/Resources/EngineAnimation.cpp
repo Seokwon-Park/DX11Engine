@@ -65,6 +65,7 @@ void UEngineAnimation::CreateAnimation(std::string_view _AnimationName, std::str
 	NewAnimation->FrameIntervals = _FrameIntervals;
 	NewAnimation->IsLoop = _IsLoop;
 	NewAnimation->FrameEvents.resize(_FrameIndices.size(), UEngineDelegate());
+	NewAnimation->SetName(UpperName);
 
 	NewAnimation->Reset();
 

@@ -16,18 +16,21 @@ public:
 	ImGuiLayer& operator=(ImGuiLayer&& _Other) noexcept = delete;
 
 	static void Init();
-	static void OnImGuiRender();
-	static void RenderStart();
-	static void RenderEnd();
+	static void SetDarkThemeColors();
+	void OnImGuiRender();
+	void RenderStart();
+	void RenderEnd();
 	static void Shutdown();
 
-	void AddWindow(std::shared_ptr<UEngineImGuiWindow> _Window)
+
+
+	inline void AttachWindow(std::shared_ptr<UEngineImGuiWindow> _Window)
 	{
 		Windows.push_back(_Window);
 	}
 protected:
 
 private:
-	static std::list<std::shared_ptr<UEngineImGuiWindow>> Windows;
+	std::list<std::shared_ptr<UEngineImGuiWindow>> Windows;
 };
 

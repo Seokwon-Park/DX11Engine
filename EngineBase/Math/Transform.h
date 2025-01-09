@@ -14,5 +14,19 @@ public:
 
 	FMatrix WorldMatrix;
 
+	FVector4 GetFoward()
+	{
+		return FVector4::Normalize(WorldMatrix.Rows[2]);
+	}
+
+	FVector4 GetRight()
+	{
+		return FVector4::Normalize(WorldMatrix.Rows[0]);
+	}
+
+	FVector4 GetUp()
+	{
+		return FVector4::Normalize(WorldMatrix.Rows[1]);
+	}
 };
 

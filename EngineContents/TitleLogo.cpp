@@ -9,6 +9,7 @@ ATitleLogo::ATitleLogo()
 
 	Collider = CreateDefaultSubobject<UBoxCollider2DComponent>();
 	Collider->SetCollisionLayer(ECollisionLayer::Enemy);
+	Collider->SetRelativeScale3D(FVector4(1000.0f,100.0f, 1.0f));
 
 	SpriteRenderer->SetupAttachment(RootComponent);
 	Collider->SetupAttachment(RootComponent);

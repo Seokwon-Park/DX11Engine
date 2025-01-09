@@ -34,7 +34,7 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	Dir.AppendDirectory("Images/Tevi");
 
 	auto Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
-	Sprite->SetPivot(EPivotType::BottomCenter);
+	Sprite->SetPivot(EPivotType::Center);
 	//Sprite->SetPivot(FVector2(0.05f, 0.0f), 2);
 	//Sprite->SetPivot(FVector2(0.06f, 0.0f), 3);
 	UEngineAnimation::CreateAnimation("TeviIdle", "Tevi", 0,3, 0.1f);

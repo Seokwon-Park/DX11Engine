@@ -9,6 +9,7 @@
 class  ULevel : public UObject
 {
 public:
+	friend class HierarchyWindow;
 	// constrcuter destructer
 	ENGINE_API ULevel();
 	ENGINE_API ~ULevel();
@@ -25,17 +26,18 @@ public:
 
 	void Tick(float _DeltaTime);
 	void Render(float _DeltaTime);
+	
+	void PushCollider2D(std::shared_ptr<class UCollider2DComponent> _Renderer);
 
 	void PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer);
 	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer);
 
-	//void PushCollider(std::shared_ptr<class UColliderComponent> _Renderer);
 
 
 	std::shared_ptr<class ACameraActor> SpawnCamera(std::string_view _Name);
 
 	template<typename ActorType>
-	std::shared_ptr<ActorType> SpawnActor()
+	std::shared_ptr<ActorType> SpawnActor(std::string_view _Name = "")
 	{
 		static_assert(std::is_base_of_v<AActor, ActorType>, "액터를 상속받지 않은 클래스를 SpawnActor하려고 했습니다.");
 
@@ -48,6 +50,7 @@ public:
 		ActorType* ActorMemory = new ActorType();
 		AActor* ActorPtr = reinterpret_cast<ActorType*>(ActorMemory);
 		ActorPtr->Level = this;
+		ActorPtr->SetName(_Name);
 		std::shared_ptr<ActorType> NewActor(ActorMemory);
 
 		BeginPlayList.push_back(NewActor);
@@ -69,8 +72,8 @@ public:
 	template <typename GameModeType, typename MainPawnType>
 	void Create()
 	{
-		GameMode = SpawnActor<GameModeType>();
-		MainPawn = SpawnActor<MainPawnType>();
+		GameMode = SpawnActor<GameModeType>("GameMode");
+		MainPawn = SpawnActor<MainPawnType>("MainPawn");
 	}
 
 	inline b2WorldId GetPhysicsWorld() const { return WorldId; }
@@ -78,6 +81,7 @@ protected:
 
 private:
 	b2WorldId WorldId;
+	std::shared_ptr<class ImGuiLayer> GuiLayer;
 
 	std::shared_ptr<AGameMode> GameMode;
 	std::shared_ptr<AActor> MainPawn;
@@ -86,6 +90,7 @@ private:
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
 	std::map<std::pair<int,int>, std::list<std::shared_ptr<class USpriteRendererComponent>>> SpriteRenderers;
+	std::list<std::shared_ptr<class UCollider2DComponent>> Colliders2D;
 	std::map<std::string,std::shared_ptr<class UCameraComponent>> CameraComponents;
 	class UCameraComponent* CurrentCamera;
 };

@@ -27,6 +27,7 @@ public:
 	FMatrix GetViewMatrix();
 	FMatrix GetProjMatrix();
 
+	inline void SetProjectionType(EProjectionType _ProjectionType) { ProjectionType = _ProjectionType; }
 protected:
 private:
 	EProjectionType ProjectionType = EProjectionType::Orthographic;

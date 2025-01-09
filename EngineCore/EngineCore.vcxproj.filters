@@ -63,6 +63,7 @@
     <ClCompile Include="GUI\HierarchyWindow.cpp" />
     <ClCompile Include="Components\Rigidbody2DComponent.cpp" />
     <ClCompile Include="States\EngineState.cpp" />
+    <ClCompile Include="Components\Collider2DComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -135,6 +136,7 @@
     <ClInclude Include="ThirdParty\Box2D\include\types.h" />
     <ClInclude Include="Components\Rigidbody2DComponent.h" />
     <ClInclude Include="States\EngineState.h" />
+    <ClInclude Include="Components\Collider2DComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -146,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\SpriteShader.hlsl" />
+    <None Include="Shaders\ColliderShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />

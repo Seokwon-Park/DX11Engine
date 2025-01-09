@@ -160,7 +160,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Entity.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -168,11 +180,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerStateMachine.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TestGameMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="StateMachine.cpp">
+    <ClCompile Include="BaseStateMachine.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -195,7 +211,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseState.h" />
+    <ClInclude Include="Entity.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -203,11 +231,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerStateMachine.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TestGameMode.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="StateMachine.h">
+    <ClInclude Include="BaseStateMachine.h">
       <SubType>
       </SubType>
     </ClInclude>
