@@ -30,6 +30,7 @@ public:
 	void PushCollider2D(std::shared_ptr<class UCollider2DComponent> _Renderer);
 
 	void PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer);
+	void PushTilemapRenderer(std::shared_ptr<class UTilemapRendererComponent> _Renderer);
 	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer);
 
 
@@ -69,6 +70,12 @@ public:
 		return dynamic_pointer_cast<ActorType>(MainPawn);
 	}
 
+	class UCameraComponent* GetMainCamera()
+	{
+		return CurrentCamera;
+	}
+
+
 	template <typename GameModeType, typename MainPawnType>
 	void Create()
 	{
@@ -91,7 +98,7 @@ private:
 	std::list<std::shared_ptr<class AActor>> BeginPlayList;
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
-	std::map<std::pair<int,int>, std::list<std::shared_ptr<class USpriteRendererComponent>>> SpriteRenderers;
+	std::map<std::pair<int,int>, std::list<std::shared_ptr<class URendererComponent>>> SpriteRenderers;
 	std::list<std::shared_ptr<class UCollider2DComponent>> Colliders2D;
 	std::map<std::string,std::shared_ptr<class UCameraComponent>> CameraComponents;
 	class UCameraComponent* CurrentCamera;

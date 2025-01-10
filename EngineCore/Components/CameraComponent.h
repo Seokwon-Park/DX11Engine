@@ -24,8 +24,8 @@ public:
 
 	void CalculateView();
 	void CalculateProj();
-	FMatrix GetViewMatrix();
-	FMatrix GetProjMatrix();
+	ENGINE_API FMatrix GetViewMatrix();
+	ENGINE_API FMatrix GetProjMatrix();
 
 	inline void SetProjectionType(EProjectionType _ProjectionType) { ProjectionType = _ProjectionType; }
 protected:

@@ -38,6 +38,7 @@ public:
 
 	FMatrix();
 
+	void MatrixInverse();
 	void MatrixIdentity();
 	void MatrixTranspose();
 
@@ -55,6 +56,7 @@ public:
 	void MatrixOrthoFovLH(float _Fov, float _AspectRatio, float _Near, float _Far);
 
 	FMatrix operator*(FMatrix _Mat);
+	FVector4 operator*(FVector4 _Vec4);
 
 	static inline friend std::ostream& operator<<(std::ostream& _Ostream, const FMatrix& _Matrix)
 	{

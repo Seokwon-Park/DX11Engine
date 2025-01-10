@@ -111,6 +111,14 @@ void UResourceManager::CreateDefaultMaterial()
 	Desc.RSName = "Wired";
 	Desc.DSSName = "Default";
 	UEngineMaterial::Create("ColliderDebug", Desc);
+
+	Desc.VSName = "TilemapShaderVS";
+	Desc.PSName = "TilemapShaderPS";
+	Desc.InputLayoutName = "Quad";
+	Desc.BSName = "Default";
+	Desc.RSName = "Default";
+	Desc.DSSName = "Default";
+	UEngineMaterial::Create("Tilemap", Desc);
 }
 
 void UResourceManager::CreateDefaultShader()
@@ -124,7 +132,6 @@ void UResourceManager::CreateDefaultShader()
 	{
 		std::shared_ptr<UEngineShader> VertexShader = UEngineShaderFactory::Create(File, EShaderType::VS);
 		std::shared_ptr<UEngineShader> PixelShader = UEngineShaderFactory::Create(File, EShaderType::PS);
-		//AddResource(PixelShader, Info.name(), "QuadPS", Dir.ToString());
 	}
 
 }

@@ -5,6 +5,8 @@
 #include <EngineCore/Level.h>
 #include "TitleLogo.h"
 
+#include <EngineCore/EngineCore.h>
+
 UTilemapEditorWindow::UTilemapEditorWindow(ULevel* _Level)
 	:Level(_Level)
 {
@@ -17,6 +19,34 @@ UTilemapEditorWindow::~UTilemapEditorWindow()
 
 void UTilemapEditorWindow::OnImGuiRender()
 {
+
+	// 나중에 따로 뺄것. 마우스 좌표 변환.
+
+
+	auto pos = UEngineCore::GetMainWindow().GetMousePos();
+	auto size = UEngineCore::GetMainWindow().GetWindowSize();
+	// 마우스 커서의 위치를 NDC로 변환
+	// 마우스 커서는 좌측 상단 (0, 0), 우측 하단(width-1, height-1)
+	// NDC는 좌측 하단이 (-1, -1), 우측 상단(1, 1)
+	float CursorX = pos.X * 2.0f / size.X - 1.0f;
+	float CursorY = -pos.Y * 2.0f / size.Y + 1.0f;
+
+	// 커서가 화면 밖으로 나갔을 경우 범위 조절
+	// 게임에서는 클램프를 안할 수도 있습니다.
+	CursorX = FMath::Clamp(CursorX, -1.0f, 1.0f);
+	CursorY = FMath::Clamp(CursorY, -1.0f, 1.0f);
+
+	auto Viewmat = Level->GetMainCamera()->GetViewMatrix();
+	auto Projmat = Level->GetMainCamera()->GetProjMatrix();
+
+	auto VP = Viewmat * Projmat;
+	VP.MatrixInverse();
+
+	FVector4 WorldCoord = VP * FVector4(CursorX, CursorY, 0.0f, 1.0f);
+
+	std::cout << WorldCoord.X << ", " << WorldCoord.Y << '\n';
+	///////////////나중에 따로 빼세용
+
 	ImGui::Begin(GetName().c_str());
 	std::vector<const char*> Arr;
 	Arr.push_back("Monster");
@@ -24,7 +54,21 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	ImGui::ListBox("SpawnList", &SelectItem, &Arr[0], 2);
 
-	if (true == UEngineInputSystem::GetKeyDown(EKey::MouseLeft) && true == UEngineInputSystem::GetKeyDown(EKey::LControl))
+	ImGui::InputInt("TileMapX", &TileCountX);
+	ImGui::InputInt("TileMapY", &TileCountY);
+
+	if (ImGui::Button("TileMap Create"))
+	{
+		for (int y = 0; y < TileCountY; y++)
+		{
+			for (int x = 0; x < TileCountX; x++)
+			{
+				TileMapRenderer->SetTile(x, y, 0);
+			}
+		}
+	}
+
+	if (true == UEngineInputSystem::GetKeyDown(EKey::Space))
 	{
 		//ESpawnList SelectMonster = static_cast<ESpawnList>(SelectItem);
 		//std::shared_ptr<class ACameraActor> Camera = Level->GetMainCamera();
@@ -32,8 +76,8 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-
-		Level->SpawnActor<ATitleLogo>("TileTest");
+		TileMapRenderer->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), 5);
+		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)
 		//{

@@ -36,6 +36,12 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 
 	auto Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
 	Sprite->SetPivot(EPivotType::Center);
+
+	Dir.MoveParentToDirectory("Resources");
+	Dir.AppendDirectory("Images/Area0");
+	Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+	Sprite->SetPivot(EPivotType::Center);
+
 	//Sprite->SetPivot(FVector2(0.05f, 0.0f), 2);
 	//Sprite->SetPivot(FVector2(0.06f, 0.0f), 3);
 	UEngineAnimation::CreateAnimation("TeviIdle", "Tevi", 0,3, 0.1f);
@@ -45,8 +51,8 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");
-	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TileMapEditor");
-	UEngineCore::OpenLevel("TileMapEditor");
+	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TilemapEditor");
+	UEngineCore::OpenLevel("TilemapEditor");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

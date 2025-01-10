@@ -86,7 +86,6 @@ void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTim
 	SpriteRenderUnit->SetConstantBufferData("PSColor", EShaderType::PS, test);
 	SpriteRenderUnit->SetTexture("SpriteTexture", EShaderType::PS, SpriteData.Texture);
 	SpriteRenderUnit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
-	
 
 	URendererComponent::Render(_Camera, _DeltaTime);
 }

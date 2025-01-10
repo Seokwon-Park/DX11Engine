@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include <EngineCore/Components/TilemapRendererComponent.h>
 
 // Ό³Έν :
 class ATilemapEditorGameMode : public AGameMode
@@ -20,6 +21,6 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-
+	std::shared_ptr<UTilemapRendererComponent> Tilemap;
 };
 

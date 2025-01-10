@@ -22,21 +22,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>FSM</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerIdleState.cpp">
-      <Filter>Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerRunState.cpp">
-      <Filter>Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerGroundState.cpp">
-      <Filter>Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerJumpState.cpp">
-      <Filter>Player\States</Filter>
-    </ClCompile>
     <ClCompile Include="TilemapEditorGameMode.cpp">
       <Filter>GameMode</Filter>
     </ClCompile>
@@ -45,6 +30,21 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGroundState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerIdleState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerRunState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Player\PlayerState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,21 +72,6 @@
     <ClInclude Include="Entity.h">
       <Filter>FSM</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerIdleState.h">
-      <Filter>Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerRunState.h">
-      <Filter>Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerGroundState.h">
-      <Filter>Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerJumpState.h">
-      <Filter>Player\States</Filter>
-    </ClInclude>
     <ClInclude Include="TilemapEditorGameMode.h">
       <Filter>GameMode</Filter>
     </ClInclude>
@@ -95,6 +80,21 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGroundState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerIdleState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerRunState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Player\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +112,9 @@
     </Filter>
     <Filter Include="Enemy">
       <UniqueIdentifier>{c0e49f62-e7df-488e-8802-fd52eab49859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player\PlayerState">
+      <UniqueIdentifier>{1d21152d-c535-49e8-89e5-69f8754de795}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

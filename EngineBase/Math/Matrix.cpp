@@ -6,6 +6,12 @@ FMatrix::FMatrix()
 	this->MatrixIdentity();
 }
 
+void FMatrix::MatrixInverse()
+{
+	Mat = DirectX::XMMatrixInverse(nullptr, Mat);
+}
+
+
 void FMatrix::MatrixIdentity()
 {
 	Mat = DirectX::XMMatrixIdentity();
@@ -80,9 +86,17 @@ void FMatrix::MatrixOrthoLH(float _Width, float _Height, float _Near, float _Far
 
 FMatrix FMatrix::operator*(FMatrix _Mat)
 {
-	DirectX::XMMATRIX Mat = DirectX::XMMatrixMultiply(this->Mat, _Mat.Mat);
+	DirectX::XMMATRIX XMMat = DirectX::XMMatrixMultiply(Mat, _Mat.Mat);
 	FMatrix Result;
-	Result.Mat = Mat;
+	Result.Mat = XMMat;
+	return Result;
+}
+
+FVector4 FMatrix::operator*(FVector4 _Vec4)
+{
+	DirectX::XMVECTOR XMVector = DirectX::XMVector3Transform(DirectX::XMLoadFloat4A(&_Vec4.XMFloat), Mat);
+	FVector4 Result;
+	DirectX::XMStoreFloat4A(&Result.XMFloat, XMVector);
 	return Result;
 }
 

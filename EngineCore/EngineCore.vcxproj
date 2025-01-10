@@ -553,6 +553,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\TilemapShader.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

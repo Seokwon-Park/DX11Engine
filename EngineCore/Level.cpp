@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "Components/Collider2DComponent.h"
 #include "Components/SpriteRendererComponent.h"
+#include "Components/TilemapRendererComponent.h"
 #include "EngineCore.h"
 #include "EngineDeviceContext.h"
 #include "GUI/ImGuiLayer.h"
@@ -58,9 +59,9 @@ void ULevel::Render(float _DeltaTime)
 {
 	UEngineCore::GetGraphicsDeviceContext()->ClearRenderTarget();
 
-	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<USpriteRendererComponent>>>& RenderGroup : SpriteRenderers)
+	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<URendererComponent>>>& RenderGroup : SpriteRenderers)
 	{
-		std::list<std::shared_ptr<USpriteRendererComponent>>& RenderList = RenderGroup.second;
+		std::list<std::shared_ptr<URendererComponent>>& RenderList = RenderGroup.second;
 
 		for (std::shared_ptr<URendererComponent> Renderer : RenderList)
 		{
@@ -84,6 +85,12 @@ void ULevel::PushCollider2D(std::shared_ptr<class UCollider2DComponent> _Rendere
 void ULevel::PushRenderer(std::shared_ptr<class USpriteRendererComponent> _Renderer)
 {
 	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
+}
+
+void ULevel::PushTilemapRenderer(std::shared_ptr< UTilemapRendererComponent> _Renderer)
+{
+	std::pair<int, int> Tempkey = { 0,0 };
+	SpriteRenderers[Tempkey].push_back(_Renderer);
 }
 
 void ULevel::ChangeRenderOrder(std::pair<int,int> _PrevRenderOrder, std::shared_ptr<USpriteRendererComponent> _Renderer)

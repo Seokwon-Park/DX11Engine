@@ -16,6 +16,12 @@ public:
 	FIntPoint();
 	FIntPoint(int _X, int _Y);
 
+	static friend std::ostream& operator<<(std::ostream& _Ostream, const FIntPoint& _Point)
+	{
+		_Ostream << "(" << _Point.X << ", " << _Point.Y << ")";
+		return _Ostream;
+	}
+
 	FIntPoint operator+(const FIntPoint& _Other) const;
 	FIntPoint operator-(const FIntPoint& _Other) const;
 	FIntPoint operator/(int _Value) const;

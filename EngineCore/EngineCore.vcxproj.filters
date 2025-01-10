@@ -153,6 +153,7 @@
   <ItemGroup>
     <None Include="Shaders\SpriteShader.hlsl" />
     <None Include="Shaders\ColliderShader.hlsl" />
+    <None Include="Shaders\TilemapShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />
