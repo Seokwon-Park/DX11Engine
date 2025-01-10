@@ -53,7 +53,7 @@ void ImGuiLayer::Init()
 	UEngineCore::GetMainWindow().SetUserWndProc(WndProc);
 }
 
-void ImGuiLayer::OnImGuiRender()
+void ImGuiLayer::OnImGuiRender()	
 {
 	if (false == UEngineCore::GetMainWindow().GetIsLoopActive())
 	{

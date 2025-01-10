@@ -143,7 +143,7 @@ public:
 		// 0x97-9F Unassigned
 		Lshift = 0xA0, // Left SHIFT key
 		Rshift = 0xA1, // Right SHIFT key
-		Lcontrol = 0xA2, // Left CONTROL key
+		LControl = 0xA2, // Left CONTROL key
 		Rcontrol = 0xA3, // Right CONTROL key
 		LAlt = 0xA4, // Left ALT key
 		RAlt = 0xA5, // Right ALT key

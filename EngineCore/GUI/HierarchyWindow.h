@@ -1,23 +1,22 @@
 #pragma once
 #include "EngineImGuiWindow.h"
 #include <EngineBase/EngineMath.h>
-#include <EngineCore/ThirdParty/IMGUI/imgui.h>
 #include <EngineCore/Components/ActorComponent.h>
 #include <EngineCore/Components/AnimatorComponent.h>
 
 // Ό³Έν :
-class HierarchyWindow : public UEngineImGuiWindow
+class UHierarchyWindow : public UEngineImGuiWindow
 {
 public:
 	// constrcuter destructer
-	HierarchyWindow(class ULevel* _Level);
-	~HierarchyWindow();
+	UHierarchyWindow(class ULevel* _Level);
+	~UHierarchyWindow();
 
 	// delete Function
-	HierarchyWindow(const HierarchyWindow& _Other) = delete;
-	HierarchyWindow(HierarchyWindow&& _Other) noexcept = delete;
-	HierarchyWindow& operator=(const HierarchyWindow& _Other) = delete;
-	HierarchyWindow& operator=(HierarchyWindow&& _Other) noexcept = delete;
+	UHierarchyWindow(const UHierarchyWindow& _Other) = delete;
+	UHierarchyWindow(UHierarchyWindow&& _Other) noexcept = delete;
+	UHierarchyWindow& operator=(const UHierarchyWindow& _Other) = delete;
+	UHierarchyWindow& operator=(UHierarchyWindow&& _Other) noexcept = delete;
 
 	virtual void OnImGuiRender() override;
 	void DrawActor(std::shared_ptr<class AActor>& _Actor);

@@ -1,21 +1,20 @@
 #include "EnginePCH.h"
 #include "HierarchyWindow.h"
-#include <EngineCore/ThirdParty/IMGUI/imgui_internal.h>
 #include <EngineCore/Level.h>
 #include <EngineCore/Components/SceneComponent.h>
 
-HierarchyWindow::HierarchyWindow(ULevel* _Level)
+UHierarchyWindow::UHierarchyWindow(ULevel* _Level)
 	:Level(_Level)
 {
 	SetName("HierarchyPanel");
 }
 
 
-HierarchyWindow::~HierarchyWindow()
+UHierarchyWindow::~UHierarchyWindow()
 {
 }
 
-void HierarchyWindow::OnImGuiRender()
+void UHierarchyWindow::OnImGuiRender()
 {
 	ImGui::Begin(GetName().c_str());
 	for (auto Actor : Level->AllActorList)
@@ -38,7 +37,7 @@ void HierarchyWindow::OnImGuiRender()
 
 }
 
-void HierarchyWindow::DrawActor(std::shared_ptr<AActor>& _Actor)
+void UHierarchyWindow::DrawActor(std::shared_ptr<AActor>& _Actor)
 {
 	ImGuiTreeNodeFlags Flags = ImGuiTreeNodeFlags_Leaf;
 	//ImGuiTreeNodeFlags flags = ((m_SelectionContext == entity) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow;
@@ -53,7 +52,7 @@ void HierarchyWindow::DrawActor(std::shared_ptr<AActor>& _Actor)
 	ImGui::TreePop();
 }
 
-void HierarchyWindow::DrawVec3Control(const std::string& _Label, FVector4& _Values, float _ResetValue = 0.0f, float _ColumnWidth = 100.0f)
+void UHierarchyWindow::DrawVec3Control(const std::string& _Label, FVector4& _Values, float _ResetValue = 0.0f, float _ColumnWidth = 100.0f)
 {
 	ImGuiIO& io = ImGui::GetIO();
 	auto boldFont = io.Fonts->Fonts[0];
@@ -125,7 +124,7 @@ void HierarchyWindow::DrawVec3Control(const std::string& _Label, FVector4& _Valu
 	ImGui::PopID();
 }
 
-void HierarchyWindow::GetAllSceneComponent(std::shared_ptr<USceneComponent> _Parent, std::vector<std::shared_ptr<USceneComponent>>& _Result)
+void UHierarchyWindow::GetAllSceneComponent(std::shared_ptr<USceneComponent> _Parent, std::vector<std::shared_ptr<USceneComponent>>& _Result)
 {
 	std::list<std::shared_ptr<USceneComponent>> Childs = _Parent->GetChilds();
 	for (std::shared_ptr<USceneComponent> Child : Childs)
@@ -134,7 +133,7 @@ void HierarchyWindow::GetAllSceneComponent(std::shared_ptr<USceneComponent> _Par
 	}
 }
 
-void HierarchyWindow::DrawComponents(std::shared_ptr<class AActor>& _Actor)
+void UHierarchyWindow::DrawComponents(std::shared_ptr<class AActor>& _Actor)
 {
 	std::shared_ptr<USceneComponent>& RootComponent = _Actor->RootComponent;
 	const ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_DefaultOpen

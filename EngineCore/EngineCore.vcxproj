@@ -180,6 +180,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Components\TilemapRendererComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GUI\DevTestWindow.h" />
     <ClInclude Include="GUI\HierarchyWindow.h">
       <SubType>
       </SubType>
@@ -367,6 +372,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Components\TilemapRendererComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GUI\DevTestWindow.cpp" />
     <ClCompile Include="GUI\HierarchyWindow.cpp">
       <SubType>
       </SubType>

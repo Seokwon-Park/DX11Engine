@@ -19,6 +19,7 @@ public:
 
 	inline std::filesystem::path GetPath() const { return Path; };
 	BASE_API std::string ToString();
+	//현재 위치의 파일 또는 폴더명을 가져옵니다.
 	BASE_API std::string GetCurrentName();
 	BASE_API std::string GetFileExtension();
 	BASE_API std::string GetFileNameWithoutExtension();

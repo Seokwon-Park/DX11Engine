@@ -64,6 +64,8 @@
     <ClCompile Include="Components\Rigidbody2DComponent.cpp" />
     <ClCompile Include="States\EngineState.cpp" />
     <ClCompile Include="Components\Collider2DComponent.cpp" />
+    <ClCompile Include="GUI\DevTestWindow.cpp" />
+    <ClCompile Include="Components\TilemapRendererComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -137,6 +139,8 @@
     <ClInclude Include="Components\Rigidbody2DComponent.h" />
     <ClInclude Include="States\EngineState.h" />
     <ClInclude Include="Components\Collider2DComponent.h" />
+    <ClInclude Include="GUI\DevTestWindow.h" />
+    <ClInclude Include="Components\TilemapRendererComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

@@ -1,7 +1,6 @@
 #include "EnginePCH.h"
 #include "EngineWindow.h"
 #include <EngineBase/EngineDebug.h>
-#include <EngineCore/ThirdParty/IMGUI/imgui_impl_win32.h>
 
 HINSTANCE UEngineWindow::HInstance = nullptr;
 std::map<std::string, WNDCLASSEXA> UEngineWindow::WindowClasses;

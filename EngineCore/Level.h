@@ -9,7 +9,7 @@
 class  ULevel : public UObject
 {
 public:
-	friend class HierarchyWindow;
+	friend class UHierarchyWindow;
 	// constrcuter destructer
 	ENGINE_API ULevel();
 	ENGINE_API ~ULevel();
@@ -77,6 +77,8 @@ public:
 	}
 
 	inline b2WorldId GetPhysicsWorld() const { return WorldId; }
+	ENGINE_API void AddGuiWindow(std::shared_ptr<class UEngineImGuiWindow> _Window);
+
 protected:
 
 private:

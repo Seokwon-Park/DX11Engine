@@ -103,8 +103,10 @@ UEngineFile UEngineDirectory::GetFile(std::string_view _FileName)
 
 	if (false == FilePath.IsExists())
 	{
-		MSGASSERT("존재하지 않는 파일을 객체화하려고 했습니다.");
+		//로거로 대체해야함.
+		std::cout << FilePath.ToString() + " Not Exist. New File Created.\n";
 	}
 
 	return UEngineFile(FilePath.GetPath());
 }
+

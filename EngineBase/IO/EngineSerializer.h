@@ -6,8 +6,8 @@ class UEngineSerializer
 {
 public:
 	// constrcuter destructer
-	UEngineSerializer();
-	~UEngineSerializer();
+	BASE_API UEngineSerializer();
+	BASE_API ~UEngineSerializer();
 
 	// delete Function
 	UEngineSerializer(const UEngineSerializer& _Other) = delete;
@@ -16,12 +16,13 @@ public:
 	UEngineSerializer& operator=(UEngineSerializer&& _Other) noexcept = delete;
 
 	//Save
-	void Write(void* _Data, unsigned int _Size);
-	inline void operator<<(int& _Data) { Write(&_Data, sizeof(int)); }
-	inline void operator<<(bool& _Data) { Write(&_Data, sizeof(bool)); }
-	inline void operator<<(FVector4& _Data) { Write(&_Data, sizeof(FVector4)); }
-	inline void operator<<(FIntPoint& _Data) { Write(&_Data, sizeof(FIntPoint)); }
-	inline void operator<<(std::string& _Data)
+	BASE_API void Write(const void* _Data, unsigned int _Size);
+
+	inline void operator<<(const int& _Data) { Write(&_Data, sizeof(int)); }
+	inline void operator<<(const bool& _Data) { Write(&_Data, sizeof(bool)); }
+	inline void operator<<(const FVector4& _Data) { Write(&_Data, sizeof(FVector4)); }
+	inline void operator<<(const FIntPoint& _Data) { Write(&_Data, sizeof(FIntPoint)); }
+	inline void operator<<(const std::string& _Data)
 	{
 		int Size = static_cast<int>(_Data.size());
 		operator<<(Size);
@@ -42,7 +43,7 @@ public:
 	void operator<<(class ISerializableObject& _Data);
 
 	//Load
-	void Read(void* _Data, unsigned int _Size);
+	BASE_API void Read(void* _Data, unsigned int _Size);
 	void operator>>(int& _Data) { Read(&_Data, sizeof(int)); }
 	void operator>>(bool& _Data) { Read(&_Data, sizeof(bool)); }
 	void operator>>(FVector4& _Data) { Read(&_Data, sizeof(FVector4)); }
@@ -103,8 +104,8 @@ class ISerializableObject
 {
 public:
 	// 데이터를 직렬화(압축)
-	virtual void Serialize(UEngineSerializer& _Serializer) = 0;
+	BASE_API virtual void Serialize(UEngineSerializer& _Serializer) = 0;
 	// 데이터를 복구(할때)
-	virtual void DeSerialize(UEngineSerializer& _Serializer) = 0;
+	BASE_API virtual void DeSerialize(UEngineSerializer& _Serializer) = 0;
 };
 

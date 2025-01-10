@@ -31,6 +31,15 @@
     <ClCompile Include="PlayerRunState.cpp">
       <Filter>Player</Filter>
     </ClCompile>
+    <ClCompile Include="TilemapEditorGameMode.cpp">
+      <Filter>GameMode</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapEditorWindow.cpp">
+      <Filter>GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -66,6 +75,15 @@
     <ClInclude Include="PlayerRunState.h">
       <Filter>Player</Filter>
     </ClInclude>
+    <ClInclude Include="TilemapEditorGameMode.h">
+      <Filter>GameMode</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapEditorWindow.h">
+      <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Player">
@@ -76,6 +94,12 @@
     </Filter>
     <Filter Include="GameMode">
       <UniqueIdentifier>{c7cbe238-28f2-487b-81c8-0b371ca35338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{00e33039-c869-4782-8775-285082060701}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{c0e49f62-e7df-488e-8802-fd52eab49859}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

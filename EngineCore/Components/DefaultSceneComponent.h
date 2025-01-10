@@ -7,7 +7,7 @@ class UDefaultSceneComponent : public USceneComponent
 public:
 	// Constrcuter Destructer
 	ENGINE_API UDefaultSceneComponent();
-	ENGINE_API ~UDefaultSceneComponent();
+	ENGINE_API virtual ~UDefaultSceneComponent();
 
 	// Delete Function
 	UDefaultSceneComponent(const UDefaultSceneComponent& _Other) = delete;

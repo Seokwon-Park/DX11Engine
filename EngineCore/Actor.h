@@ -8,7 +8,7 @@
 class AActor : public UObject
 {
 	friend class ULevel;
-	friend class HierarchyWindow;
+	friend class UHierarchyWindow;
 public:
 	// constrcuter destructer
 	ENGINE_API AActor();

@@ -6,6 +6,7 @@
 #include "EngineDeviceContext.h"
 #include "GUI/ImGuiLayer.h"
 #include "GUI/HierarchyWindow.h"
+#include "GUI/DevTestWindow.h"
 #include <EngineCore/Components/CameraComponent.h>
 
 ULevel::ULevel()
@@ -14,11 +15,12 @@ ULevel::ULevel()
 	CurrentCamera->SetLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
 
 	b2WorldDef worldDef = b2DefaultWorldDef();
-	worldDef.gravity = b2Vec2(0.0f, -100.0f);
+	worldDef.gravity = b2Vec2(0.0f, -100.0f); 
 	WorldId = b2CreateWorld(&worldDef);
 
 	GuiLayer = std::make_shared<ImGuiLayer>();
-	GuiLayer->AttachWindow(std::make_shared<HierarchyWindow>(this));
+	GuiLayer->AttachWindow(std::make_shared<UHierarchyWindow>(this));
+	GuiLayer->AttachWindow(std::make_shared<UDevTestWindow>());
 }
 
 ULevel::~ULevel()
@@ -96,4 +98,9 @@ std::shared_ptr<ACameraActor> ULevel::SpawnCamera(std::string_view _Name)
 	CameraComponents.insert(std::make_pair(_Name, CameraActor->GetCameraComponent()));
 
 	return CameraActor;
+}
+
+void ULevel::AddGuiWindow(std::shared_ptr<class UEngineImGuiWindow> _Window)
+{
+	GuiLayer->AttachWindow(_Window);
 }

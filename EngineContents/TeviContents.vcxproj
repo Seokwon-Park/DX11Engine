@@ -160,6 +160,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <SubType>
       </SubType>
@@ -200,6 +204,14 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TilemapEditorGameMode.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TilemapEditorWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
       <SubType>
       </SubType>
@@ -211,6 +223,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseState.h" />
+    <ClInclude Include="Enemy.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Entity.h">
       <SubType>
       </SubType>
@@ -245,6 +261,14 @@
     </ClInclude>
     <ClInclude Include="TeviContentsCore.h" />
     <ClInclude Include="EnginePCH.h" />
+    <ClInclude Include="TilemapEditorGameMode.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TilemapEditorWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TitleLogo.h">
       <SubType>
       </SubType>
