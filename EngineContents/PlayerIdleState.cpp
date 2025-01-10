@@ -3,7 +3,7 @@
 #include "Player.h"
 
 PlayerIdleState::PlayerIdleState(APlayer* _Player, BaseStateMachine* _StateMachine, std::string_view _AnimationName)
-	:PlayerState(_Player, _StateMachine, _AnimationName)
+	:PlayerGroundState(_Player, _StateMachine, _AnimationName)
 {
 }
 
@@ -13,20 +13,20 @@ PlayerIdleState::~PlayerIdleState()
 
 void PlayerIdleState::Enter()
 {
-	PlayerState::Enter();
+	PlayerGroundState::Enter();
 
 	Player->SetVelocity({0.0f, 0.0f});
 }
 
 void PlayerIdleState::Update()
 {
-	PlayerState::Update();
+	PlayerGroundState::Update();
 
 	if (XInput != 0.0f)
-		StateMachine->ChangeState(Player->RunState.get());
+		StateMachine->ChangeState(Player->RunState);
 }
 
 void PlayerIdleState::Exit()
 {
-	PlayerState::Exit();
+	PlayerGroundState::Exit();
 }

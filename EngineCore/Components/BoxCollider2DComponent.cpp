@@ -26,7 +26,7 @@ void UBoxCollider2DComponent::DebugRender(UCameraComponent* _Camera, float _Delt
 	VC.Proj.MatrixTranspose();
 
 	float Temp[4] = { 0.5f,0.5f,0.0f,0.0f };
-	auto test = FColor(1.0f, 0.0f, 0.0f, 1.0f);
+	auto test = FColor(0.0f, 1.0f, 0.0f, 1.0f);
 	ColliderDebugRenderUnit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 	ColliderDebugRenderUnit->SetConstantBufferData("Offset", EShaderType::VS, Temp);
 	ColliderDebugRenderUnit->SetConstantBufferData("DebugColor", EShaderType::PS, test);

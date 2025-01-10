@@ -6,6 +6,7 @@
 #include "PlayerStateMachine.h"
 #include "PlayerIdleState.h"
 #include "PlayerRunState.h"
+#include "PlayerJumpState.h"
 
 // Ό³Έν :
 class APlayer : public AEntity
@@ -28,6 +29,10 @@ public:
 	std::shared_ptr<PlayerStateMachine> StateMachine;
 	std::shared_ptr<PlayerIdleState> IdleState;
 	std::shared_ptr<PlayerRunState> RunState;
+	std::shared_ptr<PlayerJumpState> JumpState;
+
+	float JumpForce = 1000.0f;
+
 protected:
 	virtual void BeginPlay() override;
 

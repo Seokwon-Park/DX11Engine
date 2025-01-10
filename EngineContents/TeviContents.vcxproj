@@ -172,7 +172,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerGroundState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerIdleState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerJumpState.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -235,7 +243,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerGroundState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PlayerIdleState.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerJumpState.h">
       <SubType>
       </SubType>
     </ClInclude>

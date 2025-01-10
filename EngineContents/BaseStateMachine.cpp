@@ -12,13 +12,13 @@ BaseStateMachine::~BaseStateMachine()
 }
 
 
-void BaseStateMachine::InitState(BaseState* _NextState)
+void BaseStateMachine::InitState(std::shared_ptr<BaseState> _NextState)
 {
 	CurrentState = _NextState;
 	CurrentState->Enter();
 }
 
-void BaseStateMachine::ChangeState(BaseState* _NextState)
+void BaseStateMachine::ChangeState(std::shared_ptr<BaseState> _NextState)
 {
 	CurrentState->Exit();
 	CurrentState = _NextState;

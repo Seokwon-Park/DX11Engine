@@ -1,8 +1,8 @@
 #pragma once
-#include "PlayerState.h"
+#include "PlayerGroundState.h"
 
 // Ό³Έν :
-class PlayerRunState : public PlayerState
+class PlayerRunState : public PlayerGroundState
 {
 public:
 	// constrcuter destructer

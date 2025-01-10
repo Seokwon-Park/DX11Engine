@@ -41,6 +41,7 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineAnimation::CreateAnimation("TeviIdle", "Tevi", 0,3, 0.1f);
 	UEngineAnimation::CreateAnimation("TeviWalk", "Tevi", 4, 9, 0.2f);
 	UEngineAnimation::CreateAnimation("TeviRun", "Tevi", 11, 16, 0.1f);
+	UEngineAnimation::CreateAnimation("TeviJump", "Tevi", 20, 24, 0.1f, false);
 
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");

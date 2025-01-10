@@ -1,8 +1,8 @@
 #pragma once
-#include "PlayerState.h"
+#include "PlayerGroundState.h"
 
 // 설명 :
-class PlayerIdleState : public PlayerState
+class PlayerIdleState : public PlayerGroundState
 {
 public:
 	// constrcuter destructer
@@ -19,9 +19,7 @@ protected:
 private:
 	// PlayerState을(를) 통해 상속됨
 	void Enter() override;
-
 	void Update() override;
-
 	void Exit() override;
 
 };

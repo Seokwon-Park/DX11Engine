@@ -14,10 +14,10 @@ public:
 	BaseStateMachine& operator=(const BaseStateMachine& _Other) = delete;
 	BaseStateMachine& operator=(BaseStateMachine&& _Other) noexcept = delete;
 
-	virtual void InitState(class BaseState* _NextState);
-	virtual void ChangeState(class BaseState* _NextState);
+	virtual void InitState(std::shared_ptr<class BaseState> _NextState);
+	virtual void ChangeState(std::shared_ptr<class BaseState> _NextState);
 
-	class BaseState* CurrentState = nullptr;
+	std::shared_ptr<BaseState> CurrentState = nullptr;
 protected:
 
 private:
