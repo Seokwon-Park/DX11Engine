@@ -24,7 +24,6 @@ public:
 
 	virtual void Tick(float _DeltaTime) override;
 
-	void SetVelocity(FVector2 _Velocity);
 
 	std::shared_ptr<PlayerStateMachine> StateMachine;
 	std::shared_ptr<PlayerIdleState> IdleState;

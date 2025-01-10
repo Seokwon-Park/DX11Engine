@@ -25,7 +25,11 @@ public:
 	inline URigidbody2DComponent* GetRigidbody2DComponent() { return RigidBody2D.get(); }
 	inline UBoxCollider2DComponent* GetBoxCollider2DComponent() { return BoxCollider2D.get(); }
 
+	void Flip();
+	void SetVelocity(FVector2 _Velocity);
+
 	virtual void Tick(float _DeltaTime) override;
+	int FacingDir = 1;
 protected:
 	virtual void BeginPlay() override;
 

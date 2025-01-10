@@ -32,8 +32,3 @@ void APlayer::BeginPlay()
 
 	StateMachine->InitState(IdleState);
 }
-
-void APlayer::SetVelocity(FVector2 _Velocity)
-{
-	RigidBody2D->SetVelocity(_Velocity);
-}

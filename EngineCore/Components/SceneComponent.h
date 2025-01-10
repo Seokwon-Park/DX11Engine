@@ -31,6 +31,12 @@ public:
 		UpdateTransform();
 	}
 
+	inline void SetRotation(const FVector4& _Rotation)
+	{
+		Transform.Rotation = _Rotation;
+		UpdateTransform();
+	}
+
 	inline void AddRotation(const FVector4& _Rotation)
 	{
 		Transform.Rotation += _Rotation;

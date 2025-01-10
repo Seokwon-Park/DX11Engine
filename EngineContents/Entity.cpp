@@ -37,3 +37,19 @@ void AEntity::Tick(float _DeltaTime)
 {
 	APawn::Tick(_DeltaTime);
 }
+
+void AEntity::Flip()
+{
+	FacingDir = FacingDir * -1;
+	//FacingRight = !facingRight;
+	SetRotation(0, 180, 0);
+	SetActorLocation
+	if (onFlipped != null)
+		onFlipped();
+}
+
+void AEntity::SetVelocity(FVector2 _Velocity)
+{
+	RigidBody2D->SetVelocity(_Velocity);
+}
+
