@@ -3,8 +3,9 @@
 #include <EnginePlatform/EngineInputSystem.h>
 
 APlayer::APlayer()
+	:AEntity()
 {
-
+	BoxCollider2D->SetRelativeScale3D(FVector4(50.0f, 60.0f, 1.0f));
 }
 
 APlayer::~APlayer()

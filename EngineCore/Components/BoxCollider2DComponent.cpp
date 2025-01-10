@@ -41,7 +41,8 @@ void UBoxCollider2DComponent::BeginPlay()
 	ColliderDebugRenderUnit = std::make_shared<URenderUnit>();
 	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
 
-	dynamicBox = b2MakeBox(GetTransformRef().Scale.X/2.0f, GetTransformRef().Scale.Y/2.0f);
+
+	dynamicBox = b2MakeBox(GetTransformRef().Scale.X / 2.0f / FMath::BOX2DSCALE, GetTransformRef().Scale.Y / 2.0f / FMath::BOX2DSCALE);
 	shapeDef = b2DefaultShapeDef();
 	shapeDef.density = 0.5f;
 	shapeDef.friction = 0.0f;
@@ -58,13 +59,16 @@ void UBoxCollider2DComponent::BeginPlay()
 	{
 		b2BodyDef BodyDef = b2DefaultBodyDef();
 		BodyDef.type = b2_kinematicBody;
-		BodyDef.position = { Parent->GetLocation().X, Parent->GetLocation().Y };
-		BodyDef.fixedRotation = true;
+		BodyDef.position = { Parent->GetLocation().X / FMath::BOX2DSCALE, Parent->GetLocation().Y / FMath::BOX2DSCALE };
+		//BodyDef.rotation = b2MakeRot(FMath::DegreeToRadian(10.0f));
+		//Parent->GetTransformRef().Rotation = FVector4(0.0f, 0.0f, FMath::DegreeToRadian(10.0f), 1.0f);
+		//Parent->UpdateTransform();
+		//BodyDef.fixedRotation = true;
 		BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 		b2CreatePolygonShape(BodyId, &shapeDef, &dynamicBox);
 	}
-	GetOwner()->GetLevel()->PushCollider2D(GetThis<UBoxCollider2DComponent>());
 
+	GetOwner()->GetLevel()->PushCollider2D(GetThis<UBoxCollider2DComponent>());
 }
 
 void UBoxCollider2DComponent::TickComponent(float _DeltaTime)
@@ -72,11 +76,8 @@ void UBoxCollider2DComponent::TickComponent(float _DeltaTime)
 	UCollider2DComponent::TickComponent(_DeltaTime);
 	if (b2Body_GetType(BodyId) == b2_kinematicBody)
 	{
-		b2Body_SetTransform(BodyId, b2Vec2(Parent->GetLocation().X, Parent->GetLocation().Y),b2Body_GetRotation(BodyId));
+		b2Body_SetTransform(BodyId, b2Vec2(Parent->GetLocation().X/ FMath::BOX2DSCALE, Parent->GetLocation().Y/ FMath::BOX2DSCALE),b2Body_GetRotation(BodyId));
 	}
-
-
-
 }
 
 

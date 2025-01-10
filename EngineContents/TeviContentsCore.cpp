@@ -52,7 +52,8 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");
 	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TilemapEditor");
-	UEngineCore::OpenLevel("TilemapEditor");
+	UEngineCore::OpenLevel("Test");
+	//UEngineCore::OpenLevel("TilemapEditor");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

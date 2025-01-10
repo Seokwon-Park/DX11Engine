@@ -5,6 +5,7 @@
 const float FMath::PI = 3.1415926535897932f;
 const float FMath::HALF_PI = PI / 2.0f;
 const float FMath::TWO_PI = PI * 2.0f;
+const float FMath::BOX2DSCALE = 100.0f;
 
 FVector4 FMath::DegreeToRadian(FVector4 _DegreeVec4)
 {

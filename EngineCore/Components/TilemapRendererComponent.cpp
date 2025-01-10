@@ -11,18 +11,16 @@ UTilemapRendererComponent::~UTilemapRendererComponent()
 {
 }
 
-void UTilemapRendererComponent::SetTileSetting(std::string_view _Name, FVector2 _TileSize, FVector2 _ImageSize, FVector2 _Pivot)
+void UTilemapRendererComponent::SetTileSetting(std::string_view _Name, FVector2 _ImageSize, FVector2 _Pivot)
 {
 	Sprite = UResourceManager::Find<UEngineSprite>(_Name).get();
 
-	TileSize = _TileSize;
 	ImageSize = _ImageSize;
 	TilePivot = _Pivot;
 }
 
 void UTilemapRendererComponent::SetTile(FIntPoint _Pos, int _SpriteIndex)
 {
-	// 이공식이?????
 	FTileIndex Index = WorldPosToTileIndex(_Pos);
 
 	SetTile(Index.X, Index.Y, _SpriteIndex);
@@ -51,10 +49,14 @@ FVector4 UTilemapRendererComponent::TileIndexToWorldPos(FTileIndex _Pos)
 FTileIndex UTilemapRendererComponent::WorldPosToTileIndex(FIntPoint _Pos)
 {
 	FTileIndex Result = FTileIndex();
-	FIntPoint ConvertVector = FIntPoint(_Pos.X / ImageSize.X , _Pos.Y / ImageSize.Y);
+	FIntPoint ConvertVector;
+
+	// 정수 나눗셈 대신 내림(floor) 사용
+	ConvertVector.X = static_cast<int>(std::floor(static_cast<float>(_Pos.X) / ImageSize.X));
+	ConvertVector.Y = static_cast<int>(std::floor(static_cast<float>(_Pos.Y) / ImageSize.Y));
+
 	Result.X = ConvertVector.X;
 	Result.Y = ConvertVector.Y;
-
 	return Result;
 }
 

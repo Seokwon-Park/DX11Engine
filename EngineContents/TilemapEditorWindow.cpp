@@ -21,8 +21,6 @@ void UTilemapEditorWindow::OnImGuiRender()
 {
 
 	// 나중에 따로 뺄것. 마우스 좌표 변환.
-
-
 	auto pos = UEngineCore::GetMainWindow().GetMousePos();
 	auto size = UEngineCore::GetMainWindow().GetWindowSize();
 	// 마우스 커서의 위치를 NDC로 변환
@@ -54,21 +52,23 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	ImGui::ListBox("SpawnList", &SelectItem, &Arr[0], 2);
 
-	ImGui::InputInt("TileMapX", &TileCountX);
-	ImGui::InputInt("TileMapY", &TileCountY);
+	ImGui::InputInt("TileStartX", &Start.X);
+	ImGui::InputInt("TileStartY", &Start.Y);
+	ImGui::InputInt("TileMapX", &TileSize.X);
+	ImGui::InputInt("TileMapY", &TileSize.Y);
 
-	if (ImGui::Button("TileMap Create"))
+	if (ImGui::Button("Fill Tile"))
 	{
-		for (int y = 0; y < TileCountY; y++)
+		for (int y = Start.Y; y < TileSize.Y; y++)
 		{
-			for (int x = 0; x < TileCountX; x++)
+			for (int x = Start.X; x < TileSize.X; x++)
 			{
-				TileMapRenderer->SetTile(x, y, 0);
+				TilemapRenderer->SetTile(x, y, 0);
 			}
 		}
 	}
 
-	if (true == UEngineInputSystem::GetKeyDown(EKey::Space))
+	if (true == UEngineInputSystem::GetKey(EKey::Space))
 	{
 		//ESpawnList SelectMonster = static_cast<ESpawnList>(SelectItem);
 		//std::shared_ptr<class ACameraActor> Camera = Level->GetMainCamera();
@@ -76,7 +76,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-		TileMapRenderer->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), 5);
+		TilemapRenderer->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), 5);
 		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)

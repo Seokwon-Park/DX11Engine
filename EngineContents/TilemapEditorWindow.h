@@ -18,12 +18,13 @@ public:
 
 	virtual void OnImGuiRender() override;
 
-	UTilemapRendererComponent * TileMapRenderer = nullptr;
+	UTilemapRendererComponent * TilemapRenderer = nullptr;
 protected:
 
 private:
-	int TileCountX = 10;
-	int TileCountY = 10;
+	FIntPoint Start{ 0,0 };
+	FIntPoint TileSize = { 10,10 };
+
 
 
 	class ULevel* Level = nullptr;

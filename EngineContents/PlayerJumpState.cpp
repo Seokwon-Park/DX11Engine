@@ -22,7 +22,7 @@ void PlayerJumpState::Update()
 {
 	PlayerState::Update();
 
-	Player->SetVelocity({ 100.0f * XInput , Rigidbody2D->GetVelocity().Y });
+	//Player->SetVelocity({ 100.0f * XInput , Rigidbody2D->GetVelocity().Y });
 
 	//	//EngineLogger::Test<int>();
 	////RigidBody2D->SetVelocity({ 0.0f, 0.0f });
@@ -38,6 +38,11 @@ void PlayerJumpState::Update()
 	//	{
 	//		Rigidbody2D->SetVelocity(FVector2::UP * 2000.0f);
 	//	}
+
+	if (Rigidbody2D->GetVelocity().Y <= 0.0f)
+	{
+		StateMachine->ChangeState(Player->IdleState);
+	}
 }
 
 void PlayerJumpState::Exit()

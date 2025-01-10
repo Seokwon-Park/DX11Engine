@@ -31,7 +31,7 @@ public:
 	std::shared_ptr<PlayerRunState> RunState;
 	std::shared_ptr<PlayerJumpState> JumpState;
 
-	float JumpForce = 1000.0f;
+	float JumpForce = 4.0f;
 
 protected:
 	virtual void BeginPlay() override;

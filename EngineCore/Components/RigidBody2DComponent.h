@@ -23,7 +23,7 @@ public:
 	URigidbody2DComponent& operator=(URigidbody2DComponent&& _Other) noexcept = delete;
 
 	ENGINE_API void SetVelocity(FVector2 _Velocity);
-	ENGINE_API FVector2 GetVelocity() { return { Velocity.x, Velocity.y }; }
+	ENGINE_API FVector2 GetVelocity() { return { b2Body_GetLinearVelocity(BodyId).x,b2Body_GetLinearVelocity(BodyId).y }; }
 	b2BodyId GetBodyId() { return BodyId; }
 	virtual void TickComponent(float _DeltaTime);
 	virtual void BeginPlay();

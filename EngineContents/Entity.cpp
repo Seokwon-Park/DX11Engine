@@ -13,7 +13,6 @@ AEntity::AEntity()
 
 	BoxCollider2D->SetRigidbody(RigidBody2D);
 	BoxCollider2D->SetCollisionLayer(ECollisionLayer::Player);
-	BoxCollider2D->SetRelativeScale3D(FVector4(50.0f, 50.0f, 1.0f));
 	//Input = CreateDefaultSubobject<UInputComponent>();
 	//Input->BindAction(EKey::Left, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::LEFT));
 	//Input->BindAction(EKey::Right, KeyEvent::Press, std::bind(&APlayer::Move, this, FVector4::RIGHT));
