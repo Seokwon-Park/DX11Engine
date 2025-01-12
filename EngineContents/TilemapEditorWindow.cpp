@@ -19,32 +19,6 @@ UTilemapEditorWindow::~UTilemapEditorWindow()
 
 void UTilemapEditorWindow::OnImGuiRender()
 {
-
-	// 나중에 따로 뺄것. 마우스 좌표 변환.
-	auto pos = UEngineCore::GetMainWindow().GetMousePos();
-	auto size = UEngineCore::GetMainWindow().GetWindowSize();
-	// 마우스 커서의 위치를 NDC로 변환
-	// 마우스 커서는 좌측 상단 (0, 0), 우측 하단(width-1, height-1)
-	// NDC는 좌측 하단이 (-1, -1), 우측 상단(1, 1)
-	float CursorX = pos.X * 2.0f / size.X - 1.0f;
-	float CursorY = -pos.Y * 2.0f / size.Y + 1.0f;
-
-	// 커서가 화면 밖으로 나갔을 경우 범위 조절
-	// 게임에서는 클램프를 안할 수도 있습니다.
-	CursorX = FMath::Clamp(CursorX, -1.0f, 1.0f);
-	CursorY = FMath::Clamp(CursorY, -1.0f, 1.0f);
-
-	auto Viewmat = Level->GetMainCamera()->GetViewMatrix();
-	auto Projmat = Level->GetMainCamera()->GetProjMatrix();
-
-	auto VP = Viewmat * Projmat;
-	VP.MatrixInverse();
-
-	FVector4 WorldCoord = VP * FVector4(CursorX, CursorY, 0.0f, 1.0f);
-
-	std::cout << WorldCoord.X << ", " << WorldCoord.Y << '\n';
-	///////////////나중에 따로 빼세용
-
 	ImGui::Begin(GetName().c_str());
 	std::vector<const char*> Arr;
 	Arr.push_back("Monster");
@@ -63,10 +37,12 @@ void UTilemapEditorWindow::OnImGuiRender()
 		{
 			for (int x = Start.X; x < TileSize.X; x++)
 			{
-				TilemapRenderer->SetTile(x, y, 0);
+				Tilemap->SetTile(x, y, 0);
 			}
 		}
 	}
+
+	FIntPoint WorldCoord = Level->GetCurrentCamera()->GetWorldMousePos();
 
 	if (true == UEngineInputSystem::GetKey(EKey::Space))
 	{
@@ -76,7 +52,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-		TilemapRenderer->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), 5);
+		Tilemap->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), 5);
 		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)
@@ -93,7 +69,6 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		//NewMonster->SetActorLocation(Pos);
 	}
-
 
 	if (true == ImGui::Button("Save"))
 	{
@@ -125,9 +100,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		if (GetSaveFileNameA(&ofn) == TRUE)
 		{
 			UEngineSerializer Ser;
-
-			Ser << 1;
-
+			Tilemap->Serialize(Ser);
 			//for (std::shared_ptr<AMon> Actor : AllMonsterList)
 			//{
 
@@ -145,6 +118,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	if (true == ImGui::Button("Load"))
 	{
+
 		UEngineDirectory Dir;
 		if (false == Dir.MoveParentToDirectory("Resources"))
 		{
@@ -177,17 +151,11 @@ void UTilemapEditorWindow::OnImGuiRender()
 			NewFile.FileOpen("rb");
 			NewFile.Read(Ser);
 
-
-			int MonsterCount = 0;
-
-			Ser >> MonsterCount;
-
-			std::cout << MonsterCount;
 			/*for (size_t i = 0; i < MonsterCount; i++)
 			{
 
 			}*/
-
+			Tilemap->DeSerialize(Ser);
 		}
 	}
 	ImGui::End();

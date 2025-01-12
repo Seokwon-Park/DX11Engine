@@ -12,8 +12,8 @@
 
 ULevel::ULevel()
 {
-	CurrentCamera = SpawnCamera("MainCamera")->GetCameraComponent().get();
-	CurrentCamera->SetLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
+	CurrentCamera = SpawnCamera("MainCamera").get();
+	CurrentCamera->SetActorLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
 
 	b2WorldDef worldDef = b2DefaultWorldDef();
 	worldDef.gravity = b2Vec2(0.0f, -9.8f); 
@@ -65,13 +65,13 @@ void ULevel::Render(float _DeltaTime)
 
 		for (std::shared_ptr<URendererComponent> Renderer : RenderList)
 		{
-			Renderer->Render(CurrentCamera, _DeltaTime);
+			Renderer->Render(CurrentCamera->GetCameraComponent().get(), _DeltaTime);
 		}
 	}
 
 	for (auto Collider2D : Colliders2D)
 	{
-		Collider2D->DebugRender(CurrentCamera, _DeltaTime);
+		Collider2D->DebugRender(CurrentCamera->GetCameraComponent().get(), _DeltaTime);
 	}
 	GuiLayer->OnImGuiRender();
 	UEngineCore::GetGraphicsDeviceContext()->SwapBuffers();
@@ -102,7 +102,7 @@ void ULevel::ChangeRenderOrder(std::pair<int,int> _PrevRenderOrder, std::shared_
 std::shared_ptr<ACameraActor> ULevel::SpawnCamera(std::string_view _Name)
 {
 	std::shared_ptr<ACameraActor> CameraActor = SpawnActor<ACameraActor>(_Name);
-	CameraComponents.insert(std::make_pair(_Name, CameraActor->GetCameraComponent()));
+	CameraComponents.insert(std::make_pair(_Name, CameraActor));
 
 	return CameraActor;
 }

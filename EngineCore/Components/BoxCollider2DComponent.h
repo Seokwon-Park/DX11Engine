@@ -4,12 +4,7 @@
 #include "Collider2DComponent.h"
 #include <EngineCore/RenderUnit.h>
 
-enum ECollisionLayer
-{
-	Player = 0x00000001,
-	Enemy = 0x00000002,
-	UI = 0x00000004,
-};
+
 
 // Ό³Έν :
 class UBoxCollider2DComponent : public UCollider2DComponent

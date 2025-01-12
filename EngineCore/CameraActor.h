@@ -17,6 +17,7 @@ public:
 	ACameraActor& operator=(ACameraActor&& _Other) noexcept = delete;
 
 	inline std::shared_ptr<UCameraComponent> GetCameraComponent() { return CameraComponent; }
+	ENGINE_API FIntPoint GetWorldMousePos();
 	virtual void Tick(float _DeltaTime) override;
 protected:
 	virtual void BeginPlay() override;

@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GUI/EngineImGuiWindow.h>
+#include <EngineCore/Components/TilemapComponent.h>
 #include <EngineCore/Components/TilemapRendererComponent.h>
 
 // Ό³Έν :
@@ -18,7 +19,7 @@ public:
 
 	virtual void OnImGuiRender() override;
 
-	UTilemapRendererComponent * TilemapRenderer = nullptr;
+	UTilemapComponent * Tilemap = nullptr;
 protected:
 
 private:

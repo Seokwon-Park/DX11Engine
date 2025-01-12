@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneComponent.h"
+#include <EngineCore/Enums/EngineLayer.h>
 #include <EngineCore/ThirdParty/Box2D/include/box2d.h>
 
 // Ό³Έν :

@@ -6,9 +6,12 @@
 
 ATilemapEditorGameMode::ATilemapEditorGameMode()
 {
-	Tilemap = CreateDefaultSubobject<UTilemapRendererComponent>();
-	Tilemap->SetTileSetting("Area0", { 28,28 }, {0.5f, 0.5f});
-	Tilemap->SetupAttachment(RootComponent);
+	Tilemap = CreateDefaultSubobject<UTilemapComponent>();
+	Tilemap->SetTileSetting("Area0",FVector2(28, 28), FVector2(0.5f, 0.5f));
+
+	TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
+	TilemapRenderer->SetTilemap(Tilemap);
+	TilemapRenderer->SetupAttachment(RootComponent);
 }
 
 ATilemapEditorGameMode::~ATilemapEditorGameMode()
@@ -19,7 +22,7 @@ void ATilemapEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
 	auto Window = std::make_shared<UTilemapEditorWindow>(GetLevel());
-	Window->TilemapRenderer = Tilemap.get();
+	Window->Tilemap = Tilemap.get();
 	GetLevel()->AddGuiWindow(Window);
 }
 

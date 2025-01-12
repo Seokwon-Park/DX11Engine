@@ -41,8 +41,7 @@ void UBoxCollider2DComponent::BeginPlay()
 	ColliderDebugRenderUnit = std::make_shared<URenderUnit>();
 	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
 
-
-	dynamicBox = b2MakeBox(GetTransformRef().Scale.X / 2.0f / FMath::BOX2DSCALE, GetTransformRef().Scale.Y / 2.0f / FMath::BOX2DSCALE);
+	dynamicBox = b2MakeBox(GetTransformRef().Scale.X / FMath::BOX2DSCALE / 2.0f, GetTransformRef().Scale.Y / FMath::BOX2DSCALE / 2.0f);
 	shapeDef = b2DefaultShapeDef();
 	shapeDef.density = 0.5f;
 	shapeDef.friction = 0.0f;
@@ -76,7 +75,7 @@ void UBoxCollider2DComponent::TickComponent(float _DeltaTime)
 	UCollider2DComponent::TickComponent(_DeltaTime);
 	if (b2Body_GetType(BodyId) == b2_kinematicBody)
 	{
-		b2Body_SetTransform(BodyId, b2Vec2(Parent->GetLocation().X/ FMath::BOX2DSCALE, Parent->GetLocation().Y/ FMath::BOX2DSCALE),b2Body_GetRotation(BodyId));
+		b2Body_SetTransform(BodyId, b2Vec2(Parent->GetLocation().X / FMath::BOX2DSCALE, Parent->GetLocation().Y / FMath::BOX2DSCALE), b2Body_GetRotation(BodyId));
 	}
 }
 

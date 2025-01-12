@@ -1,12 +1,8 @@
 #pragma once
 #include "RendererComponent.h"
 #include <EngineCore/Resources/EngineSprite.h>
+#include <EngineCore/Enums/EngineLayer.h>
 
-enum class ESortingLayer
-{
-	Default = 0,
-	UI = 1000,
-};
 
 struct VertexConstant
 {

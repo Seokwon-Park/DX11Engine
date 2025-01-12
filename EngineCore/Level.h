@@ -70,7 +70,7 @@ public:
 		return dynamic_pointer_cast<ActorType>(MainPawn);
 	}
 
-	class UCameraComponent* GetMainCamera()
+	class ACameraActor* GetCurrentCamera()
 	{
 		return CurrentCamera;
 	}
@@ -100,7 +100,7 @@ private:
 
 	std::map<std::pair<int,int>, std::list<std::shared_ptr<class URendererComponent>>> SpriteRenderers;
 	std::list<std::shared_ptr<class UCollider2DComponent>> Colliders2D;
-	std::map<std::string,std::shared_ptr<class UCameraComponent>> CameraComponents;
-	class UCameraComponent* CurrentCamera;
+	std::map<std::string,std::shared_ptr<class ACameraActor>> CameraComponents;
+	class ACameraActor* CurrentCamera;
 };
 

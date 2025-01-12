@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "CameraComponent.h"
+#include "EngineCore.h"
 
 UCameraComponent::UCameraComponent()
 {
@@ -40,5 +41,26 @@ FMatrix UCameraComponent::GetViewMatrix()
 FMatrix UCameraComponent::GetProjMatrix()
 {
 	return ProjMat;
+}
+
+FIntPoint UCameraComponent::ScreenToWorld(FIntPoint _MousePosition)
+{
+	FIntPoint Size = UEngineCore::GetMainWindow().GetWindowSize();
+
+	// 마우스 커서의 위치를 NDC로 변환
+	// 마우스 커서는 좌측 상단 (0, 0), 우측 하단(width-1, height-1)
+	// NDC는 좌측 하단이 (-1, -1), 우측 상단(1, 1)
+	float CursorX = _MousePosition.X * 2.0f / Size.X - 1.0f;
+	float CursorY = -_MousePosition.Y * 2.0f / Size.Y + 1.0f;
+
+	CursorX = FMath::Clamp(CursorX, -1.0f, 1.0f);
+	CursorY = FMath::Clamp(CursorY, -1.0f, 1.0f);
+
+	FMatrix ViewProjectionInverse = ViewMat * ProjMat;
+	ViewProjectionInverse.MatrixInverse();
+
+	FVector4 Result = ViewProjectionInverse * FVector4(CursorX, CursorY, 0.0f, 1.0f);
+
+	return FIntPoint(static_cast<int>(Result.X), static_cast<int>(Result.Y));
 }
 

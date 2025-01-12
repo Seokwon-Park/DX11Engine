@@ -176,7 +176,16 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Components\TilemapColliderComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\Rigidbody2DComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Components\TilemapComponent.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -369,6 +378,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\Rigidbody2DComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Components\TilemapColliderComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Components\TilemapComponent.cpp">
       <SubType>
       </SubType>
     </ClCompile>

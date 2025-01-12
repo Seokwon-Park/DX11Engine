@@ -20,6 +20,7 @@ public:
 
 	inline void operator<<(const int& _Data) { Write(&_Data, sizeof(int)); }
 	inline void operator<<(const bool& _Data) { Write(&_Data, sizeof(bool)); }
+	inline void operator<<(const FVector2& _Data) { Write(&_Data, sizeof(FVector2)); }
 	inline void operator<<(const FVector4& _Data) { Write(&_Data, sizeof(FVector4)); }
 	inline void operator<<(const FIntPoint& _Data) { Write(&_Data, sizeof(FIntPoint)); }
 	inline void operator<<(const std::string& _Data)
@@ -46,6 +47,7 @@ public:
 	BASE_API void Read(void* _Data, unsigned int _Size);
 	void operator>>(int& _Data) { Read(&_Data, sizeof(int)); }
 	void operator>>(bool& _Data) { Read(&_Data, sizeof(bool)); }
+	void operator>>(FVector2& _Data) { Read(&_Data, sizeof(FVector2)); }
 	void operator>>(FVector4& _Data) { Read(&_Data, sizeof(FVector4)); }
 	void operator>>(FIntPoint& _Data) { Read(&_Data, sizeof(FIntPoint)); }
 	void operator>>(std::string& _Data)

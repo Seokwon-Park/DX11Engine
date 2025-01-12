@@ -42,10 +42,9 @@ void AEntity::Flip()
 {
 	FacingDir = FacingDir * -1;
 	//FacingRight = !facingRight;
-	SetRotation(0, 180, 0);
-	SetActorLocation
-	if (onFlipped != null)
-		onFlipped();
+	SetActorRotation(FVector4(0, 180, 0));
+	//if (onFlipped != null)
+	//	onFlipped();
 }
 
 void AEntity::SetVelocity(FVector2 _Velocity)

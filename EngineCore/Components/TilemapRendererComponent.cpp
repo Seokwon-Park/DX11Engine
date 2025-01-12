@@ -11,52 +11,36 @@ UTilemapRendererComponent::~UTilemapRendererComponent()
 {
 }
 
-void UTilemapRendererComponent::SetTileSetting(std::string_view _Name, FVector2 _ImageSize, FVector2 _Pivot)
+void UTilemapRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer)
 {
-	Sprite = UResourceManager::Find<UEngineSprite>(_Name).get();
+	if (SortingLayer == _SortingLayer && OrderInLayer == _OrderInLayer)
+	{
+		return;
+	}
+	std::pair<int, int> PrevOrder = std::make_pair(static_cast<int>(SortingLayer), OrderInLayer);
+	SortingLayer = _SortingLayer;
+	OrderInLayer = _OrderInLayer;
+	int SortingLayerInt = static_cast<int>(_SortingLayer);
+	std::shared_ptr<USpriteRendererComponent> RendererPtr = GetThis<USpriteRendererComponent>();
+	ULevel* Level = GetOwner()->GetLevel();
 
-	ImageSize = _ImageSize;
-	TilePivot = _Pivot;
+	//처음 렌더러 생성시에는 Level이 Null일 수 있으므로 미루고 BeginPlay에서 처리.
+	if (Level == nullptr)
+	{
+		return;
+	}
+	Level->ChangeRenderOrder(PrevOrder, RendererPtr);
 }
 
-void UTilemapRendererComponent::SetTile(FIntPoint _Pos, int _SpriteIndex)
-{
-	FTileIndex Index = WorldPosToTileIndex(_Pos);
 
-	SetTile(Index.X, Index.Y, _SpriteIndex);
-}
 
-void UTilemapRendererComponent::SetTile(int _X, int _Y, int _Spriteindex)
-{
-	FTileIndex Index = { _X,  _Y };
 
-	FTileData& NewTile = Tiles[Index.Key];
-
-	NewTile.SpriteIndex = _Spriteindex;
-	NewTile.SpriteData.Rect.CuttingPos = { 0.0f, 0.0f };
-	NewTile.SpriteData.Rect.CuttingSize = { 1.0f, 1.0f };
-	NewTile.SpriteData.Rect.Pivot = { 0.5f, 0.5f };
-}
 
 FVector4 UTilemapRendererComponent::TileIndexToWorldPos(FTileIndex _Pos)
 {
 	FVector4 Result;
-	Result.X = _Pos.X * ImageSize.X;
-	Result.Y = _Pos.Y * ImageSize.X;
-	return Result;
-}
-
-FTileIndex UTilemapRendererComponent::WorldPosToTileIndex(FIntPoint _Pos)
-{
-	FTileIndex Result = FTileIndex();
-	FIntPoint ConvertVector;
-
-	// 정수 나눗셈 대신 내림(floor) 사용
-	ConvertVector.X = static_cast<int>(std::floor(static_cast<float>(_Pos.X) / ImageSize.X));
-	ConvertVector.Y = static_cast<int>(std::floor(static_cast<float>(_Pos.Y) / ImageSize.Y));
-
-	Result.X = ConvertVector.X;
-	Result.Y = ConvertVector.Y;
+	Result.X = _Pos.X * TilemapComponent->ImageSize.X;
+	Result.Y = _Pos.Y * TilemapComponent->ImageSize.X;
 	return Result;
 }
 
@@ -74,14 +58,14 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 
 
-	if (0 == Tiles.size())
+	if (0 == TilemapComponent->Tiles.size())
 	{
 		return;
 	}
 
 	FTransform Trans;
 
-	for (std::pair<const __int64, FTileData>& TilePair : Tiles)
+	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tiles)
 	{
 		//if (화면 바깥에 나간 타일은)
 		//{
@@ -91,25 +75,25 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		FTileData& Tile = TilePair.second;
 		FTileIndex Index;
 
-		Unit->SetTexture("TilemapTexture", EShaderType::PS, Sprite->GetSpriteData(Tile.SpriteIndex).Texture);
+		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteData(Tile.SpriteIndex).Texture);
 		Unit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
 
-		Tile.SpriteData = Sprite->GetSpriteData(Tile.SpriteIndex);
-		Tile.SpriteData.Rect.Pivot = { 0.0f, 0.0f };
+		Tile.SpriteRect = TilemapComponent->Sprite->GetSpriteData(Tile.SpriteIndex).Rect;
+		Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
 
 		Index.Key = TilePair.first;
 
 		FVector4 ConvertPos = TileIndexToWorldPos(Index);
 
 		Trans.Location = FVector4({ ConvertPos.X, ConvertPos.Y, 0.0f, 1.0f });
-		Trans.Scale = FVector4({ ImageSize.X, ImageSize.Y, 1.0f, 1.0f });
+		Trans.Scale = FVector4({ TilemapComponent->ImageSize.X, TilemapComponent->ImageSize.Y, 1.0f, 1.0f });
 
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();
 		VC.World = Trans.WorldMatrix;
 
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
-		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteData.Rect);
+		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
 
 		//Unit.ConstantBufferLinkData("ResultColor", Tile.ColorData);
 

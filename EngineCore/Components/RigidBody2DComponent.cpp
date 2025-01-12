@@ -3,8 +3,7 @@
 #include "Actor.h"
 #include "Level.h"
 
-// https://www.reddit.com/r/libgdx/comments/5c7rvl/having_trouble_with_gravity_in_box2d_physics/
-//참고해서 고쳐봐라.
+// 1pixel / 100.0f = box2D unit
 URigidbody2DComponent::URigidbody2DComponent()
 {
 
@@ -40,6 +39,7 @@ void URigidbody2DComponent::BeginPlay()
 	BodyDef = b2DefaultBodyDef();
 	BodyDef.type = b2_dynamicBody;
 	BodyDef.position = { Parent->GetLocation().X / FMath::BOX2DSCALE, Parent->GetLocation().Y / FMath::BOX2DSCALE };
+	BodyDef.fixedRotation = true;
 	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 
 	//std::cout << b2Body_GetPosition(BodyId).x << ',' << b2Body_GetPosition(BodyId).y << '\n';

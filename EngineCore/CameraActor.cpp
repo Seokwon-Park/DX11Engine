@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "CameraActor.h"
+#include "EngineCore.h"
 
 ACameraActor::ACameraActor()
 {
@@ -15,6 +16,11 @@ ACameraActor::~ACameraActor()
 void ACameraActor::BeginPlay()
 {
 	AActor::BeginPlay();
+}
+
+FIntPoint ACameraActor::GetWorldMousePos()
+{
+	return CameraComponent->ScreenToWorld(UEngineCore::GetMainWindow().GetMousePos());
 }
 
 void ACameraActor::Tick(float _DeltaTime)

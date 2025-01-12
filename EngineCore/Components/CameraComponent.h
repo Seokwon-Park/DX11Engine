@@ -26,6 +26,8 @@ public:
 	void CalculateProj();
 	ENGINE_API FMatrix GetViewMatrix();
 	ENGINE_API FMatrix GetProjMatrix();
+	FIntPoint ScreenToWorld(FIntPoint screenPosition);
+	//FVector2 WorldToScreen(FVector2 worldPosition);
 
 	inline void SetProjectionType(EProjectionType _ProjectionType) { ProjectionType = _ProjectionType; }
 protected:
