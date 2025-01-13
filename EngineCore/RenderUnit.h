@@ -20,7 +20,7 @@ public:
 	void Render(class UCameraComponent* _Camera, float _DeltaTime);
 
 	template <typename DataType>
-	inline void SetConstantBufferData(std::string_view _BufferName, EShaderType _Type, DataType& Data) 
+	inline void SetConstantBufferData(std::string_view _BufferName, EShaderType _Type, const DataType& Data) 
 	{ 
 		Material->GetShaderResources(_Type)->SetConstantBuffer(_BufferName, Data); 
 	}

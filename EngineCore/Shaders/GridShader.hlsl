@@ -5,14 +5,6 @@ cbuffer WorldViewProjection : register(b0)
     float4x4 Proj;
 };
 
-cbuffer SpriteData : register(b1)
-{
-    float2 CuttingPos;
-    float2 CuttingSize;
-    float2 Pivot;
-    float2 Dummy;
-};
-
 struct VS_Input
 {
     float4 Pos : POSITION;
@@ -30,26 +22,21 @@ struct VS_Output
 VS_Output vs_main(VS_Input _Input)
 {
     VS_Output Output;
-    _Input.Pos.x += (1.0f - Pivot.x) - 0.5f;
-    _Input.Pos.y += (1.0f - Pivot.y) - 0.5f;
     Output.Pos = mul(_Input.Pos, World);
     Output.Pos = mul(Output.Pos, View);
     Output.Pos = mul(Output.Pos, Proj);
     Output.Color = _Input.Color;
     
-    Output.UV.x = (_Input.UV.x * CuttingSize.x) + CuttingPos.x;
-    Output.UV.y = (_Input.UV.y * CuttingSize.y) + CuttingPos.y;
+    Output.UV = _Input.UV;
+    //Output.UV.x = (_Input.UV.x * CuttingSize.x) + CuttingPos.x;
+    //Output.UV.y = (_Input.UV.y * CuttingSize.y) + CuttingPos.y;
 
     return Output;
 }
 
-Texture2D TilemapTexture : register(t0);
-
-SamplerState PSSampler : register(s0);
-
 cbuffer PSColor : register(b0)
 {
-    float4 Albedo;
+    float4 Color;
 };
 
 struct PS_Output
@@ -60,7 +47,5 @@ struct PS_Output
 
 float4 ps_main(VS_Output _Input) : SV_TARGET0
 {
-    float4 Color = TilemapTexture.Sample(PSSampler, _Input.UV.xy);
-    Color *= Albedo;
     return Color;
 }

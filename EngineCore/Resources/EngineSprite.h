@@ -41,7 +41,7 @@ public:
 	UEngineSprite& operator=(const UEngineSprite& _Other) = delete;
 	UEngineSprite& operator=(UEngineSprite&& _Other) noexcept = delete;
 
-	ENGINE_API FSpriteData GetSpriteByIndex(int _Index);
+	ENGINE_API FSpriteData GetSpriteByIndex(size_t _Index);
 	ENGINE_API inline size_t GetSpriteCount() { return SpriteData.size(); }
 	ENGINE_API inline std::vector<FSpriteData> GetSpriteData() {return SpriteData; }
 

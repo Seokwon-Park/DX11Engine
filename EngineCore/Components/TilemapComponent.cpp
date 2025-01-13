@@ -29,6 +29,22 @@ void UTilemapComponent::SetTile(int _X, int _Y, int _Spriteindex)
 	NewTile.SpriteRect.Pivot = { 0.5f, 0.5f };
 }
 
+FTileData* UTilemapComponent::GetTile(FIntPoint _Pos)
+{
+	FTileIndex Index = WorldPosToTileIndex(_Pos);
+
+	return GetTile(Index);
+}
+
+FTileData* UTilemapComponent::GetTile(FTileIndex _TileIndex)
+{
+	if (false ==Tiles.contains(_TileIndex.Key))
+	{
+		return nullptr;
+	}
+	return &Tiles[_TileIndex.Key];
+}
+
 FTileIndex UTilemapComponent::WorldPosToTileIndex(FIntPoint _Pos)
 {
 	FTileIndex Result = FTileIndex();

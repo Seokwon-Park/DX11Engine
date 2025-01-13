@@ -38,6 +38,8 @@ public:
 
 	FMatrix();
 
+	static FMatrix Transpose(const FMatrix& _Matrix);
+
 	void MatrixInverse();
 	void MatrixIdentity();
 	void MatrixTranspose();

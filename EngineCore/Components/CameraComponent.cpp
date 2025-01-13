@@ -38,9 +38,29 @@ FMatrix UCameraComponent::GetViewMatrix()
 	return ViewMat;
 }
 
-FMatrix UCameraComponent::GetProjMatrix()
+ENGINE_API FMatrix UCameraComponent::GetViewMatrixTranspose()
+{
+	return FMatrix::Transpose(ViewMat);
+}
+
+FMatrix UCameraComponent::GetProjectionMatrix()
 {
 	return ProjMat;
+}
+
+ENGINE_API FMatrix UCameraComponent::GetProjectionMatrixTranspose()
+{
+	return FMatrix::Transpose(ProjMat);
+}
+
+ENGINE_API FMatrix UCameraComponent::GetViewProjectionMatrix()
+{
+	return ViewMat * ProjMat;
+}
+
+ENGINE_API FMatrix UCameraComponent::GetViewProjectionMatrixTranspose()
+{
+	return FMatrix::Transpose(ViewMat * ProjMat);
 }
 
 FIntPoint UCameraComponent::ScreenToWorld(FIntPoint _MousePosition)

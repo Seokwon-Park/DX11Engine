@@ -25,7 +25,12 @@ public:
 	void CalculateView();
 	void CalculateProj();
 	ENGINE_API FMatrix GetViewMatrix();
-	ENGINE_API FMatrix GetProjMatrix();
+	ENGINE_API FMatrix GetViewMatrixTranspose();
+	ENGINE_API FMatrix GetProjectionMatrix();
+	ENGINE_API FMatrix GetProjectionMatrixTranspose();
+	ENGINE_API FMatrix GetViewProjectionMatrix();
+	ENGINE_API FMatrix GetViewProjectionMatrixTranspose();
+
 	FIntPoint ScreenToWorld(FIntPoint screenPosition);
 	//FVector2 WorldToScreen(FVector2 worldPosition);
 

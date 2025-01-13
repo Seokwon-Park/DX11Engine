@@ -1,6 +1,5 @@
 #include "EnginePCH.h"
 #include "TilemapEditorWindow.h"
-#include "TitleLogo.h"
 
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineInputSystem.h>
@@ -12,6 +11,8 @@ UTilemapEditorWindow::UTilemapEditorWindow(ULevel* _Level)
 	:Level(_Level)
 {
 	SetName("TileMapEditor");
+	PreviewTile = std::make_shared<URenderUnit>();
+	PreviewTile->Init("Quad", "Tilemap");
 }
 
 UTilemapEditorWindow::~UTilemapEditorWindow()
@@ -26,7 +27,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 	Arr.push_back("Monster2");
 
 	
-	std::string Name = Tilemap->GetCurSpriteName();
+	std::string Name = TilemapComponent->GetCurSpriteName();
 	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(Name);
 	auto vec = Sprite->GetSpriteData();
 
@@ -74,12 +75,58 @@ void UTilemapEditorWindow::OnImGuiRender()
 		{
 			for (int x = Start.X; x < TileSize.X; x++)
 			{
-				Tilemap->SetTile(x, y, SelectItem);
+				TilemapComponent->SetTile(x, y, SelectItem);
 			}
 		}
 	}
 
 	FIntPoint WorldCoord = Level->GetCurrentCamera()->GetWorldMousePos();
+
+	UCameraComponent* _Camera = Level->GetCurrentCamera()->GetCameraComponent().get();
+
+	if (TilemapComponent->GetTile(WorldCoord) == nullptr)
+	{
+		auto Index = TilemapComponent->WorldPosToTileIndex(WorldCoord);
+		//Index.X *= TilemapComponent->ImageSize.X;
+		//Index.Y *= TilemapComponent->ImageSize.X;
+		Index.X *= 28;
+		Index.Y *= 28;
+
+		FSpriteData SpriteData = Sprite->GetSpriteByIndex(SelectItem);
+		SpriteData.Rect.Pivot = { 0.0f, 0.0f };
+
+		VertexConstant VC;
+		FTransform Trans;
+		VC.View = _Camera->GetViewMatrix();
+		VC.View.MatrixTranspose();
+		VC.Proj = _Camera->GetProjectionMatrix();
+		VC.Proj.MatrixTranspose();
+
+		PreviewTile->SetTexture("TilemapTexture", EShaderType::PS, SpriteData.Texture);
+		PreviewTile->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
+
+		Trans.Location = FVector4( Index.X, Index.Y, 0.0f, 1.0f );
+		//if (IsFlip)
+		//{
+		//	Trans.Rotation = FVector4(0.0f, 180.0f, 0.0f,1.0f);
+		//}
+		Trans.Scale = FVector4({ 28.0f, 28.0f, 1.0f });
+
+		Trans.UpdateTransform();
+		Trans.WorldMatrix.MatrixTranspose();
+		VC.World = Trans.WorldMatrix;
+
+
+		PreviewTile->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
+		PreviewTile->SetConstantBufferData("SpriteData", EShaderType::VS, SpriteData.Rect);
+		PreviewTile->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 0.5f));
+
+		PreviewTile->Render(_Camera, 0.0f);
+	}
+	else
+	{
+
+	}
 
 	if (true == UEngineInputSystem::GetKey(EKey::Space))
 	{
@@ -89,7 +136,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-		Tilemap->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), SelectItem);
+		TilemapComponent->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), SelectItem);
 		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)
@@ -108,7 +155,12 @@ void UTilemapEditorWindow::OnImGuiRender()
 	}
 	if (true == UEngineInputSystem::GetKey(EKey::X))
 	{
-		//Tilemap->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y), SelectItem);
+		//TilemapComponent->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y), SelectItem);
+	}
+
+	if (true == UEngineInputSystem::GetKeyDown(EKey::F))
+	{
+		IsFlip = !IsFlip;
 	}
 
 
@@ -144,7 +196,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		if (GetSaveFileNameA(&ofn) == TRUE)
 		{
 			UEngineSerializer Ser;
-			Tilemap->Serialize(Ser);
+			TilemapComponent->Serialize(Ser);
 			//for (std::shared_ptr<AMon> Actor : AllMonsterList)
 			//{
 
@@ -199,7 +251,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 			{
 
 			}*/
-			Tilemap->DeSerialize(Ser);
+			TilemapComponent->DeSerialize(Ser);
 		}
 	}
 	ImGui::End();

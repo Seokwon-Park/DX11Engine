@@ -19,7 +19,7 @@ struct FTileIndex
 struct FTileData
 {
 	bool IsBlock = false;
-	int SpriteIndex = 0;
+	int SpriteIndex = -1;
 	FTileIndex Index;
 	FSpriteRect SpriteRect;
 };
@@ -53,8 +53,12 @@ public:
 		TilePivot = _Pivot;
 	}
 
-	ENGINE_API void SetTile(FIntPoint _Pos, int _SpriteIndex);
-	ENGINE_API void SetTile(int _X, int _Y, int _SpriteIndex);
+	//Tile Data로 재구성
+	ENGINE_API void SetTile(FIntPoint _MousePos, int _SpriteIndex);
+	ENGINE_API void SetTile(int _TileCoordX, int _TileCoordY, int _SpriteIndex);
+
+	ENGINE_API FTileData* GetTile(FIntPoint _MousePos);
+	ENGINE_API FTileData* GetTile(FTileIndex _TileIndex);
 
 	FTileIndex WorldPosToTileIndex(FIntPoint _Pos);
 

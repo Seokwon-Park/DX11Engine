@@ -176,6 +176,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Components\GridRendererComponent.h" />
+    <ClInclude Include="Components\Renderer2DComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Components\TilemapColliderComponent.h">
       <SubType>
       </SubType>
@@ -210,6 +215,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GUI\TilemapEditorWindow.h" />
     <ClInclude Include="Resources\EngineAnimation.h">
       <SubType>
       </SubType>
@@ -378,6 +384,11 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Components\GridRendererComponent.cpp" />
+    <ClCompile Include="Components\Renderer2DComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Components\Rigidbody2DComponent.cpp">
       <SubType>
       </SubType>
@@ -411,6 +422,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GUI\TilemapEditorWindow.cpp" />
     <ClCompile Include="Resources\EngineAnimation.cpp">
       <SubType>
       </SubType>
@@ -554,6 +566,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ColliderShader.hlsl" />
+    <None Include="Shaders\GridShader.hlsl" />
     <None Include="Shaders\SpriteShader.hlsl" />
   </ItemGroup>
   <ItemGroup>

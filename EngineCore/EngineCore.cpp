@@ -12,7 +12,7 @@
 UEngineDeviceContext* UEngineCore::GraphicsDeviceContext;
 
 HMODULE UEngineCore::ContentsDLL = nullptr;
-std::shared_ptr<IContentsCore> UEngineCore::Core;
+std::shared_ptr<IContentsCore> UEngineCore::ContentsCore;
 
 UEngineTimer UEngineCore::Timer;
 UEngineInitData UEngineCore::Data;
@@ -62,9 +62,6 @@ FTimerManager& UEngineCore::GetTimerManager()
 	return TimerManager;
 }
 
-
-
-
 void UEngineCore::WindowInit(HINSTANCE _Instance)
 {
 	UEngineWindow::EngineWindowInit(_Instance);
@@ -104,9 +101,9 @@ void UEngineCore::LoadContentsDll(std::string_view _DllName)
 		return;
 	}
 
-	Ptr(Core);
+	Ptr(ContentsCore);
 
-	if (nullptr == Core)
+	if (nullptr == ContentsCore)
 	{
 		MSGASSERT("컨텐츠 코어 생성에 실패했습니다.");
 		return;
@@ -137,7 +134,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 			//Default States가 반드시 먼저 생성되어야 함.
 			UStateManager::CreateDefaultStates();
 			UResourceManager::CreateDefaultResources();
-			Core->EngineStart(Data);
+			ContentsCore->EngineStart(Data);
 			MainWindow.SetWindowPosAndScale(Data.WindowPos, Data.WindowSize);
 			//GraphicsDevice->SetRendererAPI(ERendererAPI::DirectX11);
 			GraphicsDeviceContext->CreateBackBuffer(MainWindow);
@@ -160,7 +157,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 		[]()
 		{
 			// 엔진이 끝났을 때 하고 싶은것.
-			Core = nullptr;
+			ContentsCore = nullptr;
 			EngineShutdown();
 		});
 }

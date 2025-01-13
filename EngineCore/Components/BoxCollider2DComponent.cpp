@@ -22,7 +22,7 @@ void UBoxCollider2DComponent::DebugRender(UCameraComponent* _Camera, float _Delt
 	VC.View.MatrixTranspose();
 
 	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
-	VC.Proj = _Camera->GetProjMatrix();
+	VC.Proj = _Camera->GetProjectionMatrix();
 	VC.Proj.MatrixTranspose();
 
 	float Temp[4] = { 0.5f,0.5f,0.0f,0.0f };

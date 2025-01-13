@@ -31,6 +31,7 @@
     <ClCompile Include="EngineTimer.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="EngineDelegate.cpp" />
+    <ClCompile Include="Math\Random.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EnginePCH.h" />
@@ -67,6 +68,7 @@
     <ClInclude Include="EngineTimer.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="EngineDelegate.h" />
+    <ClInclude Include="Math\Random.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="EngineMath">

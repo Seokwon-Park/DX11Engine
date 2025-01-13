@@ -1,7 +1,9 @@
 #include "EnginePCH.h"
 #include "TilemapEditorGameMode.h"
-#include "TilemapEditorWindow.h"
+#include <EngineCore/GUI/TilemapEditorWindow.h>
 #include <EngineCore/Level.h>
+
+#include "GridActor.h"
 
 
 ATilemapEditorGameMode::ATilemapEditorGameMode()
@@ -21,9 +23,11 @@ ATilemapEditorGameMode::~ATilemapEditorGameMode()
 void ATilemapEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
-	auto Window = std::make_shared<UTilemapEditorWindow>(GetLevel());
-	Window->Tilemap = Tilemap.get();
+	std::shared_ptr<UTilemapEditorWindow> Window = std::make_shared<UTilemapEditorWindow>(GetLevel());
+	Window->SetTilemap(Tilemap);
 	GetLevel()->AddGuiWindow(Window);
+
+	GetLevel()->SpawnActor<AGridActor>();
 }
 
 void ATilemapEditorGameMode::Tick(float _DeltaTime)

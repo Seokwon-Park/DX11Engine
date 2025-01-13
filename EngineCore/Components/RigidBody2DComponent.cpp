@@ -25,7 +25,7 @@ void URigidbody2DComponent::TickComponent(float _DeltaTime)
 	b2WorldId Id = GetOwner()->GetLevel()->GetPhysicsWorld();
 	//Velocity = Velocity + b2World_GetGravity(Id);
 	//Velocity.y = b2MaxFloat(Velocity.y, b2World_GetGravity(Id).y);
-	std::cout << b2Body_GetLinearVelocity(BodyId).x << " ," << b2Body_GetLinearVelocity(BodyId).y << '\n';
+	//std::cout << b2Body_GetLinearVelocity(BodyId).x << " ," << b2Body_GetLinearVelocity(BodyId).y << '\n';
 	//b2Body_SetLinearVelocity(BodyId, Velocity);
 	//b2World_Step(Id, 1.0f / 60.0f, 4);
 	b2Vec2 XY = b2Body_GetPosition(BodyId);

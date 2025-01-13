@@ -68,6 +68,9 @@
     <ClCompile Include="Components\TilemapRendererComponent.cpp" />
     <ClCompile Include="Components\TilemapComponent.cpp" />
     <ClCompile Include="Components\TilemapColliderComponent.cpp" />
+    <ClCompile Include="GUI\TilemapEditorWindow.cpp" />
+    <ClCompile Include="Components\GridRendererComponent.cpp" />
+    <ClCompile Include="Components\Renderer2DComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -147,6 +150,9 @@
     <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\TilemapColliderComponent.h" />
     <ClInclude Include="Structures\Renderer2DBufferData.h" />
+    <ClInclude Include="GUI\TilemapEditorWindow.h" />
+    <ClInclude Include="Components\GridRendererComponent.h" />
+    <ClInclude Include="Components\Renderer2DComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -160,6 +166,7 @@
     <None Include="Shaders\SpriteShader.hlsl" />
     <None Include="Shaders\ColliderShader.hlsl" />
     <None Include="Shaders\TilemapShader.hlsl" />
+    <None Include="Shaders\GridShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />

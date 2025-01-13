@@ -168,6 +168,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GridActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
       <SubType>
       </SubType>
@@ -216,10 +220,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TilemapEditorWindow.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="TitleLogo.cpp">
       <SubType>
       </SubType>
@@ -236,6 +236,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GridActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -278,10 +282,6 @@
     <ClInclude Include="TeviContentsCore.h" />
     <ClInclude Include="EnginePCH.h" />
     <ClInclude Include="TilemapEditorGameMode.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="TilemapEditorWindow.h">
       <SubType>
       </SubType>
     </ClInclude>

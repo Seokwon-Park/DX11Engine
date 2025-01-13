@@ -8,8 +8,8 @@ class UTilemapEditorWindow : public UEngineImGuiWindow
 {
 public:
 	// constrcuter destructer
-	UTilemapEditorWindow(class ULevel* _Level);
-	~UTilemapEditorWindow();
+	ENGINE_API UTilemapEditorWindow(class ULevel* _Level);
+	ENGINE_API ~UTilemapEditorWindow();
 
 	// delete Function
 	UTilemapEditorWindow(const UTilemapEditorWindow& _Other) = delete;
@@ -19,14 +19,19 @@ public:
 
 	virtual void OnImGuiRender() override;
 
-	UTilemapComponent * Tilemap = nullptr;
+	ENGINE_API void SetTilemap(std::shared_ptr<UTilemapComponent> _TilemapComponent) { SetTilemap(_TilemapComponent.get()); }
+	ENGINE_API void SetTilemap(UTilemapComponent* _TilemapComponent) { TilemapComponent = _TilemapComponent; }
+
+	UTilemapComponent* TilemapComponent = nullptr;
 protected:
 
 private:
 	FIntPoint Start{ 0,0 };
 	FIntPoint TileSize = { 10,10 };
 
+	bool IsFlip = false;
 
+	std::shared_ptr<URenderUnit> PreviewTile;
 
 	class ULevel* Level = nullptr;
 	size_t SelectItem = 0;

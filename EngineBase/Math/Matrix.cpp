@@ -6,11 +6,17 @@ FMatrix::FMatrix()
 	this->MatrixIdentity();
 }
 
+FMatrix FMatrix::Transpose(const FMatrix& _Matrix)
+{
+	FMatrix Result = _Matrix;
+	Result.MatrixTranspose();
+	return Result;
+}
+
 void FMatrix::MatrixInverse()
 {
 	Mat = DirectX::XMMatrixInverse(nullptr, Mat);
 }
-
 
 void FMatrix::MatrixIdentity()
 {
@@ -37,14 +43,17 @@ void FMatrix::MatrixRotation(FVector4 _Rotation)
 
 void FMatrix::MatrixRotationX(float _Radian)
 {
+	Mat = DirectX::XMMatrixRotationX(_Radian);
 }
 
 void FMatrix::MatrixRotationY(float _Radian)
 {
+	Mat = DirectX::XMMatrixRotationY(_Radian);
 }
 
 void FMatrix::MatrixRotationZ(float _Radian)
 {
+	Mat = DirectX::XMMatrixRotationZ(_Radian);
 }
 
 void FMatrix::MatrixTranslation(FVector4 _Translate)

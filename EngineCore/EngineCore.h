@@ -51,7 +51,7 @@ private:
 
 	static UEngineWindow MainWindow;
 	static HMODULE ContentsDLL;
-	static std::shared_ptr<IContentsCore> Core;
+	static std::shared_ptr<IContentsCore> ContentsCore;
 
 	static UEngineTimer Timer;
 	static FTimerManager TimerManager;

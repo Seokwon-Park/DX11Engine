@@ -13,13 +13,7 @@ UTilemapRendererComponent::~UTilemapRendererComponent()
 
 void UTilemapRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer)
 {
-	if (SortingLayer == _SortingLayer && OrderInLayer == _OrderInLayer)
-	{
-		return;
-	}
-	std::pair<int, int> PrevOrder = std::make_pair(static_cast<int>(SortingLayer), OrderInLayer);
-	SortingLayer = _SortingLayer;
-	OrderInLayer = _OrderInLayer;
+	URenderer2DComponent::SetOrder(_SortingLayer, _OrderInLayer);
 	int SortingLayerInt = static_cast<int>(_SortingLayer);
 	std::shared_ptr<USpriteRendererComponent> RendererPtr = GetThis<USpriteRendererComponent>();
 	ULevel* Level = GetOwner()->GetLevel();
@@ -36,23 +30,20 @@ FVector4 UTilemapRendererComponent::TileIndexToWorldPos(FTileIndex _Pos)
 {
 	FVector4 Result;
 	Result.X = _Pos.X * TilemapComponent->ImageSize.X;
-	Result.Y = _Pos.Y * TilemapComponent->ImageSize.X;
+	Result.Y = _Pos.Y * TilemapComponent->ImageSize.Y;
 	return Result;
 }
 
 void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
 	VertexConstant VC;
-	auto& Test = Parent->GetTransformRef();
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
 	VC.World = WorldMatrix;
 	VC.View = _Camera->GetViewMatrix();
 	VC.View.MatrixTranspose();
-	VC.Proj = _Camera->GetProjMatrix();
+	VC.Proj = _Camera->GetProjectionMatrix();
 	VC.Proj.MatrixTranspose();
-
-
 
 	if (0 == TilemapComponent->Tiles.size())
 	{
@@ -63,16 +54,8 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tiles)
 	{
-		//if (화면 바깥에 나간 타일은)
-		//{
-		//	continue;
-		//}
-
 		FTileData& Tile = TilePair.second;
 		FTileIndex Index;
-
-		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
-		Unit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
 
 		Tile.SpriteRect = TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Rect;
 		Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
@@ -81,15 +64,25 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 		FVector4 ConvertPos = TileIndexToWorldPos(Index);
 
+		//if ()
+		//{
+		//	continue;
+		//}
+
+		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
+		Unit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
+
 		Trans.Location = FVector4({ ConvertPos.X, ConvertPos.Y, 0.0f, 1.0f });
 		Trans.Scale = FVector4({ TilemapComponent->ImageSize.X, TilemapComponent->ImageSize.Y, 1.0f, 1.0f });
 
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();
 		VC.World = Trans.WorldMatrix;
+		
 
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
+		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f,1.0f,1.0f, 1.0f));
 
 		//Unit.ConstantBufferLinkData("ResultColor", Tile.ColorData);
 
@@ -102,7 +95,7 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 void UTilemapRendererComponent::BeginPlay()
 {
 	URendererComponent::BeginPlay();
-	GetOwner()->GetLevel()->PushTilemapRenderer(GetThis<UTilemapRendererComponent>());
+	GetOwner()->GetLevel()->PushRenderer(GetThis<UTilemapRendererComponent>());
 	Unit = std::make_shared<URenderUnit>();
 	Unit->Init("Quad", "Tilemap");
 }

@@ -55,6 +55,9 @@ public:
 		return _A * (1 - _Alpha) + _B * _Alpha;
 	}
 
+
+	
+
 	//Constants
 	static const float PI;
 	static const float HALF_PI;

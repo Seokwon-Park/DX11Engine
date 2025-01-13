@@ -39,17 +39,10 @@ void USpriteRendererComponent::SetSprite(std::shared_ptr<UEngineSprite> _Sprite,
 
 void USpriteRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer)
 {
-	if (SortingLayer == _SortingLayer && OrderInLayer == _OrderInLayer)
-	{
-		return;
-	}
-	std::pair<int, int> PrevOrder = std::make_pair(static_cast<int>(SortingLayer), OrderInLayer);
-	SortingLayer = _SortingLayer;
-	OrderInLayer = _OrderInLayer;
+	URenderer2DComponent::SetOrder(_SortingLayer, _OrderInLayer);
 	int SortingLayerInt = static_cast<int>(_SortingLayer);
 	std::shared_ptr<USpriteRendererComponent> RendererPtr = GetThis<USpriteRendererComponent>();
 	ULevel* Level = GetOwner()->GetLevel();
-
 	//처음 렌더러 생성시에는 Level이 Null일 수 있으므로 미루고 BeginPlay에서 처리.
 	if (Level == nullptr)
 	{
@@ -57,6 +50,8 @@ void USpriteRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderI
 	}
 	Level->ChangeRenderOrder(PrevOrder, RendererPtr);
 }
+
+
 
 void USpriteRendererComponent::BeginPlay()
 {
@@ -76,7 +71,7 @@ void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTim
 	VC.View.MatrixTranspose();
 
 	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
-	VC.Proj = _Camera->GetProjMatrix();
+	VC.Proj = _Camera->GetProjectionMatrix();
 	VC.Proj.MatrixTranspose();
 
 	auto test = FColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -92,8 +87,6 @@ void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTim
 void USpriteRendererComponent::TickComponent(float _DeltaTime)
 {
 	URendererComponent::TickComponent(_DeltaTime);
-
-
 }
 
 

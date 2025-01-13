@@ -119,6 +119,14 @@ void UResourceManager::CreateDefaultMaterial()
 	Desc.RSName = "Default";
 	Desc.DSSName = "Default";
 	UEngineMaterial::Create("Tilemap", Desc);
+
+	Desc.VSName = "GridShaderVS";
+	Desc.PSName = "GridShaderPS";
+	Desc.InputLayoutName = "Quad";
+	Desc.RSName = "Wired";
+	Desc.BSName = "Default";
+	Desc.DSSName = "Default";
+	UEngineMaterial::Create("Grid", Desc);
 }
 
 void UResourceManager::CreateDefaultShader()

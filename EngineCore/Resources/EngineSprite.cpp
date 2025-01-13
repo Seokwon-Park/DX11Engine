@@ -11,7 +11,7 @@ UEngineSprite::~UEngineSprite()
 {
 }
 
-FSpriteData UEngineSprite::GetSpriteByIndex(int _Index)
+FSpriteData UEngineSprite::GetSpriteByIndex(size_t _Index)
 {
 	if (_Index >= SpriteData.size() || _Index < 0)
 	{
