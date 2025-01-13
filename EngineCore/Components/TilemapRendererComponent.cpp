@@ -40,10 +40,8 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
 	VC.World = WorldMatrix;
-	VC.View = _Camera->GetViewMatrix();
-	VC.View.MatrixTranspose();
-	VC.Proj = _Camera->GetProjectionMatrix();
-	VC.Proj.MatrixTranspose();
+	VC.View = _Camera->GetViewMatrixTranspose();
+	VC.Proj = _Camera->GetProjectionMatrixTranspose();
 
 	if (0 == TilemapComponent->Tiles.size())
 	{
@@ -82,8 +80,8 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
-		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 1.0f));
 
+		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 1.0f));
 		//Unit.ConstantBufferLinkData("ResultColor", Tile.ColorData);
 
 		Unit->Render(_Camera, _DeltaTime);

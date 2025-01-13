@@ -31,9 +31,9 @@ ATilemapEditorGameMode::ATilemapEditorGameMode()
 	TilemapRenderer->SetTilemap(Tilemap);
 	TilemapRenderer->SetupAttachment(RootComponent);
 
-	TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
-	TilemapCollider->SetTilemap(Tilemap);
-	TilemapCollider->SetupAttachment(RootComponent);
+	//TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
+	//TilemapCollider->SetTilemap(Tilemap);
+	//TilemapCollider->SetupAttachment(RootComponent);
 }
 
 ATilemapEditorGameMode::~ATilemapEditorGameMode()
@@ -42,14 +42,12 @@ ATilemapEditorGameMode::~ATilemapEditorGameMode()
 
 void ATilemapEditorGameMode::BeginPlay()
 {
-
-
 	AGameMode::BeginPlay();
 	std::shared_ptr<UTilemapEditorWindow> Window = std::make_shared<UTilemapEditorWindow>(GetLevel());
 	Window->SetTilemap(Tilemap);
 	GetLevel()->AddGuiWindow(Window);
 
-	GetLevel()->SpawnActor<AGridActor>();
+	//GetLevel()->SpawnActor<AGridActor>();
 }
 
 void ATilemapEditorGameMode::Tick(float _DeltaTime)

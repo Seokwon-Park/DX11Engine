@@ -1,22 +1,26 @@
 #pragma once
+#include <random>	
 
 // Ό³Έν :
-class Random
+class FRandom
 {
 public:
 	// constrcuter destructer
-	Random();
-	~Random();
+	FRandom();
+	~FRandom();
 
 	// delete Function
-	Random(const Random& _Other) = delete;
-	Random(Random&& _Other) noexcept = delete;
-	Random& operator=(const Random& _Other) = delete;
-	Random& operator=(Random&& _Other) noexcept = delete;
+	FRandom(const FRandom& _Other) = delete;
+	FRandom(FRandom&& _Other) noexcept = delete;
+	FRandom& operator=(const FRandom& _Other) = delete;
+	FRandom& operator=(FRandom&& _Other) noexcept = delete;
+
+	int GenerateRandomInt(int _InclusiveMin, int _InclusiveMax);
+	float GenerateRandomFloat(float _InclusiveMin, float _InclusiveMax);
 
 protected:
 
 private:
-
+	static std::mt19937_64 MTGenerator;
 };
 

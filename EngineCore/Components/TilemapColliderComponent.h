@@ -2,7 +2,6 @@
 #include "TilemapComponent.h"
 #include "Collider2DComponent.h"
 
-
 // 클래스 설명 :
 class UTilemapColliderComponent : public UCollider2DComponent
 {
@@ -35,7 +34,7 @@ private:
 	float Restitution = 0.0f;
 	float RestitutionThreshold = 0.5f;
 
-	b2BodyId BodyId;
+	std::vector<b2BodyId> BodyIds;
 	b2Polygon dynamicBox;
 	b2ShapeDef shapeDef;
 

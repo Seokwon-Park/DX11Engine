@@ -19,9 +19,12 @@ public:
 
 	ENGINE_API virtual void DebugRender(class UCameraComponent* _Camera, float _DeltaTime) = 0;
 	virtual void TickComponent(float _DeltaTime) override;
+	inline void SetCollisionLayer(ECollisionLayer _Layer) { Layer = _Layer; }
+
 protected:
 	virtual void BeginPlay() override;
 
+	ECollisionLayer Layer;
 private:
 
 };

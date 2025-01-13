@@ -54,5 +54,4 @@ void URendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 	{
 		RenderUnit->Render(_Camera, _DeltaTime);
 	}
-
 }

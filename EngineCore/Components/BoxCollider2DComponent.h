@@ -23,13 +23,11 @@ public:
 	virtual void DebugRender(UCameraComponent* _Camera, float _DeltaTime)override;
 	ENGINE_API inline void SetRigidbody(URigidbody2DComponent* _RigidBody2D) { Rigidbody2D = _RigidBody2D; }
 	ENGINE_API inline void SetRigidbody(std::shared_ptr<URigidbody2DComponent> _RigidBody2D) { Rigidbody2D = _RigidBody2D.get(); }
-	inline void SetCollisionLayer(ECollisionLayer _Layer) { Layer = _Layer; }
 protected:
 	virtual void BeginPlay();
 	virtual void TickComponent(float _DeltaTime);
 
 private:
-	ECollisionLayer Layer;
 
 	FVector2 Offset = { 0.0f, 0.0f };
 	FVector2 Size = { 0.5f, 0.5f };

@@ -167,6 +167,8 @@ void UEngineCore::EngineUpdate()
 	Timer.TimeCheck();
 	float DeltaTime = Timer.GetDeltaTime();
 	
+	std::cout << 1.0f / DeltaTime << '\n';
+
 	CheckLevelChange();
 	UEngineInputSystem::KeyCheck(DeltaTime);
 

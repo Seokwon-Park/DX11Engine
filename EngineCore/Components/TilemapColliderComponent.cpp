@@ -29,7 +29,7 @@ void UTilemapColliderComponent::BeginPlay()
 		shapeDef.density = 0.5f;
 		shapeDef.friction = 0.0f;
 		//내 레이어
-		shapeDef.filter.categoryBits = Layer;
+		//shapeDef.filter.categoryBits = Layer;
 		//내가 충돌하면 부딪혀야 되는 애들 비트마스킹
 		//shapeDef.filter.maskBits = Layer;
 
@@ -44,8 +44,9 @@ void UTilemapColliderComponent::BeginPlay()
 		//Parent->GetTransformRef().Rotation = FVector4(0.0f, 0.0f, FMath::DegreeToRadian(10.0f), 1.0f);
 		//Parent->UpdateTransform();
 		//BodyDef.fixedRotation = true;
-		BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
+		b2BodyId BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 		b2CreatePolygonShape(BodyId, &shapeDef, &dynamicBox);
+		BodyIds.push_back(BodyId);
 	}
 
 	GetOwner()->GetLevel()->PushCollider2D(GetThis<UTilemapColliderComponent>());
