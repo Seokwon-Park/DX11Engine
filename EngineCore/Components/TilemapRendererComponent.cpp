@@ -32,10 +32,6 @@ void UTilemapRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _Order
 	Level->ChangeRenderOrder(PrevOrder, RendererPtr);
 }
 
-
-
-
-
 FVector4 UTilemapRendererComponent::TileIndexToWorldPos(FTileIndex _Pos)
 {
 	FVector4 Result;
@@ -75,10 +71,10 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		FTileData& Tile = TilePair.second;
 		FTileIndex Index;
 
-		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteData(Tile.SpriteIndex).Texture);
+		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
 		Unit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
 
-		Tile.SpriteRect = TilemapComponent->Sprite->GetSpriteData(Tile.SpriteIndex).Rect;
+		Tile.SpriteRect = TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Rect;
 		Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
 
 		Index.Key = TilePair.first;

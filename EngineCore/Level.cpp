@@ -57,7 +57,7 @@ void ULevel::Tick(float _DeltaTime)
 
 void ULevel::Render(float _DeltaTime)
 {
-	UEngineCore::GetGraphicsDeviceContext()->ClearRenderTarget();
+	UEngineCore::GetGraphicsDeviceContext()->Clear();
 
 	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<URendererComponent>>>& RenderGroup : SpriteRenderers)
 	{

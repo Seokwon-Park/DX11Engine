@@ -15,7 +15,7 @@ USpriteRendererComponent::~USpriteRendererComponent()
 void USpriteRendererComponent::SetSprite(UEngineSprite* _Sprite, Uint32 _Index)
 {
 	Sprite = _Sprite;
-	SpriteData = Sprite->GetSpriteData(_Index);
+	SpriteData = Sprite->GetSpriteByIndex(_Index);
 	if (true == IsAutoScale)
 	{
 		FVector2 TextureSize = SpriteData.Texture->GetTextureSize();
@@ -69,7 +69,6 @@ void USpriteRendererComponent::BeginPlay()
 void USpriteRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
 	VertexConstant VC;
-	auto& Test= Parent->GetTransformRef();
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
 	VC.World = WorldMatrix;

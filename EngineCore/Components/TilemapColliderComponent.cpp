@@ -12,6 +12,7 @@ UTilemapColliderComponent::~UTilemapColliderComponent()
 void UTilemapColliderComponent::BeginPlay()
 {
 
+	// 각 타일의 인덱스에 대해 월드 좌표로 변환- >static body로 충돌체를 생성한다
 	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tiles)
 	{
 		FTileData& Tile = TilePair.second;

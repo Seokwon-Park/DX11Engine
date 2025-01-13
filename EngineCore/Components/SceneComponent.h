@@ -54,6 +54,11 @@ public:
 		return Transform;
 	}
 
+	FMatrix GetWorldMatrix()
+	{
+		return Transform.WorldMatrix;
+	}
+
 	void GetParentTransform();
 
 	ENGINE_API void SetupAttachment(std::shared_ptr<USceneComponent> _Parent);

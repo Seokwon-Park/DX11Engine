@@ -146,6 +146,7 @@
     <ClInclude Include="Components\TilemapComponent.h" />
     <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\TilemapColliderComponent.h" />
+    <ClInclude Include="Structures\Renderer2DBufferData.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

@@ -35,6 +35,10 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Nam
 void UEngineTexture2D::CreateTexture(D3D11_TEXTURE2D_DESC _Desc)
 {
 	UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateTexture2D(&_Desc, nullptr, Texture.GetAddressOf());
+	CreateRTV();
+	CreateSRV();
+	CreateDSV();
+	CreateUAV();
 }
 
 void UEngineTexture2D::LoadTextureFromPath(std::string_view _Path)
@@ -101,7 +105,7 @@ bool UEngineTexture2D::IsCreatable(D3D11_BIND_FLAG _BindFlag)
 {
 	D3D11_TEXTURE2D_DESC Desc;
 	Texture->GetDesc(&Desc);
-	if ((Desc.BindFlags | _BindFlag) != 0)
+	if ((Desc.BindFlags & _BindFlag) != 0)
 	{
 		return true;
 	}
@@ -152,8 +156,9 @@ void UEngineTexture2D::CreateRTV()
 {
 	if (false == IsCreatable(D3D11_BIND_RENDER_TARGET))
 	{
-		MSGASSERT("렌더타겟뷰를 만들 수 있는 텍스쳐가 아닙니다.")
+		return;
 	}
+	RenderTargetView = nullptr;
 	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateRenderTargetView(Texture.Get(), nullptr, RenderTargetView.GetAddressOf());
 	if (FAILED(Result))
 	{
@@ -165,8 +170,9 @@ void UEngineTexture2D::CreateDSV()
 {
 	if (false == IsCreatable(D3D11_BIND_DEPTH_STENCIL))
 	{
-		MSGASSERT("뎁스 스텐실 뷰를 만들 수 있는 텍스쳐가 아닙니다.")
+		return;
 	}
+	DepthStencilView = nullptr;
 	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateDepthStencilView(Texture.Get(), nullptr, DepthStencilView.GetAddressOf());
 	if (FAILED(Result))
 	{
@@ -178,8 +184,9 @@ void UEngineTexture2D::CreateSRV()
 {
 	if (false == IsCreatable(D3D11_BIND_SHADER_RESOURCE))
 	{
-		MSGASSERT("셰이더 리소스 뷰를 만들 수 있는 텍스쳐가 아닙니다.")
+		return;
 	}
+	ShaderResourceView = nullptr;
 	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateShaderResourceView(Texture.Get(), nullptr, ShaderResourceView.GetAddressOf());
 	if (FAILED(Result))
 	{
@@ -191,8 +198,9 @@ void UEngineTexture2D::CreateUAV()
 {
 	if (false == IsCreatable(D3D11_BIND_UNORDERED_ACCESS))
 	{
-		MSGASSERT("UAV를 만들 수 있는 텍스쳐가 아닙니다.")
+		return;
 	}
+	UnorderedAccessView = nullptr;
 	HRESULT Result = UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateUnorderedAccessView(Texture.Get(), nullptr, UnorderedAccessView.GetAddressOf());
 	if (FAILED(Result))
 	{

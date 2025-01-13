@@ -29,6 +29,6 @@ private:
 
 
 	class ULevel* Level = nullptr;
-	int SelectItem = 0;
+	size_t SelectItem = 0;
 };
 

@@ -2,14 +2,7 @@
 #include "RendererComponent.h"
 #include <EngineCore/Resources/EngineSprite.h>
 #include <EngineCore/Enums/EngineLayer.h>
-
-
-struct VertexConstant
-{
-	FMatrix World;
-	FMatrix View;
-	FMatrix Proj;
-};
+#include <EngineCore/Structures/Renderer2DBufferData.h>
 
 // Ό³Έν :
 class USpriteRendererComponent : public URendererComponent

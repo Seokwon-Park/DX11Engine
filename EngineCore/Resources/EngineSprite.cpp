@@ -11,16 +11,17 @@ UEngineSprite::~UEngineSprite()
 {
 }
 
-FSpriteData UEngineSprite::GetSpriteData(int _Index)
+FSpriteData UEngineSprite::GetSpriteByIndex(int _Index)
 {
-	if (_Index >= SpriteData.size() && _Index < 0)
+	if (_Index >= SpriteData.size() || _Index < 0)
 	{
 		MSGASSERT("유효하지 않은 범위입니다.");
 	}
 	return SpriteData[_Index];
 }
 
-ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path)
+
+ std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path)
 {
 	UEngineDirectory Dir = _Path;
 

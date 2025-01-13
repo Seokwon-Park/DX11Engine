@@ -1,6 +1,7 @@
 #include "EnginePCH.h"
 #include "HierarchyWindow.h"
 #include <EngineCore/Level.h>
+#include <EngineCore/Components/AnimatorComponent.h>
 #include <EngineCore/Components/SceneComponent.h>
 
 UHierarchyWindow::UHierarchyWindow(ULevel* _Level)
@@ -161,10 +162,10 @@ void UHierarchyWindow::DrawComponents(std::shared_ptr<class AActor>& _Actor)
 	{
 		if (Component->GetName() == "AnimatorComponent")
 		{
-			//DrawComponent<UAnimatorComponent>(Component, [=](auto& _Component)
-			//	{
-			//		ImGui::Text("Test");
-			//	});
+			/*DrawComponent<UAnimatorComponent>(Component, [=](auto& _Component)
+				{
+					ImGui::Text("Test");
+				});*/
 		}
 	}
 

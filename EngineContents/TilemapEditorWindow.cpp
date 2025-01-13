@@ -1,11 +1,12 @@
 #include "EnginePCH.h"
 #include "TilemapEditorWindow.h"
+#include "TitleLogo.h"
+
 #include <EngineBase/EngineIO.h>
 #include <EnginePlatform/EngineInputSystem.h>
 #include <EngineCore/Level.h>
-#include "TitleLogo.h"
-
 #include <EngineCore/EngineCore.h>
+
 
 UTilemapEditorWindow::UTilemapEditorWindow(ULevel* _Level)
 	:Level(_Level)
@@ -24,7 +25,43 @@ void UTilemapEditorWindow::OnImGuiRender()
 	Arr.push_back("Monster");
 	Arr.push_back("Monster2");
 
-	ImGui::ListBox("SpawnList", &SelectItem, &Arr[0], 2);
+	
+	std::string Name = Tilemap->GetCurSpriteName();
+	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(Name);
+	auto vec = Sprite->GetSpriteData();
+
+	FTileData EditorSetting;
+	
+
+	for (size_t i = 0; i < Sprite->GetSpriteCount(); i++)
+	{
+		FSpriteData SpriteData = Sprite->GetSpriteByIndex(i);
+
+		//SRV입니다
+		ImTextureID SRV = reinterpret_cast<ImTextureID>(SpriteData.Texture->GetSRV());
+
+		std::string Text = std::to_string(i);
+
+		if (i != 0)
+		{
+			if (0 != (i % 10))
+			{
+				ImGui::SameLine();
+			}
+		}
+
+		FSpriteRect Data = SpriteData.Rect;
+		ImVec2 Pos = { Data.CuttingPos.X, Data.CuttingPos.Y };
+		ImVec2 Size = { Data.CuttingPos.X + Data.CuttingSize.X, Data.CuttingPos.Y + Data.CuttingSize.Y };
+
+		if (ImGui::ImageButton(Text.c_str(), SRV, { 60, 60 }, Pos, Size))
+		{
+			SelectItem = i;
+		}
+		// 엔터를 치지 않는개념.
+	}
+
+	//ImGui::ListBox("SpawnList", &SelectItem, &Arr[0], 2);
 
 	ImGui::InputInt("TileStartX", &Start.X);
 	ImGui::InputInt("TileStartY", &Start.Y);
@@ -37,7 +74,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		{
 			for (int x = Start.X; x < TileSize.X; x++)
 			{
-				Tilemap->SetTile(x, y, 0);
+				Tilemap->SetTile(x, y, SelectItem);
 			}
 		}
 	}
@@ -52,7 +89,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-		Tilemap->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), 5);
+		Tilemap->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), SelectItem);
 		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)
@@ -69,9 +106,16 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		//NewMonster->SetActorLocation(Pos);
 	}
+	if (true == UEngineInputSystem::GetKey(EKey::X))
+	{
+		//Tilemap->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y), SelectItem);
+	}
 
+
+	
 	if (true == ImGui::Button("Save"))
 	{
+		//파일 입출력 기능으로 래핑
 		UEngineDirectory Dir;
 		if (false == Dir.MoveParentToDirectory("Resources"))
 		{
@@ -118,7 +162,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	if (true == ImGui::Button("Load"))
 	{
-
+		//파일 입출력 기능으로 래핑
 		UEngineDirectory Dir;
 		if (false == Dir.MoveParentToDirectory("Resources"))
 		{

@@ -2,6 +2,7 @@
 #include "RendererComponent.h"
 #include "TilemapComponent.h"
 #include <EngineCore/Enums/EngineLayer.h>
+#include <EngineCore/Structures/Renderer2DBufferData.h>
 
 // Ό³Έν :
 class UTilemapRendererComponent : public URendererComponent

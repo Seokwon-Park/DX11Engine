@@ -329,6 +329,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Structures\Renderer2DBufferData.h" />
     <ClInclude Include="ThirdParty\Box2D\include\base.h" />
     <ClInclude Include="ThirdParty\Box2D\include\box2d.h" />
     <ClInclude Include="ThirdParty\Box2D\include\collision.h" />

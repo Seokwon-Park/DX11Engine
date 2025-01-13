@@ -11,6 +11,7 @@ UEngineDeviceContext::UEngineDeviceContext()
 UEngineDeviceContext::~UEngineDeviceContext()
 {
 	// 렌더 타겟, 뎁스 스텐실 텍스쳐는 참조를 여기서 지워줘야함.
+	RenderTargetTextures.clear();
 	DepthStencilTexture = nullptr;
 	BackBufferTexture = nullptr;
 	SwapChain = nullptr;
@@ -130,6 +131,7 @@ void UEngineDeviceContext::CreateBackBuffer(const UEngineWindow& _Window)
 		MSGASSERT("백버퍼 텍스처를 얻어오는데 실패했습니다.");
 	}
 	BackBufferTexture->CreateRTV();
+	RenderTargetTextures.push_back(BackBufferTexture);
 
 	D3D11_TEXTURE2D_DESC Desc;
 	ZeroMemory(&Desc, sizeof(D3D11_TEXTURE2D_DESC));
@@ -146,7 +148,7 @@ void UEngineDeviceContext::CreateBackBuffer(const UEngineWindow& _Window)
 	Desc.MiscFlags = 0;
 
 	DepthStencilTexture = UEngineTexture2D::Create("DepthStencil", Desc);
-	DepthStencilTexture->CreateDSV();
+	//DepthStencilTexture->CreateDSV();
 	//수정이 필요하당.
 	SetViewport(0.0f, 0.0f, (float)WindowSize.X, (float)WindowSize.Y);
 
@@ -207,16 +209,18 @@ IDXGIAdapter* UEngineDeviceContext::GetHighPerFormanceAdapter()
 	return Adapter;
 }
 
-void UEngineDeviceContext::ClearRenderTarget()
+void UEngineDeviceContext::Clear()
 {
 	// 이미지 ClearColor으로 렌더타겟 초기화
-	ID3D11RenderTargetView* ArrRtv[16] = { 0 };
-	ArrRtv[0] = BackBufferTexture->GetRTV(); // SV_Target0
+	std::vector<ID3D11RenderTargetView*> RenderTargetViewArray;
 
-	//Context->OMSetRenderTargets(1, &ArrRtv[0], nullptr);
-	Context->OMSetRenderTargets(1, &ArrRtv[0], DepthStencilTexture->GetDSV());
-	Context->ClearDepthStencilView(DepthStencilTexture->GetDSV(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
-	Context->ClearRenderTargetView(BackBufferTexture->GetRTV(), ClearColor.V);
+	for (std::shared_ptr<UEngineTexture2D>& RenderTargetTexture : RenderTargetTextures)
+	{
+		RenderTargetViewArray.push_back(RenderTargetTexture->GetRTV());
+		Context->ClearDepthStencilView(DepthStencilTexture->GetDSV(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+		Context->ClearRenderTargetView(RenderTargetTexture->GetRTV(), ClearColor.V);
+	}
+	Context->OMSetRenderTargets(1, RenderTargetViewArray.data(), DepthStencilTexture->GetDSV());
 }
 
 

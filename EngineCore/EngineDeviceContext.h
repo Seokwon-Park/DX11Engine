@@ -18,7 +18,7 @@ public:
 
 	ENGINE_API void Init(const UEngineWindow& _Window);
 	ENGINE_API void SwapBuffers();
-	ENGINE_API void ClearRenderTarget();
+	ENGINE_API void Clear();
 	ENGINE_API void CreateBackBuffer(const UEngineWindow& _Window);
 	ENGINE_API void SetViewport(float _TopLeftX, float _TopLeftY, float _Width, float _Height, float _MinDepth= 0.0f, float _MaxDepth = 1.0f);
 
@@ -37,6 +37,7 @@ protected:
 	ComPtr<IDXGISwapChain> SwapChain = nullptr;
 
 	//Resources
+	std::vector<std::shared_ptr<class UEngineTexture2D>> RenderTargetTextures;
 	std::shared_ptr<class UEngineTexture2D> BackBufferTexture = nullptr;
 	std::shared_ptr<class UEngineTexture2D> DepthStencilTexture = nullptr;
 	D3D11_VIEWPORT Viewport;

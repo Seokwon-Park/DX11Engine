@@ -21,6 +21,7 @@ public:
 	virtual void OnImGuiRender() override;
 	void DrawActor(std::shared_ptr<class AActor>& _Actor);
 	void DrawComponents(std::shared_ptr<class AActor>& _Actor);
+
 	template <typename ComponentType, typename UIFunction>
 	void DrawComponent(std::shared_ptr<ComponentType> _Component, UIFunction _Function)
 	{
