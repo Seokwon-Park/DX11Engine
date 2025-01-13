@@ -8,8 +8,8 @@ class UTilemapColliderComponent : public UCollider2DComponent
 {
 public:
 	// Constrcuter Destructer
-	UTilemapColliderComponent();
-	~UTilemapColliderComponent();
+	ENGINE_API UTilemapColliderComponent();
+	ENGINE_API ~UTilemapColliderComponent();
 
 	// Delete Function
 	UTilemapColliderComponent(const UTilemapColliderComponent& _Other) = delete;
@@ -19,6 +19,8 @@ public:
 
 	ENGINE_API void SetTilemap(std::shared_ptr<UTilemapComponent> _TilemapComponent) { SetTilemap(_TilemapComponent.get()); }
 	ENGINE_API void SetTilemap(UTilemapComponent* _TilemapComponent) { TilemapComponent = _TilemapComponent; }
+
+	ENGINE_API virtual void DebugRender(class UCameraComponent* _Camera, float _DeltaTime)override;
 protected:
 	void BeginPlay() override;
 	void TickComponent(float _DeltaTime) override;

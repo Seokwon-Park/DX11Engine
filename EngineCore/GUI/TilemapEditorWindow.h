@@ -30,6 +30,7 @@ private:
 	FIntPoint TileSize = { 10,10 };
 
 	bool IsFlip = false;
+	Uint32 Rotate = 0;
 
 	std::shared_ptr<URenderUnit> PreviewTile;
 

@@ -35,9 +35,18 @@ void FMatrix::MatrixScaling(FVector4 _Scale)
 	Mat = DirectX::XMMatrixScalingFromVector(Vec);
 }
 
-void FMatrix::MatrixRotation(FVector4 _Rotation)
+void FMatrix::MatrixRotationDegree(FVector4 _Degree)
 {
-	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Rotation.XMFloat);
+	float X = DirectX::XMConvertToRadians(_Degree.X);
+	float Y = DirectX::XMConvertToRadians(_Degree.Y);
+	float Z = DirectX::XMConvertToRadians(_Degree.Z);
+	FVector4 Radian = FVector4(X, Y, Z);
+	MatrixRotationRadian(Radian);
+}
+
+void FMatrix::MatrixRotationRadian(FVector4 _Radian)
+{
+	DirectX::XMVECTOR Vec = DirectX::XMLoadFloat4A(&_Radian.XMFloat);
 	Mat = DirectX::XMMatrixRotationRollPitchYawFromVector(Vec);
 }
 

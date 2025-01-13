@@ -26,8 +26,6 @@ void UGridRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 	VC.World = WorldMatrix;
 	VC.View = _Camera->GetViewMatrix();
 	VC.View.MatrixTranspose();
-
-	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
 	VC.Proj = _Camera->GetProjectionMatrix();
 	VC.Proj.MatrixTranspose();
 

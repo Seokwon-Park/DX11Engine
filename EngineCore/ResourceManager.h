@@ -17,10 +17,11 @@ public:
 	UResourceManager& operator=(UResourceManager&& _Other) noexcept = delete;
 
 	ENGINE_API static void CreateDefaultResources();
+	static void CreateDefaultShader();
 	static void CreateDefaultVertexBuffer();
 	static void CreateDefaultInputLayout();
 	static void CreateDefaultIndexBuffer();
-	static void CreateDefaultShader();
+	static void CreateDefaultSamplerState();
 	static void CreateDefaultMesh();
 	static void CreateDefaultMaterial();
 

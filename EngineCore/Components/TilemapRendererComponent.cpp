@@ -29,8 +29,8 @@ void UTilemapRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _Order
 FVector4 UTilemapRendererComponent::TileIndexToWorldPos(FTileIndex _Pos)
 {
 	FVector4 Result;
-	Result.X = _Pos.X * TilemapComponent->ImageSize.X;
-	Result.Y = _Pos.Y * TilemapComponent->ImageSize.Y;
+	Result.X = _Pos.X * TilemapComponent->ImageSize.X + TilemapComponent->ImageSize.X / 2.0f;
+	Result.Y = _Pos.Y * TilemapComponent->ImageSize.Y + TilemapComponent->ImageSize.Y / 2.0f;
 	return Result;
 }
 
@@ -58,7 +58,7 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		FTileIndex Index;
 
 		Tile.SpriteRect = TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Rect;
-		Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
+		//Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
 
 		Index.Key = TilePair.first;
 
@@ -70,7 +70,7 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		//}
 
 		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
-		Unit->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
+		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
 		Trans.Location = FVector4({ ConvertPos.X, ConvertPos.Y, 0.0f, 1.0f });
 		Trans.Scale = FVector4({ TilemapComponent->ImageSize.X, TilemapComponent->ImageSize.Y, 1.0f, 1.0f });
@@ -78,11 +78,11 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();
 		VC.World = Trans.WorldMatrix;
-		
+
 
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
-		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f,1.0f,1.0f, 1.0f));
+		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 1.0f));
 
 		//Unit.ConstantBufferLinkData("ResultColor", Tile.ColorData);
 

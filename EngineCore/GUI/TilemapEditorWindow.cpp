@@ -26,13 +26,11 @@ void UTilemapEditorWindow::OnImGuiRender()
 	Arr.push_back("Monster");
 	Arr.push_back("Monster2");
 
-	
 	std::string Name = TilemapComponent->GetCurSpriteName();
 	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(Name);
-	auto vec = Sprite->GetSpriteData();
+	std::vector<FSpriteData> SpriteData = Sprite->GetSpriteData();
 
 	FTileData EditorSetting;
-	
 
 	for (size_t i = 0; i < Sprite->GetSpriteCount(); i++)
 	{
@@ -84,16 +82,18 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	UCameraComponent* _Camera = Level->GetCurrentCamera()->GetCameraComponent().get();
 
-	if (TilemapComponent->GetTile(WorldCoord) == nullptr)
+	//if (TilemapComponent->GetTile(WorldCoord) == nullptr)
 	{
 		auto Index = TilemapComponent->WorldPosToTileIndex(WorldCoord);
 		//Index.X *= TilemapComponent->ImageSize.X;
 		//Index.Y *= TilemapComponent->ImageSize.X;
 		Index.X *= 28;
 		Index.Y *= 28;
+		Index.X += 14;
+		Index.Y += 14;
 
 		FSpriteData SpriteData = Sprite->GetSpriteByIndex(SelectItem);
-		SpriteData.Rect.Pivot = { 0.0f, 0.0f };
+		//SpriteData.Rect.Pivot = { 0.0f, 0.0f };
 
 		VertexConstant VC;
 		FTransform Trans;
@@ -103,13 +103,14 @@ void UTilemapEditorWindow::OnImGuiRender()
 		VC.Proj.MatrixTranspose();
 
 		PreviewTile->SetTexture("TilemapTexture", EShaderType::PS, SpriteData.Texture);
-		PreviewTile->SetSampler("PSSampler", EShaderType::PS, UEngineSamplerState::Create());
+		PreviewTile->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
-		Trans.Location = FVector4( Index.X, Index.Y, 0.0f, 1.0f );
-		//if (IsFlip)
-		//{
-		//	Trans.Rotation = FVector4(0.0f, 180.0f, 0.0f,1.0f);
-		//}
+		Trans.Location = FVector4(Index.X, Index.Y, 1.0f, 1.0f);
+		if (true == IsFlip)
+		{
+			Trans.Rotation = FVector4(0.0f, 180.0f, 0.0f, 1.0f);
+		}
+		Trans.Rotation += FVector4(0.0f, 0.0f, 90.0f * Rotate, 1.0f);
 		Trans.Scale = FVector4({ 28.0f, 28.0f, 1.0f });
 
 		Trans.UpdateTransform();
@@ -123,10 +124,6 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		PreviewTile->Render(_Camera, 0.0f);
 	}
-	else
-	{
-
-	}
 
 	if (true == UEngineInputSystem::GetKey(EKey::Space))
 	{
@@ -136,7 +133,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-		TilemapComponent->SetTile(FIntPoint( WorldCoord.X, WorldCoord.Y ), SelectItem);
+		TilemapComponent->SetTile(FIntPoint(WorldCoord.X, WorldCoord.Y), SelectItem);
 		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)
@@ -153,9 +150,9 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		//NewMonster->SetActorLocation(Pos);
 	}
-	if (true == UEngineInputSystem::GetKey(EKey::X))
+	if (true == UEngineInputSystem::GetKeyDown(EKey::R))
 	{
-		//TilemapComponent->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y), SelectItem);
+		Rotate = (Rotate + 1) % 4;
 	}
 
 	if (true == UEngineInputSystem::GetKeyDown(EKey::F))
@@ -164,7 +161,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 	}
 
 
-	
+
 	if (true == ImGui::Button("Save"))
 	{
 		//파일 입출력 기능으로 래핑
@@ -189,7 +186,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		ofn.nFilterIndex = 1;
 		ofn.lpstrFileTitle = NULL;
 		ofn.nMaxFileTitle = 0;
-		ofn.lpstrDefExt = "MapData";
+		ofn.lpstrDefExt = "Tmap";
 		ofn.lpstrInitialDir = InitPath.c_str();
 		ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
@@ -232,7 +229,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		ofn.hwndOwner = nullptr;
 		ofn.lpstrFile = szFile;
 		ofn.nMaxFile = sizeof(szFile);
-		ofn.lpstrFilter = ("All\0*.*\0Text\0*.MapData\0");
+		ofn.lpstrFilter = ("All\0*.*\0Text\0*.Tmap\0");
 		ofn.nFilterIndex = 1;
 		ofn.lpstrFileTitle = NULL;
 		ofn.nMaxFileTitle = 0;

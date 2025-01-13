@@ -2,6 +2,7 @@
 #include "EngineSamplerState.h"
 #include "EngineDeviceContext.h"
 #include <EngineCore/EngineCore.h>
+#include <EngineCore/ResourceManager.h>
 
 UEngineSamplerState::UEngineSamplerState()
 {
@@ -11,7 +12,7 @@ UEngineSamplerState::~UEngineSamplerState()
 {
 }
 
-std::shared_ptr<UEngineSamplerState> UEngineSamplerState::Create()
+std::shared_ptr<UEngineSamplerState> UEngineSamplerState::Create(std::string_view _Name)
 {
 	D3D11_SAMPLER_DESC SamplerDesc;
 	ZeroMemory(&SamplerDesc, sizeof(SamplerDesc));
@@ -23,13 +24,14 @@ std::shared_ptr<UEngineSamplerState> UEngineSamplerState::Create()
 	SamplerDesc.MinLOD = 0;
 	SamplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	return Create(SamplerDesc);
+	return Create(_Name, SamplerDesc);
 }
 
-std::shared_ptr<UEngineSamplerState> UEngineSamplerState::Create(D3D11_SAMPLER_DESC _Desc)
+std::shared_ptr<UEngineSamplerState> UEngineSamplerState::Create(std::string_view _Name, D3D11_SAMPLER_DESC _Desc)
 {
 	std::shared_ptr<UEngineSamplerState> NewSampler = std::make_shared<UEngineSamplerState>();
 	NewSampler->CreateSamplerState(_Desc);
+	UResourceManager::AddResource<UEngineSamplerState>(NewSampler, _Name, "");
 	return NewSampler;
 }
 

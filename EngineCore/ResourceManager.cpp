@@ -3,6 +3,7 @@
 #include "EngineShaderFactory.h"
 #include <EngineBase/EngineString.h>
 #include <EngineCore/Resources/EngineBuffer.h>
+#include <EngineCore/Resources/EngineSamplerState.h>
 #include <EngineCore/Resources/EngineMesh.h>
 #include <EngineCore/Resources/EngineMaterial.h>
 
@@ -50,6 +51,7 @@ void UResourceManager::CreateDefaultResources()
 	CreateDefaultVertexBuffer();
 	CreateDefaultInputLayout();
 	CreateDefaultIndexBuffer();
+	CreateDefaultSamplerState();
 	CreateDefaultMesh();
 	CreateDefaultMaterial();
 }
@@ -123,7 +125,7 @@ void UResourceManager::CreateDefaultMaterial()
 	Desc.VSName = "GridShaderVS";
 	Desc.PSName = "GridShaderPS";
 	Desc.InputLayoutName = "Quad";
-	Desc.RSName = "Wired";
+	Desc.RSName = "Default";
 	Desc.BSName = "Default";
 	Desc.DSSName = "Default";
 	UEngineMaterial::Create("Grid", Desc);
@@ -142,4 +144,9 @@ void UResourceManager::CreateDefaultShader()
 		std::shared_ptr<UEngineShader> PixelShader = UEngineShaderFactory::Create(File, EShaderType::PS);
 	}
 
+}
+
+void UResourceManager::CreateDefaultSamplerState()
+{
+	UEngineSamplerState::Create("Default");
 }

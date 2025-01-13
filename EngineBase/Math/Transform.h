@@ -9,6 +9,7 @@ public:
 	BASE_API void UpdateTransform(FMatrix _ParentWorld);
 
 	FVector4 Location;
+	//Rotation은 Degree값을 기반으로 하기 때문에 Radian으로 변환해야 한다.
 	FVector4 Rotation;
 	FVector4 Scale = FVector4(1.0f,1.0f,1.0f,1.0f);
 

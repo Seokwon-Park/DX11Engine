@@ -45,7 +45,8 @@ public:
 	void MatrixTranspose();
 
 	void MatrixScaling(FVector4 _Scale);
-	void MatrixRotation(FVector4 _Rotation);
+	void MatrixRotationDegree(FVector4 _Degree);
+	void MatrixRotationRadian(FVector4 _Radian);
 	void MatrixRotationX(float _Radian);
 	void MatrixRotationY(float _Radian);
 	void MatrixRotationZ(float _Radian);

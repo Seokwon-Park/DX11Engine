@@ -9,7 +9,7 @@ void FTransform::UpdateTransform()
 	FMatrix TranslationMatrix;
 
 	ScaleMatrix.MatrixScaling(Scale);
-	RotateMatrix.MatrixRotation(Rotation);
+	RotateMatrix.MatrixRotationDegree(Rotation);
 	TranslationMatrix.MatrixTranslation(Location);
 
 	WorldMatrix = ScaleMatrix * RotateMatrix * TranslationMatrix;
@@ -22,7 +22,7 @@ BASE_API void FTransform::UpdateTransform(FMatrix _ParentWorld)
 	FMatrix TranslationMatrix;
 
 	ScaleMatrix.MatrixScaling(Scale);
-	RotateMatrix.MatrixRotation(Rotation);
+	RotateMatrix.MatrixRotationDegree(Rotation);
 	TranslationMatrix.MatrixTranslation(Location);
 
 	WorldMatrix = ScaleMatrix * RotateMatrix * TranslationMatrix * _ParentWorld;

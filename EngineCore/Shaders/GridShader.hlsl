@@ -15,6 +15,7 @@ struct VS_Input
 struct VS_Output
 {
     float4 Pos : SV_POSITION;
+    float4 PosWorld : POSITION;
     float4 Color : COLOR;
     float2 UV : TEXCOORD0;
 };
@@ -26,6 +27,11 @@ VS_Output vs_main(VS_Input _Input)
     Output.Pos = mul(Output.Pos, View);
     Output.Pos = mul(Output.Pos, Proj);
     Output.Color = _Input.Color;
+    
+
+    Output.PosWorld = mul(_Input.Pos, World);
+    // Output.PosWorld = mul(Output.PosWorld, View);
+    
     
     Output.UV = _Input.UV;
     //Output.UV.x = (_Input.UV.x * CuttingSize.x) + CuttingPos.x;
@@ -47,5 +53,14 @@ struct PS_Output
 
 float4 ps_main(VS_Output _Input) : SV_TARGET0
 {
+    int GridX = abs(_Input.PosWorld.x) % 28;
+    int GridY = abs(_Input.PosWorld.y) % 28;
+    
+    if (GridX != 0 && GridY != 0)
+    {
+        // return Color;
+        clip(-1);
+    }
     return Color;
+    
 }
