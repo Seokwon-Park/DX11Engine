@@ -31,17 +31,19 @@ protected:
 	void BeginPlay() override;
 	void TickComponent(float _DeltaTime) override;
 private:
-
-	void TileDFS(FTileIndex _Index);
-	std::unordered_map<__int64, bool> Visit;
+	// BFS
+	void TileBFS(FTileIndex _Index);
 	int dx[4] = { 0,1,0,-1 };
 	int dy[4] = { -1,0,1,0 };
-	ECollisionLayer Layer;
+	std::unordered_map<__int64, bool> Visit;
+	//////////////////////////////////////////////////
 
-	std::list<FEdge> Result;
+	ECollisionLayer Layer;
+	std::vector<FEdge> SortedEdges;
+
 
 	b2Polygon dynamicBox;
-	std::vector<b2BodyId> BodyIds;
+	std::vector<b2ChainId> ChainIds;
 
 	class UTilemapComponent* TilemapComponent = nullptr;
 };
