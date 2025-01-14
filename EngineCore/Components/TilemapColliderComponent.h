@@ -2,6 +2,13 @@
 #include "TilemapComponent.h"
 #include "Collider2DComponent.h"
 
+struct FEdge
+{
+	b2Vec2 A;
+	b2Vec2 B;
+};
+
+
 // 클래스 설명 :
 class UTilemapColliderComponent : public UCollider2DComponent
 {
@@ -24,9 +31,14 @@ protected:
 	void BeginPlay() override;
 	void TickComponent(float _DeltaTime) override;
 private:
+
+	void TileDFS(FTileIndex _Index);
+	std::unordered_map<__int64, bool> Visit;
+	int dx[4] = { 0,1,0,-1 };
+	int dy[4] = { -1,0,1,0 };
 	ECollisionLayer Layer;
 
-
+	std::list<FEdge> Result;
 
 	b2Polygon dynamicBox;
 	std::vector<b2BodyId> BodyIds;

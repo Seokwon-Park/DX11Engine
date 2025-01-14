@@ -29,6 +29,25 @@ void UTilemapComponent::SetTile(int _X, int _Y, int _Spriteindex)
 	NewTile.SpriteRect.Pivot = { 0.5f, 0.5f };
 }
 
+void UTilemapComponent::RemoveTile(FIntPoint _MousePos)
+{
+	FTileIndex Index = WorldPosToTileIndex(_MousePos);
+
+	RemoveTile(Index.X, Index.Y);
+}
+
+void UTilemapComponent::RemoveTile(int _TileCoordX, int _TileCoordY)
+{
+	FTileIndex Index = { _TileCoordX,  _TileCoordY };
+
+	if (false == Tiles.contains(Index.Key))
+	{
+		return;
+	}
+
+	Tiles.erase(Index.Key);
+}
+
 FTileData* UTilemapComponent::GetTile(FIntPoint _Pos)
 {
 	FTileIndex Index = WorldPosToTileIndex(_Pos);

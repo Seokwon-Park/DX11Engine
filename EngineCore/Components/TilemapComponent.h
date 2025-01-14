@@ -64,6 +64,10 @@ public:
 	//Tile Data로 재구성
 	ENGINE_API void SetTile(FIntPoint _MousePos, int _SpriteIndex);
 	ENGINE_API void SetTile(int _TileCoordX, int _TileCoordY, int _SpriteIndex);
+	ENGINE_API void RemoveTile(FIntPoint _MousePos);
+	ENGINE_API void RemoveTile(int _TileCoordX, int _TileCoordY);
+
+
 
 	ENGINE_API FTileData* GetTile(FIntPoint _MousePos);
 	ENGINE_API FTileData* GetTile(FTileIndex _TileIndex);

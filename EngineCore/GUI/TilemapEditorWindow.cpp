@@ -150,6 +150,11 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		//NewMonster->SetActorLocation(Pos);
 	}
+
+	if (true == UEngineInputSystem::GetKey(EKey::D))
+	{
+		TilemapComponent->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y));
+	}
 	if (true == UEngineInputSystem::GetKeyDown(EKey::R))
 	{
 		Rotate = (Rotate + 1) % 4;
