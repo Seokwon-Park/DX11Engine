@@ -42,17 +42,18 @@ void UBoxCollider2DComponent::BeginPlay()
 	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
 
 	dynamicBox = b2MakeBox(GetTransformRef().Scale.X / FMath::BOX2DSCALE / 2.0f, GetTransformRef().Scale.Y / FMath::BOX2DSCALE / 2.0f);
-	shapeDef = b2DefaultShapeDef();
-	shapeDef.density = 0.5f;
-	shapeDef.friction = 0.0f;
+	ShapeDef = b2DefaultShapeDef();
+	ShapeDef.density = 0.5f;
+	ShapeDef.friction = 1.0f;
+	ShapeDef.rollingResistance = 1.0f;
 	//내 레이어
-	shapeDef.filter.categoryBits = Layer;
+	//shapeDef.filter.categoryBits = Layer;
 	//내가 충돌하면 부딪혀야 되는 애들 비트마스킹
 	//shapeDef.filter.maskBits = Layer;
 	if (Rigidbody2D != nullptr)
 	{
 		BodyId = Rigidbody2D->GetBodyId();
-		b2CreatePolygonShape(BodyId, &shapeDef, &dynamicBox);
+		b2CreatePolygonShape(BodyId, &ShapeDef, &dynamicBox);
 	}
 	else
 	{
@@ -64,7 +65,7 @@ void UBoxCollider2DComponent::BeginPlay()
 		//Parent->UpdateTransform();
 		//BodyDef.fixedRotation = true;
 		BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
-		b2CreatePolygonShape(BodyId, &shapeDef, &dynamicBox);
+		b2CreatePolygonShape(BodyId, &ShapeDef, &dynamicBox);
 	}
 
 	GetOwner()->GetLevel()->PushCollider2D(GetThis<UBoxCollider2DComponent>());

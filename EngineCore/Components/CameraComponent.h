@@ -36,7 +36,7 @@ public:
 
 	inline void SetProjectionType(EProjectionType _ProjectionType) { ProjectionType = _ProjectionType; }
 protected:
-private:
+private: 
 	EProjectionType ProjectionType = EProjectionType::Orthographic;
 
 	FMatrix ViewMat;

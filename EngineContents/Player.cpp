@@ -5,7 +5,8 @@
 APlayer::APlayer()
 	:AEntity()
 {
-	BoxCollider2D->SetRelativeScale3D(FVector4(28.0f, 60.0f, 1.0f));
+	//BoxCollider2D->SetRelativeScale3D(FVector4(28.0f, 56.0f, 1.0f));
+	CapsuleCollider2D->SetRelativeScale3D(FVector4(26.0f, 56.0f, 1.0f));
 }
 
 APlayer::~APlayer()

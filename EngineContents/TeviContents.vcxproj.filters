@@ -19,9 +19,6 @@
     <ClCompile Include="PlayerStateMachine.cpp">
       <Filter>Player</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>FSM</Filter>
-    </ClCompile>
     <ClCompile Include="TilemapEditorGameMode.cpp">
       <Filter>GameMode</Filter>
     </ClCompile>
@@ -44,6 +41,7 @@
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
     <ClCompile Include="GridActor.cpp" />
+    <ClCompile Include="Entity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -67,9 +65,6 @@
     <ClInclude Include="PlayerStateMachine.h">
       <Filter>Player</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>FSM</Filter>
-    </ClInclude>
     <ClInclude Include="TilemapEditorGameMode.h">
       <Filter>GameMode</Filter>
     </ClInclude>
@@ -92,6 +87,7 @@
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
     <ClInclude Include="GridActor.h" />
+    <ClInclude Include="Entity.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Player">

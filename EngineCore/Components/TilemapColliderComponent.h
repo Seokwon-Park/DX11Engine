@@ -26,17 +26,10 @@ protected:
 private:
 	ECollisionLayer Layer;
 
-	FVector2 Offset = { 0.0f, 0.0f };
-	FVector2 Size = { 0.5f, 0.5f };
 
-	float Density = 1.0f;
-	float Friction = 0.5f;
-	float Restitution = 0.0f;
-	float RestitutionThreshold = 0.5f;
 
-	std::vector<b2BodyId> BodyIds;
 	b2Polygon dynamicBox;
-	b2ShapeDef shapeDef;
+	std::vector<b2BodyId> BodyIds;
 
 	class UTilemapComponent* TilemapComponent = nullptr;
 };

@@ -99,6 +99,7 @@ void UEngineTexture2D::LoadTextureFromPath(std::string_view _Path)
 	DirectX::CreateTexture(UEngineCore::GetGraphicsDeviceContext()->GetDevice(), ImageData.GetImages(), ImageData.GetImageCount(), ImageData.GetMetadata(), reinterpret_cast<ID3D11Resource**>(Texture.GetAddressOf()));
 
 	DeviceContext->GetDevice()->CreateShaderResourceView(Texture.Get(), nullptr, ShaderResourceView.GetAddressOf());
+
 }
 
 bool UEngineTexture2D::IsCreatable(D3D11_BIND_FLAG _BindFlag)

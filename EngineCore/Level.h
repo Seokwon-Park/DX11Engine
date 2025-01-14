@@ -89,6 +89,7 @@ public:
 protected:
 
 private:
+	float FixedTimer = 0.0f;
 	b2WorldId WorldId;
 	std::shared_ptr<class ImGuiLayer> GuiLayer;
 

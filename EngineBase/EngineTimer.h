@@ -24,7 +24,7 @@ public:
 
 	BASE_API void TimeCheck();
 
-	BASE_API inline float GetDeltaTime()const { return DeltaTime; }
+	BASE_API inline float GetDeltaTime() const { return DeltaTime; }
 
 	//double GetDoubleDeltaTime()
 	//{

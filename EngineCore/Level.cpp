@@ -17,7 +17,7 @@ ULevel::ULevel()
 	CurrentCamera->SetActorLocation({ 0.0f, 0.0f, -500.0f, 1.0f });
 
 	b2WorldDef worldDef = b2DefaultWorldDef();
-	worldDef.gravity = b2Vec2(0.0f, -9.8f); 
+	worldDef.gravity = b2Vec2(0.0f, -9.8f);
 	WorldId = b2CreateWorld(&worldDef);
 
 	GuiLayer = std::make_shared<ImGuiLayer>();
@@ -34,7 +34,7 @@ void ULevel::Tick(float _DeltaTime)
 {
 	b2World_Step(WorldId, 1.0f / 60.0f, 4);
 	std::list<std::shared_ptr<class AActor>>::iterator Iterator = BeginPlayList.begin();
-	while(Iterator != BeginPlayList.end())
+	while (Iterator != BeginPlayList.end())
 	{
 		std::shared_ptr<AActor> CurActor = *Iterator;
 
@@ -61,7 +61,7 @@ void ULevel::Render(float _DeltaTime)
 	UEngineCore::GetGraphicsDeviceContext()->Clear();
 
 	//2D ·»´õ·¯ ±×·ì ·»´õ¸µ
-	for (std::pair<const std::pair<int,int>, std::list<std::shared_ptr<URenderer2DComponent>>>& RenderGroup : SpriteRenderers)
+	for (std::pair<const std::pair<int, int>, std::list<std::shared_ptr<URenderer2DComponent>>>& RenderGroup : SpriteRenderers)
 	{
 		std::list<std::shared_ptr<URenderer2DComponent>>& RenderList = RenderGroup.second;
 
@@ -89,7 +89,7 @@ void ULevel::PushRenderer(std::shared_ptr<class URenderer2DComponent> _Renderer)
 	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
 }
 
-void ULevel::ChangeRenderOrder(std::pair<int,int> _PrevRenderOrder, std::shared_ptr<URenderer2DComponent> _Renderer)
+void ULevel::ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<URenderer2DComponent> _Renderer)
 {
 	SpriteRenderers[_PrevRenderOrder].remove(_Renderer);
 	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);

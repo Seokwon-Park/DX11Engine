@@ -16,6 +16,14 @@ struct FTileIndex
 	};
 };
 
+enum class ETileType
+{
+	Full,
+	LeftHalf,
+	RightHalf,
+};
+
+
 struct FTileData
 {
 	bool IsBlock = false;

@@ -71,6 +71,7 @@
     <ClCompile Include="GUI\TilemapEditorWindow.cpp" />
     <ClCompile Include="Components\GridRendererComponent.cpp" />
     <ClCompile Include="Components\Renderer2DComponent.cpp" />
+    <ClCompile Include="Components\CapsuleCollider2DComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="GUI\TilemapEditorWindow.h" />
     <ClInclude Include="Components\GridRendererComponent.h" />
     <ClInclude Include="Components\Renderer2DComponent.h" />
+    <ClInclude Include="Components\CapsuleCollider2DComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

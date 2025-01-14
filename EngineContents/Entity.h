@@ -5,6 +5,7 @@
 #include <EngineCore/Components/SpriteRendererComponent.h>
 #include <EngineCore/Components/Rigidbody2DComponent.h>
 #include <EngineCore/Components/BoxCollider2DComponent.h>
+#include <EngineCore/Components/CapsuleCollider2DComponent.h>
 
 // Ό³Έν :
 class AEntity : public APawn
@@ -24,6 +25,7 @@ public:
 	inline USpriteRendererComponent* GetSpriteRendererComponent() { return SpriteRenderer.get(); }
 	inline URigidbody2DComponent* GetRigidbody2DComponent() { return RigidBody2D.get(); }
 	inline UBoxCollider2DComponent* GetBoxCollider2DComponent() { return BoxCollider2D.get(); }
+	inline UCapsuleCollider2DComponent* GetCapsuleCollider2DComponent() { return CapsuleCollider2D.get(); }
 
 	void Flip();
 	void SetVelocity(FVector2 _Velocity);
@@ -37,6 +39,7 @@ protected:
 	std::shared_ptr<USpriteRendererComponent> SpriteRenderer;
 	std::shared_ptr<URigidbody2DComponent> RigidBody2D;
 	std::shared_ptr<UBoxCollider2DComponent> BoxCollider2D;
+	std::shared_ptr<UCapsuleCollider2DComponent> CapsuleCollider2D;
 private:
 };
 
