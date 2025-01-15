@@ -189,6 +189,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Enums\DataLayer.h" />
     <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\Rigidbody2DComponent.h">
       <SubType>
@@ -237,6 +238,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Resources\EnginePixelShader.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Resources\EngineTilemap.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -339,7 +344,8 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Structures\Renderer2DBufferData.h" />
+    <ClInclude Include="Structures\ShaderBufferDataStructure.h" />
+    <ClInclude Include="Structures\EngineDataStructure.h" />
     <ClInclude Include="ThirdParty\Box2D\include\base.h" />
     <ClInclude Include="ThirdParty\Box2D\include\box2d.h" />
     <ClInclude Include="ThirdParty\Box2D\include\collision.h" />
@@ -448,6 +454,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Resources\EnginePixelShader.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Resources\EngineTilemap.cpp">
       <SubType>
       </SubType>
     </ClCompile>

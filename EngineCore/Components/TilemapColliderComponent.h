@@ -4,8 +4,8 @@
 
 struct FEdge
 {
-	b2Vec2 A;
-	b2Vec2 B;
+	std::pair<int,int> A;
+	std::pair<int,int> B;
 };
 
 
@@ -29,9 +29,11 @@ public:
 	ENGINE_API virtual void DebugRender(class UCameraComponent* _Camera, float _DeltaTime)override;
 protected:
 	void BeginPlay() override;
+	void UpdateCollider();
 	void TickComponent(float _DeltaTime) override;
 private:
 	// BFS
+	std::map<std::pair<int, int>, b2Vec2> IndexToRealScaleMap;
 	void TileBFS(FTileIndex _Index);
 	int dx[4] = { 0,1,0,-1 };
 	int dy[4] = { -1,0,1,0 };

@@ -1,7 +1,7 @@
 #pragma once
 #include "Renderer2DComponent.h"
 #include <EngineCore/Resources/EngineSprite.h>
-#include <EngineCore/Structures/Renderer2DBufferData.h>
+#include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
 // Ό³Έν :
 class USpriteRendererComponent : public URenderer2DComponent

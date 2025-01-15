@@ -2,7 +2,7 @@
 #include "Renderer2DComponent.h"
 #include "TilemapComponent.h"
 #include <EngineCore/Enums/EngineLayer.h>
-#include <EngineCore/Structures/Renderer2DBufferData.h>
+#include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
 // Ό³Έν :
 class UTilemapRendererComponent : public URenderer2DComponent
@@ -23,13 +23,13 @@ public:
 	ENGINE_API void SetTilemap(std::shared_ptr<UTilemapComponent> _TilemapComponent) { SetTilemap(_TilemapComponent.get()); }
 	ENGINE_API void SetTilemap(UTilemapComponent* _TilemapComponent) { TilemapComponent = _TilemapComponent; }
 
-	FVector4 TileIndexToWorldPos(FTileIndex _Pos);
 protected:
 	ENGINE_API void Render(class UCameraComponent* _Camera, float _DeltaTime) override;
 	void BeginPlay() override;
 	void TickComponent(float _DeltaTime) override;
 
 private:
+	std::shared_ptr<class UEngineSprite> Sprite;
 	std::shared_ptr<URenderUnit> Unit;
 	
 	class UTilemapComponent* TilemapComponent = nullptr;

@@ -1,39 +1,11 @@
 #pragma once
 #include "ActorComponent.h"
-#include <EngineCore/Resources/EngineSprite.h>
 #include <EngineCore/ResourceManager.h>
+#include <EngineCore/Resources/EngineTilemap.h>
 
-struct FTileIndex
-{
-	union
-	{
-		struct
-		{
-			int X;
-			int Y;
-		};
-		long long Key;
-	};
-};
-
-enum class ETileType
-{
-	Full,
-	LeftHalf,
-	RightHalf,
-};
-
-
-struct FTileData
-{
-	bool IsBlock = false;
-	int SpriteIndex = -1;
-	FTileIndex Index;
-	FSpriteRect SpriteRect;
-};
 
 // 클래스 설명 :
-class UTilemapComponent : public UActorComponent, public ISerializableObject
+class UTilemapComponent : public UActorComponent
 {
 	friend class UTilemapRendererComponent;
 	friend class UTilemapColliderComponent;
@@ -48,17 +20,9 @@ public:
 	UTilemapComponent& operator=(const UTilemapComponent& _Other) = delete;
 	UTilemapComponent& operator=(UTilemapComponent&& _Other) noexcept = delete;
 
-	ENGINE_API std::string GetCurSpriteName()
+	ENGINE_API inline void Load(std::string_view _TilemapName)
 	{
-		return Sprite->GetName();
-	}
-
-
-	ENGINE_API inline void SetTileSetting(std::string_view _SpriteName, FVector2 _ImageSize, FVector2 _Pivot)
-	{
-		Sprite = UResourceManager::Find<UEngineSprite>(_SpriteName).get();
-		ImageSize = _ImageSize;
-		TilePivot = _Pivot;
+		Tilemap = UResourceManager::Find<UEngineTilemap>(_TilemapName);
 	}
 
 	//Tile Data로 재구성
@@ -67,25 +31,20 @@ public:
 	ENGINE_API void RemoveTile(FIntPoint _MousePos);
 	ENGINE_API void RemoveTile(int _TileCoordX, int _TileCoordY);
 
-
-
-	ENGINE_API FTileData* GetTile(FIntPoint _MousePos);
+	ENGINE_API FTileData* IsTileExist(FIntPoint _MousePos);
 	ENGINE_API FTileData* GetTile(FTileIndex _TileIndex);
 
-	FTileIndex WorldPosToTileIndex(FIntPoint _Pos);
+	inline size_t GetSize() { return Tilemap->GetSize(); }
 
-	// Inherited via ISerializableObject
-	ENGINE_API void Serialize(UEngineSerializer& _Serializer) override;
-	ENGINE_API void DeSerialize(UEngineSerializer& _Serializer) override;
+	FTileIndex WorldPosToTileIndex(FIntPoint _Pos);
+	FVector4 TileIndexToWorldPos(FTileIndex _Pos);
+
+	void SaveTilemap(UEngineDirectory _Dir, std::string_view _FileName);
 protected:
 
 private:
-	//타일맵 스프라이트
-	class UEngineSprite* Sprite = nullptr;
-	
 	FVector2 ImageSize;
 	FVector2 TilePivot;
 
-	std::unordered_map<long long, FTileData> Tiles;
-
+	std::shared_ptr<UEngineTilemap> Tilemap;
 };

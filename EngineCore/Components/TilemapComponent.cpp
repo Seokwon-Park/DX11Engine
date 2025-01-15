@@ -20,7 +20,7 @@ void UTilemapComponent::SetTile(int _X, int _Y, int _Spriteindex)
 {
 	FTileIndex Index = { _X,  _Y };
 
-	FTileData& NewTile = Tiles[Index.Key];
+	FTileData& NewTile = Tilemap->TilemapData[Index.Key];
 
 	NewTile.Index = Index;
 	NewTile.SpriteIndex = _Spriteindex;
@@ -40,15 +40,15 @@ void UTilemapComponent::RemoveTile(int _TileCoordX, int _TileCoordY)
 {
 	FTileIndex Index = { _TileCoordX,  _TileCoordY };
 
-	if (false == Tiles.contains(Index.Key))
+	if (false == Tilemap->Contains(Index))
 	{
 		return;
 	}
 
-	Tiles.erase(Index.Key);
+	Tilemap->Erase(Index);
 }
 
-FTileData* UTilemapComponent::GetTile(FIntPoint _Pos)
+FTileData* UTilemapComponent::IsTileExist(FIntPoint _Pos)
 {
 	FTileIndex Index = WorldPosToTileIndex(_Pos);
 
@@ -57,11 +57,11 @@ FTileData* UTilemapComponent::GetTile(FIntPoint _Pos)
 
 FTileData* UTilemapComponent::GetTile(FTileIndex _TileIndex)
 {
-	if (false ==Tiles.contains(_TileIndex.Key))
+	if (false == Tilemap->Contains(_TileIndex))
 	{
 		return nullptr;
 	}
-	return &Tiles[_TileIndex.Key];
+	return &Tilemap->GetTile(_TileIndex);
 }
 
 FTileIndex UTilemapComponent::WorldPosToTileIndex(FIntPoint _Pos)
@@ -78,36 +78,23 @@ FTileIndex UTilemapComponent::WorldPosToTileIndex(FIntPoint _Pos)
 	return Result;
 }
 
-void UTilemapComponent::Serialize(UEngineSerializer& _Serializer)
+FVector4 UTilemapComponent::TileIndexToWorldPos(FTileIndex _Pos)
 {
-	_Serializer << ImageSize;
-	_Serializer << TilePivot;
-	std::string Name = Sprite->GetName();
-	_Serializer << Name;
-
-	_Serializer << static_cast<int>(Tiles.size());
-	for (std::pair<const long long, FTileData>& Pair : Tiles)
-	{
-		_Serializer.Write(&Pair.second, sizeof(FTileData));
-	}
+	FVector4 Result;
+	Result.X = _Pos.X * ImageSize.X + ImageSize.X / 2.0f;
+	Result.Y = _Pos.Y * ImageSize.Y + ImageSize.Y / 2.0f;
+	return Result;
 }
 
-void UTilemapComponent::DeSerialize(UEngineSerializer& _Serializer)
+void UTilemapComponent::SaveTilemap(UEngineDirectory _Dir, std::string_view _FileName)
 {
-	Tiles.clear();
+	UEngineSerializer Ser;
+	Tilemap->Serialize(Ser);
+	UEngineFile NewFile = _Dir.GetFile(_FileName);
 
-	_Serializer >> ImageSize;
-	_Serializer >> TilePivot;
-	std::string Name;
-	_Serializer >> Name;
-
-
-	int Count = 0;
-	_Serializer >> Count;
-	for (size_t i = 0; i < Count; i++)
-	{
-		FTileData TileData;
-		_Serializer.Read(&TileData, sizeof(TileData));
-		Tiles.insert({ TileData.Index.Key, TileData });
-	}
+	NewFile.FileOpen("wb");
+	NewFile.Write(Ser);
 }
+
+
+

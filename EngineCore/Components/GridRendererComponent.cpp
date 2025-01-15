@@ -1,6 +1,6 @@
 #include "EnginePCH.h"
 #include "GridRendererComponent.h"
-#include <EngineCore/Structures/Renderer2DBufferData.h>
+#include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
 UGridRendererComponent::UGridRendererComponent()
 {

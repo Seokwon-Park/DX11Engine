@@ -72,6 +72,7 @@
     <ClCompile Include="Components\GridRendererComponent.cpp" />
     <ClCompile Include="Components\Renderer2DComponent.cpp" />
     <ClCompile Include="Components\CapsuleCollider2DComponent.cpp" />
+    <ClCompile Include="Resources\EngineTilemap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -150,11 +151,14 @@
     <ClInclude Include="Components\TilemapComponent.h" />
     <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\TilemapColliderComponent.h" />
-    <ClInclude Include="Structures\Renderer2DBufferData.h" />
+    <ClInclude Include="Structures\ShaderBufferDataStructure.h" />
     <ClInclude Include="GUI\TilemapEditorWindow.h" />
     <ClInclude Include="Components\GridRendererComponent.h" />
     <ClInclude Include="Components\Renderer2DComponent.h" />
     <ClInclude Include="Components\CapsuleCollider2DComponent.h" />
+    <ClInclude Include="Resources\EngineTilemap.h" />
+    <ClInclude Include="Structures\EngineDataStructure.h" />
+    <ClInclude Include="Enums\DataLayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

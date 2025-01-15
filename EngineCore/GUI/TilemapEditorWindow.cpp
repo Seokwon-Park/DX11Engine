@@ -26,7 +26,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 	Arr.push_back("Monster");
 	Arr.push_back("Monster2");
 
-	std::string Name = TilemapComponent->GetCurSpriteName();
+	std::string Name = TilemapComponent->
 	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(Name);
 	std::vector<FSpriteData> SpriteData = Sprite->GetSpriteData();
 
@@ -197,20 +197,8 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		if (GetSaveFileNameA(&ofn) == TRUE)
 		{
-			UEngineSerializer Ser;
-			TilemapComponent->Serialize(Ser);
-			//for (std::shared_ptr<AMon> Actor : AllMonsterList)
-			//{
-
-			//	Ser << static_cast<int>(Actor->MonsterTypeValue);
-			//	// 여기 저장된다는 이야기
-			//	Actor->Serialize(Ser);
-			//}
-
-			UEngineFile NewFile = Dir.GetFile(ofn.lpstrFile);
-
-			NewFile.FileOpen("wb");
-			NewFile.Write(Ser);
+			std::string FileName = ofn.lpstrFile;
+			TilemapComponent->SaveTilemap(Dir, FileName);
 		}
 	}
 

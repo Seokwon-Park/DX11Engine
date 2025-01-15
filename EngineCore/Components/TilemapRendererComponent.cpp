@@ -26,31 +26,25 @@ void UTilemapRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _Order
 	Level->ChangeRenderOrder(PrevOrder, RendererPtr);
 }
 
-FVector4 UTilemapRendererComponent::TileIndexToWorldPos(FTileIndex _Pos)
-{
-	FVector4 Result;
-	Result.X = _Pos.X * TilemapComponent->ImageSize.X + TilemapComponent->ImageSize.X / 2.0f;
-	Result.Y = _Pos.Y * TilemapComponent->ImageSize.Y + TilemapComponent->ImageSize.Y / 2.0f;
-	return Result;
-}
+
 
 void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	VertexConstant VC;
+	VertexConstant VertexConstantData;
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
-	VC.World = WorldMatrix;
-	VC.View = _Camera->GetViewMatrixTranspose();
-	VC.Proj = _Camera->GetProjectionMatrixTranspose();
+	VertexConstantData.World = WorldMatrix;
+	VertexConstantData.View = _Camera->GetViewMatrixTranspose();
+	VertexConstantData.Proj = _Camera->GetProjectionMatrixTranspose();
 
-	if (0 == TilemapComponent->Tiles.size())
+	if (0 == TilemapComponent->GetSize())
 	{
 		return;
 	}
 
 	FTransform Trans;
 
-	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tiles)
+	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tilemap->GetTilemapData())
 	{
 		FTileData& Tile = TilePair.second;
 		FTileIndex Index;
@@ -60,12 +54,12 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 		Index.Key = TilePair.first;
 
-		FVector4 ConvertPos = TileIndexToWorldPos(Index);
-
+		FVector4 ConvertPos = TilemapComponent->TileIndexToWorldPos(Index);
+		
 		//if ()
 		//{
 		//	continue;
-		//}
+		//}	
 
 		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
 		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
@@ -75,10 +69,10 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();
-		VC.World = Trans.WorldMatrix;
+		VertexConstantData.World = Trans.WorldMatrix;
 
 
-		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
+		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VertexConstantData);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
 
 		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 1.0f));
@@ -96,6 +90,7 @@ void UTilemapRendererComponent::BeginPlay()
 	GetOwner()->GetLevel()->PushRenderer(GetThis<UTilemapRendererComponent>());
 	Unit = std::make_shared<URenderUnit>();
 	Unit->Init("Quad", "Tilemap");
+	Sprite = UResourceManager::Find<UEngineSprite>(TilemapComponent->Tilemap->GetSpriteName());
 }
 
 void UTilemapRendererComponent::TickComponent(float _DeltaTime)
