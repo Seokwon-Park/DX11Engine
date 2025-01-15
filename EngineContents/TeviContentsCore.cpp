@@ -29,7 +29,7 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	_Data.WindowSize = { 1280, 720 };
 
 	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Images");
-	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "TilemapData");
+	UResourceManager::LoadResourcesFromDirectory<UEngineTilemap>({ ".Tmap" }, "TilemapData");
 
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("Resources");

@@ -11,6 +11,35 @@ UEngineTilemap::~UEngineTilemap()
 {
 }
 
+std::shared_ptr<UEngineTilemap> UEngineTilemap::Create(std::string_view _Name, std::string_view _Path)
+{
+	std::shared_ptr<UEngineTilemap> NewTilemap = std::make_shared<UEngineTilemap>();
+	UEnginePath Path = _Path;
+	std::string Name = Path.GetFileNameWithoutExtension();
+	NewTilemap->LoadTilemapFromPath(_Path);
+	UResourceManager::AddResource<UEngineTilemap>(NewTilemap, Name, _Path);
+	return NewTilemap;
+}
+
+void UEngineTilemap::LoadTilemapFromPath(std::string_view _Path)
+{
+	UEngineFile NewFile = _Path;
+	UEngineSerializer Ser;
+
+	NewFile.FileOpen("rb");
+	NewFile.Read(Ser);
+
+	Deserialize(Ser);
+}
+
+std::shared_ptr<UEngineTilemap> UEngineTilemap::Create(std::string_view _SpriteName, FVector2 _TileSize, FVector2 _TilePivot)
+{
+	std::shared_ptr<UEngineTilemap> NewTilemap = std::make_shared<UEngineTilemap>();
+	NewTilemap->TileSize = _TileSize;
+	NewTilemap->TileSize = _TileSize;
+
+}
+
 void UEngineTilemap::Serialize(UEngineSerializer& _Serializer)
 {
 	_Serializer << TileSize;
@@ -24,7 +53,7 @@ void UEngineTilemap::Serialize(UEngineSerializer& _Serializer)
 	}
 }
 
-ENGINE_API void UEngineTilemap::DeSerialize(UEngineSerializer& _Serializer)
+ENGINE_API void UEngineTilemap::Deserialize(UEngineSerializer& _Serializer)
 {
 	TilemapData.clear();
 

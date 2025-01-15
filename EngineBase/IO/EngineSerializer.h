@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineMath.h"
+#include <EngineBase/EngineMath.h>
 
 // 설명 :
 class UEngineSerializer 
@@ -108,6 +108,6 @@ public:
 	// 데이터를 직렬화(압축)
 	BASE_API virtual void Serialize(UEngineSerializer& _Serializer) = 0;
 	// 데이터를 복구(할때)
-	BASE_API virtual void DeSerialize(UEngineSerializer& _Serializer) = 0;
+	BASE_API virtual void Deserialize(UEngineSerializer& _Serializer) = 0;
 };
 

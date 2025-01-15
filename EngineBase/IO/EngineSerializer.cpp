@@ -32,5 +32,5 @@ void UEngineSerializer::Read(void* _Data, unsigned int _Size)
 
 void UEngineSerializer::operator>>(ISerializableObject& _Data)
 {
-	_Data.DeSerialize(*this);
+	_Data.Deserialize(*this);
 }

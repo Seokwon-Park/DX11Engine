@@ -81,8 +81,8 @@ FTileIndex UTilemapComponent::WorldPosToTileIndex(FIntPoint _Pos)
 FVector4 UTilemapComponent::TileIndexToWorldPos(FTileIndex _Pos)
 {
 	FVector4 Result;
-	Result.X = _Pos.X * ImageSize.X + ImageSize.X / 2.0f;
-	Result.Y = _Pos.Y * ImageSize.Y + ImageSize.Y / 2.0f;
+	Result.X = _Pos.X * TileSize.X + TileSize.X / 2.0f;
+	Result.Y = _Pos.Y * TileSize.Y + TileSize.Y / 2.0f;
 	return Result;
 }
 

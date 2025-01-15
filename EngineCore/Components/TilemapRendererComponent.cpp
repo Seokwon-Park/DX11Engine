@@ -49,7 +49,7 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		FTileData& Tile = TilePair.second;
 		FTileIndex Index;
 
-		Tile.SpriteRect = TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Rect;
+		Tile.SpriteRect = Sprite->GetSpriteByIndex(Tile.SpriteIndex).Rect;
 		//Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
 
 		Index.Key = TilePair.first;
@@ -61,7 +61,7 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		//	continue;
 		//}	
 
-		Unit->SetTexture("TilemapTexture", EShaderType::PS, TilemapComponent->Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
+		Unit->SetTexture("TilemapTexture", EShaderType::PS, Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
 		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
 		Trans.Location = FVector4({ ConvertPos.X, ConvertPos.Y, 0.0f, 1.0f });

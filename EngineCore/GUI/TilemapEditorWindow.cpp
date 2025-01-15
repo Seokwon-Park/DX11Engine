@@ -5,6 +5,7 @@
 #include <EnginePlatform/EngineInputSystem.h>
 #include <EngineCore/Level.h>
 #include <EngineCore/EngineCore.h>
+#include <EngineCore/Resources/EngineSprite.h>
 
 
 UTilemapEditorWindow::UTilemapEditorWindow(ULevel* _Level)
@@ -26,8 +27,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 	Arr.push_back("Monster");
 	Arr.push_back("Monster2");
 
-	std::string Name = TilemapComponent->
-	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(Name);
+	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>();
 	std::vector<FSpriteData> SpriteData = Sprite->GetSpriteData();
 
 	FTileData EditorSetting;
@@ -53,7 +53,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		ImVec2 Pos = { Data.CuttingPos.X, Data.CuttingPos.Y };
 		ImVec2 Size = { Data.CuttingPos.X + Data.CuttingSize.X, Data.CuttingPos.Y + Data.CuttingSize.Y };
 
-		if (ImGui::ImageButton(Text.c_str(), SRV, { 60, 60 }, Pos, Size))
+		if (ImGui::ImageButton(Text.c_str(), SRV, { 30, 30 }, Pos, Size))
 		{
 			SelectItem = i;
 		}
@@ -231,17 +231,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		if (GetOpenFileNameA(&ofn) == TRUE)
 		{
-			UEngineFile NewFile = Dir.GetFile(ofn.lpstrFile);
-			UEngineSerializer Ser;
 
-			NewFile.FileOpen("rb");
-			NewFile.Read(Ser);
-
-			/*for (size_t i = 0; i < MonsterCount; i++)
-			{
-
-			}*/
-			TilemapComponent->DeSerialize(Ser);
 		}
 	}
 	ImGui::End();

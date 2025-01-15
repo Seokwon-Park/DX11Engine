@@ -23,6 +23,14 @@ public:
 	ENGINE_API inline void Load(std::string_view _TilemapName)
 	{
 		Tilemap = UResourceManager::Find<UEngineTilemap>(_TilemapName);
+		SpriteName = Tilemap->SpriteName;
+		TileSize = Tilemap->TileSize;
+		TilePivot = Tilemap->TilePivot;
+	}
+
+	ENGINE_API inline void CreateNewTilemap(FVector2 _ImageSize, FVector2 )
+	{
+		Tilemap = std::make_shared<UEngineTilemap>();
 	}
 
 	//Tile Data로 재구성
@@ -43,7 +51,8 @@ public:
 protected:
 
 private:
-	FVector2 ImageSize;
+	std::string SpriteName;
+	FVector2 TileSize;
 	FVector2 TilePivot;
 
 	std::shared_ptr<UEngineTilemap> Tilemap;
