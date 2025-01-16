@@ -125,8 +125,8 @@ void UTilemapColliderComponent::TileBFS(FTileIndex _Index)
 				std::pair<int, int> Point2;
 				if (i == 0)
 				{
-					Point1 = { cx*2 - 1,cy*2 - 1 };
-					Point2 = { cx*2 + 1,cy*2 - 1 };
+					Point1 = { cx * 2 - 1,cy * 2 - 1 };
+					Point2 = { cx * 2 + 1,cy * 2 - 1 };
 				}
 				else if (i == 1)
 				{
