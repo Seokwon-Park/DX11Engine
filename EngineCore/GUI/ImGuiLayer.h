@@ -17,12 +17,11 @@ public:
 
 	static void Init();
 	static void SetDarkThemeColors();
+	
 	void OnImGuiRender();
 	void RenderStart();
 	void RenderEnd();
 	static void Shutdown();
-
-
 
 	inline void AttachWindow(std::shared_ptr<UEngineImGuiWindow> _Window)
 	{

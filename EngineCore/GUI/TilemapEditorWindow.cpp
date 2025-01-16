@@ -11,9 +11,10 @@
 UTilemapEditorWindow::UTilemapEditorWindow(ULevel* _Level)
 	:Level(_Level)
 {
-	SetName("TileMapEditor");
+	SetName("TilemapEditor");
 	PreviewTile = std::make_shared<URenderUnit>();
 	PreviewTile->Init("Quad", "Tilemap");
+	PreviewTile->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 }
 
 UTilemapEditorWindow::~UTilemapEditorWindow()
@@ -27,10 +28,8 @@ void UTilemapEditorWindow::OnImGuiRender()
 	Arr.push_back("Monster");
 	Arr.push_back("Monster2");
 
-	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>();
+	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(TilemapComponent->SpriteName);
 	std::vector<FSpriteData> SpriteData = Sprite->GetSpriteData();
-
-	FTileData EditorSetting;
 
 	for (size_t i = 0; i < Sprite->GetSpriteCount(); i++)
 	{
@@ -56,9 +55,14 @@ void UTilemapEditorWindow::OnImGuiRender()
 		if (ImGui::ImageButton(Text.c_str(), SRV, { 30, 30 }, Pos, Size))
 		{
 			SelectItem = i;
+			EditorSetting.SpriteRect = Data;
+			EditorSetting.SpriteIndex = SelectItem;
+
 		}
 		// 엔터를 치지 않는개념.
 	}
+
+	EditorSetting.IsBlock = false;
 
 	//ImGui::ListBox("SpawnList", &SelectItem, &Arr[0], 2);
 
@@ -73,10 +77,12 @@ void UTilemapEditorWindow::OnImGuiRender()
 		{
 			for (int x = Start.X; x < TileSize.X; x++)
 			{
-				TilemapComponent->SetTile(x, y, SelectItem);
+				TilemapComponent->SetTile(x, y, EditorSetting);
 			}
 		}
 	}
+
+	ImGui::Checkbox("Flip Tile", &IsFlip);
 
 	FIntPoint WorldCoord = Level->GetCurrentCamera()->GetWorldMousePos();
 
@@ -84,28 +90,19 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	//if (TilemapComponent->GetTile(WorldCoord) == nullptr)
 	{
-		auto Index = TilemapComponent->WorldPosToTileIndex(WorldCoord);
-		//Index.X *= TilemapComponent->ImageSize.X;
-		//Index.Y *= TilemapComponent->ImageSize.X;
-		Index.X *= 28;
-		Index.Y *= 28;
-		Index.X += 14;
-		Index.Y += 14;
+		FTileIndex Index = TilemapComponent->WorldPosToTileIndex(WorldCoord);
+		FVector4 RenderPos = TilemapComponent->TileIndexToWorldPos(Index);
 
 		FSpriteData SpriteData = Sprite->GetSpriteByIndex(SelectItem);
 		//SpriteData.Rect.Pivot = { 0.0f, 0.0f };
 
 		VertexConstant VC;
 		FTransform Trans;
-		VC.View = _Camera->GetViewMatrix();
-		VC.View.MatrixTranspose();
-		VC.Proj = _Camera->GetProjectionMatrix();
-		VC.Proj.MatrixTranspose();
+		VC.View = _Camera->GetViewMatrixTranspose();
+		VC.Proj = _Camera->GetProjectionMatrixTranspose();
 
-		PreviewTile->SetTexture("TilemapTexture", EShaderType::PS, SpriteData.Texture);
-		PreviewTile->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
-		Trans.Location = FVector4(Index.X, Index.Y, 1.0f, 1.0f);
+		Trans.Location = FVector4(RenderPos.X, RenderPos.Y, 1.0f, 1.0f);
 		if (true == IsFlip)
 		{
 			Trans.Rotation = FVector4(0.0f, 180.0f, 0.0f, 1.0f);
@@ -117,10 +114,10 @@ void UTilemapEditorWindow::OnImGuiRender()
 		Trans.WorldMatrix.MatrixTranspose();
 		VC.World = Trans.WorldMatrix;
 
-
-		PreviewTile->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
-		PreviewTile->SetConstantBufferData("SpriteData", EShaderType::VS, SpriteData.Rect);
+		PreviewTile->SetTexture("TilemapTexture", EShaderType::PS, SpriteData.Texture);
 		PreviewTile->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 0.5f));
+		PreviewTile->SetConstantBufferData("SpriteData", EShaderType::VS, SpriteData.Rect);
+		PreviewTile->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 
 		PreviewTile->Render(_Camera, 0.0f);
 	}
@@ -133,7 +130,8 @@ void UTilemapEditorWindow::OnImGuiRender()
 		//Pos.Z = 0.0f;
 
 		//std::shared_ptr<AActor> NewMonster;
-		TilemapComponent->SetTile(FIntPoint(WorldCoord.X, WorldCoord.Y), SelectItem);
+		TilemapComponent->SetTile(FIntPoint(WorldCoord.X, WorldCoord.Y), EditorSetting);
+		TilemapColliderComponent->UpdateCollider();
 		//Level->SpawnActor<ATitleLogo>("TileTest");
 
 		//switch (SelectMonster)
@@ -154,18 +152,36 @@ void UTilemapEditorWindow::OnImGuiRender()
 	if (true == UEngineInputSystem::GetKey(EKey::D))
 	{
 		TilemapComponent->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y));
+		TilemapColliderComponent->UpdateCollider();
+
 	}
 	if (true == UEngineInputSystem::GetKeyDown(EKey::R))
 	{
 		Rotate = (Rotate + 1) % 4;
+		EditorSetting.RotatedCount = Rotate;
 	}
 
 	if (true == UEngineInputSystem::GetKeyDown(EKey::F))
 	{
 		IsFlip = !IsFlip;
+		EditorSetting.IsFlip = IsFlip;
 	}
 
 
+	// Enum 값에 대응하는 문자열 배열
+	const char* enumNames [] = {"Quad", "Slope1", "Slope2", "Slope3", "Slope4", "Slope5", "Slope6"};
+
+	// 현재 선택된 항목의 인덱스를 가져옵니다.
+	
+
+	// ImGui::Combo를 사용하여 드롭다운 리스트 생성
+	if (ImGui::Combo("Enum Selector", &currentIndex, enumNames, static_cast<int>(ETilePolygon::Slope6)+1)) {
+		// 선택이 변경되면 currentSelection 값을 업데이트
+		EditorSetting.PolygonType = static_cast<ETilePolygon>(currentIndex);
+	}
+
+	//// 현재 선택된 값을 표시
+	ImGui::Text("Current Selection: %s", enumNames[currentIndex]);
 
 	if (true == ImGui::Button("Save"))
 	{
@@ -211,7 +227,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 			MSGASSERT("리소스 폴더를 찾지 못했습니다.");
 			return;
 		}
-		Dir.AppendDirectory("Data");
+		Dir.AppendDirectory("TilemapData");
 		std::string InitPath = Dir.ToString();
 
 		OPENFILENAME ofn;       // common dialog box structure
@@ -231,7 +247,8 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 		if (GetOpenFileNameA(&ofn) == TRUE)
 		{
-
+			UEnginePath Path = std::string_view(ofn.lpstrFile);
+			TilemapComponent->Load(Path.GetFileNameWithoutExtension());
 		}
 	}
 	ImGui::End();

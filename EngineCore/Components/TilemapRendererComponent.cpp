@@ -50,7 +50,6 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		FTileIndex Index;
 
 		Tile.SpriteRect = Sprite->GetSpriteByIndex(Tile.SpriteIndex).Rect;
-		//Tile.SpriteRect.Pivot = { 0.0f, 0.0f };
 
 		Index.Key = TilePair.first;
 
@@ -65,12 +64,12 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
 		Trans.Location = FVector4({ ConvertPos.X, ConvertPos.Y, 0.0f, 1.0f });
-		Trans.Scale = FVector4({ TilemapComponent->ImageSize.X, TilemapComponent->ImageSize.Y, 1.0f, 1.0f });
+		Trans.Rotation = FVector4({ 0.0f, 180.0f* Tile.IsFlip, 90.0f * Tile.RotatedCount, 1.0f });
+		Trans.Scale = FVector4({ TilemapComponent->TileSize.X, TilemapComponent->TileSize.Y, 1.0f, 1.0f });
 
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();
 		VertexConstantData.World = Trans.WorldMatrix;
-
 
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VertexConstantData);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
@@ -90,7 +89,7 @@ void UTilemapRendererComponent::BeginPlay()
 	GetOwner()->GetLevel()->PushRenderer(GetThis<UTilemapRendererComponent>());
 	Unit = std::make_shared<URenderUnit>();
 	Unit->Init("Quad", "Tilemap");
-	Sprite = UResourceManager::Find<UEngineSprite>(TilemapComponent->Tilemap->GetSpriteName());
+	Sprite = UResourceManager::Find<UEngineSprite>(TilemapComponent->SpriteName);
 }
 
 void UTilemapRendererComponent::TickComponent(float _DeltaTime)

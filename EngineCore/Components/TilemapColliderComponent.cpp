@@ -25,8 +25,6 @@ void UTilemapColliderComponent::BeginPlay()
 	b2BodyDef BodyDef = b2DefaultBodyDef();
 	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 
-	dynamicBox = b2MakeBox(TilemapComponent->ImageSize.X / FMath::BOX2DSCALE / 2.0f, TilemapComponent->ImageSize.X / FMath::BOX2DSCALE / 2.0f);
-
 	UpdateCollider();
 
 	GetOwner()->GetLevel()->PushCollider2D(GetThis<UTilemapColliderComponent>());
@@ -34,12 +32,67 @@ void UTilemapColliderComponent::BeginPlay()
 
 void UTilemapColliderComponent::UpdateCollider()
 {
+	Visit.clear();
+	std::vector<b2ChainId> DeleteList = ChainIds;
+	ChainIds.clear();
+
 	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tilemap->GetTilemapData())
 	{
 		FTileData& Tile = TilePair.second;
 		FTileIndex Index = FTileIndex();
 		Index.Key = TilePair.first;
 
+		float HalfHeight = TilemapComponent->TileSize.X / FMath::BOX2DSCALE / 2.0f;
+		float HalfWidth = TilemapComponent->TileSize.X / FMath::BOX2DSCALE / 2.0f;
+		float Radian = FMath::DegreeToRadian(Tile.RotatedCount * 90.0f);
+		FVector4 ConvertPos = TilemapComponent->TileIndexToWorldPos(Index);
+
+		std::vector<FVector4> Points;
+		switch (Tile.PolygonType)
+		{
+		case ETilePolygon::Default:
+		{
+			dynamicBox = b2MakeBox(HalfWidth, HalfHeight);
+		}
+			break;
+		case ETilePolygon::Slope1:
+		{
+			Points = { FVector4(- HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
+			break;
+		}
+		case ETilePolygon::Slope2:
+		{
+			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) ,FVector4(HalfWidth, 0.0f) };
+			break;
+		}
+		case ETilePolygon::Slope3:
+		{
+			Points = { FVector4(-HalfWidth, 0.0f), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
+			break;
+		}
+		case ETilePolygon::Slope4:
+		{
+			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight), FVector4(HalfWidth, HalfHeight - (2.0f*HalfHeight/3.0f)) };
+			break;
+		}
+		case ETilePolygon::Slope5:
+		{
+			Points = { FVector4(-HalfWidth, HalfHeight - (2.0f * HalfHeight / 3.0f)), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight + (2.0f * HalfHeight / 3.0f)) };
+			break;
+		}
+		case ETilePolygon::Slope6:
+		{
+			Points = { FVector4(-HalfWidth, -HalfHeight + (2.0f * HalfHeight / 3.0f)), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
+			break;
+		}
+		default:
+			break;
+		}
+
+		if (ETilePolygon::Default !=Tile.PolygonType)
+		{
+			CreateSlope(Points, Tile);
+		}
 		//ShapeDef = b2DefaultShapeDef();
 		//ShapeDef.density = 0.5f;
 		//ShapeDef.friction = 1.0f;
@@ -48,32 +101,84 @@ void UTilemapColliderComponent::UpdateCollider()
 		//내가 충돌하면 부딪혀야 되는 애들 비트마스킹
 		//shapeDef.filter.maskBits = Layer;
 
-		if (Visit[Index.Key] == false)
+		if (Visit[Index.Key] == false && Tile.PolygonType == ETilePolygon::Default)
 		{
 			SortedEdges.clear();
+			IndexToRealScaleMap.clear();
 			TileBFS(Index);
+
 
 			std::vector<b2Vec2> points;
 
+			points.push_back(IndexToRealScaleMap[SortedEdges[0].A]);
+			points.push_back(IndexToRealScaleMap[SortedEdges[SortedEdges.size() - 1].A]);
 			for (FEdge Edge : SortedEdges)
 			{
-
 				points.push_back(IndexToRealScaleMap[Edge.A]);
 			}
 			points.push_back(IndexToRealScaleMap[SortedEdges[0].A]);
-			points.push_back(IndexToRealScaleMap[SortedEdges[0].B]);
+			points.push_back(IndexToRealScaleMap[SortedEdges[SortedEdges.size() - 1].A]);
 
 			b2ChainDef Def = b2DefaultChainDef();
 
 			b2ChainDef chainDef = b2DefaultChainDef();
 			chainDef.points = points.data();
-			chainDef.count = points.size();
+			chainDef.count = static_cast<int32_t>(points.size());
 			chainDef.friction = 0.0f;
 
 			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 			ChainIds.push_back(myChainId);
 		}
 	}
+
+	for (auto id : DeleteList)
+	{
+		b2DestroyChain(id);
+	}
+}
+
+void UTilemapColliderComponent::CreateSlope(std::vector<FVector4> _Points, FTileData& _Tile)
+{
+	FVector4 ConvertPos = TilemapComponent->TileIndexToWorldPos(_Tile.Index);
+
+	FTransform Trans;
+	Trans.Location = FVector4(ConvertPos.X / FMath::BOX2DSCALE, ConvertPos.Y / FMath::BOX2DSCALE);
+	Trans.Rotation = FVector4(0.0f, 180.0f * _Tile.IsFlip, _Tile.RotatedCount * 90.0f);
+	Trans.UpdateTransform();
+
+	std::vector<b2Vec2> Vecs;
+	for (int i = 0; i < _Points.size(); i++)
+	{
+		_Points[i] = Trans.WorldMatrix * _Points[i];
+		Vecs.emplace_back(b2Vec2(_Points[i].X, _Points[i].Y));
+	}
+
+
+	std::vector<b2Vec2> points;
+	//b2Transform Trans({ ConvertPos.X / FMath::BOX2DSCALE, ConvertPos.Y / FMath::BOX2DSCALE }, 
+	//				{FMath::Cosf(Radian), FMath::Sinf(Radian) });// cos 0, sin 0
+
+
+	points.push_back(Vecs[0]);
+	for (int i = 0; i < _Points.size(); i++)
+	{
+		points.emplace_back(Vecs[i]);
+	}
+	points.push_back(Vecs[0]);
+	points.push_back(Vecs[0]);
+
+	if (_Tile.IsFlip)
+	{
+		std::reverse(points.begin(), points.end());
+	}
+
+	b2ChainDef chainDef = b2DefaultChainDef();
+	chainDef.points = points.data();
+	chainDef.count = static_cast<int32_t>(points.size());
+	chainDef.friction = 0.0f;
+
+	b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
+	ChainIds.push_back(myChainId);
 }
 
 void UTilemapColliderComponent::TickComponent(float _DeltaTime)
@@ -101,14 +206,15 @@ void UTilemapColliderComponent::TileBFS(FTileIndex _Index)
 		{
 			int tx = cx + dx[i];
 			int ty = cy + dy[i];
-			FTileIndex tindex = { tx, ty };
-			__int64 tkey = tindex.Key;
-			if (TilemapComponent->Tilemap->Contains(tindex))//만약 내 주변에 타일 이 있는데
+			FTileIndex TIndex = { tx, ty };
+			__int64 Tkey = TIndex.Key;
+			if (TilemapComponent->Tilemap->Contains(TIndex) &&
+				TilemapComponent->GetTile(TIndex)->PolygonType == ETilePolygon::Default)//만약 내 주변에 타일 이 있는데 사각형 타일에 대해서만
 			{
-				if (Visit[tkey] == false) // 아직 탐색안한 타일이면
+				if (Visit[Tkey] == false) // 아직 탐색안한 타일이면
 				{
 					Queue.push({ tx,ty });
-					Visit[tkey] = true;
+					Visit[Tkey] = true;
 				}
 				else // 이미 탐색한 타일이면 뭐 할거없음.
 				{
@@ -117,9 +223,7 @@ void UTilemapColliderComponent::TileBFS(FTileIndex _Index)
 			}
 			else // i라는 방향에 타일이 없으면 내위치를 기준으로 i방향을 향해 반시계로 Edge를 생성한다.
 			{
-				FVector4 ConvertPos;
-				ConvertPos.X = cx * TilemapComponent->ImageSize.X + TilemapComponent->ImageSize.X / 2.0f;
-				ConvertPos.Y = cy * TilemapComponent->ImageSize.Y + TilemapComponent->ImageSize.Y / 2.0f;
+				FVector4 ConvertPos = TilemapComponent->TileIndexToWorldPos(FTileIndex({cx,cy}));
 
 				std::pair<int, int> Point1;
 				std::pair<int, int> Point2;
@@ -130,18 +234,18 @@ void UTilemapColliderComponent::TileBFS(FTileIndex _Index)
 				}
 				else if (i == 1)
 				{
-					Point1 = { cx*2 + 1,cy*2 - 1 };
-					Point2 = { cx*2 + 1,cy*2 + 1 };
+					Point1 = { cx * 2 + 1,cy * 2 - 1 };
+					Point2 = { cx * 2 + 1,cy * 2 + 1 };
 				}
 				else if (i == 2)
 				{
-					Point1 = { cx*2 + 1,cy*2 + 1 };
-					Point2 = { cx*2 - 1,cy*2 + 1 };
+					Point1 = { cx * 2 + 1,cy * 2 + 1 };
+					Point2 = { cx * 2 - 1,cy * 2 + 1 };
 				}
 				else
 				{
-					Point1 = { cx*2 - 1,cy*2 + 1 };
-					Point2 = { cx*2 - 1,cy*2 - 1 };
+					Point1 = { cx * 2 - 1,cy * 2 + 1 };
+					Point2 = { cx * 2 - 1,cy * 2 - 1 };
 				}
 
 				b2Transform Trans({ ConvertPos.X / FMath::BOX2DSCALE, ConvertPos.Y / FMath::BOX2DSCALE }, { 1.0f, 0.0f });// cos 0, sin 0

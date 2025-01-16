@@ -46,7 +46,9 @@ void AEntity::Flip()
 {
 	FacingDir = FacingDir * -1;
 	//FacingRight = !facingRight;
-	SetActorRotation(FVector4(0, 180, 0));
+	AddActorRotation(FVector4(0, 180, 0));
+
+
 	//if (onFlipped != null)
 	//	onFlipped();
 }
@@ -54,5 +56,14 @@ void AEntity::Flip()
 void AEntity::SetVelocity(FVector2 _Velocity)
 {
 	RigidBody2D->SetVelocity(_Velocity);
+
+	if (RigidBody2D->GetVelocity().X > 0 && FacingDir == -1)
+	{
+		Flip();
+	}
+	else if (RigidBody2D->GetVelocity().X < 0 && FacingDir == 1)
+	{
+		Flip();
+	}
 }
 

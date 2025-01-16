@@ -31,7 +31,7 @@ public:
 	void SetVelocity(FVector2 _Velocity);
 
 	virtual void Tick(float _DeltaTime) override;
-	int FacingDir = 1;
+	int FacingDir = -1;
 protected:
 	virtual void BeginPlay() override;
 

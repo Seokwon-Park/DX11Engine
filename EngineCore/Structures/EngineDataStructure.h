@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
+#include <EngineCore/Enums/DataLayer.h>
 
 struct FSpriteRect
 {
@@ -28,14 +29,14 @@ struct FTileIndex
 	};
 };
 
-
-
 struct FTileData
 {
 	bool IsBlock = false;
-	bool IsFilped = false;
+	bool IsFlip = false;
 	int RotatedCount = 0;
-	int SpriteIndex = -1;
+	size_t SpriteIndex = 0;
+	ETilePolygon PolygonType = ETilePolygon::Default;
 	FTileIndex Index;
 	FSpriteRect SpriteRect;
+	
 };

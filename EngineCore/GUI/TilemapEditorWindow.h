@@ -1,6 +1,7 @@
 #pragma once
 #include <EngineCore/GUI/EngineImGuiWindow.h>
 #include <EngineCore/Components/TilemapComponent.h>
+#include <EngineCore/Components/TilemapColliderComponent.h>
 #include <EngineCore/Components/TilemapRendererComponent.h>
 
 // 설명 :
@@ -22,10 +23,19 @@ public:
 	ENGINE_API void SetTilemap(std::shared_ptr<UTilemapComponent> _TilemapComponent) { SetTilemap(_TilemapComponent.get()); }
 	ENGINE_API void SetTilemap(UTilemapComponent* _TilemapComponent) { TilemapComponent = _TilemapComponent; }
 
+	ENGINE_API void SetTilemapCollider(std::shared_ptr<UTilemapColliderComponent> _TilemapColliderComponent) { SetTilemapCollider(_TilemapColliderComponent.get()); }
+	ENGINE_API void SetTilemapCollider(UTilemapColliderComponent* _TilemapColliderComponent) { TilemapColliderComponent = _TilemapColliderComponent; }
+
 	UTilemapComponent* TilemapComponent = nullptr;
+	UTilemapColliderComponent* TilemapColliderComponent = nullptr;
 protected:
 
 private:
+	// 타일의 모양을 결정하는 블럭
+	int currentIndex = 0;
+
+	FTileData EditorSetting;
+
 	FIntPoint Start{ 0,0 };
 	FIntPoint TileSize = { 10,10 };
 

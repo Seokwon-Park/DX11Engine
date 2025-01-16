@@ -27,25 +27,14 @@ public:
 		return std::static_pointer_cast<ChildPtrType>(shared_from_this());
 	}
 	
-	virtual bool GetIsDestroy()
+	inline bool GetIsDestroy()
 	{
 		return IsDestroy;
 	}
 
 	// 바로 죽겠죠?
 	// _Time 시간후에 죽어라.
-	//void Destroy(float _Time = 0.0f)
-	//{
-	//	DeathTime = _Time;
-
-	//	if (0.0f < _Time)
-	//	{
-	//		IsDeathTimeCheck = true;
-	//		return;
-	//	}
-
-	//	IsDestroyValue = true;
-	//}
+	inline virtual void Destroy(){IsDestroy = true;}
 
 	//virtual void ReleaseTimeCheck(float _DeltaTime)
 	//{
@@ -99,6 +88,8 @@ protected:
 private:
 	bool IsDestroy = false;
 	bool IsActive = true;
+
+	float DestroyDelay = 0.0f;
 
 	//bool IsDeathTimeCheck = false;
 	//float DeathTime = 0.0f;

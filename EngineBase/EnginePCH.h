@@ -4,6 +4,7 @@
 
 #ifdef _WIN64 
 	#include <Windows.h>
+	#define NOMINMAX
 #endif
 
 #include <map>

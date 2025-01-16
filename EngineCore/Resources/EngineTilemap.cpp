@@ -38,6 +38,7 @@ std::shared_ptr<UEngineTilemap> UEngineTilemap::Create(std::string_view _SpriteN
 	NewTilemap->TileSize = _TileSize;
 	NewTilemap->TileSize = _TileSize;
 
+	return NewTilemap;
 }
 
 void UEngineTilemap::Serialize(UEngineSerializer& _Serializer)

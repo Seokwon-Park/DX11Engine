@@ -3,6 +3,7 @@
 #define ENGINE_DLL_BUILD
 
 #ifdef _WIN64 
+#define NOMINMAX
 #include <Windows.h>
 #endif
 
@@ -28,8 +29,13 @@
 #pragma comment(lib, "DXGI") 
 #ifdef _DEBUG
 #pragma comment(lib, "box2dd")
+#pragma comment(lib, "msdfgen-core")
+#pragma comment(lib, "msdfgen-ext")
+#pragma comment(lib, "tinyxml2_Debug") 
+#pragma comment(lib, "skia.dll") 
 #else
 #pragma comment(lib, "box2d")
 #endif
+
 
 using namespace Microsoft::WRL;

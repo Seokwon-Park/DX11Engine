@@ -33,7 +33,6 @@ public:
 	void LoadTilemapFromPath(std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineTilemap> Create(std::string_view _SpriteName, FVector2 _TileSize, FVector2 _TilePivot);
 
-
 	//≈∏¿œ∏  ∑ŒµÂ
 	ENGINE_API void Serialize(UEngineSerializer& _Serializer) override;
 	ENGINE_API void Deserialize(UEngineSerializer& _Serializer) override;

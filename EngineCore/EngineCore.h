@@ -38,7 +38,6 @@ public:
 	ENGINE_API static void OpenLevel(std::string_view _Name);
 
 	//ENGINE_API inline static float GetDeltaTime() { return Timer.GetDeltaTime(); }
-
 	ENGINE_API static class UEngineDeviceContext* GetGraphicsDeviceContext();
 	ENGINE_API static class FTimerManager& GetTimerManager();
 	ENGINE_API static class UEngineWindow& GetMainWindow() { return MainWindow; };

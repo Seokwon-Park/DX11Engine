@@ -9,24 +9,19 @@ UTilemapComponent::~UTilemapComponent()
 {
 }
 
-void UTilemapComponent::SetTile(FIntPoint _Pos, int _SpriteIndex)
+void UTilemapComponent::SetTile(FIntPoint _Pos, FTileData _TileSetting)
 {
 	FTileIndex Index = WorldPosToTileIndex(_Pos);
 
-	SetTile(Index.X, Index.Y, _SpriteIndex);
+	SetTile(Index.X, Index.Y, _TileSetting);
 }
 
-void UTilemapComponent::SetTile(int _X, int _Y, int _Spriteindex)
+void UTilemapComponent::SetTile(int _X, int _Y, FTileData _TileSetting)
 {
 	FTileIndex Index = { _X,  _Y };
 
-	FTileData& NewTile = Tilemap->TilemapData[Index.Key];
-
-	NewTile.Index = Index;
-	NewTile.SpriteIndex = _Spriteindex;
-	NewTile.SpriteRect.CuttingPos = { 0.0f, 0.0f };
-	NewTile.SpriteRect.CuttingSize = { 1.0f, 1.0f };
-	NewTile.SpriteRect.Pivot = { 0.5f, 0.5f };
+	_TileSetting.Index = Index;
+	Tilemap->TilemapData[Index.Key] = _TileSetting;
 }
 
 void UTilemapComponent::RemoveTile(FIntPoint _MousePos)
@@ -70,19 +65,19 @@ FTileIndex UTilemapComponent::WorldPosToTileIndex(FIntPoint _Pos)
 	FIntPoint ConvertVector;
 
 	// 정수 나눗셈 대신 내림(floor) 사용
-	ConvertVector.X = static_cast<int>(std::floor(static_cast<float>(_Pos.X) / ImageSize.X));
-	ConvertVector.Y = static_cast<int>(std::floor(static_cast<float>(_Pos.Y) / ImageSize.Y));
+	ConvertVector.X = static_cast<int>(std::floor(static_cast<float>(_Pos.X) / TileSize.X));
+	ConvertVector.Y = static_cast<int>(std::floor(static_cast<float>(_Pos.Y) / TileSize.Y));
 
 	Result.X = ConvertVector.X;
 	Result.Y = ConvertVector.Y;
 	return Result;
 }
 
-FVector4 UTilemapComponent::TileIndexToWorldPos(FTileIndex _Pos)
+FVector4 UTilemapComponent::TileIndexToWorldPos(FTileIndex _Index)
 {
 	FVector4 Result;
-	Result.X = _Pos.X * TileSize.X + TileSize.X / 2.0f;
-	Result.Y = _Pos.Y * TileSize.Y + TileSize.Y / 2.0f;
+	Result.X = _Index.X * TileSize.X + TileSize.X * TilePivot.X;
+	Result.Y = _Index.Y * TileSize.Y + TileSize.Y * TilePivot.Y;
 	return Result;
 }
 

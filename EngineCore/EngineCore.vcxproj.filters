@@ -73,6 +73,7 @@
     <ClCompile Include="Components\Renderer2DComponent.cpp" />
     <ClCompile Include="Components\CapsuleCollider2DComponent.cpp" />
     <ClCompile Include="Resources\EngineTilemap.cpp" />
+    <ClCompile Include="Resources\EngineFont.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -159,6 +160,52 @@
     <ClInclude Include="Resources\EngineTilemap.h" />
     <ClInclude Include="Structures\EngineDataStructure.h" />
     <ClInclude Include="Enums\DataLayer.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\arithmetics.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\base.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Bitmap.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Bitmap.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\bitmap-interpolation.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\BitmapRef.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Contour.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\contour-combiners.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\DistanceMapping.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\EdgeColor.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\edge-coloring.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\EdgeHolder.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\edge-segments.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\edge-selectors.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\equation-solver.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\export-svg.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\generator-config.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\msdf-error-correction.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\MSDFErrorCorrection.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\pixel-conversion.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Projection.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Range.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\rasterization.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\render-sdf.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\save-bmp.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\save-fl32.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\save-rgba.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\save-tiff.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Scanline.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\sdf-error-estimation.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\SDFTransformation.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Shape.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\shape-description.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\ShapeDistanceFinder.h" />
+    <ClInclude Include="ThirdParty\msdfgen\core\ShapeDistanceFinder.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\SignedDistance.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\core\Vector2.hpp" />
+    <ClInclude Include="ThirdParty\msdfgen\ext\import-font.h" />
+    <ClInclude Include="ThirdParty\msdfgen\ext\import-svg.h" />
+    <ClInclude Include="ThirdParty\msdfgen\ext\resolve-shape-geometry.h" />
+    <ClInclude Include="ThirdParty\msdfgen\ext\save-png.h" />
+    <ClInclude Include="ThirdParty\msdfgen\msdfgen\msdfgen-config.h" />
+    <ClInclude Include="ThirdParty\msdfgen\msdfgen.h" />
+    <ClInclude Include="ThirdParty\msdfgen\msdfgen-config.h" />
+    <ClInclude Include="ThirdParty\msdfgen\msdfgen-ext.h" />
+    <ClInclude Include="Resources\EngineFont.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -173,11 +220,37 @@
     <None Include="Shaders\ColliderShader.hlsl" />
     <None Include="Shaders\TilemapShader.hlsl" />
     <None Include="Shaders\GridShader.hlsl" />
+    <None Include="ThirdParty\msdfgen\Debug\msdfgen-core.pdb" />
+    <None Include="ThirdParty\msdfgen\Debug\msdfgen-ext.pdb" />
+    <None Include="..\..\vcpkg\packages\tinyxml2_x64-windows\bin\tinyxml2.dll" />
+    <None Include="ThirdParty\tinyxml2\Debug\tinyxml2.pdb" />
+    <None Include="ThirdParty\skia\Debug\skia.dll.pdb" />
+    <None Include="ThirdParty\skia\Debug\skshaper.dll.pdb" />
+    <None Include="ThirdParty\skia\Debug\skunicode_core.dll.pdb" />
+    <None Include="ThirdParty\skia\Debug\skunicode_icu.dll.pdb" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Debug.lib" />
     <Library Include="ThirdParty\Box2D\box2d.lib" />
     <Library Include="ThirdParty\Box2D\box2dd.lib" />
+    <Library Include="ThirdParty\MSDFGen\Debug\msdfgen-core.lib" />
+    <Library Include="ThirdParty\MSDFGen\Debug\msdfgen-ext.lib" />
+    <Library Include="ThirdParty\tinyxml2\Release\tinyxml2.lib" />
+    <Library Include="ThirdParty\tinyxml2\Debug\tinyxml2_Debug.lib" />
+    <Library Include="ThirdParty\skia\Debug\skia.dll.lib" />
+    <Library Include="ThirdParty\skia\Debug\skshaper.dll.lib" />
+    <Library Include="ThirdParty\skia\Debug\skunicode_core.dll.lib" />
+    <Library Include="ThirdParty\skia\Debug\skunicode_icu.dll.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="ThirdParty\MSDFGen\Debug\msdfgen-core.dll" />
+    <CopyFileToFolders Include="ThirdParty\MSDFGen\Debug\msdfgen-ext.dll" />
+    <CopyFileToFolders Include="ThirdParty\tinyxml2\Release\tinyxml2.dll" />
+    <CopyFileToFolders Include="ThirdParty\tinyxml2\Debug\tinyxml2_Debug.dll" />
+    <CopyFileToFolders Include="ThirdParty\skia\Debug\skia.dll" />
+    <CopyFileToFolders Include="ThirdParty\skia\Debug\skshaper.dll" />
+    <CopyFileToFolders Include="ThirdParty\skia\Debug\skunicode_core.dll" />
+    <CopyFileToFolders Include="ThirdParty\skia\Debug\skunicode_icu.dll" />
   </ItemGroup>
 </Project>

@@ -26,11 +26,11 @@ public:
 
 	void Tick(float _DeltaTime);
 	void Render(float _DeltaTime);
+	void Release(float _DeltaTime);
 	
 	void PushCollider2D(std::shared_ptr<class UCollider2DComponent> _Renderer);
 
 	void PushRenderer(std::shared_ptr<class URenderer2DComponent> _Renderer);
-	void PushRenderer2D(std::shared_ptr<class URendererComponent> _Renderer);
 	void ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<class URenderer2DComponent> _Renderer);
 
 
@@ -99,8 +99,8 @@ private:
 	std::list<std::shared_ptr<class AActor>> BeginPlayList;
 	std::list<std::shared_ptr<class AActor>> AllActorList;
 
-	std::map<std::pair<int,int>, std::list<std::shared_ptr<class URenderer2DComponent>>> SpriteRenderers;
-	std::list<std::shared_ptr<class UCollider2DComponent>> Colliders2D;
+	std::map<std::pair<int,int>, std::list<std::shared_ptr<class URenderer2DComponent>>> Renderer2DList;
+	std::list<std::shared_ptr<class UCollider2DComponent>> Collider2DList;
 	std::map<std::string,std::shared_ptr<class ACameraActor>> CameraComponents;
 	class ACameraActor* CurrentCamera;
 };

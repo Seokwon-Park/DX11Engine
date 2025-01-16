@@ -27,9 +27,10 @@ public:
 	ENGINE_API void SetTilemap(UTilemapComponent* _TilemapComponent) { TilemapComponent = _TilemapComponent; }
 
 	ENGINE_API virtual void DebugRender(class UCameraComponent* _Camera, float _DeltaTime)override;
+	ENGINE_API void UpdateCollider();
+	void CreateSlope(std::vector<FVector4> _Points, FTileData& _Tile);
 protected:
 	void BeginPlay() override;
-	void UpdateCollider();
 	void TickComponent(float _DeltaTime) override;
 private:
 	// BFS
@@ -46,6 +47,7 @@ private:
 
 	b2Polygon dynamicBox;
 	std::vector<b2ChainId> ChainIds;
+	std::vector<b2BodyId> BodyIds;
 
 	class UTilemapComponent* TilemapComponent = nullptr;
 };

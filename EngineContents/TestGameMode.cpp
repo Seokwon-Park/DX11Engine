@@ -5,11 +5,14 @@
 
 ATestGameMode::ATestGameMode()
 {
-	//Tilemap = CreateDefaultSubobject<UTilemapComponent>();
-	//TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
-	//TilemapRenderer->SetTilemap(Tilemap);
-	//TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
-	//TilemapCollider->SetTilemap(Tilemap);
+	Tilemap = CreateDefaultSubobject<UTilemapComponent>();
+	//Tilemap->Load("test");
+	TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
+	TilemapRenderer->SetupAttachment(RootComponent);
+	TilemapRenderer->SetTilemap(Tilemap);
+	TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
+	TilemapCollider->SetupAttachment(RootComponent);
+	TilemapCollider->SetTilemap(Tilemap);
 }
 
 ATestGameMode::~ATestGameMode()
@@ -18,10 +21,12 @@ ATestGameMode::~ATestGameMode()
 
 void ATestGameMode::Tick(float _DeltaTime)
 {
+	AGameMode::Tick(_DeltaTime);
 }
 
 void ATestGameMode::BeginPlay()
 {
+	AGameMode::BeginPlay();
 	//UEngineDirectory Dir;
 	//if (false == Dir.MoveParentToDirectory("Resources"))
 	//{
@@ -38,8 +43,8 @@ void ATestGameMode::BeginPlay()
 
 	//Tilemap->DeSerialize(Ser);
 
-	std::shared_ptr<ATitleLogo> Test = GetLevel()->SpawnActor<ATitleLogo>("Test Tevi");
-	Test->SetActorLocation({ 0.0f,-100.0f,0.0f,1.0f });
+	/*std::shared_ptr<ATitleLogo> Test = GetLevel()->SpawnActor<ATitleLogo>("Test Tevi");
+	Test->SetActorLocation({ 0.0f,-100.0f,0.0f,1.0f });*/
 	//Logo->SetActorRelativeScale3D({ 100.0f,100.0f,1.0f });
 
 	std::shared_ptr<APlayer> Player = GetLevel()->GetMainPawn<APlayer>();

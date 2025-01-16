@@ -61,7 +61,7 @@ void ULevel::Render(float _DeltaTime)
 	UEngineCore::GetGraphicsDeviceContext()->Clear();
 
 	//2D ·»´õ·¯ ±×·ì ·»´õ¸µ
-	for (std::pair<const std::pair<int, int>, std::list<std::shared_ptr<URenderer2DComponent>>>& RenderGroup : SpriteRenderers)
+	for (std::pair<const std::pair<int, int>, std::list<std::shared_ptr<URenderer2DComponent>>>& RenderGroup : Renderer2DList)
 	{
 		std::list<std::shared_ptr<URenderer2DComponent>>& RenderList = RenderGroup.second;
 
@@ -71,7 +71,7 @@ void ULevel::Render(float _DeltaTime)
 		}
 	}
 
-	for (auto Collider2D : Colliders2D)
+	for (auto Collider2D : Collider2DList)
 	{
 		Collider2D->DebugRender(CurrentCamera->GetCameraComponent().get(), _DeltaTime);
 	}
@@ -79,20 +79,67 @@ void ULevel::Render(float _DeltaTime)
 	UEngineCore::GetGraphicsDeviceContext()->SwapBuffers();
 }
 
+void ULevel::Release(float _DeltaTime)
+{
+	std::list<std::shared_ptr<AActor>>::iterator Iterator = AllActorList.begin();
+	while (Iterator != AllActorList.end())
+	{
+		std::shared_ptr<AActor> CurActor = *Iterator;
+
+		if (false == CurActor->GetIsDestroy())
+		{
+			++Iterator;
+			continue;
+		}
+		Iterator = AllActorList.erase(Iterator);
+	}
+
+	for (std::pair<const std::pair<int, int>, std::list<std::shared_ptr<URenderer2DComponent>>>& RenderGroup : Renderer2DList)
+	{
+		std::list<std::shared_ptr<URenderer2DComponent>>& Renderers = RenderGroup.second;
+		std::list<std::shared_ptr<URenderer2DComponent>>::iterator Iterator = RenderGroup.second.begin();
+		while (Iterator != Renderers.end())
+		{
+			std::shared_ptr<URenderer2DComponent> CurRenderer = *Iterator;
+
+			if (false == CurRenderer->GetOwner()->GetIsDestroy())
+			{
+				++Iterator;
+				continue;
+			}
+			Iterator = Renderers.erase(Iterator);
+		}
+	}
+
+
+	std::list<std::shared_ptr<UCollider2DComponent>>::iterator ColliderIterator = Collider2DList.begin();
+	while (ColliderIterator != Collider2DList.end())
+	{
+		std::shared_ptr<UCollider2DComponent> CurCollider = *ColliderIterator;
+
+		if (false == CurCollider->GetOwner()->GetIsDestroy())
+		{
+			++ColliderIterator;
+			continue;
+		}
+		ColliderIterator = Collider2DList.erase(ColliderIterator);
+	}
+}
+
 void ULevel::PushCollider2D(std::shared_ptr<class UCollider2DComponent> _Renderer)
 {
-	Colliders2D.push_back(_Renderer);
+	Collider2DList.push_back(_Renderer);
 }
 
 void ULevel::PushRenderer(std::shared_ptr<class URenderer2DComponent> _Renderer)
 {
-	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
+	Renderer2DList[_Renderer->GetOrder()].push_back(_Renderer);
 }
 
 void ULevel::ChangeRenderOrder(std::pair<int, int> _PrevRenderOrder, std::shared_ptr<URenderer2DComponent> _Renderer)
 {
-	SpriteRenderers[_PrevRenderOrder].remove(_Renderer);
-	SpriteRenderers[_Renderer->GetOrder()].push_back(_Renderer);
+	Renderer2DList[_PrevRenderOrder].remove(_Renderer);
+	Renderer2DList[_Renderer->GetOrder()].push_back(_Renderer);
 }
 
 std::shared_ptr<ACameraActor> ULevel::SpawnCamera(std::string_view _Name)
