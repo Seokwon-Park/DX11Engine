@@ -28,7 +28,6 @@ void ATilemapEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
 
-	Font.Init();
 	/*TilemapComponent->Load("111");
 	TilemapCollider->UpdateCollider();*/
 	std::shared_ptr<UTilemapEditorWindow> Window = std::make_shared<UTilemapEditorWindow>(GetLevel());

@@ -74,6 +74,8 @@
     <ClCompile Include="Components\CapsuleCollider2DComponent.cpp" />
     <ClCompile Include="Resources\EngineTilemap.cpp" />
     <ClCompile Include="Resources\EngineFont.cpp" />
+    <ClCompile Include="Components\TextRendererComponent.cpp" />
+    <ClCompile Include="GUI\TextAtlasEditorWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -245,6 +247,8 @@
     <ClInclude Include="ThirdParty\msdf-atlas-gen\ImmediateAtlasGenerator.hpp" />
     <ClInclude Include="ThirdParty\msdf-atlas-gen\json-export.h" />
     <ClInclude Include="ThirdParty\msdf-atlas-gen\msdf-atlas-gen.h" />
+    <ClInclude Include="Components\TextRendererComponent.h" />
+    <ClInclude Include="GUI\TextAtlasEditorWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -296,6 +300,7 @@
     <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\zlib1.dll" />
     <None Include="ThirdParty\msdf-atlas-gen\artery-font-format\example.arfont" />
     <None Include="ThirdParty\msdf-atlas-gen\artery-font-format\README.md" />
+    <None Include="Shaders\TextShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />

@@ -186,6 +186,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Components\TextRendererComponent.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Components\TilemapColliderComponent.h">
       <SubType>
       </SubType>
@@ -221,6 +225,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GUI\TextAtlasEditorWindow.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GUI\TilemapEditorWindow.h" />
     <ClInclude Include="Resources\EngineAnimation.h">
       <SubType>
@@ -250,6 +258,11 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <None Include="Shaders\TextShader.hlsl">
+      <SubType>
+      </SubType>
+      <FileType>Document</FileType>
+    </None>
     <ClInclude Include="StateManager.h">
       <SubType>
       </SubType>
@@ -496,6 +509,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Components\TextRendererComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Components\TilemapColliderComponent.cpp">
       <SubType>
       </SubType>
@@ -522,6 +539,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GUI\EngineImGuiWindow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GUI\TextAtlasEditorWindow.cpp">
       <SubType>
       </SubType>
     </ClCompile>

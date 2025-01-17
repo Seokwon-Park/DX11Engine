@@ -9,7 +9,8 @@
 
 #include "TitleGameMode.h"
 #include "TestGameMode.h"
-#include "TileMapEditorGameMode.h"
+#include "TilemapEditorGameMode.h"
+#include "FontAtlasEditorGameMode.h"
 #include "Player.h"
 
 CreateContentsCoreDefine(UTeviContentsCore);
@@ -53,8 +54,10 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");
 	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TilemapEditor");
+	UEngineCore::CreateLevel<AFontAtlasEditorGameMode, APawn>("TextAtlasEditor");
 	//UEngineCore::OpenLevel("Test");
-	UEngineCore::OpenLevel("TilemapEditor");
+	//UEngineCore::OpenLevel("TilemapEditor");
+	UEngineCore::OpenLevel("TextAtlasEditor");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

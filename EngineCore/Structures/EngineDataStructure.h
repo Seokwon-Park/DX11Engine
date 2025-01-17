@@ -1,6 +1,8 @@
 #pragma once
 #include <EngineBase/EngineMath.h>
 #include <EngineCore/Enums/DataLayer.h>
+#include <EngineCore/ThirdParty/msdf-atlas-gen/msdf-atlas-gen.h>
+
 
 struct FSpriteRect
 {
@@ -40,3 +42,5 @@ struct FTileData
 	FSpriteRect SpriteRect;
 	
 };
+
+

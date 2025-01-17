@@ -3,7 +3,6 @@
 #include <EngineCore/Components/TilemapRendererComponent.h>
 #include <EngineCore/Components/TilemapColliderComponent.h>
 
-#include <EngineCore/Resources/EngineFont.h>
 
 // Ό³Έν :
 class ATilemapEditorGameMode : public AGameMode
@@ -24,7 +23,6 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	EngineFont Font;
 	std::shared_ptr<UTilemapComponent> TilemapComponent;
 	std::shared_ptr<UTilemapRendererComponent> TilemapRenderer;
 	std::shared_ptr<UTilemapColliderComponent> TilemapCollider;

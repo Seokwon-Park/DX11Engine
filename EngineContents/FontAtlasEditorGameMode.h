@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include <EngineCore/Resources/EngineFont.h>
 
 // Ό³Έν :
 class AFontAtlasEditorGameMode : public AGameMode
@@ -20,6 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	UEngineFont Font;
 
 };
 

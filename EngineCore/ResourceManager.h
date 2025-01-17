@@ -62,18 +62,19 @@ public:
 	}
 
 	template<typename ResourceType>
-	ENGINE_API inline static std::vector<ResourceType> LoadAllResources()
+	inline static std::vector<std::shared_ptr<ResourceType>> GetAllResources()
 	{
 		//if (std::is_base_of_v(ResourceType, UEngineTexture2D))
 		//	return;
 		const type_info& Info = typeid(ResourceType);
-		std::vector<ResourceType> Result;
 		auto Resources = ResourceMap[Info.name()];
+		std::vector<std::shared_ptr<ResourceType>> Result;
 		for (auto [Name, Resource] : Resources)
 		{
-			Result.push_back(Resources);
+			std::shared_ptr<ResourceType> Res = std::static_pointer_cast<ResourceType>(Resource);
+			Result.push_back(Res);
 		}
-		return Resources;
+		return Result;
 	}
 
 	template <typename ResourceType>
