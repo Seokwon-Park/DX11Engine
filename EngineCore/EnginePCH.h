@@ -23,16 +23,12 @@
 #include <d3dcompiler.h> 
 #include <wrl.h>
 
+#pragma comment(linker, "/NODEFAULTLIB:LIBCMTD")
 // 라이브러리들
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler") 
 #pragma comment(lib, "DXGI") 
 #ifdef _DEBUG
-#pragma comment(lib, "box2dd")
-#pragma comment(lib, "msdfgen-core")
-#pragma comment(lib, "msdfgen-ext")
-#pragma comment(lib, "tinyxml2_Debug") 
-#pragma comment(lib, "skia.dll") 
 #else
 #pragma comment(lib, "box2d")
 #endif

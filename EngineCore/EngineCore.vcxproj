@@ -119,7 +119,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EnginePCH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\;$(SolutionDir)$(ProjectName)\ThirdParty\msdfgen;$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)\ThirdParty\msdf-atlas-gen;..\;$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +139,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EnginePCH.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\;ThirdParty\msdfgen;$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)$(ProjectName)\ThirdParty\msdf-atlas-gen;..\;$(SolutionDir)$(ProjectName)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -364,51 +365,90 @@
     <ClInclude Include="ThirdParty\IMGUI\imstb_rectpack.h" />
     <ClInclude Include="ThirdParty\IMGUI\imstb_textedit.h" />
     <ClInclude Include="ThirdParty\IMGUI\imstb_truetype.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\arithmetics.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\base.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\bitmap-interpolation.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Bitmap.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Bitmap.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\BitmapRef.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\contour-combiners.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Contour.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\DistanceMapping.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\edge-coloring.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\edge-segments.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\edge-selectors.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\EdgeColor.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\EdgeHolder.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\equation-solver.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\export-svg.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\generator-config.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\msdf-error-correction.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\MSDFErrorCorrection.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\pixel-conversion.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Projection.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Range.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\rasterization.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\render-sdf.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\save-bmp.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\save-fl32.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\save-rgba.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\save-tiff.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Scanline.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\sdf-error-estimation.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\SDFTransformation.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\shape-description.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Shape.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\ShapeDistanceFinder.h" />
-    <ClInclude Include="ThirdParty\msdfgen\core\ShapeDistanceFinder.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\SignedDistance.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\core\Vector2.hpp" />
-    <ClInclude Include="ThirdParty\msdfgen\ext\import-font.h" />
-    <ClInclude Include="ThirdParty\msdfgen\ext\import-svg.h" />
-    <ClInclude Include="ThirdParty\msdfgen\ext\resolve-shape-geometry.h" />
-    <ClInclude Include="ThirdParty\msdfgen\ext\save-png.h" />
-    <ClInclude Include="ThirdParty\msdfgen\msdfgen-config.h" />
-    <ClInclude Include="ThirdParty\msdfgen\msdfgen-ext.h" />
-    <ClInclude Include="ThirdParty\msdfgen\msdfgen.h" />
-    <ClInclude Include="ThirdParty\msdfgen\msdfgen\msdfgen-config.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-export.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\artery-font.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\crc32.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\crc32.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\enums.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\serialization.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\serialization.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\std-artery-font.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\stdio-serialization.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\stdio-serialization.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\structures.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\artery-font-format\artery-font\types.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\AtlasGenerator.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\AtlasStorage.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\bitmap-blit.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\BitmapAtlasStorage.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\BitmapAtlasStorage.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\Charset.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\arithmetics.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\base.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\bitmap-interpolation.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Bitmap.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Bitmap.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\BitmapRef.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\contour-combiners.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Contour.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\DistanceMapping.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\edge-coloring.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\edge-segments.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\edge-selectors.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\EdgeColor.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\EdgeHolder.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\equation-solver.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\export-svg.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\generator-config.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\msdf-error-correction.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\MSDFErrorCorrection.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\pixel-conversion.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Projection.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Range.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\rasterization.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\render-sdf.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\save-bmp.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\save-fl32.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\save-rgba.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\save-tiff.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Scanline.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\sdf-error-estimation.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\SDFTransformation.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\shape-description.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Shape.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\ShapeDistanceFinder.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\ShapeDistanceFinder.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\SignedDistance.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\core\Vector2.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\csv-export.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\DynamicAtlas.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\DynamicAtlas.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\FontGeometry.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\glyph-generators.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\GlyphBox.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\GlyphGeometry.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\GridAtlasPacker.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\image-encode.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\image-save.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\image-save.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\ImmediateAtlasGenerator.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\ImmediateAtlasGenerator.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\json-export.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\msdf-atlas-gen.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\msdfgen-ext.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\msdfgen.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\Padding.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\rectangle-packing.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\rectangle-packing.hpp" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\Rectangle.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\RectanglePacker.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\Remap.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\shadron-preview-generator.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\size-selectors.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\TightAtlasPacker.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\types.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\utf8.h" />
+    <ClInclude Include="ThirdParty\msdf-atlas-gen\Workload.h" />
     <ClInclude Include="TimerManager.h">
       <SubType>
       </SubType>
@@ -636,41 +676,203 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\vcpkg\packages\tinyxml2_x64-windows\bin\tinyxml2.dll" />
     <None Include="Shaders\ColliderShader.hlsl" />
     <None Include="Shaders\GridShader.hlsl" />
     <None Include="Shaders\SpriteShader.hlsl" />
-    <CopyFileToFolders Include="ThirdParty\msdfgen\Debug\msdfgen-core.dll">
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\brotlicommon.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\brotlidec.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\brotlienc.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\bz2d.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\freetyped.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\jpeg62.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libexpatd.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libpng16d.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libsharpyuv.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libwebp.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libwebpdecoder.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libwebpdemux.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\libwebpmux.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\pkgconf-5.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\skia.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\skshaper.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\turbojpeg.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\bin\zlibd1.dll">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\artery-font-format\example.arfont" />
+    <None Include="ThirdParty\msdf-atlas-gen\artery-font-format\README.md" />
+    <None Include="ThirdParty\msdf-atlas-gen\Debug\msdf-atlas-gen.pdb" />
+    <None Include="ThirdParty\msdf-atlas-gen\Debug\msdfgen\msdfgen-core.pdb" />
+    <None Include="ThirdParty\msdf-atlas-gen\Debug\msdfgen\msdfgen-ext.pdb" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlicommon.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="ThirdParty\msdfgen\Debug\msdfgen-core.pdb" />
-    <CopyFileToFolders Include="ThirdParty\msdfgen\Debug\msdfgen-ext.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlicommon.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlidec.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="ThirdParty\msdfgen\Debug\msdfgen-ext.pdb" />
-    <CopyFileToFolders Include="ThirdParty\tinyxml2\Release\tinyxml2.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlidec.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlienc.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\tinyxml2\Debug\tinyxml2_Debug.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlienc.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\bz2.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\skia\Debug\skia.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\bz2.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\freetype.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="ThirdParty\skia\Debug\skia.dll.pdb" />
-    <CopyFileToFolders Include="ThirdParty\skia\Debug\skshaper.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\freetype.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\jpeg62.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="ThirdParty\skia\Debug\skshaper.dll.pdb" />
-    <CopyFileToFolders Include="ThirdParty\skia\Debug\skunicode_core.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\jpeg62.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libexpat.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="ThirdParty\skia\Debug\skunicode_core.dll.pdb" />
-    <CopyFileToFolders Include="ThirdParty\skia\Debug\skunicode_icu.dll">
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libexpat.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libpng16.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="ThirdParty\skia\Debug\skunicode_icu.dll.pdb" />
-    <None Include="ThirdParty\tinyxml2\Debug\tinyxml2.pdb" />
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libpng16.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libsharpyuv.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libsharpyuv.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebp.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebp.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdecoder.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdecoder.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdemux.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdemux.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpmux.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpmux.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\pkgconf-5.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\skia.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\skshaper.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\turbojpeg.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\turbojpeg.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\zlib.pdb">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </None>
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\zlib1.dll">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\Box2D\box2d.lib">
@@ -686,23 +888,152 @@
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Debug.lib">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="ThirdParty\msdfgen\Debug\msdfgen-core.lib">
-      <FileType>Document</FileType>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\brotlicommon.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="ThirdParty\msdfgen\Debug\msdfgen-ext.lib">
-      <FileType>Document</FileType>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\brotlidec.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Library>
-    <Library Include="ThirdParty\skia\Debug\skia.dll.lib" />
-    <Library Include="ThirdParty\skia\Debug\skshaper.dll.lib" />
-    <Library Include="ThirdParty\skia\Debug\skunicode_core.dll.lib" />
-    <Library Include="ThirdParty\skia\Debug\skunicode_icu.dll.lib" />
-    <Library Include="ThirdParty\tinyxml2\Debug\tinyxml2_Debug.lib" />
-    <Library Include="ThirdParty\tinyxml2\Release\tinyxml2.lib" />
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\brotlienc.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\bz2d.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\freetyped.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\GlU32.Lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\jpeg.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libexpatd.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libpng16d.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libsharpyuv.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libwebp.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libwebpdecoder.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libwebpdemux.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\libwebpmux.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\OpenGL32.Lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\pkgconf.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\skia.dll.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\skshaper.dll.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\turbojpeg.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\lib\zlibd.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\msdf-atlas-gen.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\msdfgen\msdfgen-core.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Debug\msdfgen\msdfgen-ext.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdf-atlas-gen.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\brotlicommon.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\brotlidec.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\brotlienc.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\bz2.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\freetype.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\GlU32.Lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\jpeg.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libexpat.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libpng16.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libsharpyuv.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libwebp.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libwebpdecoder.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libwebpdemux.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\libwebpmux.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\OpenGL32.Lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\pkgconf.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\skia.dll.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\skshaper.dll.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\turbojpeg.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\lib\zlib.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\msdfgen-core.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\msdfgen-ext.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </Library>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\TilemapShader.hlsl">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ThirdParty\msdf-atlas-gen\artery-font-format\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

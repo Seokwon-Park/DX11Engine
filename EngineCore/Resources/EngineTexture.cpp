@@ -32,6 +32,23 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Nam
 	return NewTexture;
 }
 
+ENGINE_API std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Name, UINT _Width, UINT _Height)
+{
+	D3D11_TEXTURE2D_DESC Desc;
+	ZeroMemory(&Desc, sizeof(D3D11_TEXTURE2D_DESC));
+	Desc.Width = _Width;
+	Desc.Height = _Height;
+	Desc.MipLevels = 1;
+	Desc.ArraySize = 1;
+	Desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	Desc.SampleDesc.Count = 1;
+	Desc.Usage = D3D11_USAGE_DYNAMIC;
+	Desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	Desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+	return Create(_Name, Desc);
+}
+
 void UEngineTexture2D::CreateTexture(D3D11_TEXTURE2D_DESC _Desc)
 {
 	UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateTexture2D(&_Desc, nullptr, Texture.GetAddressOf());
@@ -118,6 +135,13 @@ bool UEngineTexture2D::IsCreatable(D3D11_BIND_FLAG _BindFlag)
 
 void UEngineTexture2D::SetData(void* data, Uint32 size)
 {
+	// 데이터 업데이트
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	UEngineDeviceContext* DeviceContext = UEngineCore::GetGraphicsDeviceContext();
+	DeviceContext->GetContext()->Map(Texture.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	// 데이터 복사
+	memcpy(mappedResource.pData, data, size);
+	DeviceContext->GetContext()->Unmap(Texture.Get(), 0);
 }
 
 void UEngineTexture2D::BindSRV(EShaderType _ShaderType, Uint32 _Slot) const

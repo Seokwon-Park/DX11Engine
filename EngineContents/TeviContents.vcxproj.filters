@@ -42,6 +42,7 @@
     </ClCompile>
     <ClCompile Include="GridActor.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FontAtlasEditorGameMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -88,6 +89,7 @@
     </ClInclude>
     <ClInclude Include="GridActor.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FontAtlasEditorGameMode.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Player">

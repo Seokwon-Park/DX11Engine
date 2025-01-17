@@ -116,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;$(SolutionDir)EngineCore\ThirdParty\msdf-atlas-gen</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EnginePCH.h</PrecompiledHeaderFile>
@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\;$(SolutionDir)EngineCore\ThirdParty\msdf-atlas-gen</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>EnginePCH.h</PrecompiledHeaderFile>
@@ -165,6 +165,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FontAtlasEditorGameMode.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -236,6 +240,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Entity.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FontAtlasEditorGameMode.h">
       <SubType>
       </SubType>
     </ClInclude>
