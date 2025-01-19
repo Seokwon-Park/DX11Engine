@@ -8,6 +8,7 @@ UEngineFont::UEngineFont()
 
 UEngineFont::~UEngineFont()
 {
+	//FontGeometryMem = msdf_atlas::FontGeometry();
 }
 
 void UEngineFont::Create(UEngineFile _Path)
@@ -42,8 +43,8 @@ void UEngineFont::CreateFontAtlasImage(UEngineFile _Path)
 				}
 			}
 			double fontScale = 1.0;
-			FontGeometry = msdf_atlas::FontGeometry(&Glyphs);
-			int glyphesLoaded = FontGeometry.loadCharset(FontHandlePtr, fontScale, charset);
+			FontGeometryMem = msdf_atlas::FontGeometry(&Glyphs);
+			int glyphesLoaded = FontGeometryMem.loadCharset(FontHandlePtr, fontScale, charset);
 
 			msdf_atlas::TightAtlasPacker atlasPacker;
 			atlasPacker.setDimensionsConstraint(msdf_atlas::DimensionsConstraint::SQUARE);
@@ -81,7 +82,7 @@ void UEngineFont::CreateFontAtlasImage(UEngineFile _Path)
 				}
 			}
 
-			CreateFontAtlasTexture<uint8_t, float, 3, msdf_atlas::msdfGenerator>(_Path.GetFileNameWithoutExtension(), (float)40.0, Glyphs, FontGeometry, width, height);
+			CreateFontAtlasTexture<uint8_t, float, 3, msdf_atlas::msdfGenerator>(_Path.GetFileNameWithoutExtension(), (float)40.0, Glyphs, width, height);
 			msdfgen::destroyFont(FontHandlePtr);
 		}
 		msdfgen::deinitializeFreetype(FreeTypeHandlePtr);

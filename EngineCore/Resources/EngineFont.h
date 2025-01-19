@@ -15,8 +15,8 @@ class UEngineFont : public UEngineResource
 {
 public:
 	// constrcuter destructer
-	ENGINE_API UEngineFont();
-	ENGINE_API ~UEngineFont();
+	UEngineFont();
+	~UEngineFont();
 
 	// delete Function
 	UEngineFont(const UEngineFont& _Other) = delete;
@@ -26,7 +26,7 @@ public:
 
 	template<typename T, typename S, int N, msdf_atlas::GeneratorFunction<S, N> GenFunc>
 	static std::shared_ptr<UEngineTexture2D> CreateFontAtlasTexture(const std::string& _FontName, float fontSize, const std::vector<msdf_atlas::GlyphGeometry>& glyphs,
-		const msdf_atlas::FontGeometry& fontGeometry, uint32_t _Width, uint32_t _Height)
+		uint32_t _Width, uint32_t _Height)
 	{
 		msdf_atlas::GeneratorAttributes attributes;
 		attributes.config.overlapSupport = true;
@@ -55,6 +55,6 @@ private:
 	std::vector<CharsetRange> Ranges;
 
 	std::vector<msdf_atlas::GlyphGeometry> Glyphs;
-	msdf_atlas::FontGeometry FontGeometry;
+	msdf_atlas::FontGeometry FontGeometryMem;
 };
 

@@ -9,6 +9,18 @@
 #include "EngineDeviceContext.h"
 #include "GUI/ImGuiLayer.h"
 
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+
+#ifdef _DEBUG
+#ifndef DBG_NEW
+#define DBG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DBG_NEW
+#endif // DBG_NEW
+#endif // _DEBUG
+
+
 UEngineDeviceContext* UEngineCore::GraphicsDeviceContext;
 
 HMODULE UEngineCore::ContentsDLL = nullptr;
@@ -113,9 +125,10 @@ void UEngineCore::LoadContentsDll(std::string_view _DllName)
 
 void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 {
-	//_CrtSetBreakAlloc(265);
+
 	//메모리 누수 Check
 	UEngineDebug::LeakCheck();
+	//_CrtSetBreakAlloc(178);
 
 	//윈도우 초기화 
 	WindowInit(_Instance);

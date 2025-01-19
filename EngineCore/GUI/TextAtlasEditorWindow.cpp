@@ -17,7 +17,7 @@ void UTextAtlasEditorWindow::OnImGuiRender()
 {
 	ImGui::Begin(GetName().c_str());
 
-	auto List = UResourceManager::GetAllResources<UEngineFont>();
+	//auto List = UResourceManager::GetAllResources<UEngineFont>();
 
 	ImGui::End();
 }

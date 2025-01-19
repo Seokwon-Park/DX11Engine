@@ -25,6 +25,6 @@ public:
 protected:
 
 private:
-	std::shared_ptr<UEngineFont> Font;
+	//std::shared_ptr<UEngineFont> Font;
 };
 

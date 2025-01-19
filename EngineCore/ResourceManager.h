@@ -57,7 +57,7 @@ public:
 		for (size_t i = 0; i < Files.size(); i++)
 		{
 			std::string FilePath = Files[i].ToString();
- 			std::shared_ptr<ResourceType> Resource = ResourceType::Create(Files[i].GetCurrentName(), FilePath);
+			std::shared_ptr<ResourceType> Resource = ResourceType::Create(Files[i].GetCurrentName(), FilePath);
 		}
 	}
 
@@ -78,11 +78,11 @@ public:
 	}
 
 	template <typename ResourceType>
-	inline static bool IsExist(std::string_view _Name){
-		const type_info& Info = typeid(ResourceType); 
-		return ResourceMap[Info.name()].contains(_Name.data()); 
+	inline static bool IsExist(std::string_view _Name) {
+		const type_info& Info = typeid(ResourceType);
+		return ResourceMap[Info.name()].contains(_Name.data());
 	}
-	inline static void Release(){ResourceMap.clear();}
+	inline static void Release() { ResourceMap.clear(); }
 
 	ENGINE_API static std::shared_ptr<UEngineResource> Find(std::string_view _ResourceType, std::string_view _ResourceName);
 	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Resource, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
