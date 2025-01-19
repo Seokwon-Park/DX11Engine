@@ -4,16 +4,16 @@
 #include <EngineCore/Resources/EngineFont.h>
 
 
-TextAtlasEditorWindow::TextAtlasEditorWindow()
+UTextAtlasEditorWindow::UTextAtlasEditorWindow()
 {
 	SetName("TextAtlasEditor");
 }
 
-TextAtlasEditorWindow::~TextAtlasEditorWindow()
+UTextAtlasEditorWindow::~UTextAtlasEditorWindow()
 {
 }
 
-void TextAtlasEditorWindow::OnImGuiRender()
+void UTextAtlasEditorWindow::OnImGuiRender()
 {
 	ImGui::Begin(GetName().c_str());
 

@@ -2,18 +2,18 @@
 #include <EngineCore/GUI/EngineImGuiWindow.h>
 
 // Ό³Έν :
-class TextAtlasEditorWindow : public UEngineImGuiWindow
+class UTextAtlasEditorWindow : public UEngineImGuiWindow
 {
 public:
 	// constrcuter destructer
-	TextAtlasEditorWindow();
-	~TextAtlasEditorWindow();
+	ENGINE_API UTextAtlasEditorWindow();
+	ENGINE_API ~UTextAtlasEditorWindow();
 
 	// delete Function
-	TextAtlasEditorWindow(const TextAtlasEditorWindow& _Other) = delete;
-	TextAtlasEditorWindow(TextAtlasEditorWindow&& _Other) noexcept = delete;
-	TextAtlasEditorWindow& operator=(const TextAtlasEditorWindow& _Other) = delete;
-	TextAtlasEditorWindow& operator=(TextAtlasEditorWindow&& _Other) noexcept = delete;
+	UTextAtlasEditorWindow(const UTextAtlasEditorWindow& _Other) = delete;
+	UTextAtlasEditorWindow(UTextAtlasEditorWindow&& _Other) noexcept = delete;
+	UTextAtlasEditorWindow& operator=(const UTextAtlasEditorWindow& _Other) = delete;
+	UTextAtlasEditorWindow& operator=(UTextAtlasEditorWindow&& _Other) noexcept = delete;
 
 	virtual void OnImGuiRender() override;
 protected:

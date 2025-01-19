@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "FontAtlasEditorGameMode.h"
+#include <EngineCore/GUI/TextAtlasEditorWindow.h>
 
 AFontAtlasEditorGameMode::AFontAtlasEditorGameMode()
 {
@@ -17,7 +18,10 @@ void AFontAtlasEditorGameMode::BeginPlay()
 	Dir.MoveParentToDirectory("Resources");
 	UEngineFile File = Dir.GetFile("NanumGothic.ttf");
 
-	UEngineFont::Create(File);
+	std::shared_ptr<UTextAtlasEditorWindow> Window = std::make_shared<UTextAtlasEditorWindow>();
+	GetLevel()->AddGuiWindow(Window);
+
+	//UEngineFont::Create(File);
 }
 
 void AFontAtlasEditorGameMode::Tick(float _DeltaTime)

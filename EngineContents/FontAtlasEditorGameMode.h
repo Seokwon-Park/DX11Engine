@@ -21,7 +21,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UEngineFont Font;
+	//UEngineFont Font;
 
 };
 
