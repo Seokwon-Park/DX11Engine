@@ -7,7 +7,7 @@
 #include <EngineCore/Resources/EngineMesh.h>
 #include <EngineCore/Resources/EngineMaterial.h>
 
-std::map<std::string, std::map<std::string, std::shared_ptr<UEngineResource>>> UResourceManager::ResourceMap;
+std::unordered_map<std::string, std::unordered_map<std::string, std::shared_ptr<UEngineResource>>> UResourceManager::ResourceMap;
 
 UResourceManager::UResourceManager()
 {

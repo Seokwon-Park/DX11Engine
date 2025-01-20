@@ -24,8 +24,59 @@ FVector2::FVector2(float _X, float _Y)
 
 }
 
+FVector2::FVector2(double _X, double _Y)
+	:X(static_cast<float>(_X)), Y(static_cast<float>(_Y))
+{
+}
+
+FVector2 FVector2::operator+(const FVector2& _Other) const
+{
+	return FVector2(X + _Other.X, Y + _Other.Y);
+}
+
+FVector2 FVector2::operator-() const
+{
+	return FVector2(-X, -Y);
+}
+
+FVector2 FVector2::operator-(const FVector2& _Other) const
+{
+	return FVector2(X - _Other.X, Y - _Other.Y);
+}
+
 FVector2 FVector2::operator*(const float& _Value) const
 {
 	return FVector2(X * _Value, Y * _Value);
+}
+
+FVector2 FVector2::operator/(const float& _Value) const
+{
+	return FVector2(X / _Value, Y / _Value);
+}
+
+void FVector2::operator+=(const FVector2& _Other)
+{
+	*this = *this + _Other;
+}
+
+void FVector2::operator-=(const FVector2& _Other)
+{
+	*this = *this - _Other;
+}
+
+void FVector2::operator*=(const float& _Value)
+{
+	*this = *this * _Value;
+}
+
+void FVector2::operator*=(const FVector2& _Other)
+{
+	X *= _Other.X;
+	Y *= _Other.Y;
+}
+
+void FVector2::operator/=(const float& _Value)
+{
+	*this *= 1.0f / _Value;
 }
 

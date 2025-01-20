@@ -33,5 +33,4 @@ private:
 	std::shared_ptr<URenderUnit> Unit;
 	
 	class UTilemapComponent* TilemapComponent = nullptr;
-
 };

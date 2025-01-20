@@ -2,6 +2,7 @@
 
 #include <DirectXMath.h>
 #include <EngineBase/EngineBase.h>
+#include "Vector4.h"
 
 class BASE_API FVector2
 {
@@ -26,6 +27,7 @@ public:
 	FVector2();
 	FVector2(int _X, int _Y);
 	FVector2(float _X, float _Y);
+	FVector2(double _X, double _Y);
 
 	static friend std::ostream& operator<<(std::ostream& _Ostream, const FVector2& _Vector)
 	{
@@ -33,8 +35,17 @@ public:
 		return _Ostream;
 	}
 
+	FVector2 operator+(const FVector2& _Other) const;
+	FVector2 operator-() const;
+	FVector2 operator-(const FVector2& _Other) const;
 	FVector2 operator*(const float& _Value) const;
+	FVector2 operator/(const float& _Value) const;
 
+	void operator+=(const FVector2& _Other);
+	void operator-=(const FVector2& _Other);
+	void operator*=(const float& _Value);
+	void operator*=(const FVector2& _Other);
+	void operator/=(const float& _Value);
 
 };
 

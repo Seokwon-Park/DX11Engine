@@ -92,7 +92,7 @@ protected:
 private:
 	UResourceManager();
 
-	ENGINE_API static std::map<std::string, std::map<std::string, std::shared_ptr<UEngineResource>>> ResourceMap;
+	ENGINE_API static std::unordered_map<std::string, std::unordered_map<std::string, std::shared_ptr<UEngineResource>>> ResourceMap;
 
 };
 

@@ -2,6 +2,9 @@
 #include <EngineCore/GameMode.h>
 #include <EngineCore/Resources/EngineFont.h>
 
+//temp
+#include <EngineCore/Components/TextRendererComponent.h>
+
 // Ό³Έν :
 class AFontAtlasEditorGameMode : public AGameMode
 {
@@ -21,7 +24,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	//UEngineFont Font;
+	std::shared_ptr<UTextRendererComponent> Tr;
 
 };
 

@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "TextRendererComponent.h"
+#include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
 UTextRendererComponent::UTextRendererComponent()
 {
@@ -9,123 +10,170 @@ UTextRendererComponent::~UTextRendererComponent()
 {
 }
 
+void UTextRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer)
+{
+	URenderer2DComponent::SetOrder(_SortingLayer, _OrderInLayer);
+	int SortingLayerInt = static_cast<int>(_SortingLayer);
+	std::shared_ptr<UTextRendererComponent> RendererPtr = GetThis<UTextRendererComponent>();
+	ULevel* Level = GetOwner()->GetLevel();
+
+	//처음 렌더러 생성시에는 Level이 Null일 수 있으므로 미루고 BeginPlay에서 처리.
+	if (Level == nullptr)
+	{
+		return;
+	}
+	Level->ChangeRenderOrder(PrevOrder, RendererPtr);
+}
+
+void UTextRendererComponent::SetFont(std::string_view _FontName)
+{
+	Font = UResourceManager::Find<UEngineFont>(_FontName);
+}
+
 void UTextRendererComponent::TickComponent(float _DeltaTime)
 {
+	URenderer2DComponent::TickComponent(_DeltaTime);
+
 }
 
 void UTextRendererComponent::BeginPlay()
 {
+	URenderer2DComponent::BeginPlay();
+	Unit = std::make_shared<URenderUnit>();
+	Unit->Init("Quad", "Quad");
+	GetOwner()->GetLevel()->PushRenderer(GetThis<UTextRendererComponent>());
+
 }
 
 void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
-	//const auto& fontGeometry = Font->GetMSDFData()->FontGeometry;
-	//const auto& metrics = fontGeometry.getMetrics();
-	//Ref<Texture2D> fontAtlas = font->GetAtlasTexture();
+	const msdf_atlas::FontGeometry& FontGeometry = Font->GetMSDFData()->FontGeometry;
+	const auto& metrics = FontGeometry.getMetrics();
+	std::shared_ptr<UEngineTexture2D> FontAtlas = Font->GetFontAtlasTexture();
 
-	//s_Data.FontAtlasTexture = fontAtlas;
+	double x = 0.0;
+	double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
+	double y = 0.0;
 
-	//double x = 0.0;
-	//double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
-	//double y = 0.0;
+	const float spaceGlyphAdvance = FontGeometry.getGlyph(' ')->getAdvance();
 
-	//const float spaceGlyphAdvance = fontGeometry.getGlyph(' ')->getAdvance();
+	VertexConstant VC;
+	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
+	WorldMatrix.MatrixTranspose();
+	VC.World = WorldMatrix;
+	VC.View = _Camera->GetViewMatrix();
+	VC.View.MatrixTranspose();
 
-	//for (size_t i = 0; i < string.size(); i++)
-	//{
-	//	char character = string[i];
-	//	if (character == '\r')
-	//		continue;
+	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
+	VC.Proj = _Camera->GetProjectionMatrix();
+	VC.Proj.MatrixTranspose();
 
-	//	if (character == '\n')
-	//	{
-	//		x = 0;
-	//		y -= fsScale * metrics.lineHeight + textParams.LineSpacing;
-	//		continue;
-	//	}
+	for (size_t i = 0; i < Text.size(); i++)
+	{
+		char character = Text[i];
+		if (character == '\r')
+			continue;
 
-	//	if (character == ' ')
-	//	{
-	//		float advance = spaceGlyphAdvance;
-	//		if (i < string.size() - 1)
-	//		{
-	//			char nextCharacter = string[i + 1];
-	//			double dAdvance;
-	//			fontGeometry.getAdvance(dAdvance, character, nextCharacter);
-	//			advance = (float)dAdvance;
-	//		}
+		if (character == '\n')
+		{
+			x = 0;
+			y -= fsScale * metrics.lineHeight + TextParam.LineSpacing;
+			continue;
+		}
 
-	//		x += fsScale * advance + textParams.Kerning;
-	//		continue;
-	//	}
+		if (character == ' ')
+		{
+			float advance = spaceGlyphAdvance;
+			if (i < Text.size() - 1)
+			{
+				char nextCharacter = Text[i + 1];
+				double dAdvance;
+				FontGeometry.getAdvance(dAdvance, character, nextCharacter);
+				advance = (float)dAdvance;
+			}
 
-	//	if (character == '\t')
-	//	{
-	//		// NOTE(Yan): is this right?
-	//		x += 4.0f * (fsScale * spaceGlyphAdvance + textParams.Kerning);
-	//		continue;
-	//	}
+			x += fsScale * advance + TextParam.Kerning;
+			continue;
+		}
 
-	//	auto glyph = fontGeometry.getGlyph(character);
-	//	if (!glyph)
-	//		glyph = fontGeometry.getGlyph('?');
-	//	if (!glyph)
-	//		return;
+		if (character == '\t')
+		{
+			x += 4.0f * (fsScale * spaceGlyphAdvance + TextParam.Kerning);
+			continue;
+		}
 
-	//	double al, ab, ar, at;
-	//	glyph->getQuadAtlasBounds(al, ab, ar, at);
-	//	glm::vec2 texCoordMin((float)al, (float)ab);
-	//	glm::vec2 texCoordMax((float)ar, (float)at);
+		auto glyph = FontGeometry.getGlyph(character);
+		if (!glyph)
+			glyph = FontGeometry.getGlyph('?');
+		if (!glyph)
+			return;
 
-	//	double pl, pb, pr, pt;
-	//	glyph->getQuadPlaneBounds(pl, pb, pr, pt);
-	//	glm::vec2 quadMin((float)pl, (float)pb);
-	//	glm::vec2 quadMax((float)pr, (float)pt);
+		double al, ab, ar, at;
+		glyph->getQuadAtlasBounds(al, ab, ar, at);
+		FVector2 texCoordMin((float)al, (float)ab);
+		FVector2 texCoordMax((float)ar, (float)at);
 
-	//	quadMin *= fsScale, quadMax *= fsScale;
-	//	quadMin += glm::vec2(x, y);
-	//	quadMax += glm::vec2(x, y);
+		double pl, pb, pr, pt;
+		glyph->getQuadPlaneBounds(pl, pb, pr, pt);
+		FVector2 quadMin((float)pl, (float)pb);
+		FVector2 quadMax((float)pr, (float)pt);
 
-	//	float texelWidth = 1.0f / fontAtlas->GetWidth();
-	//	float texelHeight = 1.0f / fontAtlas->GetHeight();
-	//	texCoordMin *= glm::vec2(texelWidth, texelHeight);
-	//	texCoordMax *= glm::vec2(texelWidth, texelHeight);
+		quadMin *= fsScale, quadMax *= fsScale;
+		quadMin += FVector2(x, y);
+		quadMax += FVector2(x, y);
 
-	//	// render here
-	//	s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin, 0.0f, 1.0f);
-	//	s_Data.TextVertexBufferPtr->Color = textParams.Color;
-	//	s_Data.TextVertexBufferPtr->TexCoord = texCoordMin;
-	//	s_Data.TextVertexBufferPtr->EntityID = entityID;
-	//	s_Data.TextVertexBufferPtr++;
+		float texelWidth = 1.0f / FontAtlas->GetTextureSize().X;
+		float texelHeight = 1.0f / FontAtlas->GetTextureSize().Y;
+		texCoordMin *= FVector2(texelWidth, texelHeight);
+		texCoordMax *= FVector2(texelWidth, texelHeight);
 
-	//	s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin.x, quadMax.y, 0.0f, 1.0f);
-	//	s_Data.TextVertexBufferPtr->Color = textParams.Color;
-	//	s_Data.TextVertexBufferPtr->TexCoord = { texCoordMin.x, texCoordMax.y };
-	//	s_Data.TextVertexBufferPtr->EntityID = entityID;
-	//	s_Data.TextVertexBufferPtr++;
+		FSpriteRect Rect;
 
-	//	s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax, 0.0f, 1.0f);
-	//	s_Data.TextVertexBufferPtr->Color = textParams.Color;
-	//	s_Data.TextVertexBufferPtr->TexCoord = texCoordMax;
-	//	s_Data.TextVertexBufferPtr->EntityID = entityID;
-	//	s_Data.TextVertexBufferPtr++;
+		//// render here
+		//s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin, 0.0f, 1.0f);
+		//s_Data.TextVertexBufferPtr->Color = textParams.Color;
+		//s_Data.TextVertexBufferPtr->TexCoord = texCoordMin;
+		//s_Data.TextVertexBufferPtr->EntityID = entityID;
+		//s_Data.TextVertexBufferPtr++;
 
-	//	s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax.x, quadMin.y, 0.0f, 1.0f);
-	//	s_Data.TextVertexBufferPtr->Color = textParams.Color;
-	//	s_Data.TextVertexBufferPtr->TexCoord = { texCoordMax.x, texCoordMin.y };
-	//	s_Data.TextVertexBufferPtr->EntityID = entityID;
-	//	s_Data.TextVertexBufferPtr++;
+		//s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin.x, quadMax.y, 0.0f, 1.0f);
+		//s_Data.TextVertexBufferPtr->Color = textParams.Color;
+		//s_Data.TextVertexBufferPtr->TexCoord = { texCoordMin.x, texCoordMax.y };
+		//s_Data.TextVertexBufferPtr->EntityID = entityID;
+		//s_Data.TextVertexBufferPtr++;
 
-	//	s_Data.TextIndexCount += 6;
-	//	s_Data.Stats.QuadCount++;
+		//s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax, 0.0f, 1.0f);
+		//s_Data.TextVertexBufferPtr->Color = textParams.Color;
+		//s_Data.TextVertexBufferPtr->TexCoord = texCoordMax;
+		//s_Data.TextVertexBufferPtr->EntityID = entityID;
+		//s_Data.TextVertexBufferPtr++;
 
-	//	if (i < string.size() - 1)
-	//	{
-	//		double advance = glyph->getAdvance();
-	//		char nextCharacter = string[i + 1];
-	//		fontGeometry.getAdvance(advance, character, nextCharacter);
+		//s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMax.x, quadMin.y, 0.0f, 1.0f);
+		//s_Data.TextVertexBufferPtr->Color = textParams.Color;
+		//s_Data.TextVertexBufferPtr->TexCoord = { texCoordMax.x, texCoordMin.y };
+		//s_Data.TextVertexBufferPtr->EntityID = entityID;
+		//s_Data.TextVertexBufferPtr++;
 
-	//		x += fsScale * advance + textParams.Kerning;
-	//	}
-	//}
+		//s_Data.TextIndexCount += 6;
+		//s_Data.Stats.QuadCount++;
+
+		if (i < Text.size() - 1)
+		{
+			double advance = glyph->getAdvance();
+			char nextCharacter = Text[i + 1];
+			FontGeometry.getAdvance(advance, character, nextCharacter);
+
+			x += fsScale * advance + TextParam.Kerning;
+		}
+
+		
+		auto test = FColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
+		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Rect);
+		Unit->SetConstantBufferData("PSColor", EShaderType::PS, test);
+		Unit->SetTexture("SpriteTexture", EShaderType::PS, FontAtlas);
+		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
+
+	}
+	URenderer2DComponent::Render(_Camera, _DeltaTime);
 }

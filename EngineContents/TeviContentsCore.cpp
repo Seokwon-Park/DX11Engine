@@ -56,8 +56,8 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TilemapEditor");
 	UEngineCore::CreateLevel<AFontAtlasEditorGameMode, APawn>("TextAtlasEditor");
 	//UEngineCore::OpenLevel("Test");
-	//UEngineCore::OpenLevel("TilemapEditor");
-	UEngineCore::OpenLevel("TextAtlasEditor");
+	UEngineCore::OpenLevel("TilemapEditor");
+	//UEngineCore::OpenLevel("TextAtlasEditor");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

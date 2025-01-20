@@ -51,6 +51,8 @@ ENGINE_API std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::strin
 
 void UEngineTexture2D::CreateTexture(D3D11_TEXTURE2D_DESC _Desc)
 {
+	TextureSize.X = _Desc.Width;
+	TextureSize.Y = _Desc.Height;
 	UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateTexture2D(&_Desc, nullptr, Texture.GetAddressOf());
 	CreateRTV();
 	CreateSRV();

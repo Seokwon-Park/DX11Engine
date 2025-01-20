@@ -6,11 +6,13 @@
     <ClInclude Include="EngineInputSystem.h" />
     <ClInclude Include="KeyCode.h" />
     <ClInclude Include="EngineKey.h" />
+    <ClInclude Include="EngineThread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineWindow.cpp" />
     <ClCompile Include="EnginePCH.cpp" />
     <ClCompile Include="EngineInputSystem.cpp" />
     <ClCompile Include="EngineKey.cpp" />
+    <ClCompile Include="EngineThread.cpp" />
   </ItemGroup>
 </Project>

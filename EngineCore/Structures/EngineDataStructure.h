@@ -16,7 +16,7 @@ struct FSpriteData
 {
 	std::shared_ptr<class UEngineTexture2D> Texture;
 	FSpriteRect Rect;
-}; 
+};
 
 struct FTileIndex
 {
@@ -40,7 +40,14 @@ struct FTileData
 	ETilePolygon PolygonType = ETilePolygon::Default;
 	FTileIndex Index;
 	FSpriteRect SpriteRect;
-	
+
+};
+
+
+struct MSDFData
+{
+	std::vector<msdf_atlas::GlyphGeometry> Glyphs;
+	msdf_atlas::FontGeometry FontGeometry;
 };
 
 

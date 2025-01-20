@@ -23,7 +23,7 @@
 #include <d3dcompiler.h> 
 #include <wrl.h>
 
-#pragma comment(linker, "/NODEFAULTLIB:LIBCMTD")
+
 // 라이브러리들
 #pragma comment(lib, "d3d11")
 #pragma comment(lib, "d3dcompiler") 
