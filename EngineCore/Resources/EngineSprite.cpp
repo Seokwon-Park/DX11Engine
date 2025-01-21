@@ -54,7 +54,7 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 
 	for (size_t i = 0; i < Files.size(); i++)
 	{
-		std::string UpperName = UEngineString::ToUpper(Files[i].GetCurrentName());
+		std::string UpperName = UEngineString::ToUpper(Files[i].GetFileNameWithoutExtension());
 
 		std::shared_ptr<UEngineTexture2D> Texture = UResourceManager::Find<UEngineTexture2D>(UpperName);
 

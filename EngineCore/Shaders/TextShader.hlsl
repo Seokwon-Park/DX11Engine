@@ -47,9 +47,10 @@ Texture2D SpriteTexture : register(t0);
 
 SamplerState PSSampler : register(s0);
 
-cbuffer PSColor : register(b0)
+cbuffer TextColor : register(b0)
 {
-	float4 Albedo;
+    float4 bgColor;
+    float4 fgColor;
 };
 
 struct PS_Output
@@ -58,9 +59,35 @@ struct PS_Output
 	float4 Color : COLOR;
 };
 
+float median(float r, float g, float b)
+{
+    return max(min(r, g), min(max(r, g), b));
+}
+
+float screenPxRange(float2 _uv)
+{
+    uint width, height;
+    SpriteTexture.GetDimensions(width, height);
+    float pxRange = 4.0f; // set to distance field's pixel range
+    float2 unitRange = float2(pxRange / width, pxRange / height);
+    float2 screenTexSize = float2(1.0f / fwidth(_uv).x, 1.0f / fwidth(_uv).y);
+    return max(0.5 * dot(unitRange, screenTexSize), 1.0);
+}
+
 float4 ps_main(VS_Output _Input) : SV_TARGET0
 {
-	float4 Color = SpriteTexture.Sample(PSSampler, _Input.UV.xy) * Albedo;
-    //float4 Color = float4(1.0f, 0.0f, 1.0f, 1.0f);
-	return Color;
+	float3 msd = SpriteTexture.Sample(PSSampler, _Input.UV).rgb;
+    float sd = median(msd.r, msd.g, msd.b);
+    float screenPxDistance = screenPxRange(_Input.UV) * (sd - 0.5);
+    float opacity = clamp(screenPxDistance + 0.5f, 0.0f, 1.0f);
+    if (opacity == 0.0)
+    {
+        clip(-1);
+    }
+		
+    float4 Color = lerp(bgColor, fgColor, float4(opacity, opacity, opacity, opacity));
+    return Color;
+    //return float4(msd, 1.0f);
+
 }
+

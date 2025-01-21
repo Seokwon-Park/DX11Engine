@@ -28,11 +28,13 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Nam
 {
 	std::shared_ptr<UEngineTexture2D> NewTexture = std::make_shared<UEngineTexture2D>();
 	NewTexture->LoadTextureFromPath(_Path);
-	UResourceManager::AddResource<UEngineTexture2D>(NewTexture, _Name, _Path);
+	UEnginePath Path = _Path;
+	std::string Name = Path.GetFileNameWithoutExtension();
+	UResourceManager::AddResource<UEngineTexture2D>(NewTexture, Name, _Path);
 	return NewTexture;
 }
 
-ENGINE_API std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Name, UINT _Width, UINT _Height)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Name, UINT _Width, UINT _Height)
 {
 	D3D11_TEXTURE2D_DESC Desc;
 	ZeroMemory(&Desc, sizeof(D3D11_TEXTURE2D_DESC));

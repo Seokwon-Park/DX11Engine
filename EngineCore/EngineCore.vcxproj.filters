@@ -180,21 +180,10 @@
     <None Include="Shaders\TilemapShader.hlsl" />
     <None Include="Shaders\GridShader.hlsl" />
     <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlicommon.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlidec.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlienc.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\bz2.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\freetype.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\jpeg62.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libexpat.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libpng16.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libsharpyuv.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebp.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdecoder.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdemux.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpmux.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\turbojpeg.pdb" />
-    <None Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\zlib.pdb" />
     <None Include="Shaders\TextShader.hlsl" />
+    <None Include="ThirdParty\msdf-atlas-gen\Release\msdf-atlas-gen.exp" />
+    <None Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-core.exp" />
+    <None Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-ext.exp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="ThirdParty\DirectXTex\DirectXTex_Release.lib" />
@@ -204,25 +193,11 @@
     <Library Include="ThirdParty\msdf-atlas-gen\Debug\msdf-atlas-gen.lib" />
     <Library Include="ThirdParty\msdf-atlas-gen\msdfgen\Debug\msdfgen-core.lib" />
     <Library Include="ThirdParty\msdf-atlas-gen\msdfgen\Debug\msdfgen-ext.lib" />
+    <Library Include="ThirdParty\msdf-atlas-gen\Release\msdf-atlas-gen.lib" />
+    <Library Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-core.lib" />
+    <Library Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-ext.lib" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlidec.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\brotlienc.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\bz2.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\freetype.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\jpeg62.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libexpat.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libpng16.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libsharpyuv.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebp.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdecoder.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpdemux.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\libwebpmux.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\pkgconf-5.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\skia.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\skshaper.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\turbojpeg.dll" />
-    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdfgen\bin\zlib1.dll" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\msdf-atlas-gen.dll" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\zlibd1.dll" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\libpng16d.dll" />
@@ -246,5 +221,24 @@
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Debug\msdfgen-ext.pdb" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Debug\skia.dll" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Debug\zlibd1.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\msdf-atlas-gen.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\zlib1.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Release\libpng16.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\brotlicommon.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\brotlidec.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\bz2.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\freetype.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\jpeg62.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libexpat.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libpng16.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libsharpyuv.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libwebp.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libwebpdecoder.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libwebpdemux.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\libwebpmux.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-core.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-ext.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\skia.dll" />
+    <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\zlib1.dll" />
   </ItemGroup>
 </Project>

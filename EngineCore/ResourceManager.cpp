@@ -129,6 +129,14 @@ void UResourceManager::CreateDefaultMaterial()
 	Desc.BSName = "Default";
 	Desc.DSSName = "Default";
 	UEngineMaterial::Create("Grid", Desc);
+
+	Desc.VSName = "TextShaderVS";
+	Desc.PSName = "TextShaderPS";
+	Desc.InputLayoutName = "Quad";
+	Desc.RSName = "Default";
+	Desc.BSName = "Default";
+	Desc.DSSName = "Default";
+	UEngineMaterial::Create("Text", Desc);
 }
 
 void UResourceManager::CreateDefaultShader()

@@ -3,6 +3,11 @@
 #include <EngineCore/Components/TilemapRendererComponent.h>
 #include <EngineCore/Components/TilemapColliderComponent.h>
 
+#include <EngineCore/Resources/EngineFont.h>
+
+//temp
+#include <EngineCore/Components/TextRendererComponent.h>
+
 
 // Ό³Έν :
 class ATilemapEditorGameMode : public AGameMode
@@ -26,5 +31,8 @@ private:
 	std::shared_ptr<UTilemapComponent> TilemapComponent;
 	std::shared_ptr<UTilemapRendererComponent> TilemapRenderer;
 	std::shared_ptr<UTilemapColliderComponent> TilemapCollider;
+
+	std::shared_ptr<UTextRendererComponent> Tr;
+
 };
 

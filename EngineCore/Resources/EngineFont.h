@@ -44,16 +44,18 @@ public:
 		UEngineFile FilePath = Dir.GetFile(FontName + ".png");
 
 		msdfgen::BitmapConstRef<T, N> bitmap = (msdfgen::BitmapConstRef<T, N>)generator.atlasStorage();
-		std::shared_ptr<UEngineTexture2D> texture = UEngineTexture2D::Create(FontName, _Width, _Height);
 		msdfgen::savePng(bitmap, FilePath.ToString().c_str());
-		texture->SetData((void*)bitmap.pixels, bitmap.width * bitmap.height * 3);
+		std::shared_ptr<UEngineTexture2D> texture = UEngineTexture2D::Create(FontName, FilePath.ToString());
+		
+		//texture->SetData(newData.data(), bitmap.width * bitmap.height * 4);
 
 		return texture;
 	};
 
-	ENGINE_API static void Create(UEngineFile _Path);
-
+	ENGINE_API static void Create(std::string_view _Name, UEngineDirectory _Path);
+	ENGINE_API static std::shared_ptr<UEngineFont> Create(std::string_view _Name, std::string_view _Path);
 	ENGINE_API void CreateFontAtlasImage(UEngineFile _Path);
+	ENGINE_API void LoadFont(UEngineFile _Path);
 	
 	ENGINE_API MSDFData* GetMSDFData() { return Data.get(); }
 	ENGINE_API std::shared_ptr<UEngineTexture2D> GetFontAtlasTexture() { return AtlasTexture; }
@@ -61,6 +63,8 @@ public:
 protected:
 
 private:
+	double FontScale = 1.0;
+
 	std::vector<CharsetRange> Ranges;
 
 	std::shared_ptr<MSDFData> Data;

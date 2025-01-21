@@ -2,6 +2,11 @@
 #include "TextRendererComponent.h"
 #include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
+struct FTextColorData
+{
+	FColor bgColor;
+	FColor fgColor;
+};
 UTextRendererComponent::UTextRendererComponent()
 {
 }
@@ -40,7 +45,7 @@ void UTextRendererComponent::BeginPlay()
 {
 	URenderer2DComponent::BeginPlay();
 	Unit = std::make_shared<URenderUnit>();
-	Unit->Init("Quad", "Quad");
+	Unit->Init("Quad", "Text");
 	GetOwner()->GetLevel()->PushRenderer(GetThis<UTextRendererComponent>());
 
 }
@@ -50,6 +55,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 	const msdf_atlas::FontGeometry& FontGeometry = Font->GetMSDFData()->FontGeometry;
 	const auto& metrics = FontGeometry.getMetrics();
 	std::shared_ptr<UEngineTexture2D> FontAtlas = Font->GetFontAtlasTexture();
+	//std::shared_ptr<UEngineTexture2D> FontAtlas = UResourceManager::Find<UEngineTexture2D>("tevi_n_01.png");
 
 	double x = 0.0;
 	double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
@@ -57,20 +63,9 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 
 	const float spaceGlyphAdvance = FontGeometry.getGlyph(' ')->getAdvance();
 
-	VertexConstant VC;
-	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
-	WorldMatrix.MatrixTranspose();
-	VC.World = WorldMatrix;
-	VC.View = _Camera->GetViewMatrix();
-	VC.View.MatrixTranspose();
-
-	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
-	VC.Proj = _Camera->GetProjectionMatrix();
-	VC.Proj.MatrixTranspose();
-
 	for (size_t i = 0; i < Text.size(); i++)
 	{
-		char character = Text[i];
+		wchar_t character = Text[i];
 		if (character == '\r')
 			continue;
 
@@ -86,7 +81,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 			float advance = spaceGlyphAdvance;
 			if (i < Text.size() - 1)
 			{
-				char nextCharacter = Text[i + 1];
+				wchar_t nextCharacter = Text[i + 1];
 				double dAdvance;
 				FontGeometry.getAdvance(dAdvance, character, nextCharacter);
 				advance = (float)dAdvance;
@@ -113,6 +108,10 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 		FVector2 texCoordMin((float)al, (float)ab);
 		FVector2 texCoordMax((float)ar, (float)at);
 
+		float MaxY = texCoordMax.Y;
+		texCoordMax.Y = FontAtlas->GetTextureSize().Y - texCoordMin.Y;
+		texCoordMin.Y = FontAtlas->GetTextureSize().Y - MaxY;
+
 		double pl, pb, pr, pt;
 		glyph->getQuadPlaneBounds(pl, pb, pr, pt);
 		FVector2 quadMin((float)pl, (float)pb);
@@ -122,13 +121,34 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 		quadMin += FVector2(x, y);
 		quadMax += FVector2(x, y);
 
+		VertexConstant VC;
+		FTransform& Trans = GetTransformRef();
+		Trans.Location = { (float)x*100.0f, (float)y+ quadMax.Y * 50.0f,0.0f,1.0f };
+		Trans.Scale = { 100.0f*(quadMax.X -quadMin.X),100.0f*(quadMax.Y - quadMin.Y), 1.0f, 1.0f};
+		UpdateTransform();
+		VC.World = Trans.WorldMatrix;
+		VC.World.MatrixTranspose();
+		VC.View = _Camera->GetViewMatrix();
+		VC.View.MatrixTranspose();
+
+		//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
+		VC.Proj = _Camera->GetProjectionMatrix();
+		VC.Proj.MatrixTranspose();
+
 		float texelWidth = 1.0f / FontAtlas->GetTextureSize().X;
 		float texelHeight = 1.0f / FontAtlas->GetTextureSize().Y;
 		texCoordMin *= FVector2(texelWidth, texelHeight);
 		texCoordMax *= FVector2(texelWidth, texelHeight);
 
+		//texCoordMin.X = 1.0 - texCoordMin.X;
+		//texCoordMin.Y = 1.0 - texCoordMin.Y;
+
+		//texCoordMax.X = 1.0 - texCoordMax.X;
+		//texCoordMax.Y = 1.0 - texCoordMax.Y;
 		FSpriteRect Rect;
 
+		Rect.CuttingPos = texCoordMin;
+		Rect.CuttingSize= texCoordMax - texCoordMin;
 		//// render here
 		//s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin, 0.0f, 1.0f);
 		//s_Data.TextVertexBufferPtr->Color = textParams.Color;
@@ -160,20 +180,21 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 		if (i < Text.size() - 1)
 		{
 			double advance = glyph->getAdvance();
-			char nextCharacter = Text[i + 1];
+			wchar_t nextCharacter = Text[i + 1];
 			FontGeometry.getAdvance(advance, character, nextCharacter);
 
 			x += fsScale * advance + TextParam.Kerning;
 		}
 
 		
-		auto test = FColor(0.0f, 0.0f, 0.0f, 1.0f);
+		FTextColorData test = { FColor(1.0f, 1.0f, 1.0f, 1.0f), FColor(0.0f,0.0f,0.0f,1.0f) };
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Rect);
-		Unit->SetConstantBufferData("PSColor", EShaderType::PS, test);
+		Unit->SetConstantBufferData("TextColor", EShaderType::PS, test);
 		Unit->SetTexture("SpriteTexture", EShaderType::PS, FontAtlas);
 		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
+		Unit->Render(_Camera, _DeltaTime);
 	}
 	URenderer2DComponent::Render(_Camera, _DeltaTime);
 }

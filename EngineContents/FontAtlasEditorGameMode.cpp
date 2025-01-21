@@ -6,8 +6,6 @@ AFontAtlasEditorGameMode::AFontAtlasEditorGameMode()
 {
 	Tr = CreateDefaultSubobject<UTextRendererComponent>();
 	Tr->SetupAttachment(RootComponent);
-	
-	
 }
 
 AFontAtlasEditorGameMode::~AFontAtlasEditorGameMode()
@@ -20,15 +18,15 @@ void AFontAtlasEditorGameMode::BeginPlay()
 
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("Resources");
-	Dir.AppendDirectory("Font");
+	Dir.AppendDirectory("Fonts");
 	UEngineFile File = Dir.GetFile("NanumGothic.ttf");
 
-	UEngineFont::Create(File);
+	//UEngineFont::Create(File);
 
 	Tr->SetFont("NanumGothic");
-	Tr->SetText("Test");
+	Tr->SetText("Hello My Name Is");
 
-	SetActorRelativeScale3D({ 10.0f,10.0f, 1.0f, 1.0f });
+	SetActorLocation({ -500.0f, 0.0f, 0.0f, 1.0f });
 
 	std::shared_ptr<UTextAtlasEditorWindow> Window = std::make_shared<UTextAtlasEditorWindow>();
 	GetLevel()->AddGuiWindow(Window);

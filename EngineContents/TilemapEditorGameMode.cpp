@@ -8,6 +8,9 @@
 
 ATilemapEditorGameMode::ATilemapEditorGameMode()
 {
+	Tr = CreateDefaultSubobject<UTextRendererComponent>();
+	Tr->SetupAttachment(RootComponent);
+
 	TilemapComponent = CreateDefaultSubobject<UTilemapComponent>();
 	TilemapComponent->CreateNewTilemap("Area0",FVector2(28, 28), FVector2(0.5f, 0.5f));
 
@@ -28,6 +31,8 @@ void ATilemapEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
 
+	Tr->SetFont("NanumGothic");
+	Tr->SetText("¾È³çÇÏ¼¼¿ä");
 	/*TilemapComponent->Load("111");
 	TilemapCollider->UpdateCollider();*/
 	std::shared_ptr<UTilemapEditorWindow> Window = std::make_shared<UTilemapEditorWindow>(GetLevel());

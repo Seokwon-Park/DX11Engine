@@ -32,6 +32,9 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Images");
 	UResourceManager::LoadResourcesFromDirectory<UEngineTilemap>({ ".Tmap" }, "TilemapData");
 
+	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Fonts");
+	UResourceManager::LoadResourcesFromDirectory<UEngineFont>({ ".Font" }, "Fonts");
+
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/Tevi");

@@ -25,5 +25,7 @@ private:
 	std::shared_ptr<UTilemapComponent> Tilemap;
 	std::shared_ptr<UTilemapRendererComponent> TilemapRenderer;
 	std::shared_ptr<UTilemapColliderComponent> TilemapCollider;
+
+
 };
 
