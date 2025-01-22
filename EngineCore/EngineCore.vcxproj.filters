@@ -165,6 +165,7 @@
     <ClInclude Include="Resources\EngineFont.h" />
     <ClInclude Include="Components\TextRendererComponent.h" />
     <ClInclude Include="GUI\TextAtlasEditorWindow.h" />
+    <ClInclude Include="Constants\FontConst.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

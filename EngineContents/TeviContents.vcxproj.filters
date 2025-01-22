@@ -111,5 +111,8 @@
     <Filter Include="Player\PlayerState">
       <UniqueIdentifier>{1d21152d-c535-49e8-89e5-69f8754de795}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{48bfc1b4-771b-4366-b711-43d4b5c4b947}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

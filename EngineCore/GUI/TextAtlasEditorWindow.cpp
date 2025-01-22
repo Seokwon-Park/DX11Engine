@@ -25,5 +25,9 @@ void UTextAtlasEditorWindow::OnImGuiRender()
 	//}
 	//ImGui::ListBox("Font", nullptr, temp.data(), List.size());
 
+	auto tex = UResourceManager::Find<UEngineTexture2D>("NanumGothic");
+	ImTextureID id = reinterpret_cast<ImTextureID>(tex->GetSRV());
+	ImGui::Image(id, { 200,200 });
+
 	ImGui::End();
 }

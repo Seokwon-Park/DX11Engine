@@ -2,6 +2,7 @@
 #include "FontAtlasEditorGameMode.h"
 #include <EngineCore/GUI/TextAtlasEditorWindow.h>
 
+int AFontAtlasEditorGameMode::x = 0;
 AFontAtlasEditorGameMode::AFontAtlasEditorGameMode()
 {
 	Tr = CreateDefaultSubobject<UTextRendererComponent>();
@@ -21,10 +22,9 @@ void AFontAtlasEditorGameMode::BeginPlay()
 	Dir.AppendDirectory("Fonts");
 	UEngineFile File = Dir.GetFile("NanumGothic.ttf");
 
-	//UEngineFont::Create(File);
+	UEngineFont::Create("NanumGothic", Dir);
 
 	Tr->SetFont("NanumGothic");
-	Tr->SetText("Hello My Name Is");
 
 	SetActorLocation({ -500.0f, 0.0f, 0.0f, 1.0f });
 
@@ -35,4 +35,6 @@ void AFontAtlasEditorGameMode::BeginPlay()
 void AFontAtlasEditorGameMode::Tick(float _DeltaTime)
 {
 	AGameMode::Tick(_DeltaTime);
+	x++;
+	Tr->SetText(std::to_string(x));
 }

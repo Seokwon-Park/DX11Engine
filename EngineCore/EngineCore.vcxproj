@@ -196,6 +196,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Constants\FontConst.h" />
     <ClInclude Include="Enums\DataLayer.h" />
     <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\Rigidbody2DComponent.h">

@@ -11,10 +11,15 @@ struct CharsetRange
 	uint32_t Begin, End;
 };
 
+//Create는 ResourceManager에서 로드할때의 Create와
+//Font Texture 가 없는 경우 생성하는 Create가 있다.
+// 이걸 한 함수로 통합할 것인가?
+
 // 설명 :
 class UEngineFont : public UEngineResource, public ISerializableObject
 {
 public:
+
 	// constrcuter destructer
 	UEngineFont();
 	~UEngineFont();
@@ -59,10 +64,14 @@ public:
 	
 	ENGINE_API MSDFData* GetMSDFData() { return Data.get(); }
 	ENGINE_API std::shared_ptr<UEngineTexture2D> GetFontAtlasTexture() { return AtlasTexture; }
-
 protected:
 
 private:
+	FIntPoint CalculateFontGeometry();
+
+	msdfgen::FreetypeHandle* FreeTypeHandlePtr;
+	msdfgen::FontHandle* FontHandlePtr;
+
 	double FontScale = 1.0;
 
 	std::vector<CharsetRange> Ranges;

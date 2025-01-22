@@ -24,6 +24,7 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
+	static int x;
 	std::shared_ptr<UTextRendererComponent> Tr;
 
 };

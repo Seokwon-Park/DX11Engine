@@ -60,7 +60,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 	double x = 0.0;
 	double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
 	double y = 0.0;
-
+	
 	const float spaceGlyphAdvance = FontGeometry.getGlyph(' ')->getAdvance();
 
 	for (size_t i = 0; i < Text.size(); i++)
@@ -87,7 +87,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 				advance = (float)dAdvance;
 			}
 
-			x += fsScale * advance + TextParam.Kerning;
+			x += fsScale * advance * FontSize + TextParam.Kerning;
 			continue;
 		}
 
@@ -121,10 +121,12 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 		quadMin += FVector2(x, y);
 		quadMax += FVector2(x, y);
 
+		float Width = (quadMax.X - quadMin.X);
+		float Height = (quadMax.Y - quadMin.Y);
 		VertexConstant VC;
 		FTransform& Trans = GetTransformRef();
-		Trans.Location = { (float)x*100.0f, (float)y+ quadMax.Y * 50.0f,0.0f,1.0f };
-		Trans.Scale = { 100.0f*(quadMax.X -quadMin.X),100.0f*(quadMax.Y - quadMin.Y), 1.0f, 1.0f};
+		Trans.Location = { (float)x, (float)y+ quadMax.Y * FontSize,1.0f };
+		Trans.Scale = { FontSize * Width , FontSize * Height, 1.0f, 1.0f};
 		UpdateTransform();
 		VC.World = Trans.WorldMatrix;
 		VC.World.MatrixTranspose();
@@ -149,6 +151,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 
 		Rect.CuttingPos = texCoordMin;
 		Rect.CuttingSize= texCoordMax - texCoordMin;
+		Rect.Pivot = { 0.0f,1.0f };
 		//// render here
 		//s_Data.TextVertexBufferPtr->Position = transform * glm::vec4(quadMin, 0.0f, 1.0f);
 		//s_Data.TextVertexBufferPtr->Color = textParams.Color;
@@ -183,11 +186,11 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 			wchar_t nextCharacter = Text[i + 1];
 			FontGeometry.getAdvance(advance, character, nextCharacter);
 
-			x += fsScale * advance + TextParam.Kerning;
+			x += fsScale * advance * FontSize + TextParam.Kerning;
 		}
 
 		
-		FTextColorData test = { FColor(1.0f, 1.0f, 1.0f, 1.0f), FColor(0.0f,0.0f,0.0f,1.0f) };
+		FTextColorData test = { FColor(1.0f, 1.0f, 1.0f, 1.0f), TextParam.Color };
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Rect);
 		Unit->SetConstantBufferData("TextColor", EShaderType::PS, test);
