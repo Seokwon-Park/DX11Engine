@@ -32,8 +32,9 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Images");
 	UResourceManager::LoadResourcesFromDirectory<UEngineTilemap>({ ".Tmap" }, "TilemapData");
 
+	// 주의 : 무조건 Texture가 먼저 로딩되도록 할 것.
 	//UResourceManager::LoadResourcesFromDirectory<UEngineTexture2D>({ ".PNG" }, "Fonts");
-	//UResourceManager::LoadResourcesFromDirectory<UEngineFont>({ ".Font" }, "Fonts");
+	//UResourceManager::LoadResourcesFromDirectory<UEngineFont>({ ".ttf" }, "Fonts");
 
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("Resources");
@@ -44,6 +45,11 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/Area0");
+	Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+	Sprite->SetPivot(EPivotType::Center);
+
+	Dir.MoveParentToDirectory("Resources");
+	Dir.AppendDirectory("Images/Backdrop0");
 	Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
 	Sprite->SetPivot(EPivotType::Center);
 
@@ -58,9 +64,9 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");
 	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TilemapEditor");
 	UEngineCore::CreateLevel<AFontAtlasEditorGameMode, APawn>("TextAtlasEditor");
-	//UEngineCore::OpenLevel("Test");
-	//UEngineCore::OpenLevel("TilemapEditor");
-	UEngineCore::OpenLevel("TextAtlasEditor");
+	//ngineCore::OpenLevel("Test");
+	UEngineCore::OpenLevel("TilemapEditor");
+	//UEngineCore::OpenLevel("TextAtlasEditor");
 }
 
 void UTeviContentsCore::EngineTick(float _DeltaTime)

@@ -24,7 +24,7 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Nam
 	return NewTexture;
 }
 
-std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Name, std::string_view _Path)
+std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Load(std::string_view _Name, std::string_view _Path)
 {
 	std::shared_ptr<UEngineTexture2D> NewTexture = std::make_shared<UEngineTexture2D>();
 	NewTexture->LoadTextureFromPath(_Path);
@@ -53,8 +53,8 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Create(std::string_view _Nam
 
 void UEngineTexture2D::CreateTexture(D3D11_TEXTURE2D_DESC _Desc)
 {
-	TextureSize.X = _Desc.Width;
-	TextureSize.Y = _Desc.Height;
+	TextureSize.X = static_cast<float>(_Desc.Width);
+	TextureSize.Y = static_cast<float>(_Desc.Height);
 	UEngineCore::GetGraphicsDeviceContext()->GetDevice()->CreateTexture2D(&_Desc, nullptr, Texture.GetAddressOf());
 	CreateRTV();
 	CreateSRV();

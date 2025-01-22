@@ -9,10 +9,10 @@
 ATilemapEditorGameMode::ATilemapEditorGameMode()
 {
 	Tr = CreateDefaultSubobject<UTextRendererComponent>();
-	Tr->SetupAttachment(RootComponent);
+	//->SetupAttachment(RootComponent);
 
 	TilemapComponent = CreateDefaultSubobject<UTilemapComponent>();
-	TilemapComponent->CreateNewTilemap("Area0",FVector2(28, 28), FVector2(0.5f, 0.5f));
+	TilemapComponent->CreateNewTilemap("BackDrop0",FVector2(28, 28), FVector2(0.5f, 0.5f));
 
 	TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
 	TilemapRenderer->SetTilemap(TilemapComponent);

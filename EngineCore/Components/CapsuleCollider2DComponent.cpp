@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "CapsuleCollider2DComponent.h"
+#include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
 UCapsuleCollider2DComponent::UCapsuleCollider2DComponent()
 {
@@ -16,7 +17,7 @@ void UCapsuleCollider2DComponent::BeginPlay()
 	UCollider2DComponent::BeginPlay();
 
 	ColliderDebugRenderUnit = std::make_shared<URenderUnit>();
-	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
+	ColliderDebugRenderUnit->Init("ColliderBoxDebug", "ColliderDebug");
 
 	Radius = GetTransformRef().Scale.X / FMath::BOX2DSCALE / 2.0f;
 	float ScaleY = GetTransformRef().Scale.Y / FMath::BOX2DSCALE / 2.0f;
@@ -57,6 +58,25 @@ void UCapsuleCollider2DComponent::BeginPlay()
 
 void UCapsuleCollider2DComponent::DebugRender(UCameraComponent* _Camera, float _DeltaTime)
 {
+	VertexConstant VC;
+	auto& Test = Parent->GetTransformRef();
+	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
+	WorldMatrix.MatrixTranspose();
+	VC.World = WorldMatrix;
+	VC.View = _Camera->GetViewMatrix();
+	VC.View.MatrixTranspose();
+
+	//Data.Proj.MatrixOrthoFovLH(1.22, 1280.0f / 720.0f, 0.01f, 100.0f);
+	VC.Proj = _Camera->GetProjectionMatrix();
+	VC.Proj.MatrixTranspose();
+
+	float Temp[4] = { 0.5f,0.5f,0.0f,0.0f };
+	auto test = FColor(0.0f, 1.0f, 0.0f, 1.0f);
+	ColliderDebugRenderUnit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
+	ColliderDebugRenderUnit->SetConstantBufferData("Offset", EShaderType::VS, Temp);
+	ColliderDebugRenderUnit->SetConstantBufferData("DebugColor", EShaderType::PS, test);
+
+	ColliderDebugRenderUnit->Render(_Camera, _DeltaTime);
 }
 
 void UCapsuleCollider2DComponent::TickComponent(float _DeltaTime)

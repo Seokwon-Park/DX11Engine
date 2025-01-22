@@ -44,10 +44,13 @@ private:
 	ECollisionLayer Layer;
 	std::vector<FEdge> SortedEdges;
 
+	int PolygonCount = 0;
 
 	b2Polygon dynamicBox;
 	std::vector<b2ChainId> ChainIds;
 	std::vector<b2BodyId> BodyIds;
+
+	std::vector<std::shared_ptr<URenderUnit>> RenderUnits;
 
 	class UTilemapComponent* TilemapComponent = nullptr;
 };

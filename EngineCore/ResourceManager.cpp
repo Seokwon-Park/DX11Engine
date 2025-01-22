@@ -45,6 +45,16 @@ void UResourceManager::AddResource(std::shared_ptr<UEngineResource> _Resource, c
 	ResourceMap[_Info.data()].insert(std::make_pair(UpperName, _Resource));
 }
 
+void UResourceManager::RemoveResource(const std::string_view _Info, std::string_view _Name)
+{
+	std::string UpperName = UEngineString::ToUpper(_Name);
+
+	if (true == ResourceMap[_Info.data()].contains(UpperName))
+	{
+		ResourceMap[_Info.data()].erase(UpperName);
+	}
+}
+
 void UResourceManager::CreateDefaultResources()
 {
 	CreateDefaultShader();
@@ -91,14 +101,24 @@ void UResourceManager::CreateDefaultInputLayout()
 
 void UResourceManager::CreateDefaultIndexBuffer()
 {
-	std::vector<Uint32> Indices = { 0,1,2,1,3,2 };
-	std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(&Indices[0], 6);
-	AddResource<UEngineIndexBuffer>(IndexBuffer, "Quad", "");
+	{
+		std::vector<Uint32> Indices = { 0,1,2,1,3,2 };
+		std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(Indices.data(), 6);
+		AddResource<UEngineIndexBuffer>(IndexBuffer, "Quad", "");
+	}
+
+	{
+		std::vector<Uint32> Indices = { 0,1 ,1,3, 3,2, 2,0 };
+		std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(Indices.data(), 8);
+		AddResource<UEngineIndexBuffer>(IndexBuffer, "QuadLine", "");
+	}
 }
 
 void UResourceManager::CreateDefaultMesh()
 {
 	UEngineMesh::Create("Quad", "Quad", "Quad", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	UEngineMesh::Create("ColliderBoxDebug", "Quad", "QuadLine", D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	UEngineMesh::Create("TmapCollider", "Quad", "QuadLine", D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 }
 
 void UResourceManager::CreateDefaultMaterial()

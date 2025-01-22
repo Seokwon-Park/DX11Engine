@@ -52,6 +52,7 @@ void UTextRendererComponent::BeginPlay()
 
 void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
+	if (Font == nullptr) { return; }
 	const msdf_atlas::FontGeometry& FontGeometry = Font->GetMSDFData()->FontGeometry;
 	const auto& metrics = FontGeometry.getMetrics();
 	std::shared_ptr<UEngineTexture2D> FontAtlas = Font->GetFontAtlasTexture();

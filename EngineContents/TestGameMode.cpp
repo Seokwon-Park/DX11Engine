@@ -6,7 +6,7 @@
 ATestGameMode::ATestGameMode()
 {
 	Tilemap = CreateDefaultSubobject<UTilemapComponent>();
-	//Tilemap->Load("test");
+	Tilemap->Load("11");
 	TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
 	TilemapRenderer->SetupAttachment(RootComponent);
 	TilemapRenderer->SetTilemap(Tilemap);

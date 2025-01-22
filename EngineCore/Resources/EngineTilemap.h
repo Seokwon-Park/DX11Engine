@@ -29,7 +29,7 @@ public:
 	inline std::unordered_map<long long, FTileData>& GetTilemapData() { return TilemapData; }
 	
 	// 만들어놓은 타일맵을 로드하는 함수
-	ENGINE_API static std::shared_ptr<UEngineTilemap> Create(std::string_view _Name, std::string_view _Path);
+	ENGINE_API static std::shared_ptr<UEngineTilemap> Load(std::string_view _Name, std::string_view _Path);
 	void LoadTilemapFromPath(std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineTilemap> Create(std::string_view _SpriteName, FVector2 _TileSize, FVector2 _TilePivot);
 

@@ -31,7 +31,7 @@ class UEngineTexture2D : public UEngineTexture
 {
 public:
 	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(std::string_view _Name, D3D11_TEXTURE2D_DESC _Desc);
-	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(std::string_view _Name, std::string_view _Path);
+	ENGINE_API static std::shared_ptr<UEngineTexture2D> Load(std::string_view _Name, std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineTexture2D> Create(std::string_view _Name, UINT _Width, UINT _Height);
 
 	virtual void SetData(void* data, Uint32 size);

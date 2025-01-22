@@ -25,9 +25,23 @@ void UTextAtlasEditorWindow::OnImGuiRender()
 	//}
 	//ImGui::ListBox("Font", nullptr, temp.data(), List.size());
 
+	if (true == ImGui::Button("CreateFontAtlas"))
+	{
+		UEngineDirectory Dir;
+		Dir.MoveParentToDirectory("Resources");
+		Dir.AppendDirectory("Fonts");
+		UEngineFile File = Dir.GetFile("NanumGothic.ttf");
+		UEngineFont::CreateNew("NanumGothic", Dir);
+	}
+
 	auto tex = UResourceManager::Find<UEngineTexture2D>("NanumGothic");
-	ImTextureID id = reinterpret_cast<ImTextureID>(tex->GetSRV());
-	ImGui::Image(id, { 200,200 });
+	if (tex != nullptr)
+	{
+		ImTextureID id = reinterpret_cast<ImTextureID>(tex->GetSRV());
+		ImGui::Image(id, { 600,600 });
+	}
+
+
 
 	ImGui::End();
 }

@@ -17,12 +17,7 @@ void AFontAtlasEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
 
-	UEngineDirectory Dir;
-	Dir.MoveParentToDirectory("Resources");
-	Dir.AppendDirectory("Fonts");
-	UEngineFile File = Dir.GetFile("NanumGothic.ttf");
-
-	UEngineFont::Create("NanumGothic", Dir);
+	//UEngineFont::CreateNew("NanumGothic", Dir);
 
 	Tr->SetFont("NanumGothic");
 

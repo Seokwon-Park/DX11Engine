@@ -39,7 +39,7 @@ void UBoxCollider2DComponent::BeginPlay()
 	UCollider2DComponent::BeginPlay();
 
 	ColliderDebugRenderUnit = std::make_shared<URenderUnit>();
-	ColliderDebugRenderUnit->Init("Quad", "ColliderDebug");
+	ColliderDebugRenderUnit->Init("ColliderBoxDebug", "ColliderDebug");
 
 	dynamicBox = b2MakeBox(GetTransformRef().Scale.X / FMath::BOX2DSCALE / 2.0f, GetTransformRef().Scale.Y / FMath::BOX2DSCALE / 2.0f);
 	ShapeDef = b2DefaultShapeDef();

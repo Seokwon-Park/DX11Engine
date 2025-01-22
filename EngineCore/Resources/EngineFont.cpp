@@ -11,12 +11,13 @@ UEngineFont::~UEngineFont()
 {
 }
 
-void UEngineFont::Create(std::string_view _Name, UEngineDirectory _Dir)
+void UEngineFont::CreateNew(std::string_view _Name, UEngineDirectory _Dir)
 {
 	std::shared_ptr<UEngineFont> NewFont = std::make_shared<UEngineFont>();
 	std::string TTFFile = std::string(_Name) + ".ttf";
 
-	NewFont->CreateFontAtlasImage(_Dir.GetFile(TTFFile));
+	UEngineFile File = _Dir.GetFile(std::string(_Name) + ".ttf");
+	NewFont->CreateFontAtlasImage(File);
 
 	UEngineSerializer Ser;
 	NewFont->Serialize(Ser);
@@ -28,26 +29,35 @@ void UEngineFont::Create(std::string_view _Name, UEngineDirectory _Dir)
 	UResourceManager::AddResource<UEngineFont>(NewFont, _Name, NewFile.ToString());
 }
 
-std::shared_ptr<UEngineFont> UEngineFont::Create(std::string_view _Name, std::string_view _Path)
+std::shared_ptr<UEngineFont> UEngineFont::Load(std::string_view _Name, std::string_view _Path)
 {
 
 	UEnginePath Path = _Path;
 	std::string Name = Path.GetFileNameWithoutExtension();
-
 	std::shared_ptr<UEngineFont> NewFont = std::make_shared<UEngineFont>();
 
-	UEngineDirectory Dir(_Path);
-	Dir.MoveParent();
+	// Atlas 텍스쳐가 없으면 아틀라스 텍스쳐를 생성하고,
+	if (UResourceManager::Find<UEngineTexture2D>(Name) == nullptr)
+	{
+		MSGASSERT("Font Atlas 텍스쳐가 생성되지 않았습니다. 텍스쳐를 생성하고 로드해주세요.");
+		return nullptr;
+	}
+	// Atlas 텍스쳐가 있으면 아틀라스 텍스쳐를 로드하고 폰트를 생성한다.
+	else
+	{
+		UEngineDirectory Dir(_Path);
+		Dir.MoveParent();
 
-	//UEngineFile NewFile = Dir.GetFile(Name + ".Font");
-	//UEngineSerializer Ser;
+		UEngineFile NewFile = Dir.GetFile(Name + ".Font");
+		UEngineSerializer Ser;
 
-	//NewFile.FileOpen("rb");
-	//NewFile.Read(Ser);
+		NewFile.FileOpen("rb");
+		NewFile.Read(Ser);
 
-	//NewFont->Deserialize(Ser);
+		NewFont->Deserialize(Ser);
 
-	//NewFont->LoadFont(_Path);
+		NewFont->LoadFont(_Path);
+	}
 
 	UResourceManager::AddResource<UEngineFont>(NewFont, Name, _Path);
 	return NewFont;
@@ -63,21 +73,24 @@ void UEngineFont::CreateFontAtlasImage(UEngineFile _Path)
 		if (FontHandlePtr = msdfgen::loadFont(FreeTypeHandlePtr, _Path.ToString().c_str()))
 		{
 			Ranges = {
-				{ 32, 126},
+		{ 32, 126},
+		{ 8200, 9900},
+		{ 12593, 12643},
+		{ 44032, 55203 }
 			};
 
 			//Ranges = { { 32, 126} };
 			msdf_atlas::Charset CustomCharset;
 
-			for (int i = 0; i < 2350; i++)
-			{
-				CustomCharset.add(static_cast<unsigned int>(KS1001[i]));
-			}
+			//for (int i = 0; i < 2350; i++)
+			//{
+			//	CustomCharset.add(static_cast<unsigned int>(KS1001[i]));
+			//}
 
 			
 			FIntPoint Size = CalculateFontGeometry();
 
-			AtlasTexture = CreateFontAtlasTexture<uint8_t, float, 3, msdf_atlas::msdfGenerator>(_Path, (float)40.0, Data->Glyphs, (UINT)Size.X, (UINT)Size.Y);
+			AtlasTexture = CreateFontAtlasTexture<uint8_t, float, 3, msdf_atlas::msdfGenerator>(_Path, (float)20.0, Data->Glyphs, (UINT)Size.X, (UINT)Size.Y);
 			msdfgen::destroyFont(FontHandlePtr);
 		}
 		msdfgen::deinitializeFreetype(FreeTypeHandlePtr);
@@ -110,7 +123,7 @@ void UEngineFont::LoadFont(UEngineFile _Path)
 			FontatlasPacker.setDimensionsConstraint(msdf_atlas::DimensionsConstraint::SQUARE);
 			FontatlasPacker.setPixelRange(2.0);
 			FontatlasPacker.setMiterLimit(2.0);
-			FontatlasPacker.setScale(40.0);
+			FontatlasPacker.setScale(20.0);
 			FontatlasPacker.pack(Data->Glyphs.data(), (int)Data->Glyphs.size());
 			// Get final atlas dimensions
 			int Width = 0, Height = 0;

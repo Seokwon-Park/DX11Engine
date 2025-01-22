@@ -11,11 +11,11 @@ struct CharsetRange
 	uint32_t Begin, End;
 };
 
-//Create는 ResourceManager에서 로드할때의 Create와
-//Font Texture 가 없는 경우 생성하는 Create가 있다.
-// 이걸 한 함수로 통합할 것인가?
+// Create는 ResourceManager에서 로드할 때 쓰는 Create와
+// Font Atlas Texture 가 없는 경우 생성하는 Create가 있다.
+// 이걸 한 함수로 통합할 것인가? (없으면 텍스쳐도 생성하게 한다?)
 
-// 설명 :
+// 설명 : 리소스를 로드할때는 ttf 파일을 확장자로 로드할 것.
 class UEngineFont : public UEngineResource, public ISerializableObject
 {
 public:
@@ -50,17 +50,20 @@ public:
 
 		msdfgen::BitmapConstRef<T, N> bitmap = (msdfgen::BitmapConstRef<T, N>)generator.atlasStorage();
 		msdfgen::savePng(bitmap, FilePath.ToString().c_str());
-		std::shared_ptr<UEngineTexture2D> texture = UEngineTexture2D::Create(FontName, FilePath.ToString());
+
+		std::shared_ptr<UEngineTexture2D> texture = UEngineTexture2D::Load(FontName, FilePath.ToString());
 		
 		//texture->SetData(newData.data(), bitmap.width * bitmap.height * 4);
 
 		return texture;
 	};
 
-	ENGINE_API static void Create(std::string_view _Name, UEngineDirectory _Path);
-	ENGINE_API static std::shared_ptr<UEngineFont> Create(std::string_view _Name, std::string_view _Path);
+	//용도 : Image아틀라스 파일을 지우고 새로 생성해야 하는 경우 사용.
+	ENGINE_API static void CreateNew(std::string_view _Name, UEngineDirectory _Path);
+	ENGINE_API static std::shared_ptr<UEngineFont> Load(std::string_view _Name, std::string_view _Path);
 	ENGINE_API void CreateFontAtlasImage(UEngineFile _Path);
 	ENGINE_API void LoadFont(UEngineFile _Path);
+	void AddRange();
 	
 	ENGINE_API MSDFData* GetMSDFData() { return Data.get(); }
 	ENGINE_API std::shared_ptr<UEngineTexture2D> GetFontAtlasTexture() { return AtlasTexture; }
@@ -73,6 +76,7 @@ private:
 	msdfgen::FontHandle* FontHandlePtr;
 
 	double FontScale = 1.0;
+	double Scale = 0.0f;
 
 	std::vector<CharsetRange> Ranges;
 

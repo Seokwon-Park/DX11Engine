@@ -11,7 +11,7 @@ UEngineTilemap::~UEngineTilemap()
 {
 }
 
-std::shared_ptr<UEngineTilemap> UEngineTilemap::Create(std::string_view _Name, std::string_view _Path)
+std::shared_ptr<UEngineTilemap> UEngineTilemap::Load(std::string_view _Name, std::string_view _Path)
 {
 	std::shared_ptr<UEngineTilemap> NewTilemap = std::make_shared<UEngineTilemap>();
 	UEnginePath Path = _Path;

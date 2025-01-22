@@ -28,6 +28,7 @@ public:
 
 	UTilemapComponent* TilemapComponent = nullptr;
 	UTilemapColliderComponent* TilemapColliderComponent = nullptr;
+
 protected:
 
 private:
@@ -46,5 +47,6 @@ private:
 
 	class ULevel* Level = nullptr;
 	size_t SelectItem = 0;
+	int SelectSprite = 0;
 };
 

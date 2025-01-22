@@ -1,7 +1,7 @@
 #include "EnginePCH.h"
 #include "TilemapColliderComponent.h"
 #include <queue>
-
+#include <EngineCore/Structures/ShaderBufferDataStructure.h>
 
 UTilemapColliderComponent::UTilemapColliderComponent()
 {
@@ -13,7 +13,24 @@ UTilemapColliderComponent::~UTilemapColliderComponent()
 
 void UTilemapColliderComponent::DebugRender(UCameraComponent* _Camera, float _DeltaTime)
 {
+	VertexConstant VC;
+	auto& Test = Parent->GetTransformRef();
+	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
+	WorldMatrix.MatrixTranspose();
+	VC.World = WorldMatrix;
+	VC.View = _Camera->GetViewMatrixTranspose();
+	VC.Proj = _Camera->GetProjectionMatrixTranspose();
 
+	float Temp[4] = { 0.5f,0.5f,0.0f,0.0f };
+	auto test = FColor(0.0f, 1.0f, 0.0f, 1.0f);
+
+	for (auto RenderUnit : RenderUnits)
+	{
+		RenderUnit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);
+		RenderUnit->SetConstantBufferData("Offset", EShaderType::VS, Temp);
+		RenderUnit->SetConstantBufferData("DebugColor", EShaderType::PS, test);
+		RenderUnit->Render(_Camera, _DeltaTime);
+	}
 }
 
 
@@ -33,8 +50,15 @@ void UTilemapColliderComponent::BeginPlay()
 void UTilemapColliderComponent::UpdateCollider()
 {
 	Visit.clear();
+	RenderUnits.clear();
 	std::vector<b2ChainId> DeleteList = ChainIds;
 	ChainIds.clear();
+
+	for (int i = 0; i < PolygonCount; i++)
+	{
+		UResourceManager::RemoveResource<UEngineVertexBuffer>("TmapCol" + std::to_string(i));
+	}
+	PolygonCount = 0;
 
 	for (std::pair<const __int64, FTileData>& TilePair : TilemapComponent->Tilemap->GetTilemapData())
 	{
@@ -54,10 +78,10 @@ void UTilemapColliderComponent::UpdateCollider()
 		{
 			dynamicBox = b2MakeBox(HalfWidth, HalfHeight);
 		}
-			break;
+		break;
 		case ETilePolygon::Slope1:
 		{
-			Points = { FVector4(- HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
+			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
 			break;
 		}
 		case ETilePolygon::Slope2:
@@ -72,7 +96,7 @@ void UTilemapColliderComponent::UpdateCollider()
 		}
 		case ETilePolygon::Slope4:
 		{
-			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight), FVector4(HalfWidth, HalfHeight - (2.0f*HalfHeight/3.0f)) };
+			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight), FVector4(HalfWidth, HalfHeight - (2.0f * HalfHeight / 3.0f)) };
 			break;
 		}
 		case ETilePolygon::Slope5:
@@ -89,7 +113,7 @@ void UTilemapColliderComponent::UpdateCollider()
 			break;
 		}
 
-		if (ETilePolygon::Default !=Tile.PolygonType)
+		if (ETilePolygon::Default != Tile.PolygonType)
 		{
 			CreateSlope(Points, Tile);
 		}
@@ -103,21 +127,47 @@ void UTilemapColliderComponent::UpdateCollider()
 
 		if (Visit[Index.Key] == false && Tile.PolygonType == ETilePolygon::Default)
 		{
+			int StartIx = 0;
 			SortedEdges.clear();
 			IndexToRealScaleMap.clear();
 			TileBFS(Index);
 
-
 			std::vector<b2Vec2> points;
+			std::vector<Vertex> Vertices;
+			std::vector<Uint32> Indices;
 
 			points.push_back(IndexToRealScaleMap[SortedEdges[0].A]);
 			points.push_back(IndexToRealScaleMap[SortedEdges[SortedEdges.size() - 1].A]);
 			for (FEdge Edge : SortedEdges)
 			{
 				points.push_back(IndexToRealScaleMap[Edge.A]);
+				Vertices.push_back(Vertex{ FVector4(IndexToRealScaleMap[Edge.A].x * FMath::BOX2DSCALE,IndexToRealScaleMap[Edge.A].y * FMath::BOX2DSCALE, 1.0f, 1.0f), {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} });
+				Indices.push_back(StartIx);
+				Indices.push_back(StartIx+1);
+				StartIx++;
 			}
+			Indices.pop_back();
+			Indices.push_back(0);
+
 			points.push_back(IndexToRealScaleMap[SortedEdges[0].A]);
 			points.push_back(IndexToRealScaleMap[SortedEdges[SortedEdges.size() - 1].A]);
+
+			Uint32 DataSize = static_cast<Uint32>(sizeof(Vertex) * Vertices.size());
+			Uint32 VertexCount = static_cast<Uint32>(Vertices.size());
+
+			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("TmapCol"+std::to_string(PolygonCount),
+				Vertices.data(), DataSize, VertexCount);
+
+			std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(Indices.data(), Indices.size());
+
+			std::shared_ptr<UEngineMesh> Mesh = std::make_shared<UEngineMesh>();
+			Mesh->SetVertexBuffer(VertexBuffer);
+			Mesh->SetIndexBuffer(IndexBuffer);
+			Mesh->SetTopology(D3D10_PRIMITIVE_TOPOLOGY_LINELIST);
+			
+			auto& RenderUnit = RenderUnits.emplace_back(std::make_shared<URenderUnit>());
+			RenderUnit->Init("TmapCollider", "ColliderDebug");
+			RenderUnit->SetMesh(Mesh);
 
 			b2ChainDef Def = b2DefaultChainDef();
 
@@ -128,6 +178,8 @@ void UTilemapColliderComponent::UpdateCollider()
 
 			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 			ChainIds.push_back(myChainId);
+
+			PolygonCount++;
 		}
 	}
 
@@ -155,9 +207,6 @@ void UTilemapColliderComponent::CreateSlope(std::vector<FVector4> _Points, FTile
 
 
 	std::vector<b2Vec2> points;
-	//b2Transform Trans({ ConvertPos.X / FMath::BOX2DSCALE, ConvertPos.Y / FMath::BOX2DSCALE }, 
-	//				{FMath::Cosf(Radian), FMath::Sinf(Radian) });// cos 0, sin 0
-
 
 	points.push_back(Vecs[0]);
 	for (int i = 0; i < _Points.size(); i++)
@@ -223,10 +272,11 @@ void UTilemapColliderComponent::TileBFS(FTileIndex _Index)
 			}
 			else // i라는 방향에 타일이 없으면 내위치를 기준으로 i방향을 향해 반시계로 Edge를 생성한다.
 			{
-				FVector4 ConvertPos = TilemapComponent->TileIndexToWorldPos(FTileIndex({cx,cy}));
+				FVector4 ConvertPos = TilemapComponent->TileIndexToWorldPos(FTileIndex({ cx,cy }));
 
 				std::pair<int, int> Point1;
 				std::pair<int, int> Point2;
+				// TileIndex에서 Tile의 4개의 점을 중간점으로 포함할 수있도록 정수 좌표계를 확장한다.
 				if (i == 0)
 				{
 					Point1 = { cx * 2 - 1,cy * 2 - 1 };

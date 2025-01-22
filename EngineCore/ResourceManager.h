@@ -39,6 +39,13 @@ public:
 	}
 
 	template<typename ResourceType>
+	inline static void RemoveResource(std::string_view _Name)
+	{
+		const type_info& Info = typeid(ResourceType);
+		RemoveResource(Info.name(), _Name);
+	}
+
+	template<typename ResourceType>
 	inline static void LoadResourcesFromDirectory(std::vector<std::string> _Exts, std::string_view _DirName)
 	{
 		const type_info& Info = typeid(ResourceType);
@@ -57,15 +64,13 @@ public:
 		for (size_t i = 0; i < Files.size(); i++)
 		{
 			std::string FilePath = Files[i].ToString();
-			std::shared_ptr<ResourceType> Resource = ResourceType::Create(Files[i].GetCurrentName(), FilePath);
+			std::shared_ptr<ResourceType> Resource = ResourceType::Load(Files[i].GetCurrentName(), FilePath);
 		}
 	}
 
 	template<typename ResourceType>
 	inline static std::vector<std::shared_ptr<ResourceType>> GetAllResources()
 	{
-		//if (std::is_base_of_v(ResourceType, UEngineTexture2D))
-		//	return;
 		const type_info& Info = typeid(ResourceType);
 		auto Resources = ResourceMap[Info.name()];
 		std::vector<std::shared_ptr<ResourceType>> Result;
@@ -86,6 +91,7 @@ public:
 
 	ENGINE_API static std::shared_ptr<UEngineResource> Find(std::string_view _ResourceType, std::string_view _ResourceName);
 	ENGINE_API static void AddResource(std::shared_ptr<UEngineResource> _Resource, const std::string_view _Info, std::string_view _Name, std::string_view _Path);
+	ENGINE_API static void RemoveResource(const std::string_view _Info, std::string_view _Name);
 
 protected:
 

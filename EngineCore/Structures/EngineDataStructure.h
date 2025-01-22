@@ -40,7 +40,6 @@ struct FTileData
 	ETilePolygon PolygonType = ETilePolygon::Default;
 	FTileIndex Index;
 	FSpriteRect SpriteRect;
-
 };
 
 
