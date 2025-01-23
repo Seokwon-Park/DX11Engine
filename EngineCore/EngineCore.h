@@ -11,6 +11,7 @@
 // Ό³Έν :
 class UEngineCore
 {
+	friend class UDevTestWindow;
 public:
 	// constrcuter destructer
 	ENGINE_API UEngineCore();

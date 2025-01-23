@@ -59,11 +59,13 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineAnimation::CreateAnimation("TeviWalk", "Tevi", 4, 9, 0.2f);
 	UEngineAnimation::CreateAnimation("TeviRun", "Tevi", 11, 16, 0.1f);
 	UEngineAnimation::CreateAnimation("TeviJump", "Tevi", 20, 24, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAir", "Tevi", 25, 27, 0.1f, false);
 
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");
 	UEngineCore::CreateLevel<ATilemapEditorGameMode, APlayer>("TilemapEditor");
 	UEngineCore::CreateLevel<AFontAtlasEditorGameMode, APawn>("TextAtlasEditor");
+	//UEngineCore::OpenLevel("Title");
 	//ngineCore::OpenLevel("Test");
 	UEngineCore::OpenLevel("TilemapEditor");
 	//UEngineCore::OpenLevel("TextAtlasEditor");

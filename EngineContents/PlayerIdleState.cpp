@@ -16,6 +16,7 @@ void PlayerIdleState::Enter()
 	PlayerGroundState::Enter();
 
 	Player->SetVelocity({0.0f, 0.0f});
+	Rigidbody2D->SetZeroGravity();
 }
 
 void PlayerIdleState::Update()
@@ -29,4 +30,5 @@ void PlayerIdleState::Update()
 void PlayerIdleState::Exit()
 {
 	PlayerGroundState::Exit();
+	Rigidbody2D->SetGravity(1.0f);
 }

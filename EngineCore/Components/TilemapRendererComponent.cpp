@@ -30,6 +30,11 @@ void UTilemapRendererComponent::SetOrder(ESortingLayer _SortingLayer, int _Order
 
 void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 {
+	if (TilemapComponent == nullptr)
+	{
+		return;
+	}
+
 	VertexConstant VertexConstantData;
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
@@ -63,9 +68,9 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 		Unit->SetTexture("TilemapTexture", EShaderType::PS, Sprite->GetSpriteByIndex(Tile.SpriteIndex).Texture);
 		Unit->SetSampler("PSSampler", EShaderType::PS, UResourceManager::Find<UEngineSamplerState>("Default"));
 
-		Trans.Location = FVector4({ ConvertPos.X, ConvertPos.Y, 0.0f, 1.0f });
+		Trans.Location = FVector4(ConvertPos.X  + (TilemapComponent->GetTileSize().X /2.0f) * (Tile.Multiplier.X - 1), ConvertPos.Y + (TilemapComponent->GetTileSize().Y / 2.0f) * (Tile.Multiplier.Y - 1), 1.0f, 1.0f);
 		Trans.Rotation = FVector4({ 0.0f, 180.0f* Tile.IsFlip, 90.0f * Tile.RotatedCount, 1.0f });
-		Trans.Scale = FVector4({ TilemapComponent->TileSize.X, TilemapComponent->TileSize.Y, 1.0f, 1.0f });
+		Trans.Scale = FVector4({ TilemapComponent->TileSize.X * Tile.Multiplier.X, TilemapComponent->TileSize.Y * Tile.Multiplier.Y, 1.0f, 1.0f });
 
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();

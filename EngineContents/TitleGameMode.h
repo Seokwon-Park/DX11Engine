@@ -1,5 +1,6 @@
 #pragma once
 #include <EngineCore/GameMode.h>
+#include "TitleBackground.h"
 
 // Ό³Έν :
 class ATitleGameMode : public AGameMode
@@ -20,6 +21,6 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-
+	std::shared_ptr<ATitleBackground> TitleBG;
 };
 

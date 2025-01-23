@@ -34,6 +34,11 @@ void AActor::AddActorLocation(const FVector4& _Value)
 	RootComponent->AddLocation(_Value);
 }
 
+FVector4 AActor::GetActorLocation()
+{
+	return RootComponent->GetTransformRef().Location;
+}
+
  void AActor::SetActorRotation(const FVector4& _Rotation)
 {
 	if (nullptr == RootComponent)

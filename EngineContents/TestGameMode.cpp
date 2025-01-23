@@ -5,14 +5,14 @@
 
 ATestGameMode::ATestGameMode()
 {
-	Tilemap = CreateDefaultSubobject<UTilemapComponent>();
-	Tilemap->Load("11");
-	TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
-	TilemapRenderer->SetupAttachment(RootComponent);
-	TilemapRenderer->SetTilemap(Tilemap);
-	TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
-	TilemapCollider->SetupAttachment(RootComponent);
-	TilemapCollider->SetTilemap(Tilemap);
+	//Tilemap = CreateDefaultSubobject<UTilemapComponent>();
+	////Tilemap->Load("11");
+	//TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
+	//TilemapRenderer->SetupAttachment(RootComponent);
+	//TilemapRenderer->SetTilemap(Tilemap);
+	//TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
+	//TilemapCollider->SetupAttachment(RootComponent);
+	//TilemapCollider->SetTilemap(Tilemap);
 }
 
 ATestGameMode::~ATestGameMode()

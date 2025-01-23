@@ -32,6 +32,8 @@ void URigidbody2DComponent::TickComponent(float _DeltaTime)
 	Parent->SetLocation(FVector4(XY.x * FMath::BOX2DSCALE, XY.y * FMath::BOX2DSCALE, 0.0f, 1.0f));
 	b2Rot rotation = b2Body_GetRotation(BodyId);
 	//std::cout << b2Body_GetPosition(bodyId).y << '\n';
+
+	int bodyContactCapacity = b2Body_GetContactCapacity(BodyId);
 }
 
 void URigidbody2DComponent::BeginPlay()

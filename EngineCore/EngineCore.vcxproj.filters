@@ -76,6 +76,7 @@
     <ClCompile Include="Resources\EngineFont.cpp" />
     <ClCompile Include="Components\TextRendererComponent.cpp" />
     <ClCompile Include="GUI\TextAtlasEditorWindow.cpp" />
+    <ClCompile Include="TilemapActor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Components\TextRendererComponent.h" />
     <ClInclude Include="GUI\TextAtlasEditorWindow.h" />
     <ClInclude Include="Constants\FontConst.h" />
+    <ClInclude Include="TilemapActor.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

@@ -45,6 +45,15 @@
     <ClCompile Include="FontAtlasEditorGameMode.cpp">
       <Filter>GameMode</Filter>
     </ClCompile>
+    <ClCompile Include="GroundTilemap.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBackground.cpp">
+      <Filter>Title</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAirState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -94,6 +103,15 @@
     <ClInclude Include="FontAtlasEditorGameMode.h">
       <Filter>GameMode</Filter>
     </ClInclude>
+    <ClInclude Include="GroundTilemap.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBackground.h">
+      <Filter>Title</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAirState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Player">
@@ -113,6 +131,9 @@
     </Filter>
     <Filter Include="Stage">
       <UniqueIdentifier>{48bfc1b4-771b-4366-b711-43d4b5c4b947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Title">
+      <UniqueIdentifier>{e905b326-fc4b-4c53-a779-75a22fb4be72}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

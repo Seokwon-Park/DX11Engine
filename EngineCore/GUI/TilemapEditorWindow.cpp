@@ -32,28 +32,29 @@ void UTilemapEditorWindow::OnImGuiRender()
 {
 	ImGui::Begin(GetName().c_str());
 
-	auto Sprites = UResourceManager::GetAllResources<UEngineSprite>();
-	
+	{	// 편집할 타일맵 결정하는 부분
+		std::vector<std::string> NameList;
+		for (auto Tilemap : TilemapList)
+		{
+			NameList.push_back(Tilemap->GetName());
+		}
 
-	std::vector<std::string> Temp;
-	for (auto S : Sprites)
-	{
-		Temp.push_back(S->GetName());
+		std::vector<const char*> TilemapNames;
+		for (std::string& Ptr : NameList)
+		{
+			TilemapNames.push_back(Ptr.c_str());
+		}
+
+		ImGui::ListBox("TilemapList", &SelectTilemap, TilemapNames.data(), (int)TilemapNames.size());
+
+		TilemapComponent = TilemapList[SelectTilemap]->GetTilmapComponent();
+		if (TilemapList[SelectTilemap]->GetTilemapColliderComponent() != nullptr)
+		{
+			TilemapColliderComponent = TilemapList[SelectTilemap]->GetTilemapColliderComponent();
+		}
 	}
 
-	std::vector<const char*> SpriteNames;
-	for (auto& Str : Temp)
-	{
-		SpriteNames.push_back(Str.c_str());
-		//SpriteNames.push_back(c);
-	}
-
-	// ListBox 생성
-	ImGui::ListBox("SpawnList", &SelectSprite, SpriteNames.data(), (int)SpriteNames.size());
-
-	ImGui::Text("Current Selection: %d", SelectSprite);
-
-	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(Temp[SelectSprite]);
+	std::shared_ptr<UEngineSprite> Sprite = UResourceManager::Find<UEngineSprite>(TilemapComponent->SpriteName);
 	std::vector<FSpriteData> SpriteData = Sprite->GetSpriteData();
 
 	for (size_t i = 0; i < Sprite->GetSpriteCount(); i++)
@@ -80,6 +81,7 @@ void UTilemapEditorWindow::OnImGuiRender()
 		if (ImGui::ImageButton(Text.c_str(), SRV, { 30, 30 }, Pos, Size))
 		{
 			SelectItem = i;
+			EditorSetting.Multiplier = SpriteData.Texture->GetTextureSize() / TilemapComponent->GetTileSize();
 			EditorSetting.SpriteRect = Data;
 			EditorSetting.SpriteIndex = SelectItem;
 
@@ -127,13 +129,13 @@ void UTilemapEditorWindow::OnImGuiRender()
 		VC.Proj = _Camera->GetProjectionMatrixTranspose();
 
 
-		Trans.Location = FVector4(RenderPos.X, RenderPos.Y, 1.0f, 1.0f);
+		Trans.Location = FVector4(RenderPos.X + (TilemapComponent->GetTileSize().X / 2.0f) * (EditorSetting.Multiplier.X - 1), RenderPos.Y + (TilemapComponent->GetTileSize().Y / 2.0f) * (EditorSetting.Multiplier.Y - 1), 1.0f, 1.0f);
 		if (true == IsFlip)
 		{
 			Trans.Rotation = FVector4(0.0f, 180.0f, 0.0f, 1.0f);
 		}
 		Trans.Rotation += FVector4(0.0f, 0.0f, 90.0f * Rotate, 1.0f);
-		Trans.Scale = FVector4({ SpriteData.Texture->GetTextureSize().X, SpriteData.Texture->GetTextureSize().Y,1.0f});
+		Trans.Scale = FVector4({ SpriteData.Texture->GetTextureSize().X, SpriteData.Texture->GetTextureSize().Y,1.0f });
 
 		Trans.UpdateTransform();
 		Trans.WorldMatrix.MatrixTranspose();
@@ -149,20 +151,16 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 	if (true == UEngineInputSystem::GetKey(EKey::Space))
 	{
-		//ESpawnList SelectMonster = static_cast<ESpawnList>(SelectItem);
-		//std::shared_ptr<class ACameraActor> Camera = Level->GetMainCamera();
-		//FVector4 Pos = Camera->ScreenMousePosToWorldPos();
-		//Pos.Z = 0.0f;
-
-		//std::shared_ptr<AActor> NewMonster;
 		TilemapComponent->SetTile(FIntPoint(WorldCoord.X, WorldCoord.Y), EditorSetting);
-		TilemapColliderComponent->UpdateCollider();
+		if (TilemapColliderComponent != nullptr)
+			TilemapColliderComponent->UpdateCollider();
 	}
 
 	if (true == UEngineInputSystem::GetKey(EKey::D))
 	{
 		TilemapComponent->RemoveTile(FIntPoint(WorldCoord.X, WorldCoord.Y));
-		TilemapColliderComponent->UpdateCollider();
+		if (TilemapColliderComponent != nullptr)
+			TilemapColliderComponent->UpdateCollider();
 
 	}
 	if (true == UEngineInputSystem::GetKeyDown(EKey::R))
@@ -179,11 +177,11 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 
 	// Enum 값에 대응하는 문자열 배열
-	const char* enumNames[] = { "Quad", "Slope1", "Slope2", "Slope3", "Slope4", "Slope5", "Slope6" };
+	const char* enumNames[] = { "Quad", "Slope1", "Slope2", "Slope3", "Slope4", "Slope5", "Slope6", "Large"};
 	// 현재 선택된 항목의 인덱스를 가져옵니다.
 
 	// ImGui::Combo를 사용하여 드롭다운 리스트 생성
-	if (ImGui::Combo("Enum Selector", &currentIndex, enumNames, static_cast<int>(ETilePolygon::Slope6) + 1)) {
+	if (ImGui::Combo("Enum Selector", &currentIndex, enumNames, static_cast<int>(ETilePolygon::End))) {
 		// 선택이 변경되면 currentSelection 값을 업데이트
 		EditorSetting.PolygonType = static_cast<ETilePolygon>(currentIndex);
 	}
@@ -258,7 +256,8 @@ void UTilemapEditorWindow::OnImGuiRender()
 			UEnginePath Path = std::string_view(ofn.lpstrFile);
 			TilemapComponent->Load(Path.GetFileNameWithoutExtension());
 		}
-		TilemapColliderComponent->UpdateCollider();
+		if (TilemapColliderComponent != nullptr)
+			TilemapColliderComponent->UpdateCollider();
 	}
 	ImGui::End();
 }

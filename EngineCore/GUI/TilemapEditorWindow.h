@@ -1,4 +1,5 @@
 #pragma once
+#include <EngineCore/TilemapActor.h>
 #include <EngineCore/GUI/EngineImGuiWindow.h>
 #include <EngineCore/Components/TilemapComponent.h>
 #include <EngineCore/Components/TilemapColliderComponent.h>
@@ -26,9 +27,12 @@ public:
 	ENGINE_API void SetTilemapCollider(std::shared_ptr<UTilemapColliderComponent> _TilemapColliderComponent) { SetTilemapCollider(_TilemapColliderComponent.get()); }
 	ENGINE_API void SetTilemapCollider(UTilemapColliderComponent* _TilemapColliderComponent) { TilemapColliderComponent = _TilemapColliderComponent; }
 
+	ENGINE_API void AddTilemapList(std::shared_ptr<ATilemapActor> _TilemapActor) { TilemapList.push_back(_TilemapActor); }
+
 	UTilemapComponent* TilemapComponent = nullptr;
 	UTilemapColliderComponent* TilemapColliderComponent = nullptr;
 
+	std::vector<std::shared_ptr<ATilemapActor>> TilemapList;
 protected:
 
 private:
@@ -48,5 +52,6 @@ private:
 	class ULevel* Level = nullptr;
 	size_t SelectItem = 0;
 	int SelectSprite = 0;
+	int SelectTilemap = 0;
 };
 

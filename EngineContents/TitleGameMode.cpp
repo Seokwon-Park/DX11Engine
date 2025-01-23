@@ -23,6 +23,7 @@ void ATitleGameMode::BeginPlay()
 {
 	AActor::BeginPlay();
 
+	TitleBG = GetLevel()->SpawnActor<ATitleBackground>();
 	//std::shared_ptr<ATitleLogo> Test = GetLevel()->SpawnActor<ATitleLogo>();
 	//Test->SetActorLocation({ 20.0f,0.0f,0.0f });
 	//Logo->SetActorRelativeScale3D({ 100.0f,100.0f,1.0f });

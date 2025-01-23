@@ -381,6 +381,10 @@
     <ClInclude Include="ThirdParty\IMGUI\imstb_rectpack.h" />
     <ClInclude Include="ThirdParty\IMGUI\imstb_textedit.h" />
     <ClInclude Include="ThirdParty\IMGUI\imstb_truetype.h" />
+    <ClInclude Include="TilemapActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TimerManager.h">
       <SubType>
       </SubType>
@@ -606,6 +610,10 @@
     <ClCompile Include="ThirdParty\IMGUI\imgui_impl_win32.cpp" />
     <ClCompile Include="ThirdParty\IMGUI\imgui_tables.cpp" />
     <ClCompile Include="ThirdParty\IMGUI\imgui_widgets.cpp" />
+    <ClCompile Include="TilemapActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="TimerManager.cpp">
       <SubType>
       </SubType>

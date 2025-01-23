@@ -7,6 +7,7 @@
 #include "PlayerIdleState.h"
 #include "PlayerRunState.h"
 #include "PlayerJumpState.h"
+#include "PlayerAirState.h"
 
 // Ό³Έν :
 class APlayer : public AEntity
@@ -29,9 +30,11 @@ public:
 	std::shared_ptr<PlayerIdleState> IdleState;
 	std::shared_ptr<PlayerRunState> RunState;
 	std::shared_ptr<PlayerJumpState> JumpState;
+	std::shared_ptr<PlayerAirState> AirState;
 
-	float JumpForce = 4.0f;
+	float JumpForce = 5.0f;
 
+	void TestRay();
 protected:
 	virtual void BeginPlay() override;
 

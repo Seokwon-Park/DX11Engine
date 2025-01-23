@@ -34,6 +34,7 @@ public:
 	ENGINE_API inline size_t GetSpriteCount() { return SpriteData.size(); }
 	ENGINE_API inline std::vector<FSpriteData> GetSpriteData() {return SpriteData; }
 
+	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSprite(std::shared_ptr<UEngineTexture2D> _Texture);
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Name, std::string_view _Path);
 	

@@ -26,6 +26,8 @@ public:
 	ENGINE_API inline void SetRigidbody(std::shared_ptr<URigidbody2DComponent> _RigidBody2D) { Rigidbody2D = _RigidBody2D.get(); }
 
 	inline void SetCollisionLayer(ECollisionLayer _Layer) { Layer = _Layer; }
+
+
 protected:	
 	virtual void BeginPlay() override;
 

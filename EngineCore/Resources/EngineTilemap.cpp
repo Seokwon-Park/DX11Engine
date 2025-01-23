@@ -67,7 +67,7 @@ ENGINE_API void UEngineTilemap::Deserialize(UEngineSerializer& _Serializer)
 	for (size_t i = 0; i < Count; i++)
 	{
 		FTileData TileData;
-		_Serializer.Read(&TileData, sizeof(TileData));
+		_Serializer.Read(&TileData, sizeof(FTileData));
 		TilemapData.insert({ TileData.Index.Key, TileData });
 	}
 }

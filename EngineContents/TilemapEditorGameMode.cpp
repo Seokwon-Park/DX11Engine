@@ -11,16 +11,7 @@ ATilemapEditorGameMode::ATilemapEditorGameMode()
 	Tr = CreateDefaultSubobject<UTextRendererComponent>();
 	//->SetupAttachment(RootComponent);
 
-	TilemapComponent = CreateDefaultSubobject<UTilemapComponent>();
-	TilemapComponent->CreateNewTilemap("BackDrop0",FVector2(28, 28), FVector2(0.5f, 0.5f));
 
-	TilemapRenderer = CreateDefaultSubobject<UTilemapRendererComponent>();
-	TilemapRenderer->SetTilemap(TilemapComponent);
-	TilemapRenderer->SetupAttachment(RootComponent);
-
-	TilemapCollider = CreateDefaultSubobject<UTilemapColliderComponent>();
-	TilemapCollider->SetTilemap(TilemapComponent);
-	TilemapCollider->SetupAttachment(RootComponent);
 }
 
 ATilemapEditorGameMode::~ATilemapEditorGameMode()
@@ -31,13 +22,17 @@ void ATilemapEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
 
+	GroundTilemap = GetLevel()->SpawnActor<AGroundTilemap>("Ground");
+	GroundTilemap->EditSetup("Area0", { 28.0f,28.0f }, {0.5f,0.5f});
+	BackgroundTilemap = GetLevel()->SpawnActor<AGroundTilemap>("Background");
+	BackgroundTilemap->EditSetup("Backdrop0", { 28.0f,28.0f }, { 0.5f,0.5f });
+
 	Tr->SetFont("NanumGothic");
 	Tr->SetText("¾È³çÇÏ¼¼¿ä");
-	/*TilemapComponent->Load("111");
-	TilemapCollider->UpdateCollider();*/
+	/*TilemapCollider->UpdateCollider(); */
 	std::shared_ptr<UTilemapEditorWindow> Window = std::make_shared<UTilemapEditorWindow>(GetLevel());
-	Window->SetTilemap(TilemapComponent);
-	Window->SetTilemapCollider(TilemapCollider);
+	Window->AddTilemapList(GroundTilemap);
+	Window->AddTilemapList(BackgroundTilemap);
 	GetLevel()->AddGuiWindow(Window);
 	GetLevel()->SpawnActor<AGridActor>();
 }

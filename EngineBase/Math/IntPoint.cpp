@@ -24,6 +24,12 @@ FIntPoint FIntPoint::operator-(const FIntPoint& _Other) const
 	return FIntPoint(X - _Other.X, Y - _Other.Y);
 }
 
+FIntPoint FIntPoint::operator/(const FIntPoint& _Other) const
+{
+	return FIntPoint(X / _Other.X, Y / _Other.Y);
+}
+
+
 FIntPoint FIntPoint::operator/(int _Value) const
 {
 	return FIntPoint(X / _Value, Y / _Value);

@@ -2,6 +2,8 @@
 
 enum class ESortingLayer
 {
+	BackgroundTilemap = -10,
+	GroundTilemap = -5,
 	Default = 0,
 	UI = 1000,
 };

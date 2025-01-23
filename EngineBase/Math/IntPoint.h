@@ -24,6 +24,7 @@ public:
 
 	FIntPoint operator+(const FIntPoint& _Other) const;
 	FIntPoint operator-(const FIntPoint& _Other) const;
+	FIntPoint operator/(const FIntPoint& _Other) const;
 	FIntPoint operator/(int _Value) const;
 	void operator+=(const FIntPoint& _Other);
 	void operator-=(const FIntPoint& _Other);

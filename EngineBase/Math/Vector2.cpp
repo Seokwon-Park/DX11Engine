@@ -44,6 +44,11 @@ FVector2 FVector2::operator-(const FVector2& _Other) const
 	return FVector2(X - _Other.X, Y - _Other.Y);
 }
 
+FVector2 FVector2::operator/(const FVector2& _Other) const
+{
+	return FVector2(X / _Other.X, Y / _Other.Y);
+}
+
 FVector2 FVector2::operator*(const float& _Value) const
 {
 	return FVector2(X * _Value, Y * _Value);
@@ -52,6 +57,11 @@ FVector2 FVector2::operator*(const float& _Value) const
 FVector2 FVector2::operator/(const float& _Value) const
 {
 	return FVector2(X / _Value, Y / _Value);
+}
+
+FVector2::operator FIntPoint()
+{
+	return FIntPoint(X, Y);
 }
 
 void FVector2::operator+=(const FVector2& _Other)

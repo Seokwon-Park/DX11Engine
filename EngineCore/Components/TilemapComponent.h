@@ -28,7 +28,7 @@ public:
 		Tilemap = UResourceManager::Find<UEngineTilemap>(_TilemapName);
 		if (Tilemap == nullptr)
 		{
-			MSGASSERT("Fail");
+			MSGASSERT("Fail To Load Tilemap!");
 			return;
 		}
 		SpriteName = Tilemap->SpriteName;
@@ -56,6 +56,7 @@ public:
 
 	ENGINE_API FTileData* IsTileExist(FIntPoint _MousePos);
 	ENGINE_API FTileData* GetTile(FTileIndex _TileIndex);
+	ENGINE_API inline FVector2 GetTileSize() { return TileSize; };
 
 	inline size_t GetSize() { return Tilemap->GetSize(); }
 
@@ -67,7 +68,10 @@ protected:
 
 private:
 	std::string SpriteName;
+
+	//타일 크기
 	FVector2 TileSize;
+	//타일 피봇
 	FVector2 TilePivot;
 
 	std::shared_ptr<UEngineTilemap> Tilemap;

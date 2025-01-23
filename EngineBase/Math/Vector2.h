@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include <EngineBase/EngineBase.h>
 #include "Vector4.h"
+#include "IntPoint.h"
 
 class BASE_API FVector2
 {
@@ -38,8 +39,11 @@ public:
 	FVector2 operator+(const FVector2& _Other) const;
 	FVector2 operator-() const;
 	FVector2 operator-(const FVector2& _Other) const;
+	FVector2 operator/(const FVector2& _Other) const;
 	FVector2 operator*(const float& _Value) const;
 	FVector2 operator/(const float& _Value) const;
+
+	operator FIntPoint();
 
 	void operator+=(const FVector2& _Other);
 	void operator-=(const FVector2& _Other);

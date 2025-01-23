@@ -27,6 +27,9 @@ public:
 	b2BodyId GetBodyId() { return BodyId; }
 	virtual void TickComponent(float _DeltaTime);
 	virtual void BeginPlay();
+
+	ENGINE_API void SetZeroGravity() { b2Body_SetGravityScale(BodyId, 0.0f); }
+	ENGINE_API void SetGravity(float _GravityScale = 1.0f) { b2Body_SetGravityScale(BodyId, _GravityScale); }
 protected:
 
 private:

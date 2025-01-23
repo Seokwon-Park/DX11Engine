@@ -21,7 +21,20 @@ FSpriteData UEngineSprite::GetSpriteByIndex(size_t _Index)
 }
 
 
- std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path)
+std::shared_ptr<UEngineSprite> UEngineSprite::CreateSprite(std::shared_ptr<UEngineTexture2D> _Texture)
+{
+	std::shared_ptr<UEngineSprite> NewSprite = std::make_shared<UEngineSprite>();
+	UResourceManager::AddResource<UEngineSprite>(NewSprite, _Texture->GetName(), "");
+	FSpriteData SpriteData;
+	SpriteData.Texture = _Texture;
+	SpriteData.Rect.CuttingPos = FVector2(0.0f, 0.0f);
+	SpriteData.Rect.CuttingSize = FVector2(1.0f, 1.0f);
+	SpriteData.Rect.Pivot = FVector2(0.5f, 0.5f);
+	NewSprite->SpriteData.push_back(SpriteData);
+	return NewSprite;
+}
+
+std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path)
 {
 	UEngineDirectory Dir = _Path;
 
@@ -43,7 +56,7 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 	// 이거 왜필요함? _10.PNG다음에 _100과 _11이 있으면 _100이 먼저 저장되는 문제가 생긴다.
 	std::sort(Files.begin(), Files.end(), [=](auto _FileA, auto _FileB)
 		{
-			
+
 			int AIndex = UEngineString::ExtractNumber(_FileA.GetCurrentName(), R"(\_(\d+)\.png$)");
 			int BIndex = UEngineString::ExtractNumber(_FileB.GetCurrentName(), R"(\_(\d+)\.png$)");
 			return AIndex < BIndex;

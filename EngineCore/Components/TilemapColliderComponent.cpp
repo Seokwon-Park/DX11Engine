@@ -109,11 +109,37 @@ void UTilemapColliderComponent::UpdateCollider()
 			Points = { FVector4(-HalfWidth, -HalfHeight + (2.0f * HalfHeight / 3.0f)), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
 			break;
 		}
+		case ETilePolygon::Large:
+		{
+			dynamicBox = b2MakeBox(HalfWidth * Tile.Multiplier.X, HalfHeight * Tile.Multiplier.Y);
+			b2Vec2 P1 = dynamicBox.vertices[2];
+			b2Vec2 P2 = dynamicBox.vertices[3];
+			b2Transform Trans({ ConvertPos.X / FMath::BOX2DSCALE + HalfWidth * (Tile.Multiplier.X - 1)
+				, ConvertPos.Y / FMath::BOX2DSCALE + HalfHeight * (Tile.Multiplier.Y - 1) }, { 1.0f, 0.0f });// cos 0, sin 0
+			P1 = b2TransformPoint(Trans, P1);
+			P2 = b2TransformPoint(Trans, P2);
+
+			std::vector<b2Vec2> points;
+
+			points.push_back(P1);
+			points.push_back(P1);
+			points.push_back(P2);
+			points.push_back(P2);
+
+			b2ChainDef chainDef = b2DefaultChainDef();
+			chainDef.points = points.data();
+			chainDef.count = static_cast<int32_t>(points.size());
+			chainDef.friction = 0.0f;
+
+			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
+			ChainIds.push_back(myChainId);
+			break;
+		}
 		default:
 			break;
 		}
 
-		if (ETilePolygon::Default != Tile.PolygonType)
+		if (ETilePolygon::Default != Tile.PolygonType && ETilePolygon::Large != Tile.PolygonType)
 		{
 			CreateSlope(Points, Tile);
 		}
@@ -143,7 +169,7 @@ void UTilemapColliderComponent::UpdateCollider()
 				points.push_back(IndexToRealScaleMap[Edge.A]);
 				Vertices.push_back(Vertex{ FVector4(IndexToRealScaleMap[Edge.A].x * FMath::BOX2DSCALE,IndexToRealScaleMap[Edge.A].y * FMath::BOX2DSCALE, 1.0f, 1.0f), {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} });
 				Indices.push_back(StartIx);
-				Indices.push_back(StartIx+1);
+				Indices.push_back(StartIx + 1);
 				StartIx++;
 			}
 			Indices.pop_back();
@@ -155,7 +181,7 @@ void UTilemapColliderComponent::UpdateCollider()
 			Uint32 DataSize = static_cast<Uint32>(sizeof(Vertex) * Vertices.size());
 			Uint32 VertexCount = static_cast<Uint32>(Vertices.size());
 
-			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("TmapCol"+std::to_string(PolygonCount),
+			std::shared_ptr<UEngineVertexBuffer> VertexBuffer = UEngineVertexBuffer::Create("TmapCol" + std::to_string(PolygonCount),
 				Vertices.data(), DataSize, VertexCount);
 
 			std::shared_ptr<UEngineIndexBuffer> IndexBuffer = UEngineIndexBuffer::Create(Indices.data(), Indices.size());
@@ -164,7 +190,7 @@ void UTilemapColliderComponent::UpdateCollider()
 			Mesh->SetVertexBuffer(VertexBuffer);
 			Mesh->SetIndexBuffer(IndexBuffer);
 			Mesh->SetTopology(D3D10_PRIMITIVE_TOPOLOGY_LINELIST);
-			
+
 			auto& RenderUnit = RenderUnits.emplace_back(std::make_shared<URenderUnit>());
 			RenderUnit->Init("TmapCollider", "ColliderDebug");
 			RenderUnit->SetMesh(Mesh);
@@ -174,7 +200,7 @@ void UTilemapColliderComponent::UpdateCollider()
 			b2ChainDef chainDef = b2DefaultChainDef();
 			chainDef.points = points.data();
 			chainDef.count = static_cast<int32_t>(points.size());
-			chainDef.friction = 0.0f;
+			chainDef.friction = 1.0f;
 
 			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 			ChainIds.push_back(myChainId);

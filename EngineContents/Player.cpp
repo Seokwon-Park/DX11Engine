@@ -19,7 +19,6 @@ void APlayer::Tick(float _DeltaTime)
 	AEntity::Tick(_DeltaTime);
 
 	StateMachine->CurrentState->Update();
-
 }
 
 void APlayer::BeginPlay()
@@ -30,6 +29,7 @@ void APlayer::BeginPlay()
 	IdleState = std::make_shared<PlayerIdleState>(this, StateMachine.get(), "TeviIdle");
 	RunState = std::make_shared<PlayerRunState>(this, StateMachine.get(), "TeviRun");
 	JumpState = std::make_shared<PlayerJumpState>(this, StateMachine.get(), "TeviJump");
+	AirState = std::make_shared<PlayerAirState>(this, StateMachine.get(), "TeviAir");
 
 	StateMachine->InitState(IdleState);
 }

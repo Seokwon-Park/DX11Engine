@@ -41,7 +41,7 @@ void PlayerJumpState::Update()
 
 	if (Rigidbody2D->GetVelocity().Y <= 0.0f)
 	{
-		StateMachine->ChangeState(Player->IdleState);
+		StateMachine->ChangeState(Player->AirState);
 	}
 }
 

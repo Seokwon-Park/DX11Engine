@@ -6,6 +6,7 @@
 #include <EngineBase/EngineIO.h>
 #include <EngineBase/EngineString.h>
 #include <ThirdParty/DirectXTex/Include/DirectXTex.h>
+#include "EngineSprite.h"
 
 
 UEngineTexture::UEngineTexture()
@@ -31,6 +32,7 @@ std::shared_ptr<UEngineTexture2D> UEngineTexture2D::Load(std::string_view _Name,
 	UEnginePath Path = _Path;
 	std::string Name = Path.GetFileNameWithoutExtension();
 	UResourceManager::AddResource<UEngineTexture2D>(NewTexture, Name, _Path);
+	UEngineSprite::CreateSprite(NewTexture);
 	return NewTexture;
 }
 

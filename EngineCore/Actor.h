@@ -57,6 +57,7 @@ public:
 	}
 
 	ENGINE_API void SetActorLocation(const FVector4& _Value);
+	ENGINE_API FVector4 GetActorLocation();
 	ENGINE_API void AddActorLocation(const FVector4& _Value);
 	ENGINE_API void SetActorRotation(const FVector4& _Rotation);
 	ENGINE_API void AddActorRotation(const FVector4& _Rotation);

@@ -1,7 +1,7 @@
 #pragma once
 #include <EngineCore/GameMode.h>
 #include <EngineCore/Components/TilemapRendererComponent.h>
-#include <EngineCore/Components/TilemapColliderComponent.h>
+#include "GroundTilemap.h"
 
 #include <EngineCore/Resources/EngineFont.h>
 
@@ -28,10 +28,8 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	std::shared_ptr<UTilemapComponent> TilemapComponent;
-	std::shared_ptr<UTilemapRendererComponent> TilemapRenderer;
-	std::shared_ptr<UTilemapColliderComponent> TilemapCollider;
-
+	std::shared_ptr<AGroundTilemap> GroundTilemap;
+	std::shared_ptr<ATilemapActor> BackgroundTilemap;
 	std::shared_ptr<UTextRendererComponent> Tr;
 
 };

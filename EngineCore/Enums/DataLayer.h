@@ -9,5 +9,7 @@ enum class ETilePolygon
 	Slope4,
 	Slope5,
 	Slope6,
+	Large,
+	End,
 	
 };
