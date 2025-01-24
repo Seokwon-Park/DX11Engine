@@ -30,6 +30,8 @@ public:
 	void Flip();
 	void SetVelocity(FVector2 _Velocity);
 
+	bool IsGroundDetected();
+
 	virtual void Tick(float _DeltaTime) override;
 	int FacingDir = -1;
 protected:

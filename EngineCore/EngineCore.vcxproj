@@ -197,6 +197,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Constants\FontConst.h" />
+    <ClInclude Include="EnginePhysics.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Enums\DataLayer.h" />
     <ClInclude Include="Enums\EngineLayer.h" />
     <ClInclude Include="Components\Rigidbody2DComponent.h">
@@ -449,6 +453,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Components\TilemapRendererComponent.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="EnginePhysics.cpp">
       <SubType>
       </SubType>
     </ClCompile>

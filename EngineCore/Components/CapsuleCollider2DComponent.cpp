@@ -26,7 +26,6 @@ void UCapsuleCollider2DComponent::BeginPlay()
 	CapsuleShape.center2 = b2Vec2( 0.0f, -ScaleY + Radius);
 	CapsuleShape.radius = Radius;
 
-	ShapeDef =  b2DefaultShapeDef();
 	ShapeDef.density = 1.0f;
 	ShapeDef.friction = 1.0f;
 	ShapeDef.rollingResistance = 1.0f;

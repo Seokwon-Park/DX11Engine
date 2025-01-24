@@ -26,7 +26,7 @@ public:
 	ENGINE_API virtual void SetOrder(ESortingLayer _SortingLayer, int _OrderInLayer = 0) override;
 
 	ENGINE_API void SetFont(std::string_view _FontName);
-	ENGINE_API inline void SetText(std::string_view _Text) { Text = UEngineString::ToWString(_Text); };
+	ENGINE_API inline void SetText(std::string_view _Text) { Text = UEngineString::ToWideString(_Text); };
 
 	virtual void TickComponent(float _DeltaTime) override;
 	virtual void BeginPlay()override;

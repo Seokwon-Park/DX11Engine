@@ -7,6 +7,7 @@ APlayer::APlayer()
 {
 	//BoxCollider2D->SetRelativeScale3D(FVector4(28.0f, 56.0f, 1.0f));
 	CapsuleCollider2D->SetRelativeScale3D(FVector4(26.0f, 56.0f, 1.0f));
+	CapsuleCollider2D->SetCollisionLayer(ECollisionLayer::Player);
 }
 
 APlayer::~APlayer()
@@ -31,5 +32,5 @@ void APlayer::BeginPlay()
 	JumpState = std::make_shared<PlayerJumpState>(this, StateMachine.get(), "TeviJump");
 	AirState = std::make_shared<PlayerAirState>(this, StateMachine.get(), "TeviAir");
 
-	StateMachine->InitState(IdleState);
+	StateMachine->InitState(AirState);
 }

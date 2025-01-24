@@ -41,7 +41,6 @@ private:
 	std::unordered_map<__int64, bool> Visit;
 	//////////////////////////////////////////////////
 
-	ECollisionLayer Layer;
 	std::vector<FEdge> SortedEdges;
 
 	int PolygonCount = 0;

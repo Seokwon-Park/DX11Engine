@@ -19,7 +19,7 @@ void PlayerRunState::Enter()
 void PlayerRunState::Update()
 {
 	PlayerGroundState::Update();
-	Player->SetVelocity({ XInput*3.0f , Rigidbody2D->GetVelocity().Y });
+	Player->SetVelocity({ XInput*Player->MoveSpeed , Rigidbody2D->GetVelocity().Y });
 //	//EngineLogger::Test<int>();
 ////RigidBody2D->SetVelocity({ 0.0f, 0.0f });
 //	if (UEngineInputSystem::GetKey(EKey::Left))

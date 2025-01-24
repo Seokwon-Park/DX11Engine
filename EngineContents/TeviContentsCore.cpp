@@ -5,6 +5,7 @@
 #include <EngineCore/Pawn.h>
 #include <EngineCore/GameMode.h>
 #include <EngineCore/ResourceManager.h>
+#include <EngineCore/EnginePhysics.h>
 #include <EngineBase/EngineIO.h>
 
 #include "TitleGameMode.h"
@@ -41,6 +42,15 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	Dir.AppendDirectory("Images/Tevi");
 
 	auto Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+
+	Dir.MoveParentToDirectory("Resources");
+	Dir.AppendDirectory("Images/Tevi2");
+	UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+
+	Dir.MoveParentToDirectory("Resources");
+	Dir.AppendDirectory("Images/Tevi3");
+	UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+
 	Sprite->SetPivot(EPivotType::Center);
 
 	Dir.MoveParentToDirectory("Resources");
@@ -60,6 +70,12 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineAnimation::CreateAnimation("TeviRun", "Tevi", 11, 16, 0.1f);
 	UEngineAnimation::CreateAnimation("TeviJump", "Tevi", 20, 24, 0.1f, false);
 	UEngineAnimation::CreateAnimation("TeviAir", "Tevi", 25, 27, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
+
+	UEnginePhysics::CollisionRule[Player] = Ground;
+	UEnginePhysics::CollisionRule[Ground] = Player;
 
 	UEngineCore::CreateLevel<ATitleGameMode, APlayer>("Title");
 	UEngineCore::CreateLevel<ATestGameMode, APlayer>("Test");

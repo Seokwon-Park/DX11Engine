@@ -33,8 +33,8 @@ public:
 	std::shared_ptr<PlayerAirState> AirState;
 
 	float JumpForce = 5.0f;
+	float MoveSpeed = 3.0f;
 
-	void TestRay();
 protected:
 	virtual void BeginPlay() override;
 

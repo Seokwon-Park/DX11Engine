@@ -19,7 +19,7 @@ void UEngineShader::CompilePath()
 
 	UEngineFile File = std::string_view(Path.ToString());
 	UINT CompilerFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-	std::wstring FilePath = UEngineString::ToWString(File.ToString());
+	std::wstring FilePath = UEngineString::ToWideString(File.ToString());
 
 	std::string Prefix = "";
 	switch (ShaderType)

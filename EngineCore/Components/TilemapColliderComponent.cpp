@@ -2,6 +2,7 @@
 #include "TilemapColliderComponent.h"
 #include <queue>
 #include <EngineCore/Structures/ShaderBufferDataStructure.h>
+#include <EngineCore/EnginePhysics.h>
 
 UTilemapColliderComponent::UTilemapColliderComponent()
 {
@@ -130,6 +131,9 @@ void UTilemapColliderComponent::UpdateCollider()
 			chainDef.points = points.data();
 			chainDef.count = static_cast<int32_t>(points.size());
 			chainDef.friction = 0.0f;
+			chainDef.filter.categoryBits = Layer;
+			chainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
+
 
 			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 			ChainIds.push_back(myChainId);
@@ -201,6 +205,8 @@ void UTilemapColliderComponent::UpdateCollider()
 			chainDef.points = points.data();
 			chainDef.count = static_cast<int32_t>(points.size());
 			chainDef.friction = 1.0f;
+			chainDef.filter.categoryBits = Layer;
+			chainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
 
 			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 			ChainIds.push_back(myChainId);
@@ -251,6 +257,8 @@ void UTilemapColliderComponent::CreateSlope(std::vector<FVector4> _Points, FTile
 	chainDef.points = points.data();
 	chainDef.count = static_cast<int32_t>(points.size());
 	chainDef.friction = 0.0f;
+	chainDef.filter.categoryBits = Layer;
+	chainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
 
 	b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 	ChainIds.push_back(myChainId);

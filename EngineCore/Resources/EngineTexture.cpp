@@ -74,7 +74,7 @@ void UEngineTexture2D::LoadTextureFromPath(std::string_view _Path)
 
 	std::string Str = _Path.data();
 	std::string Ext = Path.GetFileExtension();
-	std::wstring wLoadPath = UEngineString::ToWString(Str.c_str());
+	std::wstring wLoadPath = UEngineString::ToWideString(Str.c_str());
 	std::string UpperExt = UEngineString::ToUpper(Ext.c_str());
 
 	DirectX::TexMetadata Metadata;

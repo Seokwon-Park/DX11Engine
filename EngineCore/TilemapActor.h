@@ -20,8 +20,6 @@ public:
 
 	ENGINE_API void PlaySetup(std::string_view _TilemapName);
 	ENGINE_API void EditSetup(std::string _SpriteName, FVector2 _TileSize, FVector2 _TilePivot);
-		
-
 
 	ENGINE_API inline UTilemapComponent* GetTilmapComponent() { return TilemapComponent.get(); }
 	ENGINE_API inline UTilemapRendererComponent* GetTilemapRendererComponent() { return TilemapRendererComponent.get(); }

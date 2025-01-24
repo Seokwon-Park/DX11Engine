@@ -27,6 +27,11 @@ void ACameraActor::Tick(float _DeltaTime)
 {
 	AActor::Tick(_DeltaTime);
 
+	if (Target != nullptr)
+	{
+		SetActorLocation(Target->GetActorLocation());
+	}
+
 	CameraComponent->CalculateView();
 	CameraComponent->CalculateProj();
 }

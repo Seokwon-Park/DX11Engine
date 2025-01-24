@@ -21,10 +21,9 @@ protected:
 
 private:
 	std::string Name;
-	std::thread ThreadInst;
+	std::thread Thread;
 	std::function<void()> ThreadFunction;
 
 	static void ThreadBaseFunction(UEngineThread* _Thread);
-
 };
 

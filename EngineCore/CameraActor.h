@@ -17,12 +17,16 @@ public:
 	ACameraActor& operator=(ACameraActor&& _Other) noexcept = delete;
 
 	inline std::shared_ptr<UCameraComponent> GetCameraComponent() { return CameraComponent; }
+	inline void SetTarget(std::shared_ptr<AActor> _Target) { SetTarget(_Target.get()); }
+	inline void SetTarget(AActor* _Target) { Target = _Target; }
+
 	ENGINE_API FIntPoint GetWorldMousePos();
 	virtual void Tick(float _DeltaTime) override;
 protected:
 	virtual void BeginPlay() override;
 
 private:
+	AActor* Target;
 	std::shared_ptr<UCameraComponent> CameraComponent = nullptr;
 };
 

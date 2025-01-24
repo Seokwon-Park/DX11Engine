@@ -54,6 +54,12 @@
     <ClCompile Include="PlayerAirState.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerFallState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGroundAttackState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -110,6 +116,12 @@
       <Filter>Title</Filter>
     </ClInclude>
     <ClInclude Include="PlayerAirState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGroundAttackState.h">
       <Filter>Player\PlayerState</Filter>
     </ClInclude>
   </ItemGroup>

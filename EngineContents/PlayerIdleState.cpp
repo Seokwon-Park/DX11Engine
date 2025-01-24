@@ -25,6 +25,8 @@ void PlayerIdleState::Update()
 
 	if (XInput != 0.0f)
 		StateMachine->ChangeState(Player->RunState);
+
+
 }
 
 void PlayerIdleState::Exit()

@@ -46,10 +46,7 @@ void UBoxCollider2DComponent::BeginPlay()
 	ShapeDef.density = 0.5f;
 	ShapeDef.friction = 1.0f;
 	ShapeDef.rollingResistance = 1.0f;
-	//내 레이어
-	//shapeDef.filter.categoryBits = Layer;
-	//내가 충돌하면 부딪혀야 되는 애들 비트마스킹
-	//shapeDef.filter.maskBits = Layer;
+
 	if (Rigidbody2D != nullptr)
 	{
 		BodyId = Rigidbody2D->GetBodyId();

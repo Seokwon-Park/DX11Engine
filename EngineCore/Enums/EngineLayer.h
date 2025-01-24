@@ -12,5 +12,6 @@ enum ECollisionLayer
 {
 	Player = 0x00000001,
 	Enemy = 0x00000002,
-	UI = 0x00000004,
+	Ground = 0x00000004,
 };
+

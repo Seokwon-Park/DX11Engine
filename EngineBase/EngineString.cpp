@@ -25,7 +25,7 @@ std::string UEngineString::ToUpper(std::string_view _string)
 	return Result;
 }
 
-std::wstring UEngineString::ToWString(std::string_view _String)
+std::wstring UEngineString::ToWideString(std::string_view _String)
 {
 	int Size = MultiByteToWideChar(CP_ACP, 0, _String.data(), static_cast<int>(_String.size()), nullptr, 0);
 

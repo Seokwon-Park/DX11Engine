@@ -3,6 +3,7 @@
 #include <EngineCore/GUI/TilemapEditorWindow.h>
 #include <EngineCore/Level.h>
 
+#include "Player.h"
 #include "GridActor.h"
 
 
@@ -21,6 +22,8 @@ ATilemapEditorGameMode::~ATilemapEditorGameMode()
 void ATilemapEditorGameMode::BeginPlay()
 {
 	AGameMode::BeginPlay();
+
+	GetLevel()->GetCurrentCamera()->SetTarget(GetLevel()->GetMainPawn<APlayer>());
 
 	GroundTilemap = GetLevel()->SpawnActor<AGroundTilemap>("Ground");
 	GroundTilemap->EditSetup("Area0", { 28.0f,28.0f }, {0.5f,0.5f});

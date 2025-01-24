@@ -15,14 +15,15 @@ void PlayerJumpState::Enter()
 {
 	PlayerState::Enter();
 
-	Player->SetVelocity({ Rigidbody2D->GetVelocity().X, Player->JumpForce });
+	Player->SetVelocity({ XInput * Player->MoveSpeed , Player->JumpForce });
 }
 
 void PlayerJumpState::Update()
 {
 	PlayerState::Update();
 
-	//Player->SetVelocity({ 100.0f * XInput , Rigidbody2D->GetVelocity().Y });
+
+	Player->SetVelocity({ XInput * Player->MoveSpeed , Rigidbody2D->GetVelocity().Y });
 
 	//	//EngineLogger::Test<int>();
 	////RigidBody2D->SetVelocity({ 0.0f, 0.0f });

@@ -1,5 +1,6 @@
 #include "EnginePCH.h"
 #include "Entity.h"
+#include <EngineCore/EnginePhysics.h>
 
 AEntity::AEntity()
 {
@@ -65,5 +66,10 @@ void AEntity::SetVelocity(FVector2 _Velocity)
 	{
 		Flip();
 	}
+}
+
+bool AEntity::IsGroundDetected()
+{
+	return UEnginePhysics::RayCast(GetLevel(), GetActorLocation() + FVector4(+13.0f, 0.0f, 0.0f), FVector4::DOWN, 29.0f, ECollisionLayer::Ground) || UEnginePhysics::RayCast(GetLevel(), GetActorLocation() + FVector4(-13.0f, 0.0f, 0.0f), FVector4::DOWN, 29.0f, ECollisionLayer::Ground);
 }
 

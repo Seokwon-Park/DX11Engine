@@ -7,6 +7,7 @@ AGroundTilemap::AGroundTilemap()
 	TilemapColliderComponent->SetTilemap(TilemapComponent);
 	TilemapRendererComponent->SetOrder(ESortingLayer::GroundTilemap);
 	TilemapColliderComponent->SetupAttachment(RootComponent);
+	TilemapColliderComponent->SetCollisionLayer(ECollisionLayer::Ground);
 }
 
 AGroundTilemap::~AGroundTilemap()
