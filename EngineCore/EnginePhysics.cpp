@@ -6,7 +6,7 @@ std::map<ECollisionLayer, unsigned long long> UEnginePhysics::CollisionRule;
 
 float RayCastCallback(b2ShapeId shapeId, b2Vec2 point, b2Vec2 normal, float fraction, void* context)
 {
-	RayCastContext* myContext = (RayCastContext*)context;
+	RayCastContext* myContext = reinterpret_cast<RayCastContext*>(context);
 	myContext->shapeId = shapeId;
 	myContext->point = point;
 	myContext->normal = normal;

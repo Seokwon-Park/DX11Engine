@@ -17,7 +17,9 @@ public:
 	PlayerGroundAttackState& operator=(PlayerGroundAttackState&& _Other) noexcept = delete;
 
 protected:
-
+	void Enter() override;
+	void Update() override;
+	void Exit() override;
 private:
 
 };

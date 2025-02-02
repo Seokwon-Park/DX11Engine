@@ -174,5 +174,5 @@ FIntPoint UEngineWindow::GetMousePos()
 	GetCursorPos(&MouseCoord);
 	ScreenToClient(WindowHandle, &MouseCoord);
 
-	return FIntPoint(MouseCoord.x, MouseCoord.y);
+	return FIntPoint((int)MouseCoord.x, (int)MouseCoord.y);
 }

@@ -59,10 +59,10 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 	//std::shared_ptr<UEngineTexture2D> FontAtlas = UResourceManager::Find<UEngineTexture2D>("tevi_n_01.png");
 
 	double x = 0.0;
-	double fsScale = 1.0 / (metrics.ascenderY - metrics.descenderY);
+	float fsScale = static_cast<float>(1.0 / (metrics.ascenderY - metrics.descenderY));
 	double y = 0.0;
 	
-	const float spaceGlyphAdvance = FontGeometry.getGlyph(' ')->getAdvance();
+	const float SpaceGlyphAdvance = static_cast<float>(FontGeometry.getGlyph(' ')->getAdvance());
 
 	for (size_t i = 0; i < Text.size(); i++)
 	{
@@ -79,7 +79,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 
 		if (character == ' ')
 		{
-			float advance = spaceGlyphAdvance;
+			float advance = SpaceGlyphAdvance;
 			if (i < Text.size() - 1)
 			{
 				wchar_t nextCharacter = Text[i + 1];
@@ -94,7 +94,7 @@ void UTextRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 
 		if (character == '\t')
 		{
-			x += 4.0f * (fsScale * spaceGlyphAdvance + TextParam.Kerning);
+			x += 4.0f * (fsScale * SpaceGlyphAdvance + TextParam.Kerning);
 			continue;
 		}
 

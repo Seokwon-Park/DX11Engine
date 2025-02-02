@@ -7,11 +7,18 @@ const FIntPoint FIntPoint::UP = { 0, -1 };
 const FIntPoint FIntPoint::DOWN = { 0, 1 };
 
 FIntPoint::FIntPoint()
-	:FIntPoint(0, 0) {
+	:FIntPoint(0, 0) 
+{
 }
 
 FIntPoint::FIntPoint(int _X, int _Y)
-	:X(_X), Y(_Y) {
+	:X(_X), Y(_Y) 
+{
+}
+
+FIntPoint::FIntPoint(float _X, float _Y)
+	:FIntPoint(static_cast<int>(_X), static_cast<int>(_Y))
+{
 }
 
 FIntPoint FIntPoint::operator+(const FIntPoint& _Other) const

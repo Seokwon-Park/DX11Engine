@@ -37,31 +37,31 @@ public:
 	template<typename GameModeType, typename MainPawnType>
 	void ResetLevel(std::string_view _LevelName)
 	{
-		std::string UpperName = UEngineString::ToUpper(_LevelName);
+		//std::string UpperName = UEngineString::ToUpper(_LevelName);
 
 		// 지금 당장 이녀석을 지우면 안된다.
-		if (CurLevel->GetName() != UpperName)
-		{
-			DestroyLevel(UpperName);
-		}
-		else
-		{
-			Levels.erase(UpperName);
-		}
-		NextLevel = CreateLevel<GameModeType, MainPawnType>(UpperName);
+		//if (CurLevel->GetName() != UpperName)
+		//{
+		//	DestroyLevel(UpperName);
+		//}
+		//else
+		//{
+		//	Levels.erase(UpperName);
+		//}
+		//NextLevel = CreateLevel<GameModeType, MainPawnType>(UpperName);
 	}
 
 	void DestroyLevel(std::string_view _LevelName)
 	{
-		std::string UpperName = UEngineString::ToUpper(_LevelName);
+		//std::string UpperName = UEngineString::ToUpper(_LevelName);
 
-		if (false == Levels.contains(UpperName))
-		{
-			// MSGASSERT("존재하지 않는 레벨을 리셋할수 없습니다." + UpperName);
-			return;
-		}
+		//if (false == Levels.contains(UpperName))
+		//{
+		//	// MSGASSERT("존재하지 않는 레벨을 리셋할수 없습니다." + UpperName);
+		//	return;
+		//}
 
-		Levels.erase(UpperName);
+		//Levels.erase(UpperName);
 	}
 
 

@@ -71,8 +71,8 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineAnimation::CreateAnimation("TeviJump", "Tevi", 20, 24, 0.1f, false);
 	UEngineAnimation::CreateAnimation("TeviAir", "Tevi", 25, 27, 0.1f, false);
 	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
-	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
-	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack2", "Tevi", 25, 27, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack3", "Tevi", 25, 27, 0.1f, false);
 
 	UEnginePhysics::CollisionRule[Player] = Ground;
 	UEnginePhysics::CollisionRule[Ground] = Player;
