@@ -270,9 +270,7 @@ void UTilemapColliderComponent::CreateSlope(std::vector<FVector4> _Points, FTile
 	ChainIds.push_back(myChainId);
 }
 
-void UTilemapColliderComponent::ShapesStartTouching(b2ShapeId _A, b2ShapeId _B)
-{
-}
+
 
 void UTilemapColliderComponent::TickComponent(float _DeltaTime)
 {

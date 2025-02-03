@@ -30,7 +30,6 @@ public:
 	ENGINE_API void UpdateCollider();
 	void CreateSlope(std::vector<FVector4> _Points, FTileData& _Tile);
 
-	void ShapesStartTouching(b2ShapeId _A, b2ShapeId _B);
 protected:
 	void BeginPlay() override;
 	void TickComponent(float _DeltaTime) override;
