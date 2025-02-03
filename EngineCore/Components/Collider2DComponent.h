@@ -25,6 +25,8 @@ public:
 	ENGINE_API inline void SetRigidbody(URigidbody2DComponent* _RigidBody2D) { Rigidbody2D = _RigidBody2D; }
 	ENGINE_API inline void SetRigidbody(std::shared_ptr<URigidbody2DComponent> _RigidBody2D) { Rigidbody2D = _RigidBody2D.get(); }
 
+	ENGINE_API inline void SetTrigger(bool _Value) { IsTrigger = _Value; }
+
 	inline void SetCollisionLayer(ECollisionLayer _Layer) { 
 		Layer = _Layer; 
 		ShapeDef.filter.categoryBits = Layer;
@@ -38,12 +40,15 @@ protected:
 	FVector2 Size = { 0.5f, 0.5f };
 
 	b2BodyId BodyId;
+	b2BodyDef BodyDef;
 	b2ShapeDef ShapeDef;
 
 	float Density = 1.0f;
 	float Friction = 0.5f;
 	float Restitution = 0.0f;
 	float RestitutionThreshold = 0.5f;
+
+	bool IsTrigger = false;
 
 	ECollisionLayer Layer;
 

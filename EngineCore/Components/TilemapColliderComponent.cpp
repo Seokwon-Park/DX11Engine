@@ -40,7 +40,6 @@ void UTilemapColliderComponent::BeginPlay()
 {
 	UCollider2DComponent::BeginPlay();
 
-	b2BodyDef BodyDef = b2DefaultBodyDef();
 	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 
 	UpdateCollider();

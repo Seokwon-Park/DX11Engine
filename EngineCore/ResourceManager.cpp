@@ -39,7 +39,6 @@ void UResourceManager::AddResource(std::shared_ptr<UEngineResource> _Resource, c
 		return;
 	}
 
-
 	_Resource->SetName(UpperName);
 	_Resource->SetPath(_Path);
 	ResourceMap[_Info.data()].insert(std::make_pair(UpperName, _Resource));

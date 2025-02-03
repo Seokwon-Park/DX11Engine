@@ -78,6 +78,8 @@
     <ClCompile Include="GUI\TextAtlasEditorWindow.cpp" />
     <ClCompile Include="TilemapActor.cpp" />
     <ClCompile Include="EnginePhysics.cpp" />
+    <ClCompile Include="Resources\EngineSound.cpp" />
+    <ClCompile Include="Core\EngineAudioSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -170,6 +172,16 @@
     <ClInclude Include="Constants\FontConst.h" />
     <ClInclude Include="TilemapActor.h" />
     <ClInclude Include="EnginePhysics.h" />
+    <ClInclude Include="Resources\EngineSound.h" />
+    <ClInclude Include="Core\EngineAudioSystem.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod.hpp" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod_codec.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod_common.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod_dsp.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod_dsp_effects.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod_errors.h" />
+    <ClInclude Include="ThirdParty\FMOD\include\fmod_output.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">
@@ -201,6 +213,8 @@
     <Library Include="ThirdParty\msdf-atlas-gen\Release\msdf-atlas-gen.lib" />
     <Library Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-core.lib" />
     <Library Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-ext.lib" />
+    <Library Include="ThirdParty\FMOD\bin\Debug\fmodL_vc.lib" />
+    <Library Include="ThirdParty\FMOD\bin\Release\fmod_vc.lib" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\Debug\msdf-atlas-gen.dll" />
@@ -245,5 +259,7 @@
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\msdfgen-ext.dll" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\skia.dll" />
     <CopyFileToFolders Include="ThirdParty\msdf-atlas-gen\msdfgen\Release\zlib1.dll" />
+    <CopyFileToFolders Include="ThirdParty\FMOD\bin\Debug\fmodL.dll" />
+    <CopyFileToFolders Include="ThirdParty\FMOD\bin\Release\fmod.dll" />
   </ItemGroup>
 </Project>

@@ -24,10 +24,8 @@ void UGridRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTime)
 	FMatrix WorldMatrix = GetTransformRef().WorldMatrix;
 	WorldMatrix.MatrixTranspose();
 	VC.World = WorldMatrix;
-	VC.View = _Camera->GetViewMatrix();
-	VC.View.MatrixTranspose();
-	VC.Proj = _Camera->GetProjectionMatrix();
-	VC.Proj.MatrixTranspose();
+	VC.View = _Camera->GetViewMatrixTranspose();
+	VC.Proj = _Camera->GetProjectionMatrixTranspose();
 
 	auto test = FColor(0.0f, 0.0f, 0.0f, 1.0f);
 	GridRenderUnit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VC);

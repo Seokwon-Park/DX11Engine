@@ -47,23 +47,7 @@ void UBoxCollider2DComponent::BeginPlay()
 	ShapeDef.friction = 1.0f;
 	ShapeDef.rollingResistance = 1.0f;
 
-	if (Rigidbody2D != nullptr)
-	{
-		BodyId = Rigidbody2D->GetBodyId();
-		b2CreatePolygonShape(BodyId, &ShapeDef, &dynamicBox);
-	}
-	else
-	{
-		b2BodyDef BodyDef = b2DefaultBodyDef();
-		BodyDef.type = b2_kinematicBody;
-		BodyDef.position = { Parent->GetLocation().X / FMath::BOX2DSCALE, Parent->GetLocation().Y / FMath::BOX2DSCALE };
-		//BodyDef.rotation = b2MakeRot(FMath::DegreeToRadian(10.0f));
-		//Parent->GetTransformRef().Rotation = FVector4(0.0f, 0.0f, FMath::DegreeToRadian(10.0f), 1.0f);
-		//Parent->UpdateTransform();
-		//BodyDef.fixedRotation = true;
-		BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
-		b2CreatePolygonShape(BodyId, &ShapeDef, &dynamicBox);
-	}
+	b2CreatePolygonShape(BodyId, &ShapeDef, &dynamicBox);
 
 	GetOwner()->GetLevel()->PushCollider2D(GetThis<UBoxCollider2DComponent>());
 }

@@ -33,6 +33,7 @@ bool UEnginePhysics::RayCast(ULevel* _Level, FVector4 _Position, FVector4 _Direc
 	b2Vec2 HitPoint = Context.point;
 	b2Vec2 PlayerPoint = PlayerPos;
 	float Dist = b2Distance(HitPoint, PlayerPoint) * FMath::BOX2DSCALE;
+
 	std::cout << Context.shapeId.index1 << '\n';
 	return Dist <= _Distance;
 }
