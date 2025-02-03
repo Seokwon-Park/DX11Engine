@@ -78,7 +78,6 @@ void UTilemapRendererComponent::Render(UCameraComponent* _Camera, float _DeltaTi
 
 		Unit->SetConstantBufferData("WorldViewProjection", EShaderType::VS, VertexConstantData);
 		Unit->SetConstantBufferData("SpriteData", EShaderType::VS, Tile.SpriteRect);
-
 		Unit->SetConstantBufferData("PSColor", EShaderType::PS, FColor(1.0f, 1.0f, 1.0f, 1.0f));
 		//Unit.ConstantBufferLinkData("ResultColor", Tile.ColorData);
 

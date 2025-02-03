@@ -25,7 +25,7 @@ void PlayerGroundState::Update()
 	if (UEngineInputSystem::GetKeyDown(EKey::X))
 	{
 		//Attack
-		// stateMachine.ChangeState(player.primaryAttackState);
+		 StateMachine->ChangeState(Player->AttackState);
 	}
 
 	//if (!player.IsGroundDetected())

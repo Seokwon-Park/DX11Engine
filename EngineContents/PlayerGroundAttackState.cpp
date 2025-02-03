@@ -14,6 +14,13 @@ PlayerGroundAttackState::~PlayerGroundAttackState()
 void PlayerGroundAttackState::Enter()
 {
 	PlayerState::Enter();
+
+	if (ComboCount > 3 || UEngineCore::GetEngineCurrentTime() >= lastTimeAttacked + 1.0f)
+	{
+		ComboCount = 0;
+	}
+
+	Player->GetAnimatorComponent()->SetAnimation(AnimationName+std::to_string(ComboCount));
 	Rigidbody2D->SetZeroGravity();
 }
 
@@ -21,31 +28,20 @@ void PlayerGroundAttackState::Update()
 {
 	PlayerState::Update();
 
-	if (UEngineInputSystem::GetKeyDown(EKey::X))
-	{
-		//Attack
-		// stateMachine.ChangeState(player.primaryAttackState);
-	}
-
 	//if (!player.IsGroundDetected())
 	//{
 	//    stateMachine.ChangeState(player.airState);
 	//}
-
-	if (UEngineInputSystem::GetKeyDown(EKey::C) /* && player.IsGroundDetected()*/)
+	
+	if (TriggerCalled == true)
 	{
-		StateMachine->ChangeState(Player->JumpState);
-		Rigidbody2D->SetGravity(1.0f);
-	}
-
-	if (false == Player->IsGroundDetected())
-	{
-		StateMachine->ChangeState(Player->AirState);
-		Rigidbody2D->SetGravity(1.0f);
+		StateMachine->ChangeState(Player->IdleState);
 	}
 }
 
 void PlayerGroundAttackState::Exit()
 {
 	PlayerState::Exit();
+	ComboCount++;
+	lastTimeAttacked = UEngineCore::GetEngineCurrentTime();
 }

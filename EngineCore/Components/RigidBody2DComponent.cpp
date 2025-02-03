@@ -34,6 +34,9 @@ void URigidbody2DComponent::TickComponent(float _DeltaTime)
 	//std::cout << b2Body_GetPosition(bodyId).y << '\n';
 
 	int bodyContactCapacity = b2Body_GetContactCapacity(BodyId);
+	std::cout << "Contacts - " << bodyContactCapacity << '\n';
+	b2ContactEvents contactEvents = b2World_GetContactEvents(Id);
+	std::cout << "ContactEvents - " << contactEvents.beginCount<< '\n';
 }
 
 void URigidbody2DComponent::BeginPlay()
@@ -42,8 +45,8 @@ void URigidbody2DComponent::BeginPlay()
 	BodyDef.type = b2_dynamicBody;
 	BodyDef.position = { Parent->GetLocation().X / FMath::BOX2DSCALE, Parent->GetLocation().Y / FMath::BOX2DSCALE };
 	BodyDef.fixedRotation = true;
+	BodyDef.userData = GetOwner();
 	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 
 	//std::cout << b2Body_GetPosition(BodyId).x << ',' << b2Body_GetPosition(BodyId).y << '\n';
-
 }

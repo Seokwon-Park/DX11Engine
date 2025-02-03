@@ -8,7 +8,7 @@
 class UEngineTimer
 {
 public:
-	using Clock = std::chrono::high_resolution_clock;
+	using Clock = std::chrono::steady_clock;
 	using TimePoint = std::chrono::time_point<Clock>;
 	using Duration = std::chrono::duration<float>;
 
@@ -26,10 +26,7 @@ public:
 
 	BASE_API inline float GetDeltaTime() const { return DeltaTime; }
 
-	//double GetDoubleDeltaTime()
-	//{
-	//	return DeltaTime;
-	//}
+	BASE_API inline float GetCurTime()  { return std::chrono::duration<float>(Clock::now().time_since_epoch()).count(); }
 
 	BASE_API void TimeReset();
 

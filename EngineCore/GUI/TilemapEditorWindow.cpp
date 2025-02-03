@@ -177,17 +177,20 @@ void UTilemapEditorWindow::OnImGuiRender()
 
 
 	// Enum 값에 대응하는 문자열 배열
-	const char* enumNames[] = { "Quad", "Slope1", "Slope2", "Slope3", "Slope4", "Slope5", "Slope6", "Large"};
+	const char* EnumToString[] = { "Quad", "SlopeA", "SlopeB1", "SlopeB2", "SlopeC1", "SlopeC2", "SlopeC3", "Large", "Destructible"};
 	// 현재 선택된 항목의 인덱스를 가져옵니다.
 
+	// 열거형과 열거형 문자열의 크기가 같아야 함.
+	static_assert(static_cast<int>(ETilePolygon::End) == sizeof(EnumToString)/8);
+
 	// ImGui::Combo를 사용하여 드롭다운 리스트 생성
-	if (ImGui::Combo("Enum Selector", &currentIndex, enumNames, static_cast<int>(ETilePolygon::End))) {
+	if (ImGui::Combo("Enum Selector", &currentIndex, EnumToString, static_cast<int>(ETilePolygon::End))) {
 		// 선택이 변경되면 currentSelection 값을 업데이트
 		EditorSetting.PolygonType = static_cast<ETilePolygon>(currentIndex);
 	}
 
 	//// 현재 선택된 값을 표시
-	ImGui::Text("Current Selection: %s", enumNames[currentIndex]);
+	ImGui::Text("Current Selection: %s", EnumToString[currentIndex]);
 
 	if (true == ImGui::Button("Save"))
 	{

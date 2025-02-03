@@ -31,6 +31,31 @@ void APlayer::BeginPlay()
 	RunState = std::make_shared<PlayerRunState>(this, StateMachine.get(), "TeviRun");
 	JumpState = std::make_shared<PlayerJumpState>(this, StateMachine.get(), "TeviJump");
 	AirState = std::make_shared<PlayerAirState>(this, StateMachine.get(), "TeviAir");
+	AttackState = std::make_shared<PlayerGroundAttackState>(this, StateMachine.get(), "TeviAttack");
+	Animator->SetAnimationEvent("TeviAttack0", 5, std::bind(&PlayerGroundAttackState::AnimationEndTrigger, AttackState));
 
 	StateMachine->InitState(AirState);
+}
+
+void APlayer::AttackTrigger()
+{
+    /*Physics2D.OverlapCircleAll(player.attackCheck.position, player.attackCheckRadius);
+
+    foreach(var hit in colliders)
+    {
+        if (hit.GetComponent<Enemy>() != null)
+        {
+            EnemyStats _target = hit.GetComponent<EnemyStats>();
+
+            if (_target != null)
+                player.stats.DoDamage(_target);
+
+            ItemData_Equipment weaponData = Inventory.Instance.GetEquipment(EquipmentType.Weapon);
+
+            if (weaponData != null)
+            {
+                weaponData.Effect(_target.transform);
+            }
+        }
+    }*/
 }

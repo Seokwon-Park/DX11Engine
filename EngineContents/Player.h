@@ -8,6 +8,7 @@
 #include "PlayerRunState.h"
 #include "PlayerJumpState.h"
 #include "PlayerAirState.h"
+#include "PlayerGroundAttackState.h"
 
 // Ό³Έν :
 class APlayer : public AEntity
@@ -24,13 +25,14 @@ public:
 	APlayer& operator=(APlayer&& _Other) noexcept = delete;
 
 	virtual void Tick(float _DeltaTime) override;
-
+	void AttackTrigger();
 
 	std::shared_ptr<PlayerStateMachine> StateMachine;
 	std::shared_ptr<PlayerIdleState> IdleState;
 	std::shared_ptr<PlayerRunState> RunState;
 	std::shared_ptr<PlayerJumpState> JumpState;
 	std::shared_ptr<PlayerAirState> AirState;
+	std::shared_ptr<PlayerGroundAttackState> AttackState;
 
 	float JumpForce = 5.0f;
 	float MoveSpeed = 3.0f;

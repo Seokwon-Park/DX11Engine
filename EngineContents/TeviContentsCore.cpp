@@ -42,6 +42,7 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	Dir.AppendDirectory("Images/Tevi");
 
 	auto Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
+	Sprite->SetPivot(EPivotType::Center);
 
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/Tevi2");
@@ -50,7 +51,6 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/Tevi3");
 	UEngineSprite::CreateSpriteFromFolder(Dir.ToString());
-
 	Sprite->SetPivot(EPivotType::Center);
 
 	Dir.MoveParentToDirectory("Resources");
@@ -71,8 +71,9 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineAnimation::CreateAnimation("TeviJump", "Tevi", 20, 24, 0.1f, false);
 	UEngineAnimation::CreateAnimation("TeviAir", "Tevi", 25, 27, 0.1f, false);
 	UEngineAnimation::CreateAnimation("TeviAttack", "Tevi", 25, 27, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack0", "Tevi3", 50, 55, 0.1f, false);
+	UEngineAnimation::CreateAnimation("TeviAttack1", "Tevi3", 56, 59, 0.1f, false);
 	UEngineAnimation::CreateAnimation("TeviAttack2", "Tevi", 25, 27, 0.1f, false);
-	UEngineAnimation::CreateAnimation("TeviAttack3", "Tevi", 25, 27, 0.1f, false);
 
 	UEnginePhysics::CollisionRule[Player] = Ground;
 	UEnginePhysics::CollisionRule[Ground] = Player;

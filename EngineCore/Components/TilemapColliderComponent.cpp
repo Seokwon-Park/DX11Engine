@@ -3,6 +3,7 @@
 #include <queue>
 #include <EngineCore/Structures/ShaderBufferDataStructure.h>
 #include <EngineCore/EnginePhysics.h>
+#include <EngineCore/DestructibleTile.h>
 
 UTilemapColliderComponent::UTilemapColliderComponent()
 {
@@ -34,13 +35,9 @@ void UTilemapColliderComponent::DebugRender(UCameraComponent* _Camera, float _De
 	}
 }
 
-
-
 void UTilemapColliderComponent::BeginPlay()
 {
 	UCollider2DComponent::BeginPlay();
-
-	BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 
 	UpdateCollider();
 
@@ -51,8 +48,17 @@ void UTilemapColliderComponent::UpdateCollider()
 {
 	Visit.clear();
 	RenderUnits.clear();
-	std::vector<b2ChainId> DeleteList = ChainIds;
+	for (auto id : ChainIds)
+	{
+		b2DestroyChain(id);
+	}
 	ChainIds.clear();
+
+	for (auto Tile : Destructibles)
+	{
+		Tile->Release();
+	}
+	Destructibles.clear();
 
 	for (int i = 0; i < PolygonCount; i++)
 	{
@@ -79,37 +85,37 @@ void UTilemapColliderComponent::UpdateCollider()
 			dynamicBox = b2MakeBox(HalfWidth, HalfHeight);
 		}
 		break;
-		case ETilePolygon::Slope1:
+		case ETilePolygon::SlopeA:
 		{
 			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
 			break;
 		}
-		case ETilePolygon::Slope2:
+		case ETilePolygon::SlopeB1:
 		{
 			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) ,FVector4(HalfWidth, 0.0f) };
 			break;
 		}
-		case ETilePolygon::Slope3:
+		case ETilePolygon::SlopeB2:
 		{
 			Points = { FVector4(-HalfWidth, 0.0f), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
 			break;
 		}
-		case ETilePolygon::Slope4:
+		case ETilePolygon::SlopeC1:
 		{
 			Points = { FVector4(-HalfWidth, HalfHeight), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight), FVector4(HalfWidth, HalfHeight - (2.0f * HalfHeight / 3.0f)) };
 			break;
 		}
-		case ETilePolygon::Slope5:
+		case ETilePolygon::SlopeC2:
 		{
 			Points = { FVector4(-HalfWidth, HalfHeight - (2.0f * HalfHeight / 3.0f)), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight + (2.0f * HalfHeight / 3.0f)) };
 			break;
 		}
-		case ETilePolygon::Slope6:
+		case ETilePolygon::SlopeC3:
 		{
 			Points = { FVector4(-HalfWidth, -HalfHeight + (2.0f * HalfHeight / 3.0f)), FVector4(-HalfWidth, -HalfHeight), FVector4(HalfWidth, -HalfHeight) };
 			break;
 		}
-		case ETilePolygon::Large:
+		case ETilePolygon::UpperBlock:
 		{
 			dynamicBox = b2MakeBox(HalfWidth * Tile.Multiplier.X, HalfHeight * Tile.Multiplier.Y);
 			b2Vec2 P1 = dynamicBox.vertices[2];
@@ -126,23 +132,28 @@ void UTilemapColliderComponent::UpdateCollider()
 			points.push_back(P2);
 			points.push_back(P2);
 
-			b2ChainDef chainDef = b2DefaultChainDef();
-			chainDef.points = points.data();
-			chainDef.count = static_cast<int32_t>(points.size());
-			chainDef.friction = 0.0f;
-			chainDef.filter.categoryBits = Layer;
-			chainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
+			b2ChainDef ChainDef = b2DefaultChainDef();
+			ChainDef.points = points.data();
+			ChainDef.count = static_cast<int32_t>(points.size());
+			ChainDef.friction = 0.0f;
+			ChainDef.filter.categoryBits = Layer;
+			ChainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
 
 
-			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
+			b2ChainId myChainId = b2CreateChain(BodyId, &ChainDef);
 			ChainIds.push_back(myChainId);
 			break;
+		}
+		case ETilePolygon::Destructible:
+		{
+			auto Tile = std::make_shared<ADestructibleTile>(ConvertPos, GetOwner()->GetLevel());
+			Destructibles.push_back(Tile);
 		}
 		default:
 			break;
 		}
 
-		if (ETilePolygon::Default != Tile.PolygonType && ETilePolygon::Large != Tile.PolygonType)
+		if (ETilePolygon::Default < Tile.PolygonType && ETilePolygon::UpperBlock > Tile.PolygonType)
 		{
 			CreateSlope(Points, Tile);
 		}
@@ -200,23 +211,18 @@ void UTilemapColliderComponent::UpdateCollider()
 
 			b2ChainDef Def = b2DefaultChainDef();
 
-			b2ChainDef chainDef = b2DefaultChainDef();
-			chainDef.points = points.data();
-			chainDef.count = static_cast<int32_t>(points.size());
-			chainDef.friction = 1.0f;
-			chainDef.filter.categoryBits = Layer;
-			chainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
+			b2ChainDef ChainDef = b2DefaultChainDef();
+			ChainDef.points = points.data();
+			ChainDef.count = static_cast<int32_t>(points.size());
+			ChainDef.friction = 1.0f;
+			ChainDef.filter.categoryBits = Layer;
+			ChainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
 
-			b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
+			b2ChainId myChainId = b2CreateChain(BodyId, &ChainDef);
 			ChainIds.push_back(myChainId);
 
 			PolygonCount++;
 		}
-	}
-
-	for (auto id : DeleteList)
-	{
-		b2DestroyChain(id);
 	}
 }
 
@@ -258,17 +264,37 @@ void UTilemapColliderComponent::CreateSlope(std::vector<FVector4> _Points, FTile
 	chainDef.friction = 0.0f;
 	chainDef.filter.categoryBits = Layer;
 	chainDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
+	chainDef.userData = this;
 
 	b2ChainId myChainId = b2CreateChain(BodyId, &chainDef);
 	ChainIds.push_back(myChainId);
 }
 
+void UTilemapColliderComponent::ShapesStartTouching(b2ShapeId _A, b2ShapeId _B)
+{
+}
+
 void UTilemapColliderComponent::TickComponent(float _DeltaTime)
 {
 	UCollider2DComponent::TickComponent(_DeltaTime);
+
+	auto itr = Destructibles.begin();
+	auto End = Destructibles.end();
+	for (;itr != End;)
+	{
+		if ((*itr)->CheckPlayer() == true)
+		{
+			(*itr)->Release();
+			TilemapComponent->RemoveTile({ (*itr)->GetPos().X,(*itr)->GetPos().Y });
+			itr = Destructibles.erase(itr);
+			break;
+		}
+		else
+		{
+			itr++;
+		}
+	}
 }
-
-
 
 void UTilemapColliderComponent::TileBFS(FTileIndex _Index)
 {

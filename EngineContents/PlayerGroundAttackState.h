@@ -21,6 +21,9 @@ protected:
 	void Update() override;
 	void Exit() override;
 private:
+	int ComboCount = 0;
 
+	float lastTimeAttacked;
+	float comboWindow = 0.3f;
 };
 

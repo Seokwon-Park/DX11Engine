@@ -22,7 +22,6 @@ void PlayerJumpState::Update()
 {
 	PlayerState::Update();
 
-
 	Player->SetVelocity({ XInput * Player->MoveSpeed , Rigidbody2D->GetVelocity().Y });
 
 	//	//EngineLogger::Test<int>();

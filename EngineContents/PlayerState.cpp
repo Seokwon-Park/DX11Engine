@@ -19,6 +19,7 @@ void PlayerState::Enter()
 {
 	Player->GetAnimatorComponent()->SetAnimation(AnimationName);
 	Rigidbody2D = Player->GetRigidbody2DComponent();
+	TriggerCalled = false;
 }
 
 void PlayerState::Update()

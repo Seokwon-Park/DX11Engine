@@ -4,8 +4,8 @@
 
 struct FEdge
 {
-	std::pair<int,int> A;
-	std::pair<int,int> B;
+	std::pair<int, int> A;
+	std::pair<int, int> B;
 };
 
 
@@ -29,6 +29,8 @@ public:
 	ENGINE_API virtual void DebugRender(class UCameraComponent* _Camera, float _DeltaTime)override;
 	ENGINE_API void UpdateCollider();
 	void CreateSlope(std::vector<FVector4> _Points, FTileData& _Tile);
+
+	void ShapesStartTouching(b2ShapeId _A, b2ShapeId _B);
 protected:
 	void BeginPlay() override;
 	void TickComponent(float _DeltaTime) override;
@@ -48,6 +50,7 @@ private:
 	b2Polygon dynamicBox;
 	std::vector<b2ChainId> ChainIds;
 	std::vector<b2BodyId> BodyIds;
+	std::list<std::shared_ptr<class ADestructibleTile>> Destructibles;
 
 	std::vector<std::shared_ptr<URenderUnit>> RenderUnits;
 

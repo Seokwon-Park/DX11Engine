@@ -18,6 +18,7 @@ void UCollider2DComponent::BeginPlay()
 	ShapeDef = b2DefaultShapeDef();
 	// 내 레이어
 	ShapeDef.isSensor = IsTrigger;
+	ShapeDef.enableContactEvents = true;
 	ShapeDef.filter.categoryBits = Layer;
 	// 내가 충돌하면 부딪혀야 되는 애들 비트마스킹
 	ShapeDef.filter.maskBits = UEnginePhysics::CollisionRule[Layer];
@@ -25,6 +26,7 @@ void UCollider2DComponent::BeginPlay()
 	if (Rigidbody2D != nullptr)
 	{
 		BodyId = Rigidbody2D->GetBodyId();
+		ShapeDef.userData = b2Body_GetUserData(BodyId);
 	}
 	else
 	{
@@ -32,6 +34,7 @@ void UCollider2DComponent::BeginPlay()
 		BodyDef.position = { Parent->GetLocation().X / FMath::BOX2DSCALE, Parent->GetLocation().Y / FMath::BOX2DSCALE };
 		BodyDef.userData = GetOwner();
 		BodyDef.fixedRotation = true;
+		
 		BodyId = b2CreateBody(GetOwner()->GetLevel()->GetPhysicsWorld(), &BodyDef);
 	}
 }

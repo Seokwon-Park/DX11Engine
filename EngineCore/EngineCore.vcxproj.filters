@@ -80,6 +80,7 @@
     <ClCompile Include="EnginePhysics.cpp" />
     <ClCompile Include="Resources\EngineSound.cpp" />
     <ClCompile Include="Core\EngineAudioSystem.cpp" />
+    <ClCompile Include="DestructibleTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineCore.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="ThirdParty\FMOD\include\fmod_dsp_effects.h" />
     <ClInclude Include="ThirdParty\FMOD\include\fmod_errors.h" />
     <ClInclude Include="ThirdParty\FMOD\include\fmod_output.h" />
+    <ClInclude Include="DestructibleTile.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Components">

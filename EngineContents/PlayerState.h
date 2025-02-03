@@ -19,7 +19,10 @@ public:
 	virtual void Update() override;
 	virtual void Exit() override;
 
+	void AnimationEndTrigger() { TriggerCalled = true; }
+
 protected:
+	bool TriggerCalled = false;
 	class APlayer* Player;
 	std::string AnimationName;
 	class URigidbody2DComponent* Rigidbody2D;

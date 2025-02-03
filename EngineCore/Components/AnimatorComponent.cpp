@@ -38,21 +38,21 @@ void UAnimatorComponent::SetAnimationEvent(std::string_view _AnimationName, int 
 {
 	std::string UpperName = UEngineString::ToUpper(_AnimationName);
 
-	//if (false == Animations.contains(UpperName))
-	//{
-	//	MSGASSERT("존재하지 않는 애니메이션 이름입니다.");
-	//	return;
-	//}
+	if (false == UResourceManager::IsExist<UEngineAnimation>(UpperName))
+	{
+		MSGASSERT("존재하지 않는 애니메이션 이름입니다.");
+		return;
+	}
 
-	//UEngineAnimation* TargetAnimation = &Animations[UpperName];
+	std::shared_ptr<UEngineAnimation> TargetAnimation = UResourceManager::Find<UEngineAnimation>(UpperName);
 
-	/*if (_Frame >= TargetAnimation->FrameIndices.size())
+	if (_Frame >= TargetAnimation->FrameIndices.size())
 	{
 		MSGASSERT("_Frame이 애니메이션의 최대 프레임 수를 초과합니다.");
 		return;
-	}*/
+	}
 
-	//TargetAnimation->Events[_Frame] += _Function;
+	TargetAnimation->FrameEvents[_Frame] += _Function;
 }
 
 void UAnimatorComponent::BeginPlay()

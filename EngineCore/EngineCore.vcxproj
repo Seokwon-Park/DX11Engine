@@ -198,6 +198,10 @@
     </ClInclude>
     <ClInclude Include="Constants\FontConst.h" />
     <ClInclude Include="Core\EngineAudioSystem.h" />
+    <ClInclude Include="DestructibleTile.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EnginePhysics.h">
       <SubType>
       </SubType>
@@ -467,6 +471,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Core\EngineAudioSystem.cpp" />
+    <ClCompile Include="DestructibleTile.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="EnginePhysics.cpp">
       <SubType>
       </SubType>

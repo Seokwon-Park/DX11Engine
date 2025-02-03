@@ -37,7 +37,7 @@ void ATilemapEditorGameMode::BeginPlay()
 	Window->AddTilemapList(GroundTilemap);
 	Window->AddTilemapList(BackgroundTilemap);
 	GetLevel()->AddGuiWindow(Window);
-	GetLevel()->SpawnActor<AGridActor>();
+	GetLevel()->SpawnActor<AGridActor>("Grid");
 }
 
 void ATilemapEditorGameMode::Tick(float _DeltaTime)

@@ -32,5 +32,6 @@ void UEngineTimer::TimeCheck()
 {
 	CurrentTime = Clock::now();
 	DeltaTime = std::chrono::duration_cast<Duration>(CurrentTime - PrevTime).count();
+
 	PrevTime = CurrentTime;
 }
