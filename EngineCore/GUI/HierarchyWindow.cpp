@@ -147,25 +147,54 @@ void UHierarchyWindow::DrawComponents(std::shared_ptr<class AActor>& _Actor)
 	GetAllSceneComponent(RootComponent, SceneComponentList);
 	for (auto Component : SceneComponentList)
 	{
-		DrawComponent<USceneComponent>(Component, [=](auto& _Component)
-			{
-				DrawVec3Control("Translation", _Component->GetTransformRef().Location);
-				FVector4 Rotation = FMath::RadianToDegree(_Component->GetTransformRef().Rotation);
-				DrawVec3Control("Rotation", Rotation);
-				_Component->GetTransformRef().Rotation = FMath::DegreeToRadian(Rotation);
-				DrawVec3Control("Scale", _Component->GetTransformRef().Scale, 1.0f);
-				_Component->UpdateTransform();
-			});
+		if (Component->GetName() == "SceneComponent")
+		{
+			DrawComponent<USceneComponent>(Component, [=](auto& _Component)
+				{
+					DrawVec3Control("Translation", _Component->GetTransformRef().Location);
+					FVector4 Rotation = FMath::RadianToDegree(_Component->GetTransformRef().Rotation);
+					DrawVec3Control("Rotation", Rotation);
+					_Component->GetTransformRef().Rotation = FMath::DegreeToRadian(Rotation);
+					DrawVec3Control("Scale", _Component->GetTransformRef().Scale, 1.0f);
+					_Component->UpdateTransform();
+				});
+		}
+
+		if (Component->GetName() == "CameraComponent")
+		{
+			DrawComponent<UCameraComponent>(std::static_pointer_cast<UCameraComponent>(Component), [=](auto& _Component)
+				{
+					DrawVec3Control("Translation", _Component->GetTransformRef().Location);
+					FVector4 Rotation = FMath::RadianToDegree(_Component->GetTransformRef().Rotation);
+					DrawVec3Control("Rotation", Rotation);
+					_Component->GetTransformRef().Rotation = FMath::DegreeToRadian(Rotation);
+					DrawVec3Control("Scale", _Component->GetTransformRef().Scale, 1.0f);
+					_Component->UpdateTransform();
+					ImGui::RadioButton("IsPerspective", false);
+				});
+		}
+		if (Component->GetName() == "SpriteRendererComponent")
+		{
+			DrawComponent<UCameraComponent>(std::static_pointer_cast<UCameraComponent>(Component), [=](auto& _Component)
+				{
+					DrawVec3Control("Translation", _Component->GetTransformRef().Location);
+					FVector4 Rotation = FMath::RadianToDegree(_Component->GetTransformRef().Rotation);
+					DrawVec3Control("Rotation", Rotation);
+					_Component->GetTransformRef().Rotation = FMath::DegreeToRadian(Rotation);
+					DrawVec3Control("Scale", _Component->GetTransformRef().Scale, 1.0f);
+					_Component->UpdateTransform();
+				});
+		}
 	}
 
 	for (auto Component : _Actor->ActorComponentList)
 	{
 		if (Component->GetName() == "AnimatorComponent")
 		{
-			/*DrawComponent<UAnimatorComponent>(Component, [=](auto& _Component)
+			DrawComponent<UAnimatorComponent>(std::static_pointer_cast<UAnimatorComponent>(Component), [=](auto& _Component) 
 				{
-					ImGui::Text("Test");
-				});*/
+
+				});
 		}
 	}
 

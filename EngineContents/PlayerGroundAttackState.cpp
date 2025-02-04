@@ -25,6 +25,15 @@ void PlayerGroundAttackState::Enter()
 	Rigidbody2D->SetZeroGravity();
 	auto AttackEffect = Player->GetLevel()->SpawnActor<AAttackEffect>("AttackEffect");
 	AttackEffect->SetActorLocation(Player->GetActorLocation());
+	
+	if (Player->FacingDir == 1)
+	{
+		AttackEffect->SetActorRotation({ 0.0f, 180.0f,0.0f, 0.0f });
+	}
+	else
+	{
+		AttackEffect->SetActorRotation({ 0.0f, 0.0f,0.0f, 0.0f });
+	}
 	AttackEffect->SetupEffect("TeviGroundAttackEffect" + std::to_string(ComboCount));
 
 }

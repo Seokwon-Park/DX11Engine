@@ -33,10 +33,10 @@ void URigidbody2DComponent::TickComponent(float _DeltaTime)
 	b2Rot rotation = b2Body_GetRotation(BodyId);
 	//std::cout << b2Body_GetPosition(bodyId).y << '\n';
 
-	int bodyContactCapacity = b2Body_GetContactCapacity(BodyId);
-	std::cout << "Contacts - " << bodyContactCapacity << '\n';
-	b2ContactEvents contactEvents = b2World_GetContactEvents(Id);
-	std::cout << "ContactEvents - " << contactEvents.beginCount<< '\n';
+	//int bodyContactCapacity = b2Body_GetContactCapacity(BodyId);
+	//std::cout << "Contacts - " << bodyContactCapacity << '\n';
+	//b2ContactEvents contactEvents = b2World_GetContactEvents(Id);
+	//std::cout << "ContactEvents - " << contactEvents.beginCount<< '\n';
 }
 
 void URigidbody2DComponent::BeginPlay()

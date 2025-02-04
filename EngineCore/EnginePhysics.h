@@ -29,6 +29,8 @@ public:
 
 	ENGINE_API static bool RayCast(class ULevel* _Level, FVector4 _Position, FVector4 _Direction, float _Distance, ECollisionLayer _Layer);
 
+
+	static bool CircleCollider();
 	//b2Shape_GetBody(ShapeId);
 
 

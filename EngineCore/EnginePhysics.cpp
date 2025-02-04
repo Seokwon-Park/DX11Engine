@@ -37,3 +37,8 @@ bool UEnginePhysics::RayCast(ULevel* _Level, FVector4 _Position, FVector4 _Direc
 	//std::cout << Context.shapeId.index1 << '\n';
 	return Dist <= _Distance;
 }
+
+bool UEnginePhysics::CircleCollider()
+{
+	b2World_OverlapCircle()
+}

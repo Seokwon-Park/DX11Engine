@@ -74,9 +74,9 @@ void UEngineFont::CreateFontAtlasImage(UEngineFile _Path)
 		{
 			Ranges = {
 		{ 32, 126},
-		//{ 8200, 9900},
-		//{ 12593, 12643},
-		//{ 44032, 55203 }
+		{ 8200, 9900},
+		{ 12593, 12643},
+		{ 44032, 55203 }
 			};
 
 			//Ranges = { { 32, 126} };
@@ -154,7 +154,7 @@ FIntPoint UEngineFont::CalculateFontGeometry()
 	FontatlasPacker.setDimensionsConstraint(msdf_atlas::DimensionsConstraint::SQUARE);
 	FontatlasPacker.setPixelRange(2.0);
 	FontatlasPacker.setMiterLimit(2.0);
-	FontatlasPacker.setScale(40.0);
+	FontatlasPacker.setScale(20.0);
 	FontatlasPacker.pack(Data->Glyphs.data(), (int)Data->Glyphs.size());
 	// Get final atlas dimensions
 	int Width = 0, Height = 0;

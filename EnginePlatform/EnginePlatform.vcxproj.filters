@@ -7,6 +7,7 @@
     <ClInclude Include="KeyCode.h" />
     <ClInclude Include="EngineKey.h" />
     <ClInclude Include="EngineThread.h" />
+    <ClInclude Include="EngineThreadPool.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EngineWindow.cpp" />
@@ -14,5 +15,6 @@
     <ClCompile Include="EngineInputSystem.cpp" />
     <ClCompile Include="EngineKey.cpp" />
     <ClCompile Include="EngineThread.cpp" />
+    <ClCompile Include="EngineThreadPool.cpp" />
   </ItemGroup>
 </Project>
