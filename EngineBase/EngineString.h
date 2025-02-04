@@ -17,7 +17,6 @@ public:
 
 	BASE_API static std::wstring ToWideString(std::string_view _String);
 
-	BASE_API static int ExtractNumber(const std::string& _String, std::string_view _Pattern);
 
 private:
 	UEngineString();

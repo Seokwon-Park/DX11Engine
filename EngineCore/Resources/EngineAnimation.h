@@ -30,6 +30,8 @@ public:
 	ENGINE_API static void CreateAnimation(std::string_view _AnimationName, std::string_view _SpriteName,
 		std::vector<int> _FrameIndices, std::vector<float> _FrameIntervals, bool _IsLoop = true);
 
+	int LastFrame() { return (int)FrameIndices.size() - 1; };
+
 	UEngineSprite* Sprite = nullptr;
 
 	int CurIndex = 0;

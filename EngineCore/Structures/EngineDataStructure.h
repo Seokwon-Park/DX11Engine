@@ -33,9 +33,9 @@ struct FTileIndex
 
 struct FTileData
 {
+	int RotatedCount = 0;
 	bool IsBlock = false;
 	bool IsFlip = false;
-	int RotatedCount = 0;
 	FIntPoint Multiplier = { 1,1 };
 	size_t SpriteIndex = 0;
 	ETilePolygon PolygonType = ETilePolygon::Default;

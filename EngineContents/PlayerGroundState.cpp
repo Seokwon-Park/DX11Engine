@@ -33,7 +33,7 @@ void PlayerGroundState::Update()
 	//    stateMachine.ChangeState(player.airState);
 	//}
 
-	if (UEngineInputSystem::GetKeyDown(EKey::C) /* && player.IsGroundDetected()*/)
+	if (UEngineInputSystem::GetKeyDown(EKey::C) && Player->IsGroundDetected())
 	{
 		StateMachine->ChangeState(Player->JumpState);
 		Rigidbody2D->SetGravity(1.0f);

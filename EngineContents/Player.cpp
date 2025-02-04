@@ -32,7 +32,10 @@ void APlayer::BeginPlay()
 	JumpState = std::make_shared<PlayerJumpState>(this, StateMachine.get(), "TeviJump");
 	AirState = std::make_shared<PlayerAirState>(this, StateMachine.get(), "TeviAir");
 	AttackState = std::make_shared<PlayerGroundAttackState>(this, StateMachine.get(), "TeviAttack");
-	Animator->SetAnimationEvent("TeviAttack0", 5, std::bind(&PlayerGroundAttackState::AnimationEndTrigger, AttackState));
+	Animator->SetAnimationEndEvent("TeviAttack0",  std::bind(&PlayerGroundAttackState::AnimationEndTrigger, AttackState));
+	Animator->SetAnimationEndEvent("TeviAttack1", std::bind(&PlayerGroundAttackState::AnimationEndTrigger, AttackState));
+	Animator->SetAnimationEndEvent("TeviAttack2", std::bind(&PlayerGroundAttackState::AnimationEndTrigger, AttackState));
+	Animator->SetAnimationEndEvent("TeviAttack3", std::bind(&PlayerGroundAttackState::AnimationEndTrigger, AttackState));
 
 	StateMachine->InitState(AirState);
 }

@@ -1,6 +1,7 @@
 #include "EnginePCH.h"
 #include "PlayerGroundAttackState.h"
 #include "Player.h"
+#include"AttackEffect.h"
 
 PlayerGroundAttackState::PlayerGroundAttackState(APlayer* _Player, BaseStateMachine* _StateMachine, std::string_view _AnimationName)
 	:PlayerGroundState(_Player, _StateMachine, _AnimationName)
@@ -15,13 +16,17 @@ void PlayerGroundAttackState::Enter()
 {
 	PlayerState::Enter();
 
-	if (ComboCount > 3 || UEngineCore::GetEngineCurrentTime() >= lastTimeAttacked + 1.0f)
+	if (ComboCount > 3 || UEngineCore::GetEngineCurrentTime() >= lastTimeAttacked + 0.5f)
 	{
 		ComboCount = 0;
 	}
 
 	Player->GetAnimatorComponent()->SetAnimation(AnimationName+std::to_string(ComboCount));
 	Rigidbody2D->SetZeroGravity();
+	auto AttackEffect = Player->GetLevel()->SpawnActor<AAttackEffect>("AttackEffect");
+	AttackEffect->SetActorLocation(Player->GetActorLocation());
+	AttackEffect->SetupEffect("TeviGroundAttackEffect" + std::to_string(ComboCount));
+
 }
 
 void PlayerGroundAttackState::Update()
@@ -35,7 +40,14 @@ void PlayerGroundAttackState::Update()
 	
 	if (TriggerCalled == true)
 	{
-		StateMachine->ChangeState(Player->IdleState);
+		if (UEngineInputSystem::GetKey(EKey::X))
+		{
+			StateMachine->ChangeState(Player->AttackState);
+		}
+		else
+		{
+			StateMachine->ChangeState(Player->IdleState);
+		}
 	}
 }
 

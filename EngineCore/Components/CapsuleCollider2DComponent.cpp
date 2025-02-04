@@ -27,7 +27,7 @@ void UCapsuleCollider2DComponent::BeginPlay()
 	CapsuleShape.radius = Radius;
 
 	ShapeDef.density = 1.0f;
-	ShapeDef.friction = 1.0f;
+	ShapeDef.friction = 0.0f;
 	ShapeDef.rollingResistance = 1.0f;
 
 	//내 레이어

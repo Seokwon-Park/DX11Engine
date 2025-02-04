@@ -60,6 +60,12 @@
     <ClCompile Include="PlayerGroundAttackState.cpp">
       <Filter>Player\PlayerState</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAirAttackState.cpp">
+      <Filter>Player\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackEffect.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TeviContentsCore.h" />
@@ -123,6 +129,12 @@
     </ClInclude>
     <ClInclude Include="PlayerGroundAttackState.h">
       <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAirAttackState.h">
+      <Filter>Player\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackEffect.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

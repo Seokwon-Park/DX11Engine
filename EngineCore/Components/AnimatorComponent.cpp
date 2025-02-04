@@ -55,6 +55,40 @@ void UAnimatorComponent::SetAnimationEvent(std::string_view _AnimationName, int 
 	TargetAnimation->FrameEvents[_Frame] += _Function;
 }
 
+void UAnimatorComponent::SetAnimationEndEvent(std::string_view _AnimationName, std::function<void()> _Function)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == UResourceManager::IsExist<UEngineAnimation>(UpperName))
+	{
+		MSGASSERT("존재하지 않는 애니메이션 이름입니다.");
+		return;
+	}
+
+	SetAnimationEvent(_AnimationName, UResourceManager::Find<UEngineAnimation>(UpperName)->LastFrame(), _Function);
+}
+
+ void UAnimatorComponent::RemoveAnimationEvent(std::string_view _AnimationName, int _Frame)
+{
+	std::string UpperName = UEngineString::ToUpper(_AnimationName);
+
+	if (false == UResourceManager::IsExist<UEngineAnimation>(UpperName))
+	{
+		MSGASSERT("존재하지 않는 애니메이션 이름입니다.");
+		return;
+	}
+
+	std::shared_ptr<UEngineAnimation> TargetAnimation = UResourceManager::Find<UEngineAnimation>(UpperName);
+
+	if (_Frame >= TargetAnimation->FrameIndices.size())
+	{
+		MSGASSERT("_Frame이 애니메이션의 최대 프레임 수를 초과합니다.");
+		return;
+	}
+
+	TargetAnimation->FrameEvents[_Frame].Clear();
+}
+
 void UAnimatorComponent::BeginPlay()
 {
 }

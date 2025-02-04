@@ -183,6 +183,14 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="AttackEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerAirAttackState.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PlayerAirState.cpp">
       <SubType>
       </SubType>
@@ -275,6 +283,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GroundTilemap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="AttackEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerAirAttackState.h">
       <SubType>
       </SubType>
     </ClInclude>

@@ -10,7 +10,7 @@
 ATilemapEditorGameMode::ATilemapEditorGameMode()
 {
 	Tr = CreateDefaultSubobject<UTextRendererComponent>();
-	//Tr->SetupAttachment(RootComponent);
+	Tr->SetupAttachment(RootComponent);
 
 
 }

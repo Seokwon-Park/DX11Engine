@@ -22,6 +22,7 @@ protected:
 	void Exit() override;
 private:
 	int ComboCount = 0;
+	bool IsPressed = false;
 
 	float lastTimeAttacked;
 	float comboWindow = 0.3f;

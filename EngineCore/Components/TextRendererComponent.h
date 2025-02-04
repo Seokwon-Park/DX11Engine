@@ -4,7 +4,7 @@
 
 struct TextParams
 {
-	FColor Color = FColor(1.0f, 1.0f, 0.0f, 1.0f); // 텍스트 색상 (RGBA)
+	FColor Color = FColor(0.0f, 0.0f, 0.0f, 1.0f); // 텍스트 색상 (RGBA)
 	float Kerning = 0.0f;    // 글자 간 간격
 	float LineSpacing = 0.0f; // 줄 간 간격
 };

@@ -74,9 +74,9 @@ void UEngineFont::CreateFontAtlasImage(UEngineFile _Path)
 		{
 			Ranges = {
 		{ 32, 126},
-		{ 8200, 9900},
-		{ 12593, 12643},
-		{ 44032, 55203 }
+		//{ 8200, 9900},
+		//{ 12593, 12643},
+		//{ 44032, 55203 }
 			};
 
 			//Ranges = { { 32, 126} };
@@ -175,7 +175,7 @@ FIntPoint UEngineFont::CalculateFontGeometry()
 				unsigned long long GlyphSeed = (LCG_MULTIPLIER * (ColoringSeed ^ i) + LCG_INCREMENT) * !!ColoringSeed;
 				glyphs[i].edgeColoring(msdfgen::edgeColoringInkTrap, DEFAULT_ANGLE_THRESHOLD, GlyphSeed);
 				return true;
-			}, Data->Glyphs.size()).finish(THREAD_COUNT);
+			}, (int)Data->Glyphs.size()).finish(THREAD_COUNT);
 	}
 	else {
 		unsigned long long GlyphSeed = ColoringSeed;
