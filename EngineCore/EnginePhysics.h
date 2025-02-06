@@ -2,6 +2,7 @@
 #include <EngineBase/EngineMath.h>
 #include <EngineCore/Enums/EngineLayer.h>
 #include <EngineCore/ThirdParty/Box2D/include/box2d.h>
+#include <EngineCore/Components/Collider2DComponent.h>
 
 struct RayCastContext
 {
@@ -27,13 +28,14 @@ public:
 	UEnginePhysics& operator=(const UEnginePhysics& _Other) = delete;
 	UEnginePhysics& operator=(UEnginePhysics&& _Other) noexcept = delete;
 
-	ENGINE_API static bool RayCast(class ULevel* _Level, FVector4 _Position, FVector4 _Direction, float _Distance, ECollisionLayer _Layer);
+	ENGINE_API static bool RayCast(FVector4 _Position, FVector4 _Direction, float _Distance, ECollisionLayer _Layer);
 
 
-	static bool CircleCollider();
+	ENGINE_API static std::vector<UCollider2DComponent> CircleCollider(FVector4 _Position, float _Radius, ECollisionLayer _Layer);
 	//b2Shape_GetBody(ShapeId);
 
 
+	static class ULevel* CurLevel;
 
 	ENGINE_API static std::map<ECollisionLayer, unsigned long long> CollisionRule;
 protected:

@@ -8,6 +8,7 @@
 #include "StateManager.h"
 #include "EngineDeviceContext.h"
 #include "GUI/ImGuiLayer.h"
+#include "EnginePhysics.h"
 
 #define _CRTDBG_MAP_ALLOC
 #include <cstdlib>
@@ -127,7 +128,7 @@ void UEngineCore::EngineStart(HINSTANCE _Instance, std::string_view _DllName)
 {
 
 	//메모리 누수 Check
-	UEngineDebug::LeakCheck();
+	//UEngineDebug::LeakCheck();
 	//_CrtSetBreakAlloc(178);
 
 	//윈도우 초기화 
@@ -201,6 +202,7 @@ void UEngineCore::CheckLevelChange()
 		}
 
 		CurLevel = NextLevel;
+		UEnginePhysics::CurLevel = NextLevel.get();
 
 		//CurLevel->LevelChangeStart();
 		NextLevel = nullptr;
