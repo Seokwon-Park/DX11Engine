@@ -23,6 +23,7 @@ float OverlapCallback(b2ShapeId shapeId, void* context)
 	//myContext->normal = normal;
 	//myContext->fraction = fraction;
 	//return fraction;
+	return 0.0f;
 }
 
 UEnginePhysics::UEnginePhysics()
