@@ -40,12 +40,12 @@ void UTeviContentsCore::EngineStart(UEngineInitData& _Data)
 	UEngineDirectory Dir;
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/Tevi");
-	auto Sprite = UEngineSprite::CreateSpriteFromFolderSorted(Dir.ToString(), std::regex(R"(([a-zA-Z]+)(\d*)_n_(\d+).png)"));
+	auto Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString(), std::regex(R"(([a-zA-Z]+)(\d*)_n_(\d+).png)"));
 	Sprite->SetPivot(EPivotType::Center);
 
 	Dir.MoveParentToDirectory("Resources");
 	Dir.AppendDirectory("Images/TeviEffect");
-	Sprite = UEngineSprite::CreateSpriteFromFolderSorted(Dir.ToString(), std::regex(R"(([a-zA-Z]+)(\d*)_e_(\d+).png)"));
+	Sprite = UEngineSprite::CreateSpriteFromFolder(Dir.ToString(), std::regex(R"(([a-zA-Z]+)(\d*)_e_(\d+).png)"));
 	Sprite->SetPivot(EPivotType::Center);
 
 	Dir.MoveParentToDirectory("Resources");

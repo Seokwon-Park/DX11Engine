@@ -99,7 +99,7 @@ void UEngineDeviceContext::CreateBackBuffer(const UEngineWindow& _Window)
 	SwapChinDesc.Windowed = true;
 	
 	SwapChinDesc.BufferDesc.RefreshRate.Denominator = 1;
-	SwapChinDesc.BufferDesc.RefreshRate.Numerator = 60;
+	SwapChinDesc.BufferDesc.RefreshRate.Numerator = 1000;
 	
 	SwapChinDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	SwapChinDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;

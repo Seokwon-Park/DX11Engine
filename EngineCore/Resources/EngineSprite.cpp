@@ -80,7 +80,7 @@ ENGINE_API std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(
 	return NewSprite;
 }
 
-std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolderSorted(std::string_view _Path, std::regex _Pattern)
+std::shared_ptr<UEngineSprite> UEngineSprite::CreateSpriteFromFolder(std::string_view _Path, std::regex _Pattern)
 {
 	UEngineDirectory Dir = _Path;
 

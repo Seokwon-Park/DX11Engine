@@ -38,7 +38,7 @@ public:
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSprite(std::shared_ptr<UEngineTexture2D> _Texture);
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Path);
 	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder(std::string_view _Name, std::string_view _Path);
-	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolderSorted( std::string_view _Path, std::regex _Pattern);
+	ENGINE_API static std::shared_ptr<UEngineSprite> CreateSpriteFromFolder( std::string_view _Path, std::regex _Pattern);
 	
 	ENGINE_API void SetPivot(EPivotType _Pivot);
 	ENGINE_API void SetPivot(FVector2 _Pos);

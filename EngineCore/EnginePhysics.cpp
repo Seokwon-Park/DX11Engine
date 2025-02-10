@@ -17,12 +17,12 @@ float RayCastCallback(b2ShapeId shapeId, b2Vec2 point, b2Vec2 normal, float frac
 
 float OverlapCallback(b2ShapeId shapeId, void* context)
 {
-	RayCastContext* myContext = reinterpret_cast<RayCastContext*>(context);
-	myContext->shapeId = shapeId;
-	myContext->point = point;
-	myContext->normal = normal;
-	myContext->fraction = fraction;
-	return fraction;
+	//RayCastContext* myContext = reinterpret_cast<RayCastContext*>(context);
+	//myContext->shapeId = shapeId;
+	//myContext->point = point;
+	//myContext->normal = normal;
+	//myContext->fraction = fraction;
+	//return fraction;
 }
 
 UEnginePhysics::UEnginePhysics()
@@ -51,10 +51,10 @@ bool UEnginePhysics::RayCast(FVector4 _Position, FVector4 _Direction, float _Dis
 
 std::vector<UCollider2DComponent> UEnginePhysics::CircleCollider(FVector4 _Position, float _Radius, ECollisionLayer _Layer)
 {
-	b2Circle Circle;
+	/*b2Circle Circle;
 	Circle.radius = 0;
 	Circle.center = b2Vec2(_Position.X / FMath::BOX2DSCALE, _Position.Y / FMath::BOX2DSCALE);
 	b2QueryFilter Filter = b2DefaultQueryFilter();
-	b2World_OverlapCircle(CurLevel->GetPhysicsWorld(), &Circle, b2Transform_identity, Filter, OverlapCallback, &Context);
-	return true;
+	b2World_OverlapCircle(CurLevel->GetPhysicsWorld(), &Circle, b2Transform_identity, Filter, OverlapCallback, &Context);*/
+	return std::vector<UCollider2DComponent>();
 }
